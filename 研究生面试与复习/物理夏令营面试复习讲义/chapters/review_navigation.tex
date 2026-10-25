@@ -1,0 +1,103 @@
+\chapter{怎样使用这本讲义}
+
+\begin{prereqbox}
+本章不要求先修知识。请准备纸笔，先做诊断题，再决定阅读路径。量子材料面试并不奖励“见过最多名词”，而是考察能否从少数基本原理推出结论、检查近似，并把理论量与实验量对应起来。
+\end{prereqbox}
+
+\begin{mapbox}
+全书的依赖关系是
+\[
+\begin{aligned}
+\text{数学工具}+\text{理论力学}
+&\longrightarrow\text{量子力学、统计物理与场论结构},\\
+\text{量子力学}+\text{统计物理}
+&\longrightarrow\text{固体物理与量子材料},\\
+\text{电动力学}+\text{固体物理}
+&\longrightarrow\text{光谱、散射与输运实验}.
+\end{aligned}
+\]
+因此正文先用理论力学建立作用量、正则结构和小振动，再进入量子与热统；电动力学随后提供规范、介质响应和光学探测语言，最后汇入固体、量材和实验。阅读时不要把五门课当成五座孤岛。
+\begin{center}
+\begin{tikzpicture}[node distance=7mm and 10mm,>=Latex,
+every node/.style={draw,rounded corners,fill=blue!4,align=center,inner sep=5pt}]
+\node (tool) {数学工具};
+\node (mech) [right=of tool] {理论力学};
+\node (qm) [below left=of tool] {量子力学};
+\node (st) [below right=of tool] {统计物理};
+\node (em) [right=of st] {电动力学};
+\node (ss) [below=of $(qm)!0.5!(st)$] {固体物理};
+\node (mat) [below=of ss] {量子材料与计算};
+\node (exp) [below right=of mat] {实验与数据};
+\node (int) [below left=of mat] {面试训练};
+\draw[->] (tool)--(mech);
+\draw[->] (tool)--(qm);
+\draw[->] (tool)--(st);
+\draw[->] (mech)--(qm);
+\draw[->] (mech)--(ss);
+\draw[->] (qm)--(ss);
+\draw[->] (st)--(ss);
+\draw[->] (em)--(ss);
+\draw[->] (ss)--(mat);
+\draw[->] (mat)--(exp);
+\draw[->] (mat)--(int);
+\draw[->] (em)--(exp);
+\end{tikzpicture}
+\end{center}
+\end{mapbox}
+
+\section{面试所需要的三种能力}
+\subsection{从原理推导}
+所谓“会推导”并非背诵完整板书，而是知道起点、关键近似和终点。例如 Debye 热容的骨架只有四步：
+线性色散、三维态密度 $g(\omega)\propto\omega^2$、Bose 分布、无量纲换元。系数忘记时仍能可靠推出 $C_V\propto T^3$。
+
+\subsection{建立物理图像}
+每遇到公式都问三个问题：哪个自由度在运动？什么量被守恒或被对称性约束？若某参数趋于零或无穷会怎样？例如能隙在区边界打开，不是“周期势有能隙”这句口号，而是 Bragg 条件使两个自由电子态简并，周期势把它们混合成不同空间分布的驻波。
+
+\subsection{把理论量连到观测量}
+面试官常把问题从理论推进到实验：能带由 ARPES 测，局域态密度由 STS 测，费米面截面积由量子振荡推，声子色散由非弹性中子或 X 射线散射测。回答到这一层，才能体现量子材料方向的研究准备。
+
+\section{诊断题与分流}
+请在不翻书时尝试以下问题，每题只需写出回答骨架。
+\begin{selftestbox}
+\begin{enumerate}
+\item 为什么 $[H,T_{\vb R}]=0$ 能推出 Bloch 形式？$\vb k$ 为什么只定义到倒格矢？
+\item 不做积分，说明三维声子热容和电子热容的低温幂律。
+\item 写出简并微扰论的第一步，并解释为什么不能直接套非简并公式。
+\item 从正则系综推导 $U=-\partial_\beta\ln Z$，并说明能量涨落与热容的关系。
+\item 为什么半满 Hubbard 模型在 $U\gg t$ 时会得到反铁磁交换 $J\sim4t^2/U$？
+\item Berry 连接依赖规范，Berry 曲率为什么可以是物理量？
+\item ARPES、STM 和输运对电子结构各自“看见”的是什么？
+\item 超导的零电阻、Meissner 效应和能隙分别属于哪类证据？
+\end{enumerate}
+\end{selftestbox}
+若第 1--4 题有两题以上说不清，先完成数学工具、理论力学中的作用量与正规模，再进入量子和热统；若基础题顺利但第 5--8 题困难，先复习固体核心，再进入量材专题。
+
+\section{三轮复习法}
+\paragraph{第一轮：建骨架}
+每章先读“地图、核心推导、本章总结”，暂时跳过延伸。目标是能画出概念依赖图，而非一次记住全部系数。
+
+\paragraph{第二轮：闭卷重建}
+遮住正文，只看小标题，自己推导。卡住时记录卡点究竟是定义、代数还是近似。对每个模型填写四格：假设、可观测量、成功解释、失效边界。
+
+\paragraph{第三轮：口试压缩}
+同一问题准备三种长度：30 秒给结论和图像；2 分钟给公式与适用条件；黑板版给关键推导。不要一上来铺满细节，应先让面试官知道你掌握主线。
+
+\section{十四天与三十天安排}
+\begin{longtable}{p{0.16\textwidth}p{0.36\textwidth}p{0.38\textwidth}}
+\toprule
+阶段&14 天方案&30 天方案\\\midrule
+工具与量子&第 1--3 天：力学结构、量子&第 1--2 天：数学与力学；第 3--8 天：量子\\
+热统与电磁&第 4--5 天：系综、电磁主线&第 9--13 天：热统；第 14--16 天：电动力学\\
+固体与量材&第 6--11 天：固体、强关联、拓扑、超导&第 17--26 天：固体、量材与实验\\
+输出&第 12--14 天：题库、黑板推导、补漏&第 27--30 天：三轮模拟与科研衔接\\\bottomrule
+\end{longtable}
+
+\begin{interviewbox}
+\textbf{如何回答一个完全陌生的问题？}
+\begin{enumerate}
+\item 先复述对象与已知条件，确认讨论的是平衡/非平衡、单粒子/多体、实空间/倒空间。
+\item 声明你准备采用的最简模型及其条件。
+\item 用对称性、量纲和极限先约束答案。
+\item 若不知道精确结论，明确区分“我能推出的”和“需要进一步计算的”，不要编造。
+\end{enumerate}
+\end{interviewbox}

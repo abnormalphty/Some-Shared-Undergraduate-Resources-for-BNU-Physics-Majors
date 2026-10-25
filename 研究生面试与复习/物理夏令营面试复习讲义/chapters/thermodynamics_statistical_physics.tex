@@ -1,0 +1,66 @@
+\chapter{热力学与统计物理概念骨架}
+\section{基本关系与热力学势}
+可逆过程第一、第二定律合并为 $\dd U=T\dd S-P\dd V+\mu\dd N$；它也可视作
+$U(S,V,N)$ 的全微分，故 $T=\partial_SU,\ P=-\partial_VU,\ \mu=\partial_NU$。
+通过 Legendre 变换改变自然变量：
+\[
+F=U-TS,\quad \dd F=-S\dd T-P\dd V+\mu\dd N,
+\]
+\[
+G=U-TS+PV,\quad \dd G=-S\dd T+V\dd P+\mu\dd N,
+\]
+\[
+\Omega=U-TS-\mu N,\quad \dd\Omega=-S\dd T-P\dd V-N\dd\mu.
+\]
+全微分的混合偏导相等产生 Maxwell 关系，例如
+$(\partial S/\partial V)_T=(\partial P/\partial T)_V$。
+
+\section{系综与正则分布}
+微正则系综固定 $(E,V,N)$ 且等概率；正则系综固定 $(T,V,N)$；巨正则系综固定
+$(T,V,\mu)$。系统与大热库组成孤立整体：
+\[
+\ln\Omega_R(E_{\rm tot}-E_i)\simeq \ln\Omega_R(E_{\rm tot})
+-\left(\pdv{\ln\Omega_R}{E_R}\right)E_i
+=\text{常数}-\beta E_i,
+\]
+其中 $\partial_E\ln\Omega=1/\kb T=\beta$。归一化后
+\[
+\boxed{P_i=\frac{\ee^{-\beta E_i}}Z},\qquad Z=\sum_i\ee^{-\beta E_i}.
+\]
+由 $S=-\kb\sum P_i\ln P_i$ 可得
+\[
+F=U-TS=-\kb T\ln Z,\qquad
+U=-\pdv{}{\beta}\ln Z.
+\]
+因此配分函数不是形式技巧，而是对全部微观态的加权生成函数；对其求导产生能量、涨落和响应。
+
+经典单原子理想气体
+\[
+Z_N=\frac1{N!}\left[\frac{V}{h^3}\int\ee^{-\beta p^2/2m}\dd^3p\right]^N
+=\frac1{N!}\left(\frac V{\lambda_T^3}\right)^N,
+\quad\lambda_T=\frac h{\sqrt{2\pi m\kb T}}.
+\]
+$P=-(\partial F/\partial V)_{T,N}=\kb T\,\partial_V\ln Z_N$，故
+$PV=N\kb T$。$1/N!$ 消除相同粒子置换的重复计数。
+
+\section{量子统计与相变}
+单粒子能级的平均占据为
+\[
+\boxed{\bar n_i=\frac1{\ee^{\beta(\epsilon_i-\mu)}\mp1}},
+\]
+上式分母减号对应 Bose 粒子（占据数任意），加号对应 Fermi 粒子（每个单粒子态至多一个）。低密度高温时指数远大于 $1$，两者均回到 Maxwell--Boltzmann 分布。
+
+一级相变的一阶导数如熵、体积不连续并有潜热；连续相变的序参量连续出现但响应可发散。Landau 展开
+\[
+F=F_0+a(T-T_c)m^2+bm^4,\qquad a,b>0.
+\]
+极值条件
+$2a(T-T_c)m+4bm^3=0$。$T>T_c$ 时稳定解 $m=0$；$T<T_c$ 时
+\[
+m=\pm\sqrt{\frac{a(T_c-T)}{2b}},
+\]
+显示 $m\sim(T_c-T)^{1/2}$、二重简并与自发对称破缺。平均场忽略长程临界涨落，其指数在低维往往不准。
+
+\pitfall{熵不是“无序度”的严格同义词；正则分布依赖系统与大热库弱耦合；相变阶数应按自由能导数而非曲线外观判断。}
+\section{核心公式与面试回答}
+\interview{“如何联系声子与统计物理”：先量子化正规模得到玻色子，再用 Bose 分布求平均能量，最后结合三维声学态密度积分得到 $T^3$ 热容。}

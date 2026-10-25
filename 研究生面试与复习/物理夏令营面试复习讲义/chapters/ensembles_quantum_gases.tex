@@ -1,0 +1,640 @@
+\chapter{三大系综与量子气体：从态数到凝聚}
+
+\begin{mapbox}
+系综不是三套互不相干的公式，而是对不同交换条件下不完全信息的概率描述。主线是
+\[
+\text{微正则态数 }\Omega(E,N)
+\xrightarrow{\text{热库展开}}
+Z(\beta,N)
+\xrightarrow{\text{粒子库}}
+\Xi(\beta,\mu).
+\]
+相应热力学势依次为 $S(E,V,N)$、$F(T,V,N)$ 和
+$\Phi_G(T,V,\mu)=-PV$。
+\end{mapbox}
+
+\section{微正则系综：孤立系统的等概率原理}
+孤立系统的 $E,V,N$ 固定。允许微观态满足
+$E\le E_i<E+\Delta E$，并赋予等概率
+\[
+P_i=\frac1{\Omega(E,V,N)}.
+\]
+$\Delta E$ 对宏观测量足够小、对能级间距足够大；热力学结果不应依赖其精细选择。Boltzmann 熵定义为
+\[
+\boxed{S(E,V,N)=\kb\ln\Omega(E,V,N)}.
+\]
+两个弱耦合系统的态数相乘，所以熵相加，这正是取对数的原因。
+
+\subsection{平衡条件如何出现}
+总能量固定，子系统 1 获得 $E_1$ 时复合态数
+\[
+\Omega_{\rm tot}(E_1)
+=\Omega_1(E_1)\Omega_2(E_{\rm tot}-E_1).
+\]
+最概然能量令 $\ln\Omega_{\rm tot}$ 的导数为零：
+\[
+\pdv{S_1}{E_1}
+-\pdv{S_2}{E_2}=0.
+\]
+定义
+\[
+\boxed{\frac1T=\left(\pdv SE\right)_{V,N}}
+\]
+便得到 $T_1=T_2$。若还允许交换体积和粒子，同理得到
+\[
+\frac PT=\left(\pdv SV\right)_{E,N},\qquad
+-\frac\mu T=\left(\pdv SN\right)_{E,V}.
+\]
+于是
+\[
+\dd S=\frac1T\dd E+\frac PT\dd V-\frac\mu T\dd N
+\]
+等价于基本关系 $\dd E=T\dd S-P\dd V+\mu\dd N$。
+
+\subsection{稳定性与能量涨落的高斯形式}
+在平衡点附近展开总熵：
+\[
+S_{\rm tot}(E_1)
+=S_{\rm tot}(\bar E_1)
++\frac12S_{\rm tot}''(\bar E_1)(\Delta E_1)^2+\cdots.
+\]
+概率正比于 $e^{S_{\rm tot}/\kb}$。稳定平衡要求二阶导数为负，因此分布在热力学极限中成为窄 Gaussian。利用
+\[
+\frac{\partial^2S}{\partial E^2}=-\frac1{T^2C_V}
+\]
+可见正热容系统的熵对能量是凹函数。
+
+\section{经典理想气体的微正则计数}
+Hamiltonian
+\[
+H=\sum_{i=1}^N\frac{\vb p_i^2}{2m}
+\]
+与位置无关，构型积分给 $V^N$。相空间中能量不超过 $E$ 的区域是
+$3N$ 维半径 $\sqrt{2mE}$ 的球：
+\[
+\Sigma(E)=\frac1{N!h^{3N}}V^N
+\frac{\pi^{3N/2}(2mE)^{3N/2}}
+{\Gamma(3N/2+1)}.
+\]
+$h^{3N}$ 使态数无量纲；$1/N!$ 消除相同粒子的标签重复。能壳态密度为
+$\Omega(E)\Delta E=(\partial\Sigma/\partial E)\Delta E$。在大 $N$ 极限用 Stirling 公式，忽略非广延的 $O(\ln N)$ 项：
+\[
+\boxed{
+S=Nk_B\left[
+\ln\left(\frac VN
+\left(\frac{4\pi mE}{3Nh^2}\right)^{3/2}\right)
++\frac52\right]}.
+\]
+由 $\partial S/\partial E=1/T$ 得
+$E=3N\kb T/2$；由 $\partial S/\partial V=P/T$ 得
+$PV=N\kb T$。这说明状态方程并非额外输入。
+
+\section{正则系综：从热库态数推导}
+小系统处于微观态 $i$、能量 $E_i$ 时，热库能量为
+$E_R=E_{\rm tot}-E_i$，概率正比于热库态数：
+\[
+P_i\propto\Omega_R(E_{\rm tot}-E_i)
+=\exp[S_R(E_{\rm tot}-E_i)/\kb].
+\]
+因热库巨大，展开到一阶：
+\[
+S_R(E_{\rm tot}-E_i)
+=S_R(E_{\rm tot})
+-\left(\pdv{S_R}{E_R}\right)E_i+\cdots
+=S_R(E_{\rm tot})-\frac{E_i}{T}.
+\]
+与 $i$ 无关的因子被归一化吸收：
+\[
+\boxed{P_i=\frac{e^{-\beta E_i}}Z},\qquad
+Z=\sum_i e^{-\beta E_i},\quad\beta=\frac1{\kb T}.
+\]
+二阶项相对一阶按系统/热库热容之比受抑制，这正是“热库温度不变”的条件。
+
+\subsection{最大熵的另一条路线}
+Gibbs 熵
+\[
+S=-\kb\sum_iP_i\ln P_i.
+\]
+固定 $\sum_iP_i=1$ 与 $\sum_iP_iE_i=U$，变分
+\[
+\delta\left[-\sum_iP_i\ln P_i
+-\alpha\sum_iP_i-\beta\sum_iP_iE_i\right]=0
+\]
+给
+\[
+-\ln P_i-1-\alpha-\beta E_i=0.
+\]
+故 $P_i\propto e^{-\beta E_i}$。热库推导说明 $\beta$ 的物理来源；最大熵推导说明正则分布是在已知平均能量时偏见最少的分布。
+
+\subsection{$Z$ 如何生成热力学}
+\[
+\pdv{\ln Z}{\beta}
+=\frac1Z\sum_i(-E_i)e^{-\beta E_i}=-U,
+\]
+\[
+F=U-TS=-\kb T\ln Z.
+\]
+若 Hamiltonian 依赖外参量 $\lambda$，
+\[
+\pdv F\lambda
+=\frac1Z\sum_i e^{-\beta E_i}\pdv{E_i}\lambda
+=\left\langle\pdv H\lambda\right\rangle.
+\]
+再求一次 $\beta$ 导数：
+\[
+\frac{\partial^2\ln Z}{\partial\beta^2}
+=\langle E^2\rangle-\langle E\rangle^2.
+\]
+利用 $\dd\beta/\dd T=-1/(\kb T^2)$：
+\[
+\boxed{\langle(\Delta E)^2\rangle=\kb T^2C_V}.
+\]
+若 $E,C_V\sim N$，相对涨落
+$\sqrt{\langle(\Delta E)^2\rangle}/E\sim N^{-1/2}$。
+
+\begin{examplebox}[title=量子谐振子的正则系综]
+\[
+Z_1=\sum_{n=0}^{\infty}e^{-\beta\hbar\omega(n+1/2)}
+=\frac{e^{-\beta\hbar\omega/2}}{1-e^{-\beta\hbar\omega}}.
+\]
+所以
+\[
+U=-\pdv{\ln Z_1}{\beta}
+=\frac{\hbar\omega}{2}
++\frac{\hbar\omega}{e^{\beta\hbar\omega}-1}.
+\]
+高温 $\beta\hbar\omega\ll1$ 时 $U\simeq\kb T$，恢复经典能量均分；低温只剩零点能且热容指数冻结。
+\end{examplebox}
+
+\section{巨正则系综：同时交换能量和粒子}
+系统处于粒子数 $N$、能量 $E_{iN}$ 的状态时，热库熵展开为
+\[
+S_R(E_{\rm tot}-E_{iN},N_{\rm tot}-N)
+\simeq S_R-\frac{E_{iN}}T+\frac{\mu N}T.
+\]
+因此
+\[
+\boxed{
+P_{iN}=\frac{e^{-\beta(E_{iN}-\mu N)}}{\Xi}},
+\]
+\[
+\Xi=\sum_{N=0}^{\infty}e^{\beta\mu N}Z_N
+=\operatorname{Tr}e^{-\beta(H-\mu\hat N)}.
+\]
+定义 fugacity $z=e^{\beta\mu}$ 和巨势
+\[
+\boxed{\Phi_G=-\kb T\ln\Xi=-PV}
+\]
+（均匀广延系统）。对化学势求导：
+\[
+\pdv{\ln\Xi}{\mu}=\beta\langle N\rangle,
+\qquad
+\boxed{\langle N\rangle=\frac1\beta\pdv{\ln\Xi}{\mu}}.
+\]
+对 $\beta$ 求导时必须注意 $\beta\mu$ 同时出现：
+\[
+-\pdv{\ln\Xi}{\beta}
+=\langle H-\mu N\rangle,
+\]
+\[
+\langle E\rangle=-\pdv{\ln\Xi}{\beta}
++\mu\langle N\rangle.
+\]
+再求一次 $\mu$ 导数：
+\[
+\boxed{
+\langle(\Delta N)^2\rangle
+=\frac1{\beta^2}\frac{\partial^2\ln\Xi}{\partial\mu^2}
+=\kb T\left(\pdv{\langle N\rangle}{\mu}\right)_{T,V}}.
+\]
+通过 Gibbs--Duhem 关系，它与等温压缩率相连。
+
+\section{三大系综的变换与等价性}
+正则配分函数是微正则态密度的 Laplace 变换：
+\[
+Z(\beta)=\int\Omega(E)e^{-\beta E}\dd E
+=\int\exp\left[\frac{S(E)}{\kb}-\beta E\right]\dd E.
+\]
+大系统中指数为 $O(N)$，最陡下降点满足
+\[
+\pdv SE=\kb\beta=\frac1T.
+\]
+在鞍点附近 Gaussian 宽度只为 $O(\sqrt N)$，相对宽度消失；Legendre 变换
+$F=E-TS$ 由此出现。再对粒子数求和
+\[
+\Xi=\sum_Ne^{\beta\mu N}Z_N
+\]
+同理给巨正则与正则的等价性。有限系统、长程相互作用、临界点或相共存区的分布可能不再窄，系综差别就不能忽略。
+
+\begin{center}
+\begin{tabular}{llll}
+\toprule
+系综&固定量&权重&热力学势\\
+\midrule
+微正则&$E,V,N$&能壳内等概率&$S(E,V,N)$\\
+正则&$T,V,N$&$e^{-\beta E}/Z$&$F(T,V,N)$\\
+巨正则&$T,V,\mu$&$e^{-\beta(E-\mu N)}/\Xi$&$\Phi_G=-PV$\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section{密度矩阵统一三大系综}
+\subsection{为什么经典概率还不够}
+量子态既可能来自对纯态 $\ket{\psi_a}$ 的经典概率混合，也可能含不同基矢之间的量子相干。统一描述是密度算符
+\[
+\boxed{\hat\rho=\sum_a p_a\ket{\psi_a}\bra{\psi_a}},
+\qquad
+p_a\ge0,\quad \sum_ap_a=1.
+\]
+它满足
+\[
+\hat\rho^\dagger=\hat\rho,\qquad
+\hat\rho\ge0,\qquad
+\operatorname{Tr}\hat\rho=1.
+\]
+任意可观测量的平均值为
+\[
+\boxed{\langle A\rangle=\operatorname{Tr}(\hat\rho\hat A)}.
+\]
+在任意正交基 $\{\ket n\}$ 中，
+\[
+\operatorname{Tr}(\rho A)
+=\sum_{n,a}p_a\bra n\ket{\psi_a}
+\bra{\psi_a}A\ket n
+=\sum_ap_a\bra{\psi_a}A\ket{\psi_a},
+\]
+因此迹表达式与选取的表象无关。
+
+纯态满足 $\rho^2=\rho$ 和 $\operatorname{Tr}\rho^2=1$；真正的混合态有
+$\operatorname{Tr}\rho^2<1$。但“某个基底中有非对角元”不等于“纯态”：非对角元只说明相对于该基底存在相干。纯度是基底无关的判断。
+
+封闭系统的演化由
+\[
+i\hbar\pdv{\rho}{t}=[H,\rho]
+\]
+给出。若平衡态 $\rho$ 只是 $H$ 的函数，则 $[H,\rho]=0$，统计状态不随时间变化。
+
+\subsection{微正则密度矩阵}
+设 $\mathcal H_{E,\Delta E}$ 是能壳
+$[E,E+\Delta E)$ 内的子空间，投影算符
+\[
+P_{E,\Delta E}
+=\sum_{n:\,E\le E_n<E+\Delta E}\ket n\bra n.
+\]
+若该能壳维数为
+\[
+\Omega(E,\Delta E)=\operatorname{Tr}P_{E,\Delta E},
+\]
+等概率原理写成
+\[
+\boxed{
+\rho_{\rm mc}=\frac{P_{E,\Delta E}}{\Omega(E,\Delta E)}}.
+\]
+于是
+\[
+\langle A\rangle_{\rm mc}
+=\frac1\Omega\sum_{n\in\text{能壳}}\bra nA\ket n.
+\]
+这正是经典微正则平均的量子版本。它不是某个特定能量本征纯态，而是对宏观上无法分辨的能壳本征态作等权混合。
+
+\subsection{von Neumann 熵}
+量子统计熵为
+\[
+\boxed{S[\rho]=-\kb\operatorname{Tr}(\rho\ln\rho)}.
+\]
+在 $\rho$ 的本征基中，若本征值为 $p_a$，
+\[
+S=-\kb\sum_ap_a\ln p_a,
+\]
+即 Gibbs 熵。纯态本征值为 $1,0,\ldots$，所以 $S=0$；等权占据
+$\Omega$ 个正交态时 $p_a=1/\Omega$，故
+\[
+S=\kb\ln\Omega.
+\]
+因此 Boltzmann 熵是 von Neumann 熵在微正则密度矩阵上的特例。
+
+\subsection{最大熵变分推出正则密度矩阵}
+现在只知道归一化和平均能量：
+\[
+\operatorname{Tr}\rho=1,\qquad
+\operatorname{Tr}(\rho H)=U.
+\]
+对泛函
+\[
+\mathcal L[\rho]
+=-\kb\operatorname{Tr}(\rho\ln\rho)
+-\alpha[\operatorname{Tr}\rho-1]
+-\tilde\beta[\operatorname{Tr}(\rho H)-U]
+\]
+作任意 Hermitian 变分。利用谱分解可以证明
+\[
+\delta\operatorname{Tr}(\rho\ln\rho)
+=\operatorname{Tr}[(\ln\rho+1)\delta\rho].
+\]
+因此
+\[
+\delta\mathcal L
+=-\operatorname{Tr}\left[
+\kb(\ln\rho+1)+\alpha+\tilde\beta H
+\right]\delta\rho.
+\]
+对任意 $\delta\rho$ 都为零要求方括号中的算符为零：
+\[
+\ln\rho=-1-\frac{\alpha}{\kb}
+-\frac{\tilde\beta}{\kb}H.
+\]
+令 $\beta=\tilde\beta/\kb$，指数化：
+\[
+\rho=C e^{-\beta H}.
+\]
+归一化给
+\[
+1=C\operatorname{Tr}e^{-\beta H}=CZ,
+\]
+故
+\[
+\boxed{
+\rho_{\rm can}=\frac{e^{-\beta H}}Z},
+\qquad
+\boxed{Z=\operatorname{Tr}e^{-\beta H}}.
+\]
+这一步不要求预先选取能量本征基；选到该基后才退化为
+$P_n=e^{-\beta E_n}/Z$。
+
+把正则密度矩阵代回熵：
+\[
+\ln\rho_{\rm can}=-\beta H-\ln Z,
+\]
+\[
+S=-\kb\operatorname{Tr}[\rho(-\beta H-\ln Z)]
+=\kb\beta U+\kb\ln Z.
+\]
+于是
+\[
+F=U-TS=-\kb T\ln Z.
+\]
+因此密度矩阵最大熵法同时给出概率分布和热力学势。
+
+\subsection{最大熵变分推出巨正则密度矩阵}
+若还只知道平均粒子数
+\[
+\operatorname{Tr}(\rho\hat N)=\bar N,
+\]
+在变分泛函中再加入粒子数约束。完全相同的步骤给
+\[
+\ln\rho=-\text{常数}-\beta H+\beta\mu\hat N,
+\]
+\[
+\boxed{
+\rho_{\rm gc}
+=\frac{e^{-\beta(H-\mu\hat N)}}{\Xi}},
+\qquad
+\boxed{
+\Xi=\operatorname{Tr}e^{-\beta(H-\mu\hat N)}}.
+\]
+若 $[H,\hat N]=0$，可选取共同本征态 $\ket{i,N}$：
+\[
+\bra{i,N}\rho_{\rm gc}\ket{i,N}
+=\frac{e^{-\beta(E_{iN}-\mu N)}}{\Xi},
+\]
+恢复前面由粒子库得到的巨正则概率。若粒子数并不守恒，则不能任意引入对应化学势；平衡光子和声子因数目可由热库自由产生、消灭，取 $\mu=0$。
+
+\subsection{自由量子气体的模分解}
+无相互作用 Hamiltonian
+\[
+H-\mu N=\sum_i\xi_i\hat n_i,\qquad
+\xi_i=\epsilon_i-\mu.
+\]
+不同模式的数算符彼此对易，因此指数算符因子化：
+\[
+e^{-\beta(H-\mu N)}
+=\prod_i e^{-\beta\xi_i\hat n_i},
+\]
+\[
+\rho_{\rm gc}=\bigotimes_i\rho_i,\qquad
+\rho_i=\frac{e^{-\beta\xi_i\hat n_i}}{\Xi_i}.
+\]
+这说明单态巨配分函数并非人为技巧，而是整体密度矩阵在独立模式上的张量积分解。
+
+对费米模式，$\hat n_i$ 本征值只有 $0,1$：
+\[
+\rho_i^F
+=\frac{\ket0\bra0+e^{-\beta\xi_i}\ket1\bra1}
+{1+e^{-\beta\xi_i}},
+\]
+\[
+\bar n_i=\operatorname{Tr}(\rho_i^F\hat n_i)
+=\frac{e^{-\beta\xi_i}}{1+e^{-\beta\xi_i}}
+=\frac1{e^{\beta\xi_i}+1}.
+\]
+对玻色模式，
+\[
+\rho_i^B=(1-y_i)\sum_{n=0}^\infty y_i^n\ket n\bra n,
+\qquad y_i=e^{-\beta\xi_i}<1.
+\]
+利用几何级数
+\[
+\sum_{n=0}^\infty ny^n=\frac{y}{(1-y)^2},
+\]
+得到
+\[
+\bar n_i=(1-y_i)\frac{y_i}{(1-y_i)^2}
+=\frac1{e^{\beta\xi_i}-1}.
+\]
+因此 Bose--Einstein 与 Fermi--Dirac 分布都可直接视为单模热密度矩阵的数算符期望值。
+
+\subsection{占据数涨落：聚束与 Pauli 抑制}
+费米数算符满足 $\hat n_i^2=\hat n_i$，故
+\[
+\langle(\Delta n_i)^2\rangle_F
+=\bar n_i-\bar n_i^2
+=\boxed{\bar n_i(1-\bar n_i)}.
+\]
+玻色情况利用
+\[
+\sum_{n=0}^\infty n^2y^n
+=\frac{y(1+y)}{(1-y)^3}
+\]
+得到
+\[
+\langle(\Delta n_i)^2\rangle_B
+=\boxed{\bar n_i(1+\bar n_i)}.
+\]
+共同的写法是
+\[
+\langle(\Delta n)^2\rangle
+=\bar n(1\mp\bar n),
+\]
+上号对应费米子、下号对应玻色子。费米负号来自 Pauli 不相容，抑制同态涨落；玻色正号表示热玻色子的聚束倾向。这些差别可通过粒子计数噪声和二阶关联实验观测。
+
+\subsection{单粒子约化密度矩阵与 BEC}
+多体系统的一体密度矩阵定义为
+\[
+\gamma_{ij}=\operatorname{Tr}
+(\rho\,a_j^\dagger a_i).
+\]
+在自由气体能量本征基中
+\[
+\gamma_{ij}=\delta_{ij}\bar n_i.
+\]
+一般相互作用体系中可对 $\gamma$ 对角化，其本征值称为自然轨道占据数。若热力学极限中最大本征值为 $O(N)$，说明某个单粒子轨道被宏观占据，这是比“自由粒子基态占据很多”更一般的 BEC 判据。
+
+\begin{examplebox}[title=两能级系统的热密度矩阵]
+取
+\[
+H=\frac{\Delta}{2}\sigma_z,
+\]
+能量为 $E_\uparrow=\Delta/2$、$E_\downarrow=-\Delta/2$。正则密度矩阵
+\[
+\rho=\frac{e^{-\beta\Delta\sigma_z/2}}
+{2\cosh(\beta\Delta/2)}
+=\frac12\left[
+I-\tanh\left(\frac{\beta\Delta}{2}\right)\sigma_z
+\right].
+\]
+因此
+\[
+\langle H\rangle
+=-\frac{\Delta}{2}\tanh\left(\frac{\beta\Delta}{2}\right).
+\]
+$T\to0$ 时 $\rho$ 投影到基态，纯度趋于 $1$；$T\to\infty$ 时
+$\rho\to I/2$，两个能级等权且纯度趋于 $1/2$。
+\end{examplebox}
+
+\begin{pitfallbox}
+密度矩阵推导没有消除统计物理的物理假设：最大熵仍需要说明约束是什么，$\beta$ 和 $\mu$ 仍需由热库或热力学关系识别。密度矩阵的优势是保持表象无关，并能同时描述经典混合、量子相干和全同粒子的 Fock 空间。
+\end{pitfallbox}
+
+\section{从单态巨配分函数推出量子分布}
+无相互作用系统 $H-\mu N=\sum_i(\epsilon_i-\mu)n_i$，故
+$\Xi=\prod_i\Xi_i$。费米子 $n_i=0,1$：
+\[
+\Xi_i^{F}=1+e^{-\beta(\epsilon_i-\mu)},
+\]
+\[
+\bar n_i
+=-\frac1\beta\pdv{}{\epsilon_i}\ln\Xi_i^F
+=\frac1{e^{\beta(\epsilon_i-\mu)}+1}.
+\]
+玻色子 $n_i=0,1,\ldots$：
+\[
+\Xi_i^B=\sum_{n=0}^\infty
+e^{-\beta(\epsilon_i-\mu)n}
+=\frac1{1-e^{-\beta(\epsilon_i-\mu)}},
+\]
+\[
+\bar n_i=\frac1{e^{\beta(\epsilon_i-\mu)}-1}.
+\]
+玻色级数收敛要求 $\mu<\epsilon_0$；费米化学势没有这一上界。
+
+\section{三维理想 Fermi 气体}
+含自旋简并 $g_s$ 的态密度
+\[
+g(\epsilon)=\frac{g_sV}{4\pi^2}
+\left(\frac{2m}{\hbar^2}\right)^{3/2}\sqrt\epsilon.
+\]
+$T=0$ 时
+\[
+N=\int_0^{E_F}g(\epsilon)\dd\epsilon,\qquad
+U=\int_0^{E_F}\epsilon g(\epsilon)\dd\epsilon
+=\frac35NE_F.
+\]
+对非相对论自由粒子，尺度变换或动量流给
+\[
+\boxed{PV=\frac23U},\qquad
+P_0=\frac25nE_F.
+\]
+低温 Sommerfeld 展开
+\[
+\int_0^\infty\phi(\epsilon)f(\epsilon)\dd\epsilon
+=\int_0^\mu\phi(\epsilon)\dd\epsilon
++\frac{\pi^2}{6}(\kb T)^2\phi'(\mu)+O(T^4)
+\]
+结合固定 $N$，给
+\[
+\mu=E_F\left[1-\frac{\pi^2}{12}
+\left(\frac{\kb T}{E_F}\right)^2+\cdots\right],
+\]
+\[
+C_V=\frac{\pi^2}{2}N\kb\frac{T}{T_F}.
+\]
+只有厚度约 $\kb T$ 的费米面壳层能改变占据，因此热容远小于经典值且正比于 $T$。
+
+\section{理想 Bose 气与 BEC}
+令基态能量为零。激发粒子数
+\[
+N_{\rm ex}=\int_0^\infty
+\frac{g(\epsilon)\dd\epsilon}{z^{-1}e^{\beta\epsilon}-1}.
+\]
+展开
+\[
+\frac1{z^{-1}e^x-1}=\sum_{l=1}^\infty z^le^{-lx}
+\]
+并使用
+$\int_0^\infty x^{s-1}e^{-lx}\dd x=\Gamma(s)/l^s$，得到
+\[
+N_{\rm ex}=\frac{V}{\lambda_T^3}g_{3/2}(z),
+\qquad
+\lambda_T=\sqrt{\frac{2\pi\hbar^2}{m\kb T}}.
+\]
+当 $\mu\to0^-$，$z\to1$，激发态最大容量为
+\[
+N_{\rm ex}^{\max}=\frac{V}{\lambda_T^3}\zeta(3/2).
+\]
+若总粒子数更大，多余粒子必须进入基态。临界温度
+\[
+\boxed{
+T_c=\frac{2\pi\hbar^2}{m\kb}
+\left[\frac{n}{\zeta(3/2)}\right]^{2/3}}.
+\]
+$T<T_c$ 时 $\mu=0$ 且
+\[
+\boxed{\frac{N_0}{N}=1-\left(\frac T{T_c}\right)^{3/2}}.
+\]
+能量积分给
+\[
+U=\frac32\kb T\frac{V}{\lambda_T^3}\zeta(5/2)
+\propto T^{5/2},
+\quad C_V\propto T^{3/2}.
+\]
+在二维，激发态数含
+$\int_0\dd\epsilon/(e^{\beta\epsilon}-1)$ 的红外对数发散，因此均匀理想二维气体没有有限温 BEC。
+
+\section{光子气体与声子气体}
+光子数不守恒，平衡时 $\mu=0$。每个模式是玻色振子：
+\[
+\bar n_\omega=\frac1{e^{\beta\hbar\omega}-1}.
+\]
+乘三维光子态密度
+$g(\omega)=V\omega^2/(\pi^2c^3)$：
+\[
+\frac UV=\int_0^\infty
+\frac{\hbar\omega^3}{\pi^2c^3}
+\frac{\dd\omega}{e^{\beta\hbar\omega}-1}
+=\frac{\pi^2}{15}
+\frac{(\kb T)^4}{\hbar^3c^3}.
+\]
+因此 $U\propto T^4$、$P=U/(3V)$。声学声子同样有 $\mu=0$，但传播速度换成声速并有三支极化，得到 Debye $T^3$ 热容。BEC 需要守恒粒子数固定密度，不能把“玻色统计”直接等同于“必然凝聚”。
+
+\begin{interviewbox}
+\textbf{如何选择系综：}先问系统能交换什么。完全孤立用微正则；与恒温热库交换能量但粒子数固定用正则；既交换能量又交换粒子用巨正则。宏观短程系统在热力学极限中给相同平均热力学，但涨落、有限尺寸和临界行为的表达方式不同。
+\end{interviewbox}
+
+\begin{selftestbox}
+\begin{enumerate}
+\item 为什么微正则系综必须允许一个窄能壳而非单一精确能量？
+\item 从复合系统态数最大推出化学平衡条件。
+\item $1/N!$ 和 $h^{3N}$ 各解决什么问题？
+\item 热库熵展开的二阶项在什么情况下不能忽略？
+\item 推导正则系综的能量涨落公式。
+\item 巨正则粒子数涨落为何与压缩率有关？
+\item 三大系综等价依赖哪些热力学极限条件？
+\item 为什么低温费米气体热容正比于 $T$？
+\item BEC 的“激发态饱和”是什么意思？
+\item 为什么二维均匀理想 Bose 气没有有限温凝聚？
+\item 从 von Neumann 熵的算符变分推出正则密度矩阵。
+\item 为什么微正则密度矩阵通常不是一个能量本征纯态？
+\item 用单模密度矩阵推导费米与玻色占据数涨落。
+\item 一体约化密度矩阵的宏观本征值为何可以作为 BEC 判据？
+\end{enumerate}
+\end{selftestbox}

@@ -1,0 +1,593 @@
+\chapter{全同粒子、交换对称性与两电子系统}
+\label{chap:identical-particles}
+
+\begin{mapbox}
+本章从“粒子标签不可观测”出发，建立交换算符和对称化公设；随后把自旋与空间波函数组合成合法的两电子态，再推导 Slater 行列式、直接积分和交换积分。最后用无限深势阱、两电子谐振子、氦原子、两中心模型、玻色聚束和相同粒子散射把抽象规则落到可计算问题。
+\end{mapbox}
+
+\begin{pitfallbox}
+相同质量、电荷和自旋的粒子称为全同粒子；“不可分辨”是更强的量子陈述：不存在物理测量能持续追踪“粒子 1”和“粒子 2”的身份。整数自旋粒子取全对称态、半整数自旋粒子取全反对称态，这是自旋--统计联系。在非相对论量子力学中应把它作为基本公设；严格证明需要相对论量子场论，本章不伪造这种证明。
+\end{pitfallbox}
+
+\section{交换算符与粒子标签不可观测}
+两粒子波函数写成
+\[
+\Psi(\xi_1,\xi_2),
+\]
+其中 $\xi_i=(\vb r_i,\sigma_i)$ 同时包含空间和自旋坐标。定义交换算符
+\[
+P_{12}\Psi(\xi_1,\xi_2)
+=\Psi(\xi_2,\xi_1).
+\]
+连续交换两次恢复原态：
+\[
+\boxed{P_{12}^2=1}.
+\]
+交换不改变内积。对任意 $\Phi,\Psi$，
+\[
+\langle P_{12}\Phi|P_{12}\Psi\rangle
+=\int\dd\xi_1\dd\xi_2\,
+\Phi^*(\xi_2,\xi_1)\Psi(\xi_2,\xi_1).
+\]
+交换积分哑变量 $\xi_1\leftrightarrow\xi_2$ 后，该式等于
+$\langle\Phi|\Psi\rangle$，故 $P_{12}$ 是幺正算符：
+\[
+P_{12}^\dagger P_{12}=1.
+\]
+再由 $P_{12}^{-1}=P_{12}$ 得
+\[
+\boxed{P_{12}^\dagger=P_{12}},
+\]
+所以它同时是 Hermitian 和 unitary。
+
+若 $\Psi$ 是交换本征态，
+\[
+P_{12}\Psi=\lambda\Psi.
+\]
+再作用一次：
+\[
+\Psi=P_{12}^2\Psi=\lambda^2\Psi,
+\]
+因此
+\[
+\boxed{\lambda=\pm1}.
+\]
+$\lambda=+1$ 是交换对称态，$\lambda=-1$ 是交换反对称态。
+
+\subsection{为什么物理可观测量必须交换对称}
+对全同粒子，把标签 1、2 互换不能改变实验结果。因此物理可观测量应满足
+\[
+\boxed{P_{12}AP_{12}^{-1}=A}
+\quad\Longleftrightarrow\quad
+[A,P_{12}]=0.
+\]
+例如总位置 $\vb r_1+\vb r_2$、粒子间距
+$|\vb r_1-\vb r_2|$ 和 Hamiltonian 都是交换对称的；单独问
+“最初叫作粒子 1 的电子最后在哪里”则不是全同粒子系统的可观测问题。
+
+若 Hamiltonian 满足 $[H,P_{12}]=0$，交换对称性随时间保持：
+\[
+P_{12}e^{-iHt/\hbar}\ket\Psi
+=e^{-iHt/\hbar}P_{12}\ket\Psi.
+\]
+因此玻色子和费米子扇区不会被普通交换对称相互作用彼此混合。
+
+\section{两粒子的对称化与反对称化}
+设 $\phi_a,\phi_b$ 是归一化单粒子态，重叠
+\[
+S=\langle a|b\rangle.
+\]
+可区分粒子的直积态为
+\[
+\Phi_{ab}(1,2)=\phi_a(1)\phi_b(2).
+\]
+交换后得到 $\Phi_{ba}$。构造
+\[
+\widetilde\Psi_\pm=\Phi_{ab}\pm\Phi_{ba}.
+\]
+其范数为
+\[
+\begin{aligned}
+\langle\widetilde\Psi_\pm|\widetilde\Psi_\pm\rangle
+={}&\langle ab|ab\rangle+\langle ba|ba\rangle\\
+&\pm\langle ab|ba\rangle
+\pm\langle ba|ab\rangle.
+\end{aligned}
+\]
+前两项各为 $1$，交叉项为
+\[
+\langle ab|ba\rangle
+=\langle a|b\rangle\langle b|a\rangle=|S|^2.
+\]
+所以归一化态为
+\[
+\boxed{
+\Psi_\pm(1,2)=
+\frac{\phi_a(1)\phi_b(2)\pm\phi_b(1)\phi_a(2)}
+{\sqrt{2(1\pm|S|^2)}}}.
+\]
+若 $a,b$ 正交，分母退化为 $\sqrt2$。
+
+\begin{examplebox}[title=例 1：相同轨道极限与 Pauli 原理]
+对玻色子取加号。若 $a=b$，则 $S=1$：
+\[
+\Psi_+(1,2)
+=\frac{2\phi_a(1)\phi_a(2)}2
+=\phi_a(1)\phi_a(2),
+\]
+两个玻色子可以占据同一单粒子态。
+
+对费米子取减号，分子变成
+\[
+\phi_a(1)\phi_a(2)-\phi_a(1)\phi_a(2)=0.
+\]
+此时归一化公式出现 $0/0$，其含义不是存在奇异态，而是反对称子空间中根本没有“两费米子占据同一完整单粒子态”的非零向量。这就是 Pauli 不相容原理。
+\end{examplebox}
+
+\section{$N$ 粒子的置换与 Slater 行列式}
+对任意置换 $P\in S_N$，记其奇偶性为 $(-1)^P$。玻色对称化算符和费米反对称化算符为
+\[
+\mathcal S=\frac1{N!}\sum_{P\in S_N}P,
+\qquad
+\mathcal A=\frac1{N!}\sum_{P\in S_N}(-1)^P P.
+\]
+利用置换群中左乘任意固定置换只会重新排列求和项，可以验证
+\[
+\mathcal S^2=\mathcal S,\qquad
+\mathcal A^2=\mathcal A,\qquad
+\mathcal S\mathcal A=0.
+\]
+所以它们分别投影到全对称和全反对称子空间。
+
+对 $N$ 个正交自旋轨道 $\chi_1,\ldots,\chi_N$，反对称化乘积可写成
+\[
+\boxed{
+\Psi_F(\xi_1,\ldots,\xi_N)
+=\frac1{\sqrt{N!}}
+\begin{vmatrix}
+\chi_1(\xi_1)&\chi_2(\xi_1)&\cdots&\chi_N(\xi_1)\\
+\chi_1(\xi_2)&\chi_2(\xi_2)&\cdots&\chi_N(\xi_2)\\
+\vdots&\vdots&\ddots&\vdots\\
+\chi_1(\xi_N)&\chi_2(\xi_N)&\cdots&\chi_N(\xi_N)
+\end{vmatrix}}.
+\]
+交换两粒子的全部坐标就是交换两行，行列式改变符号。若两个费米子占据同一自旋轨道，两列相同，行列式为零。$1/\sqrt{N!}$ 来自不同置换项在正交轨道下互相正交。
+
+\subsection{Slater 行列式的一体算符平均}
+对
+\[
+O=\sum_{i=1}^No(i)
+\]
+和由正交轨道构成的 Slater 行列式，展开置换求和。由于 $o(i)$ 只作用于一个粒子，未被作用的其余轨道内积迫使左右置换一致，最后得到
+\[
+\boxed{
+\langle O\rangle=\sum_{a=1}^N\langle\chi_a|o|\chi_a\rangle}.
+\]
+这解释了独立电子近似中总能量首先表现为占据单粒子能量之和。
+
+\section{两体作用的直接项与交换项}
+考虑两个正交空间轨道 $a,b$ 和交换对称的相互作用
+$V(1,2)=V(2,1)$。空间态为
+\[
+\Phi_\pm(1,2)=\frac1{\sqrt2}
+[\phi_a(1)\phi_b(2)\pm\phi_b(1)\phi_a(2)].
+\]
+期望值展开为四项：
+\[
+\begin{aligned}
+\langle V\rangle_\pm
+=\frac12\big(&\langle ab|V|ab\rangle
++\langle ba|V|ba\rangle\\
+&\pm\langle ab|V|ba\rangle
+\pm\langle ba|V|ab\rangle\big).
+\end{aligned}
+\]
+由粒子交换对称性，前两项相等，后两项互为复共轭。定义直接积分
+\[
+\boxed{
+J_{ab}=\int\dd1\dd2\,
+|\phi_a(1)|^2V(1,2)|\phi_b(2)|^2}
+\]
+和交换积分
+\[
+\boxed{
+K_{ab}=\int\dd1\dd2\,
+\phi_a^*(1)\phi_b^*(2)
+V(1,2)\phi_b(1)\phi_a(2)}.
+\]
+若轨道与相互作用可取为实数，$K_{ab}$ 也为实数，于是
+\[
+\boxed{\langle V\rangle_\pm=J_{ab}\pm K_{ab}}.
+\]
+$J$ 有经典平均密度相互作用的解释；$K$ 来自两条不可分辨交换振幅的干涉，没有对应的额外经典力。称它为“交换作用”不意味着电子之间新增了一种基本相互作用。
+
+\section{两个自旋 $\tfrac12$ 电子}
+两个自旋的直积空间有四维。用总自旋升降算符构造三重态：
+\[
+\chi_{1,1}=\ket{\uparrow\uparrow},
+\]
+\[
+\chi_{1,0}
+=\frac1{\sqrt2}
+(\ket{\uparrow\downarrow}+\ket{\downarrow\uparrow}),
+\]
+\[
+\chi_{1,-1}=\ket{\downarrow\downarrow}.
+\]
+它们在交换自旋标签时保持不变。与 $\chi_{1,0}$ 正交的第四个态是单态
+\[
+\boxed{
+\chi_{0,0}
+=\frac1{\sqrt2}
+(\ket{\uparrow\downarrow}-\ket{\downarrow\uparrow})},
+\]
+交换后变号。
+
+电子是费米子，总波函数必须反对称。因此：
+\[
+\begin{array}{c|c|c}
+\text{总自旋}&\text{自旋交换性}&\text{空间交换性}\\ \hline
+S=0\ \text{单态}&\text{反对称}&\text{对称}\\
+S=1\ \text{三重态}&\text{对称}&\text{反对称}
+\end{array}
+\]
+这条表格是两电子原子、共价键、交换磁性和 Cooper 配对的共同起点。
+
+\begin{pitfallbox}
+“自旋相反”不等于“自旋单态”。$\ket{\uparrow\downarrow}$ 本身既不是
+$S^2$ 的本征态，也没有确定交换对称性：
+\[
+\ket{\uparrow\downarrow}
+=\frac1{\sqrt2}(\chi_{1,0}+\chi_{0,0}).
+\]
+只有对称和反对称线性组合才分别是三重态与单态。
+\end{pitfallbox}
+
+\section{例题：一维无限深势阱中的两个电子}
+\begin{examplebox}[title=例 2：基态、第一激发组态与简并度]
+势阱 $0<x<L$ 的单粒子轨道和能量为
+\[
+\phi_n(x)=\sqrt{\frac2L}\sin\frac{n\pi x}{L},
+\qquad
+\epsilon_n=n^2\epsilon_1,\quad
+\epsilon_1=\frac{\pi^2\hbar^2}{2mL^2}.
+\]
+忽略电子间相互作用。最低能量要求两个电子都占据 $n=1$ 空间轨道：
+\[
+\Phi_0(x_1,x_2)=\phi_1(x_1)\phi_1(x_2),
+\qquad E_0=2\epsilon_1.
+\]
+空间态对称，所以自旋只能是单态。两个电子能够占同一空间轨道，因为完整单粒子态还包含自旋；它们分别占据
+$\phi_1\uparrow$ 与 $\phi_1\downarrow$ 两个正交自旋轨道。
+
+第一激发组态为一个电子占 $n=1$、另一个占 $n=2$：
+\[
+E=\epsilon_1+\epsilon_2=5\epsilon_1.
+\]
+空间对称、反对称组合分别为
+\[
+\Phi_\pm=\frac1{\sqrt2}
+[\phi_1(x_1)\phi_2(x_2)\pm
+\phi_2(x_1)\phi_1(x_2)].
+\]
+$\Phi_+$ 必须配自旋单态，给一个态；$\Phi_-$ 配三个三重态，给三个态。无自旋相关作用且无电子相互作用时四态简并；加入交换对称的相互作用后，能量成为
+$E_0+J\pm K$，简并通常解除。
+\end{examplebox}
+
+\section{例题：两电子谐振子与相对坐标奇偶性}
+\begin{examplebox}[title=例 3：交换等价于相对坐标反演]
+一维两电子谐振子
+\[
+H=\sum_{i=1}^2\left(
+\frac{p_i^2}{2m}+\frac12m\omega^2x_i^2\right).
+\]
+定义质心和相对坐标
+\[
+R=\frac{x_1+x_2}{2},\qquad r=x_1-x_2,
+\]
+对应总质量 $M=2m$、约化质量 $\mu=m/2$。Hamiltonian 分离为
+\[
+H=
+\left[\frac{P_R^2}{2M}+\frac12M\omega^2R^2\right]
++\left[\frac{p_r^2}{2\mu}+\frac12\mu\omega^2r^2\right].
+\]
+交换 $1\leftrightarrow2$ 时
+\[
+R\to R,\qquad r\to-r.
+\]
+所以空间交换性完全由相对运动量子数 $n_r$ 的奇偶性决定：
+\[
+n_r\ \text{偶数}\Rightarrow\Phi\ \text{对称}\Rightarrow S=0,
+\]
+\[
+n_r\ \text{奇数}\Rightarrow\Phi\ \text{反对称}\Rightarrow S=1.
+\]
+这比逐项交换两个单粒子轨道更直接，也适用于含 $V(|x_1-x_2|)$ 相互作用的量子点。
+\end{examplebox}
+
+\section{氦原子：交换劈裂的标准两电子例子}
+忽略核质量和相对论修正，氦原子 Hamiltonian 为
+\[
+H=\sum_{i=1}^2\left[
+-\frac{\hbar^2}{2m}\nabla_i^2
+-\frac{2e^2}{4\pi\varepsilon_0r_i}
+\right]
++\frac{e^2}{4\pi\varepsilon_0r_{12}}.
+\]
+最后一项使两个电子的运动相关，也使简单氢样轨道乘积不再是精确本征态。
+
+\subsection{$1s^2$ 基态为什么只能是单态}
+若两个电子都在 $1s$ 空间轨道，
+\[
+\Phi(1,2)=\phi_{1s}(\vb r_1)\phi_{1s}(\vb r_2)
+\]
+显然空间对称。为使总波函数反对称，自旋部分只能是
+$\chi_{0,0}$。因此氦基态没有对应的 $1s^2$ 三重态；试图构造反对称空间组合会得到零。
+
+\subsection{$1s2s$ 组态的单重--三重劈裂}
+取正交轨道 $a=1s,b=2s$。空间态
+\[
+\Phi_\pm=\frac1{\sqrt2}
+[\phi_{1s}(1)\phi_{2s}(2)
+\pm\phi_{2s}(1)\phi_{1s}(2)].
+\]
+电子间 Coulomb 势的期望值为
+\[
+\langle V_{ee}\rangle_\pm=J_{1s,2s}\pm K_{1s,2s},
+\]
+其中
+\[
+J_{1s,2s}
+=\frac{e^2}{4\pi\varepsilon_0}
+\int\frac{|\phi_{1s}(1)|^2|\phi_{2s}(2)|^2}
+{r_{12}}\dd^3r_1\dd^3r_2,
+\]
+\[
+K_{1s,2s}
+=\frac{e^2}{4\pi\varepsilon_0}
+\int\frac{\phi_{1s}^*(1)\phi_{2s}^*(2)
+\phi_{2s}(1)\phi_{1s}(2)}
+{r_{12}}\dd^3r_1\dd^3r_2.
+\]
+若把一电子部分能量之和记为 $E_{1s}+E_{2s}$，
+\[
+E_{\rm spatial,+}=E_{1s}+E_{2s}+J+K,
+\]
+\[
+E_{\rm spatial,-}=E_{1s}+E_{2s}+J-K.
+\]
+空间对称态配自旋单态，空间反对称态配三重态。因此
+\[
+\boxed{E_{\rm singlet}=E_0+J+K},
+\qquad
+\boxed{E_{\rm triplet}=E_0+J-K}.
+\]
+对通常的 Coulomb 轨道 $K>0$，所以三重态低于对应单态。物理图像是反对称空间波函数在
+$\vb r_1=\vb r_2$ 处为零，形成“交换洞”，降低电子靠近时的 Coulomb 代价。
+
+\begin{examplebox}[title=例 4：orthohelium 与 parahelium]
+氦的三重态系列称为 orthohelium，单态系列称为 parahelium。普通电偶极算符不作用于自旋，因此在忽略自旋轨道耦合时满足
+\[
+\Delta S=0.
+\]
+三重态向单态基态的电偶极跃迁受禁戒，使最低三重态具有较长寿命。真实弱跃迁可由自旋轨道混合等小修正产生。“三重态较低”来自交换积分；“三重态亚稳”则来自自旋选择定则，两者不能混为一谈。
+\end{examplebox}
+
+\section{两中心两电子：Heitler--London 到超交换}
+设两个中心 $A,B$ 上各有局域轨道 $\phi_A,\phi_B$，重叠
+$S=\langle A|B\rangle$。两个“每中心一个电子”的基矢为
+\[
+\ket{AB}=\phi_A(1)\phi_B(2),\qquad
+\ket{BA}=\phi_B(1)\phi_A(2).
+\]
+交换对称组合
+\[
+\Phi_\pm=\frac{\ket{AB}\pm\ket{BA}}
+{\sqrt{2(1\pm S^2)}}.
+\]
+若
+\[
+H_{11}=\langle AB|H|AB\rangle,\qquad
+H_{12}=\langle AB|H|BA\rangle,
+\]
+则直接计算分子和归一化给
+\[
+\boxed{
+E_\pm=\frac{H_{11}\pm H_{12}}{1\pm S^2}}.
+\]
+空间对称的 $E_+$ 配单态，空间反对称的 $E_-$ 配三重态。其差定义有效交换常数，但符号取决于轨道重叠、Coulomb 项和动能，不能仅凭“费米子反对称”断言铁磁或反铁磁。
+
+\begin{examplebox}[title=例 5：与 Hubbard 二聚体的联系]
+在 Hubbard 二聚体半填充且 $U\gg t$ 时，低能子空间中每个格点一个电子。三重态受 Pauli 原理阻止，不能通过一次跃迁进入同一轨道双占据；单态却能虚跃迁到能量高 $U$ 的双占据态。二阶微扰给
+\[
+\Delta E_S\simeq-\frac{4t^2}{U},\qquad
+\Delta E_T\simeq0.
+\]
+所以
+\[
+E_T-E_S=\frac{4t^2}{U}\equiv J>0,
+\]
+得到反铁磁 Heisenberg 相互作用
+\[
+H_{\rm eff}=J\vb S_1\cdot\vb S_2.
+\]
+Heitler--London 强调交换后的空间振幅，Hubbard 强耦合强调经双占据虚态的动能降低；二者是不同参数区间中对单重--三重劈裂的互补描述。
+\end{examplebox}
+
+\section{从对称化波函数到二次量子化}
+设 $a_\alpha^\dagger$ 在单粒子态 $\alpha$ 中产生粒子。玻色占据态
+\[
+\ket{\ldots,n_\alpha,\ldots}
+=\frac{(a_\alpha^\dagger)^{n_\alpha}}
+{\sqrt{n_\alpha!}}\ket0
+\]
+要求不同产生次序描述同一对称态，因此
+\[
+[a_\alpha^\dagger,a_\beta^\dagger]=0,
+\qquad
+[a_\alpha,a_\beta^\dagger]=\delta_{\alpha\beta}.
+\]
+归一化递推给
+\[
+a_\alpha^\dagger\ket{n_\alpha}
+=\boxed{\sqrt{n_\alpha+1}\ket{n_\alpha+1}},
+\]
+\[
+a_\alpha\ket{n_\alpha}
+=\sqrt{n_\alpha}\ket{n_\alpha-1}.
+\]
+$\sqrt{n+1}$ 是玻色增强：已有粒子越多，向同一模式增加一个玻色子的振幅越大。
+
+费米产生算符满足
+\[
+\{c_\alpha,c_\beta^\dagger\}=\delta_{\alpha\beta},
+\qquad
+\{c_\alpha^\dagger,c_\beta^\dagger\}=0.
+\]
+令 $\alpha=\beta$：
+\[
+2(c_\alpha^\dagger)^2=0
+\quad\Rightarrow\quad
+\boxed{(c_\alpha^\dagger)^2=0}.
+\]
+所以每个完整单粒子态的占据数只能为 $0$ 或 $1$。固定多个费米产生算符的标准顺序非常重要；交换两个算符会产生负号。
+
+\begin{examplebox}[title=例 6：两玻色子的分束器聚束]
+设两个输入模各有一个玻色子，初态
+\[
+\ket{1_a,1_b}=a^\dagger b^\dagger\ket0.
+\]
+理想 $50{:}50$ 分束器作变换
+\[
+a^\dagger\to\frac{c^\dagger+id^\dagger}{\sqrt2},
+\qquad
+b^\dagger\to\frac{ic^\dagger+d^\dagger}{\sqrt2}.
+\]
+于是
+\[
+a^\dagger b^\dagger
+\to\frac12(c^\dagger+id^\dagger)
+(ic^\dagger+d^\dagger).
+\]
+展开并用玻色算符对易：
+\[
+=\frac{i}{2}\left[(c^\dagger)^2+(d^\dagger)^2\right],
+\]
+因为一粒子进入每个输出端的交叉项相消。作用于真空并使用
+$(c^\dagger)^2\ket0=\sqrt2\ket{2_c,0_d}$：
+\[
+\ket{\psi_{\rm out}}
+=\frac{i}{\sqrt2}
+(\ket{2,0}+\ket{0,2}).
+\]
+两个玻色子总是从同一输出端离开，这就是 Hong--Ou--Mandel 聚束的理想极限；其来源是不可分辨路径的振幅相加。
+\end{examplebox}
+
+\section{约化密度矩阵与交换关联}
+两粒子纯态 $\rho_{12}=\ket\Psi\bra\Psi$ 的一体约化密度矩阵为
+\[
+\rho_1=\operatorname{Tr}_2\rho_{12}.
+\]
+对正交轨道 $a,b$ 的 $\Psi_\pm$，逐项对粒子 2 求迹。含
+$\langle a|b\rangle$ 的交叉项为零，得到
+\[
+\boxed{
+\rho_1=\frac12(\ket a\bra a+\ket b\bra b)}.
+\]
+有趣的是一体密度矩阵无法区分正号和负号；交换信息保留在二体关联中。
+
+位置联合概率为
+\[
+\begin{aligned}
+|\Psi_\pm(1,2)|^2
+=\frac12\big[&
+|\phi_a(1)|^2|\phi_b(2)|^2
++|\phi_b(1)|^2|\phi_a(2)|^2\\
+&\pm2\operatorname{Re}
+\{\phi_a^*(1)\phi_b^*(2)\phi_b(1)\phi_a(2)\}\big].
+\end{aligned}
+\]
+最后一项是交换干涉项。对经典统计混合
+\[
+\rho_{\rm mix}=\frac12(\ket{ab}\bra{ab}+\ket{ba}\bra{ba})
+\]
+则没有该项。因此“因不知道标签而混合”与“量子对称化后的相干叠加”物理上不同。
+
+\section{相同粒子散射中的计数}
+\label{sec:identical-scattering-counting}
+若可区分粒子的中心势散射振幅为 $f(\theta)$，交换两个相同粒子的末态等价于
+$\theta\leftrightarrow\pi-\theta$。故
+\[
+\boxed{
+f_\pm(\theta)=f(\theta)\pm f(\pi-\theta)}.
+\]
+对无自旋玻色子用加号；自旋极化费米子空间态反对称，用减号。
+
+由于末态无序对 $\{\vb k_1',\vb k_2'\}$ 只应计数一次，有两种等价办法：
+\[
+\sigma_\pm=\int_{\text{半球}}|f_\pm(\theta)|^2\dd\Omega,
+\]
+或
+\[
+\boxed{
+\sigma_\pm=\frac12\int_{\text{全立体角}}
+|f_\pm(\theta)|^2\dd\Omega}.
+\]
+不能既积全空间又忘记 $1/2$。
+
+对未极化的两个自旋 $1/2$ 费米子，四个自旋态中一个单态、三个三重态，所以自旋平均微分截面为
+\[
+\boxed{
+\dv{\sigma}{\Omega}
+=\frac14|f_+(\theta)|^2
++\frac34|f_-(\theta)|^2}
+\]
+（总截面仍须采用上述不重复计数约定）。低能 $s$ 波近似中
+$f(\theta)\simeq f_0$ 与角度无关，因此
+\[
+f_-=f_0-f_0=0.
+\]
+所以低能自旋极化费米子没有 $s$ 波散射；未极化气体只有单态通道贡献。
+
+\section{五条黑板推导}
+\begin{enumerate}
+\item \textbf{交换谱：}写 $P_{12}^2=1$，推出交换本征值 $\pm1$，再说明可观测量与 $P_{12}$ 对易。
+\item \textbf{两粒子归一化：}把
+$\phi_a(1)\phi_b(2)\pm\phi_b(1)\phi_a(2)$ 的四个内积逐项展开，得到
+$2(1\pm|S|^2)$。
+\item \textbf{单态与三重态：}从 $\ket{\uparrow\uparrow}$ 用总降算符生成三重态，再由正交性得到单态。
+\item \textbf{交换积分：}将 $\langle\Phi_\pm|V|\Phi_\pm\rangle$ 展开为四项，识别 $J\pm K$。
+\item \textbf{Pauli 的算符形式：}由
+$\{c_i^\dagger,c_i^\dagger\}=0$ 得
+$(c_i^\dagger)^2=0$。
+\end{enumerate}
+
+\begin{interviewbox}
+\textbf{30 秒：}全同粒子的标签不可观测，所以可观测量在粒子交换下不变。交换算符平方为一，允许对称和反对称两类态；玻色子取对称态，费米子取反对称态。费米反对称性立即给 Pauli 原理，并在两电子系统中迫使自旋单态配对称空间态、三重态配反对称空间态。
+
+\textbf{2 分钟：}在上述回答后写出两轨道的 $\Psi_\pm$，说明费米子 $a=b$ 时分子为零；再以
+$\langle V\rangle=J\pm K$ 解释交换劈裂。强调交换能来自振幅干涉而非新经典力，并用氦原子三重态低于对应单态作为例子。
+\end{interviewbox}
+
+\begin{selftestbox}
+\begin{enumerate}
+\item “全同”和“不可分辨”分别强调什么？
+\item 证明交换算符既 Hermitian 又 unitary。
+\item 为什么交换本征值只能是 $\pm1$？
+\item 推导非正交轨道两粒子态的归一化因子。
+\item 为什么自旋--统计联系不能在本章框架内严格证明？
+\item 从 Slater 行列式推出 Pauli 不相容原理。
+\item $\ket{\uparrow\downarrow}$ 为什么不是自旋单态？
+\item 两电子势阱第一激发组态有几个自旋--空间态？
+\item 相对运动波函数的奇偶性如何决定两电子总自旋？
+\item 直接积分和交换积分的物理区别是什么？
+\item 为什么氦 $1s^2$ 基态只能是单态？
+\item 为什么对应组态的氦三重态通常低于单态？
+\item 交换作用是不是一种新的基本力？
+\item 推导玻色产生算符作用时的 $\sqrt{n+1}$。
+\item 为什么相同玻色子的两条分束器路径相长或相消？
+\item 一体约化密度矩阵为什么可能看不出交换正负号？
+\item 相同粒子总截面为什么要避免末态重复计数？
+\item 为什么自旋极化费米子的低能 $s$ 波散射消失？
+\end{enumerate}
+\end{selftestbox}

@@ -1,0 +1,328 @@
+\chapter{本科量子散射理论}
+
+\begin{prereqbox}
+定态 Schrödinger 方程、球坐标分离变量、概率流和 Fourier 变换。本章只讨论非相对论势散射，不使用场论语言。
+\end{prereqbox}
+
+\section{从实验计数到散射截面}
+设短程势局域在原点附近，入射粒子动量 $\hbar k\hat{\vb z}$。远离散射中心时
+\[
+\psi(\vb r)\sim e^{ikz}+f(\theta,\phi)\frac{e^{ikr}}r.
+\]
+第一项是入射平面波，第二项是出射球面波。概率流
+\[
+\vb j=\frac{\hbar}{2mi}(\psi^*\nabla\psi-\psi\nabla\psi^*)
+\]
+对入射波给
+\[
+\vb j_{\rm in}=\frac{\hbar k}{m}\hat{\vb z}.
+\]
+对远区散射波 $\psi_s=f e^{ikr}/r$，保留 $1/r^2$ 的径向通量：
+\[
+j_{s,r}=\frac{\hbar k}{m}\frac{|f(\theta,\phi)|^2}{r^2}.
+\]
+穿过面积元 $r^2\dd\Omega$ 的散射粒子数率除以入射流强，定义微分截面：
+\[
+\boxed{\dv{\sigma}{\Omega}
+=\frac{j_{s,r}r^2}{j_{\rm in}}=|f(\theta,\phi)|^2}.
+\]
+$f$ 的量纲是长度，截面的量纲是面积。总截面为
+\[
+\sigma=\int |f|^2\dd\Omega.
+\]
+若末态波数不同，还需乘速度比 $v_f/v_i$；本章主要讨论弹性散射。
+
+\section{自由 Green 函数与出射边界条件}
+定态方程写成
+\[
+(E-H_0)\ket\psi=V\ket\psi,\qquad
+H_0=-\frac{\hbar^2}{2m}\nabla^2.
+\]
+形式逆算符在自由能谱上奇异，因此定义
+\[
+G_0^{(+)}(E)=\frac1{E-H_0+i0}.
+\]
+坐标表象满足
+\[
+\left(\nabla^2+k^2\right)G_k^{(+)}(\vb r-\vb r')
+=\frac{2m}{\hbar^2}\delta^{(3)}(\vb r-\vb r').
+\]
+先求 Helmholtz 方程的基本解。对 $R\ne0$，球对称解为
+\[
+g(R)=\frac{Ae^{ikR}+Be^{-ikR}}R.
+\]
+$+i0$ 选择向外传播的 $e^{ikR}$。为定系数，对半径 $\epsilon$ 小球积分：
+\[
+\int_{R<\epsilon}\nabla^2g\,\dd^3R
+=4\pi\epsilon^2\pdv{g}{R}\bigg|_\epsilon
+\longrightarrow-4\pi A.
+\]
+与右端 $2m/\hbar^2$ 比较，得到
+\[
+\boxed{
+G_k^{(+)}(\vb r,\vb r')
+=-\frac{m}{2\pi\hbar^2}
+\frac{e^{ik|\vb r-\vb r'|}}{|\vb r-\vb r'|}}.
+\]
+于是
+\[
+\boxed{\psi^{(+)}(\vb r)
+=e^{i\vb k\cdot\vb r}
++\int G_k^{(+)}(\vb r,\vb r')V(\vb r')
+\psi^{(+)}(\vb r')\dd^3r'}
+\]
+即 Lippmann--Schwinger 方程。它不是近似，而是带出射边界条件的 Schrödinger 方程积分形式。
+
+\section{由远区展开读出散射振幅}
+当 $r\gg r'$，
+\[
+|\vb r-\vb r'|
+=r-\hat{\vb r}\cdot\vb r'+O(r'^2/r),
+\]
+\[
+\frac{e^{ik|\vb r-\vb r'|}}{|\vb r-\vb r'|}
+\simeq\frac{e^{ikr}}r e^{-ik\hat{\vb r}\cdot\vb r'}.
+\]
+令 $\vb k'=k\hat{\vb r}$，与远区定义比较：
+\[
+\boxed{
+f(\vb k',\vb k)
+=-\frac{m}{2\pi\hbar^2}
+\int e^{-i\vb k'\cdot\vb r'}
+V(\vb r')\psi^{(+)}_{\vb k}(\vb r')\dd^3r'}.
+\]
+精确波函数仍出现在右端，所以这还是隐式表达式。
+
+\section{Born 级数与一阶 Born 近似}
+把积分方程反复代回：
+\[
+\ket{\psi^{(+)}}=
+\ket{\vb k}+G_0^{(+)}V\ket{\vb k}
++G_0^{(+)}VG_0^{(+)}V\ket{\vb k}+\cdots.
+\]
+若散射势足够弱或粒子能量足够高，第一轮中取
+$\psi^{(+)}\simeq e^{i\vb k\cdot\vb r}$：
+\[
+\boxed{
+f_B(\vb q)=-\frac{m}{2\pi\hbar^2}
+\int e^{-i\vb q\cdot\vb r}V(\vb r)\dd^3r},
+\qquad
+\vb q=\vb k'-\vb k.
+\]
+弹性散射中
+\[
+q=2k\sin\frac\theta2.
+\]
+因此角分布直接测量势能的空间 Fourier 分量。粗略判据是波函数在势区内不被明显改造；对尺度 $a$、强度 $V_0$ 的势，常要求
+$m|V_0|a^2/\hbar^2\ll1$，高能时条件可放宽。
+
+\begin{examplebox}[title=Gaussian 势的 Born 散射]
+取 $V(r)=V_0e^{-r^2/a^2}$。三维 Fourier 积分分离：
+\[
+\int e^{-i\vb q\cdot\vb r}e^{-r^2/a^2}\dd^3r
+=\prod_{\alpha=x,y,z}\int_{-\infty}^{\infty}
+e^{-r_\alpha^2/a^2-iq_\alpha r_\alpha}\dd r_\alpha.
+\]
+完成平方后每个积分为
+$\sqrt\pi a\,e^{-a^2q_\alpha^2/4}$，故
+\[
+f_B(q)=-\frac{mV_0\sqrt\pi a^3}{2\hbar^2}
+e^{-a^2q^2/4},
+\]
+\[
+\dv\sigma\Omega
+=\frac{m^2V_0^2\pi a^6}{4\hbar^4}
+e^{-a^2q^2/2}.
+\]
+$ka\gg1$ 时大角度对应大 $q$，被指数压低，散射集中在前向。
+\end{examplebox}
+
+\begin{examplebox}[title=Yukawa 势与 Rutherford 极限]
+取
+\[
+V(r)=\alpha\frac{e^{-\kappa r}}r.
+\]
+选 $\vb q$ 为极轴，
+\[
+\int e^{-i\vb q\cdot\vb r}V(r)\dd^3r
+=2\pi\alpha\int_0^\infty r e^{-\kappa r}\dd r
+\int_{-1}^{1}e^{-iqru}\dd u.
+\]
+角积分为 $2\sin(qr)/(qr)$，所以
+\[
+=\frac{4\pi\alpha}{q}
+\int_0^\infty e^{-\kappa r}\sin(qr)\dd r
+=\frac{4\pi\alpha}{q^2+\kappa^2}.
+\]
+于是
+\[
+f_B(q)=-\frac{2m\alpha}{\hbar^2(q^2+\kappa^2)}.
+\]
+令 $\kappa\to0$ 并用 $q=2k\sin(\theta/2)$：
+\[
+\dv\sigma\Omega
+=\frac{m^2\alpha^2}{4\hbar^4k^4\sin^4(\theta/2)}.
+\]
+这给 Rutherford 角依赖，但纯 Coulomb 势是长程势，普通出射渐近式会出现对数相位；严格处理不能仅靠“令屏蔽消失”替代。
+\end{examplebox}
+
+\section{中心势的分波展开}
+轴对称入射允许展开
+\[
+\psi(r,\theta)=\sum_{l=0}^\infty A_lR_l(r)P_l(\cos\theta).
+\]
+令 $u_l=rR_l$，径向方程为
+\[
+\frac{\dd^2u_l}{\dd r^2}
++\left[k^2-\frac{2m}{\hbar^2}V(r)
+-\frac{l(l+1)}{r^2}\right]u_l=0.
+\]
+离心势在低能时阻止高 $l$ 波进入势区。
+
+在势外，解是球 Bessel 函数的组合：
+\[
+R_l(r)=C_l[\cos\delta_l\,j_l(kr)-\sin\delta_l\,n_l(kr)].
+\]
+利用远区渐近式，
+\[
+R_l(r)\sim\frac{C_l}{kr}
+\sin\left(kr-\frac{l\pi}{2}+\delta_l\right).
+\]
+$\delta_l$ 就是势能相对于自由波引入的相移。平面波展开为
+\[
+e^{ikz}=\sum_l i^l(2l+1)j_l(kr)P_l(\cos\theta).
+\]
+匹配每个分波的入射部分后得到
+\[
+\boxed{
+f(\theta)=\frac1k\sum_{l=0}^\infty
+(2l+1)e^{i\delta_l}\sin\delta_l\,P_l(\cos\theta)}.
+\]
+利用 Legendre 多项式正交性
+\[
+\int P_lP_{l'}\dd\Omega=\frac{4\pi}{2l+1}\delta_{ll'},
+\]
+总截面为
+\[
+\boxed{\sigma=\frac{4\pi}{k^2}
+\sum_l(2l+1)\sin^2\delta_l}.
+\]
+每个分波的贡献受上限
+$\sigma_l\le4\pi(2l+1)/k^2$ 约束，这是幺正性限制。
+
+\section{光学定理}
+前向 $P_l(1)=1$，所以
+\[
+\operatorname{Im}f(0)
+=\frac1k\sum_l(2l+1)\sin^2\delta_l.
+\]
+与总截面对比：
+\[
+\boxed{\sigma_{\rm tot}=\frac{4\pi}{k}\operatorname{Im}f(0)}.
+\]
+它看似把“所有角度的损失”交给前向振幅，实质是入射波与前向散射波的干涉恰好扣除离开原束流的概率，因而是概率流守恒的整体表达。
+
+\section{低能 $s$ 波、散射长度与浅束缚态}
+若势程为 $R$ 且 $kR\ll1$，离心势使 $l>0$ 的相移按更高次幂消失，只剩
+\[
+f_0(k)=\frac1{k\cot\delta_0-ik}.
+\]
+有效程展开为
+\[
+k\cot\delta_0=-\frac1{a_s}+\frac12r_ek^2+\cdots,
+\]
+故零能极限
+\[
+f_0\to-a_s,\qquad \sigma\to4\pi a_s^2.
+\]
+若 $a_s$ 很大且为正，$f_0$ 在复 $k$ 平面靠近 $k=i/a_s$ 有极点，对应能量
+\[
+E_b\simeq-\frac{\hbar^2}{2ma_s^2}
+\]
+的浅束缚态。调节势使束缚态刚好穿过阈值时，$a_s$ 发散并出现低能共振。
+
+\begin{examplebox}[title=硬球低能散射]
+硬球半径为 $a$，边界条件 $u_l(a)=0$。低能只保留 $l=0$：
+\[
+u_0(r)\propto\sin(kr+\delta_0).
+\]
+故
+\[
+\sin(ka+\delta_0)=0,\qquad \delta_0=-ka
+\]
+（选择连续趋于零的分支）。于是
+\[
+a_s=-\lim_{k\to0}\frac{\tan\delta_0}{k}=a,
+\qquad
+\sigma\to4\pi a^2.
+\]
+它是经典几何截面 $\pi a^2$ 的四倍，来源于低能波的相干衍射。
+\end{examplebox}
+
+\begin{examplebox}[title=球形方阱的散射长度]
+取 $V=-V_0$（$r<R$），外部为零。零能 $s$ 波在阱内
+\[
+u_{\rm in}=A\sin(Kr),\qquad
+K=\sqrt{2mV_0}/\hbar,
+\]
+外部零能径向方程给
+\[
+u_{\rm out}=B(r-a_s).
+\]
+在 $R$ 处匹配对数导数：
+\[
+K\cot(KR)=\frac1{R-a_s}.
+\]
+解得
+\[
+\boxed{a_s=R-\frac{\tan(KR)}K}.
+\]
+当 $KR=(n+\tfrac12)\pi$，散射长度发散，表示新的 $s$ 波束缚态恰好到达阈值。
+\end{examplebox}
+
+\section{相同粒子的散射}
+不可分辨粒子有两条无法区分的路径：散到 $\theta$，或交换标签后散到
+$\pi-\theta$。因此必须先叠加振幅，再取模平方：
+\[
+f_\pm(\theta)=f(\theta)\pm f(\pi-\theta).
+\]
+无自旋玻色子取加号；相同且自旋极化的费米子取减号。不可分辨的末态只应计数一次，故可积半球，也可在全立体角积分后乘 $1/2$：
+\[
+\sigma_\pm
+=\frac12\int_{4\pi}|f_\pm(\theta)|^2\dd\Omega.
+\]
+两个未极化自旋 $1/2$ 费米子的一个单态通道配空间对称振幅，三个三重态通道配空间反对称振幅：
+\[
+\dv{\sigma}{\Omega}
+=\frac14|f_+|^2+\frac34|f_-|^2.
+\]
+低能 $s$ 波近似中 $f(\theta)$ 与角度无关，故
+$f_-=0$：自旋极化费米子的 $s$ 波散射被 Pauli 原理抑制。交换对称性、单态/三重态和重复计数的完整推导见第
+\ref{chap:identical-particles} 章第
+\ref{sec:identical-scattering-counting} 节。
+
+\section{与凝聚态和实验的连接}
+杂质势的一阶 Born 振幅含 $V(\vb q)$；黄金规则给
+\[
+\frac1\tau\propto\sum_{\vb k'}|V(\vb k'-\vb k)|^2
+\delta(E_{\vb k'}-E_{\vb k}).
+\]
+输运寿命还多出 $1-\cos\theta$，因为前向散射几乎不松弛电流。中子和 X 射线散射中，动量转移依旧是 $\vb q=\vb k'-\vb k$，测得的强度则由相应密度或自旋关联函数控制。
+
+\begin{interviewbox}
+\textbf{两分钟回答散射理论：}先写远区波函数并由概率流得到
+$\dd\sigma/\dd\Omega=|f|^2$。一般势可把 Schrödinger 方程写成带出射 Green 函数的 Lippmann--Schwinger 方程；弱势时第一次迭代给 Born 近似，振幅是势的 Fourier 变换。中心势更适合分波法，每个角动量通道只引入相移 $\delta_l$；低能因离心势只剩 $s$ 波，散射由一个长度 $a_s$ 控制。光学定理则是总概率守恒。
+\end{interviewbox}
+
+\begin{selftestbox}
+\begin{enumerate}
+\item 从球面波概率流检查 $f$ 的量纲。
+\item $+i0$ 为什么选择出射而不是入射边界条件？
+\item 推导 $q=2k\sin(\theta/2)$。
+\item Born 近似为何在强吸引势接近束缚态阈值时失败？
+\item 从分波振幅推出总截面。
+\item 光学定理如何体现入射与前向散射波的干涉？
+\item 为什么低能自旋极化费米子没有 $s$ 波散射？
+\item 输运寿命为什么含 $1-\cos\theta$？
+\end{enumerate}
+\end{selftestbox}

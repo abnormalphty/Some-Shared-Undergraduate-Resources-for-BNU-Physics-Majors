@@ -1,0 +1,188 @@
+\chapter{计算凝聚态：从模型到可信结果}
+
+\begin{prereqbox}
+线性代数、Bloch 定理、紧束缚和 DFT 基本概念。本章不绑定某个软件，训练研究生面试中更重要的能力：怎样把物理问题转化为计算、怎样检查结果、怎样识别数值伪影。
+\end{prereqbox}
+\begin{mapbox}
+\[
+\begin{aligned}
+\text{物理问题}&\to\text{自由度与模型}\to\text{离散化/基底}\\
+&\to\text{算法}\to\text{收敛与守恒检查}\to\text{可观测量}.
+\end{aligned}
+\]
+任何漂亮图像都必须回答三个问题：对什么参数收敛？满足什么精确约束？有没有更简单的替代解释？
+\end{mapbox}
+
+\section{先选问题，再选方法}
+计算方法的适用边界由自由度和纠缠结构决定：
+\begin{itemize}
+\item 弱关联基态电子结构：DFT、紧束缚、Wannier；
+\item 小尺寸强关联模型：精确对角化；
+\item 一维低纠缠基态：矩阵乘积态与 DMRG；
+\item 有限温量子统计：量子 Monte Carlo，但可能有符号问题；
+\item 局域动态关联：DMFT；
+\item 准粒子修正和光学激发：GW、Bethe--Salpeter 等更高阶方法。
+\end{itemize}
+面试回答不应只报软件名，而要从系统尺度、维数、相互作用强弱和目标观测量解释选择。
+
+\section{紧束缚数值化}
+给定 $n$ 个轨道，Bloch Hamiltonian 是 $n\times n$ Hermitian 矩阵
+$H(\vb k)$。基本流程：
+\begin{enumerate}
+\item 依据晶格、轨道和对称性列出允许跃迁；
+\item 选择高对称路径画能带，但计算态密度或拓扑量必须覆盖整个布里渊区；
+\item 对每个 $\vb k$ 对角化，保存本征值和本征矢；
+\item 检查 $H(\vb k+\vb G)=H(\vb k)$、Hermitian 性和对称性简并；
+\item 从本征矢计算轨道权重、速度、Berry 量等。
+\end{enumerate}
+
+\begin{examplebox}
+\textbf{两带模型的数值检查。}若
+$H=d_0I+\vb d\cdot\vb\sigma$，数值本征值必须等于
+$d_0\pm|\vb d|$。这给出单元测试。若数值结果偏离，优先检查复跃迁的共轭、相位约定和 Fourier 变换符号，而不是调绘图参数。
+\end{examplebox}
+
+\section{$k$ 点采样与收敛}
+周期系统把布里渊区积分离散为
+\[
+\int_{\rm BZ}\frac{\dd^dk}{\Omega_{\rm BZ}}f(\vb k)
+\simeq\sum_{\vb k}w_{\vb k}f(\vb k).
+\]
+金属因费米面不连续最难收敛，常需更密 $k$ 网格和展宽。绝缘体有隙，占据随 $k$ 光滑，通常更容易。
+
+展宽把 $\delta(E-E_n)$ 替换为 Gaussian 或 Lorentzian。展宽过小会显出离散网格尖峰，过大会抹去真实小能隙。可信做法是同时增加网格、减小展宽，寻找稳定区间。
+
+\begin{pitfallbox}
+沿高对称路径画出的“能带图”不是布里渊区采样。它适合展示色散和简并，却不能可靠计算总能、态密度、载流子浓度或 Chern 数。
+\end{pitfallbox}
+
+\section{有限尺寸与边界条件}
+长度 $L$ 的周期系统动量间距
+$\Delta k=2\pi/L$。临界点关联长度 $\xi$ 若接近 $L$，观测量会显著受尺寸影响。有限尺寸标度的一般形式
+\[
+O(L,g)=L^{-x_O/\nu}
+\mathcal F[(g-g_c)L^{1/\nu}].
+\]
+不同尺寸曲线的交叉或数据坍缩可估计临界点和指数。
+
+周期边界减少表面效应，开边界用于研究边缘态。拓扑端态只在开边界出现，但体拓扑不变量应由周期系统定义。若端态局域长度接近样品长度，两端杂化会产生指数小劈裂，不应误判为拓扑被破坏。
+
+\section{精确对角化}
+自旋 $1/2$ 的 $N$ 个格点 Hilbert 空间维数为 $2^N$，费米格点模型还要考虑粒子数和自旋。精确对角化的关键不是调用本征值函数，而是利用对称性分块：
+\[
+[H,N]=0,\quad[H,S_z]=0,\quad[H,T]=0
+\]
+时可在固定粒子数、磁量子数和动量扇区独立对角化。稀疏 Lanczos 算法只需矩阵--向量乘法，可求极少数低能态。
+
+从基态 $|0\rangle$ 可求静态关联
+\[
+C_{ij}=\langle0|\vb S_i\cdot\vb S_j|0\rangle
+\]
+和结构因子
+\[
+S(\vb q)=\frac1N\sum_{ij}e^{i\vb q\cdot(\vb r_i-\vb r_j)}C_{ij}.
+\]
+有限系统没有严格自发对称性破缺，序参量平均值可能为零，应看关联函数、简并结构和尺寸标度。
+
+\section{变分、均场与自洽}
+Hartree--Fock、BCS、磁平均场都把四费米项分解为二次项和待定平均值。一般自洽循环：
+\[
+\Delta^{(n)}
+\xrightarrow{\text{构造 }H_{\rm MF}}
+\{|u_m\rangle,E_m\}
+\xrightarrow{\text{求期望值}}
+\Delta_{\rm out}^{(n)}
+\xrightarrow{\text{混合}}
+\Delta^{(n+1)}.
+\]
+简单线性混合
+$\Delta^{(n+1)}=(1-\alpha)\Delta^{(n)}+\alpha\Delta_{\rm out}^{(n)}$。
+收敛不等于找到全局最低自由能：不同初值可能落入亚稳解，应比较总能/自由能并扫描初值。
+
+\begin{examplebox}
+\textbf{Stoner 铁磁判据。}局域排斥的均场使自旋能带劈裂
+$\Delta=Um$。小磁化下电子能降低与态密度有关，展开自由能二次项得到
+\[
+F(m)-F(0)\sim\frac12\left[\frac1{N(E_F)}-U\right]m^2.
+\]
+当 $UN(E_F)>1$，顺磁态不稳定。该判据说明大态密度有利于巡游铁磁，但平均场会夸大有序。
+\end{examplebox}
+
+\section{DFT 的输入、输出与收敛}
+平面波赝势计算常见收敛参数：
+\begin{itemize}
+\item 平面波截断能：决定基底完备程度；
+\item $k$ 网格：决定布里渊区积分；
+\item 真空层与超胞：决定周期镜像相互作用；
+\item 力和总能阈值：决定结构弛豫；
+\item 展宽和占据方法：影响金属收敛；
+\item 自旋、SOC、磁初态和 $U$：决定允许探索的解空间。
+\end{itemize}
+比较不同结构的能量差时，每个结构必须使用相同精度。若目标能差只有
+$1\,\mathrm{meV}$，而截断能或 $k$ 网格误差是
+$10\,\mathrm{meV}$，结论没有意义。
+
+\section{Wannier 插值与拓扑计算}
+从第一性原理选取一组目标能带，通过投影和规范优化得到局域 Wannier 轨道。检查包括：
+\begin{enumerate}
+\item Wannier 插值能带在目标能窗内复现原始能带；
+\item 轨道中心和扩展合理；
+\item 对称性与简并未被数值规范错误破坏；
+\item 增减能窗或初始投影时物理结论稳定。
+\end{enumerate}
+
+离散 $k$ 网格上 Berry 相位可用相邻本征态重叠计算，而不是直接对相位不连续的本征矢作差分。单带 Wilson 环
+\[
+e^{i\gamma}=\prod_j
+\frac{\langle u_{\vb k_j}|u_{\vb k_{j+1}}\rangle}
+{|\langle u_{\vb k_j}|u_{\vb k_{j+1}}\rangle|}.
+\]
+多带占据子空间使用重叠矩阵的行列式或 Wilson 矩阵，保证对子空间内幺正混合不敏感。
+
+\section{误差、验证与可重复性}
+误差至少分四类：
+\begin{enumerate}
+\item \textbf{模型误差：}遗漏轨道、相互作用或声子；
+\item \textbf{方法误差：}平均场、泛函或微扰截断；
+\item \textbf{数值误差：}网格、尺寸、截断和迭代容差；
+\item \textbf{统计误差：}Monte Carlo 采样和实验噪声。
+\end{enumerate}
+提高数值精度只能消除第三类，不能修复错误模型。可信结果应报告单位、参数、收敛曲线、对称性检查和数据处理流程。
+
+\section{三个计算案例}
+\begin{examplebox}
+\textbf{案例 1：寻找拓扑转变。}
+\begin{enumerate}
+\item 扫描控制参数并记录直接/间接能隙；
+\item 定位能隙最小的 $\vb k$，识别对称性表示或 Dirac 质量；
+\item 在两侧计算 Berry/Z$_2$ 指标；
+\item 开边界计算边缘谱，检查体边对应；
+\item 改变网格、边界宽度和小扰动，确认稳定。
+\end{enumerate}
+\end{examplebox}
+
+\begin{examplebox}
+\textbf{案例 2：拟合紧束缚参数。}先明确拟合能窗与轨道；不仅拟合本征值，还比较轨道权重和对称性；用未参与拟合的路径或应变条件作交叉验证。参数高度相关时，不要给出虚假的高精度小数。
+\end{examplebox}
+
+\begin{examplebox}
+\textbf{案例 3：判断磁基态。}分别从铁磁、不同反铁磁和非磁初态自洽；比较总能和局域磁矩；增大超胞检查更长周期；检查 $k$ 网格、SOC 和 $U$ 依赖。若能差接近数值误差，只能报告近简并而非确定基态。
+\end{examplebox}
+
+\begin{interviewbox}
+\textbf{你如何证明计算结果可信？}先给收敛测试，再给精确约束（Hermitian、守恒、对称性、和规则），接着用可解极限或独立方法交叉验证，最后说明模型和方法仍有哪些系统误差。
+\end{interviewbox}
+\begin{selftestbox}
+\begin{enumerate}
+\item 为什么高对称路径不能替代全布里渊区积分？
+\item 金属为何需要更密 $k$ 网格？
+\item 怎样区分有限尺寸隙和真实体隙？
+\item 精确对角化为什么必须利用对称性？
+\item 有限系统如何判断自发有序倾向？
+\item 自洽收敛为什么不等于全局最低能？
+\item DFT 总能差需要哪些共同收敛条件？
+\item 为什么直接差分本征矢相位可能得到错误 Berry 曲率？
+\item 四类误差中哪些不能靠更严格容差消除？
+\item 最小的可重复计算记录应包括什么？
+\end{enumerate}
+\end{selftestbox}

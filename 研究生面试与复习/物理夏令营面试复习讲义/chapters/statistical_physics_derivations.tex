@@ -1,0 +1,299 @@
+\chapter{热力学势、配分函数与响应的核心推导}
+
+\section{基本关系与 Legendre 变换}
+简单可压缩单组分系统的能量表象取
+$U=U(S,V,N)$：
+\[
+\dd U=\left(\pdv US\right)_{V,N}\dd S
++\left(\pdv UV\right)_{S,N}\dd V
++\left(\pdv UN\right)_{S,V}\dd N.
+\]
+用温度、压强、化学势的热力学定义：
+\[
+T=\left(\pdv US\right)_{V,N},\quad
+P=-\left(\pdv UV\right)_{S,N},\quad
+\mu=\left(\pdv UN\right)_{S,V},
+\]
+得到
+\[
+\boxed{\dd U=T\dd S-P\dd V+\mu\dd N}.
+\]
+实验常控制 $T,P,\mu$ 而非 $S,V,N$，故作 Legendre 变换：
+\[
+F=U-TS,\quad
+\dd F=-S\dd T-P\dd V+\mu\dd N,
+\]
+\[
+G=U-TS+PV,\quad
+\dd G=-S\dd T+V\dd P+\mu\dd N,
+\]
+\[
+\Omega=U-TS-\mu N,\quad
+\dd\Omega=-S\dd T-P\dd V-N\dd\mu.
+\]
+每个势的自然变量直接由微分读出。
+
+\section{Maxwell 关系逐一得到}
+例如 $F(T,V,N)$：
+\[
+S=-\left(\pdv FT\right)_{V,N},\qquad
+P=-\left(\pdv FV\right)_{T,N}.
+\]
+混合偏导可交换：
+\[
+\pdv{}{V}\left(\pdv FT\right)
+=\pdv{}{T}\left(\pdv FV\right),
+\]
+所以
+\[
+\boxed{\left(\pdv SV\right)_T
+=\left(\pdv PT\right)_V}.
+\]
+同理由 $G(T,P,N)$ 得
+\[
+\boxed{\left(\pdv SP\right)_T
+=-\left(\pdv VT\right)_P}.
+\]
+由 $U(S,V,N)$ 和焓 $H=U+PV$ 还可得到另外两组。记忆方法不是背符号，而是写出势的微分再交叉求导。
+
+\section{稳定性条件}
+固定 $T,V,N$ 时平衡使 Helmholtz 自由能取极小。对温度涨落，
+\[
+C_V=T\left(\pdv ST\right)_V
+=-T\left(\frac{\partial^2 F}{\partial T^2}\right)_V\ge0.
+\]
+固定温度的机械稳定性要求压缩体积时压强上升：
+\[
+\left(\pdv PV\right)_T<0,\qquad
+\kappa_T=-\frac1V\left(\pdv VP\right)_T>0.
+\]
+这些条件等价于适当热力学势 Hessian 的凸性/凹性。
+
+\section{热库展开推导正则分布}
+系统微态 $i$ 能量 $E_i$，总系统孤立：
+\[
+P_i\propto\Omega_R(E_{\rm tot}-E_i).
+\]
+热库巨大，展开熵
+$S_R=\kb\ln\Omega_R$：
+\[
+S_R(E_{\rm tot}-E_i)
+=S_R(E_{\rm tot})
+-\left(\pdv{S_R}{E_R}\right)E_i
++O(E_i^2/E_R).
+\]
+$\partial S_R/\partial E_R=1/T$：
+\[
+\Omega_R(E_{\rm tot}-E_i)
+\propto e^{-E_i/\kb T}.
+\]
+归一化：
+\[
+\boxed{P_i=\frac{e^{-\beta E_i}}Z},\qquad
+Z=\sum_ie^{-\beta E_i}.
+\]
+二阶项被忽略要求系统远小于热库；保留它可描述有限热库修正。
+
+\section{最大熵法}
+最大化
+\[
+\Phi=-\kb\sum_ip_i\ln p_i
+-\alpha(\sum_ip_i-1)
+-\gamma(\sum_ip_iE_i-U).
+\]
+对每个 $p_i$：
+\[
+\pdv\Phi{p_i}
+=-\kb(\ln p_i+1)-\alpha-\gamma E_i=0,
+\]
+\[
+p_i=C e^{-(\gamma/\kb)E_i}.
+\]
+用热力学关系识别 $\gamma/\kb=\beta$，归一化得同一正则分布。该推导表明：给定平均能量时，正则分布是熵最大的分布。
+
+\section{配分函数生成热力学量}
+\[
+\pdv{\ln Z}{\beta}
+=\frac1Z\sum_i(-E_i)e^{-\beta E_i}
+=-\langle E\rangle,
+\]
+\[
+\boxed{U=-\partial_\beta\ln Z}.
+\]
+熵
+\[
+S=-\kb\sum_ip_i\ln p_i
+=\kb\ln Z+\kb\beta U.
+\]
+故
+\[
+F=U-TS=-\kb T\ln Z.
+\]
+二阶导数：
+\[
+\partial_\beta^2\ln Z
+=\langle E^2\rangle-\langle E\rangle^2.
+\]
+又
+$\partial_\beta=-\kb T^2\partial_T$：
+\[
+\boxed{\langle(\Delta E)^2\rangle=\kb T^2C_V}.
+\]
+
+\section{经典理想气体配分函数}
+单粒子平动配分函数
+\[
+Z_1=\frac1{h^3}\int_V\dd^3q
+\int\dd^3p\,e^{-\beta p^2/2m}.
+\]
+三个 Gaussian 积分
+\[
+\int_{-\infty}^\infty e^{-\beta p_x^2/2m}\dd p_x
+=\sqrt{\frac{2\pi m}{\beta}},
+\]
+所以
+\[
+Z_1=\frac V{h^3}(2\pi m\kb T)^{3/2}
+=\frac V{\lambda_T^3}.
+\]
+全同经典粒子消除置换重复计数：
+\[
+Z_N=\frac{Z_1^N}{N!}.
+\]
+于是
+\[
+P=-\left(\pdv FV\right)_{T,N}
+=\kb T\pdv{\ln Z_N}{V}
+=\frac{N\kb T}{V}.
+\]
+得到 $PV=N\kb T$。Stirling 公式还可得到 Sackur--Tetrode 熵。
+
+\section{Bose 与 Fermi 分布}
+巨配分函数按单粒子态分解：
+\[
+\Xi=\prod_i\Xi_i,\qquad
+\Xi_i=\sum_{n_i}e^{-\beta(\epsilon_i-\mu)n_i}.
+\]
+玻色子 $n_i=0,1,\ldots$：
+\[
+\Xi_i^{B}=\frac1{1-e^{-\beta(\epsilon_i-\mu)}}.
+\]
+费米子 $n_i=0,1$：
+\[
+\Xi_i^{F}=1+e^{-\beta(\epsilon_i-\mu)}.
+\]
+平均占据可由
+\[
+\bar n_i=\frac1\beta\pdv{\ln\Xi_i}{\mu}
+\]
+求得：
+\[
+\boxed{\bar n_i^B=
+\frac1{e^{\beta(\epsilon_i-\mu)}-1}},
+\quad
+\boxed{\bar n_i^F=
+\frac1{e^{\beta(\epsilon_i-\mu)}+1}}.
+\]
+
+\section{Sommerfeld 展开的关键换元}
+考虑
+\[
+I=\int_0^\infty\phi(E)f(E)\dd E.
+\]
+分离零温阶跃：
+\[
+I=\int_0^\mu\phi(E)\dd E+
+\int_0^\infty\phi(E)[f(E)-\Theta(\mu-E)]\dd E.
+\]
+第二项局域在 $|E-\mu|\sim\kb T$。令
+$x=(E-\mu)/\kb T$，Taylor 展开
+\[
+\phi(\mu+\kb Tx)=\phi(\mu)+
+\kb Tx\phi'(\mu)+\cdots.
+\]
+修正核为奇函数，常数项积分为零；首个非零矩
+\[
+\int_{-\infty}^\infty x
+[f(x)-\Theta(-x)]\dd x=\frac{\pi^2}{6}.
+\]
+故
+\[
+\boxed{I=\int_0^\mu\phi(E)\dd E+
+\frac{\pi^2}{6}(\kb T)^2\phi'(\mu)+O(T^4)}.
+\]
+对粒子数和能量分别使用，得到
+$C_V=(\pi^2/3)\kb^2g(E_F)T$。
+
+\section{Landau--Ginzburg 与关联长度}
+\[
+F[m]=\int\dd^dr\left[
+\frac r2m^2+\frac u4m^4+\frac\kappa2(\nabla m)^2-hm
+\right],
+\quad r=a(T-T_c).
+\]
+泛函变分：
+\[
+\delta F=\int\dd^dr[
+rm+um^3-h-\kappa\nabla^2m]\delta m
+\]
+（梯度项分部积分并令边界变分消失）。平衡方程
+\[
+\boxed{-\kappa\nabla^2m+rm+um^3=h}.
+\]
+$T>T_c$、小涨落时忽略 $m^3$。Fourier 变换：
+\[
+(\kappa q^2+r)m_{\vb q}=h_{\vb q},
+\qquad
+\chi(q)=\frac1{r+\kappa q^2}.
+\]
+写成
+\[
+\chi(q)=\frac{\chi(0)}{1+q^2\xi^2},
+\qquad
+\boxed{\xi=\sqrt{\kappa/r}}.
+\]
+$T\to T_c$ 时关联长度发散，解释临界涨落为何跨越多尺度。
+
+\section{Kubo 公式从相互作用绘景推出}
+$H(t)=H_0-f(t)B$。相互作用绘景密度矩阵满足
+\[
+i\hbar\dot\rho_I=[H_I'(t),\rho_I].
+\]
+一阶积分：
+\[
+\rho_I(t)=\rho_0-\frac{i}{\hbar}
+\int_{-\infty}^t[H_I'(t'),\rho_0]\dd t'.
+\]
+观测量变化
+\[
+\delta\langle A(t)\rangle
+=\mathrm{Tr}[(\rho_I(t)-\rho_0)A_I(t)].
+\]
+代入 $H'=-fB$，利用迹循环性：
+\[
+\delta\langle A(t)\rangle
+=\frac{i}{\hbar}\int_{-\infty}^t
+f(t')\langle[B_I(t'),A_I(t)]\rangle_0\dd t'.
+\]
+因此
+\[
+\boxed{\chi_{AB}(t-t')
+=\frac{i}{\hbar}\theta(t-t')
+\langle[B(t'),A(t)]\rangle_0}.
+\]
+阶跃函数是因果性；对易子是量子响应的核心。
+
+\begin{selftestbox}
+\begin{enumerate}
+\item 为什么 $U$ 对 $V$ 的偏导带负号？
+\item 如何不背诵地重建 Maxwell 关系？
+\item 热库展开忽略二阶项的条件是什么？
+\item 最大熵法的两个乘子分别约束什么？
+\item $F=-\kb T\ln Z$ 如何推出？
+\item Gibbs 因子为何是 $1/N!$？
+\item 玻色化学势为何不能高于基态能量？
+\item Sommerfeld 展开为何没有线性温度项？
+\item 关联长度怎样从 $\chi(q)$ 读出？
+\item Kubo 公式中对易子的次序如何确定？
+\end{enumerate}
+\end{selftestbox}

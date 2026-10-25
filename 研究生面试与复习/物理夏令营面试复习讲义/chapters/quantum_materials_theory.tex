@@ -1,0 +1,327 @@
+\chapter{量子材料理论专题}
+
+\begin{prereqbox}
+Bloch 能带、二次量子化、Fermi/Bose 统计、角动量与微扰论。本章追求面试可解释深度：能写出最小模型、说明序参量或拓扑量、给出可观测后果，并明确近似边界。
+\end{prereqbox}
+\begin{mapbox}
+\[
+\text{电子相互作用}\to
+\begin{cases}
+\text{屏蔽与 Fermi 液体}\\
+\text{Mott、磁性与密度波}\\
+\text{配对与超导}
+\end{cases}
+\]
+\[
+\text{波函数几何}+\text{对称性}
+\to\text{Berry 曲率、拓扑数、边界态}.
+\]
+“强关联”和“拓扑”回答不同问题：前者关心相互作用能否破坏单粒子图像，后者关心量子态整体几何能否连续变为平庸态；二者可以共存。
+\end{mapbox}
+
+\section{电子气、Hartree--Fock 与屏蔽}
+连续电子气的 Hamiltonian
+\[
+H=\sum_{\vb k\sigma}\epsilon_{\vb k}
+c_{\vb k\sigma}^\dagger c_{\vb k\sigma}
++\frac1{2V}\sum_{\vb q\ne0}v(q)\rho_{\vb q}\rho_{-\vb q},
+\]
+$v(q)=e^2/\varepsilon_0q^2$，均匀正背景抵消 $\vb q=0$ 发散。
+
+Hartree--Fock 用 Slater 行列式近似多体态。Hartree 项是平均电荷产生的直接势，均匀电子气中被背景抵消；Fock 项来自费米反对称性，只作用于同自旋并降低能量。它能解释交换能，却缺少动态关联和有效屏蔽。
+
+外势引起
+$\delta n(q)=\chi_0(q)V_{\rm tot}(q)$，而
+$V_{\rm tot}=V_{\rm ext}+v(q)\delta n$。解得
+\[
+V_{\rm tot}(q)=\frac{V_{\rm ext}(q)}
+{1-v(q)\chi_0(q)}
+\equiv\frac{V_{\rm ext}(q)}{\varepsilon(q)}.
+\]
+长波静态 Thomas--Fermi 近似给
+\[
+\varepsilon(q)=1+\frac{q_{\rm TF}^2}{q^2},\qquad
+V(r)\propto\frac{e^{-q_{\rm TF}r}}r.
+\]
+金属自由载流子重新排列，把长程 Coulomb 势变为屏蔽势。绝缘体缺少费米面载流子，静态长波屏蔽机制不同。
+
+\section{Lindhard 响应的结构}
+非相互作用费米气的密度响应为
+\[
+\chi_0(\vb q,\omega)=
+\sum_{\vb k}\frac{f(\epsilon_{\vb k})-
+f(\epsilon_{\vb k+\vb q})}
+{\hbar\omega+\epsilon_{\vb k}-\epsilon_{\vb k+\vb q}+i0^+}.
+\]
+分子描述粒子--空穴激发的占据差，分母描述能量代价。虚部在允许粒子--空穴连续谱内非零，对应吸收；实部控制屏蔽和集体模。RPA 条件
+$\varepsilon(q,\omega)=0$ 给等离激元。三维长波极限
+\[
+\omega_p=\sqrt{\frac{ne^2}{m\varepsilon_0}},
+\]
+其 $q\to0$ 频率有限，源于长程 Coulomb 恢复力。
+
+\section{Hubbard 模型与 Mott 绝缘体}
+最小局域关联模型
+\[
+\boxed{H=-t\sum_{\langle ij\rangle\sigma}
+(c_{i\sigma}^\dagger c_{j\sigma}+\mathrm{h.c.})
++U\sum_i n_{i\uparrow}n_{i\downarrow}}.
+\]
+$t$ 倾向电子离域形成能带，$U$ 惩罚双占据并倾向局域化。半填充时，$U=0$ 通常给金属；$U\gg t$ 时移动电子必然暂时制造双占据，电荷激发代价约 $U$，可成为 Mott 绝缘体，即使单粒子能带理论预测部分填充。
+
+\subsection{强耦合映射到 Heisenberg 模型}
+两个相邻格点各一个电子。直接一阶跃迁离开低能子空间，因为会形成一个空位和一个双占据，能量升高 $U$。二阶虚过程“跳过去再跳回来”给能量修正尺度 $t^2/U$。
+
+自旋平行时 Pauli 原理阻止进入同一单轨道；反平行的自旋单态可通过双占据虚态降低能量。严格投影得到
+\[
+H_{\rm eff}=J\sum_{\langle ij\rangle}
+\left(\vb S_i\cdot\vb S_j-\frac14n_in_j\right),
+\qquad\boxed{J=\frac{4t^2}{U}>0}.
+\]
+在每点一个电子的子空间，密度项是常数，剩下反铁磁 Heisenberg 模型。这说明交换相互作用可以由电子的动能和 Pauli 原理共同产生。
+
+\begin{examplebox}
+\textbf{Hubbard 二聚体。}两电子半填充时，三重态不能通过跃迁混入双占据，能量近似不降；单态与双占据态耦合，二阶能量降低约 $-4t^2/U$。因此单态更低，单重--三重劈裂就是 $J$。
+\end{examplebox}
+
+\section{磁有序、挫折与自旋波}
+Heisenberg 模型
+$H=J\sum_{\langle ij\rangle}\vb S_i\cdot\vb S_j$（本节采用 $J>0$ 反铁磁约定）。若晶格几何使所有键不能同时取最低能，就产生几何挫折，如三角格反铁磁。若不同相互作用竞争，也可有交换挫折。
+
+铁磁基态附近用 Holstein--Primakoff 变换
+\[
+S_i^z=S-a_i^\dagger a_i,\quad
+S_i^+\simeq\sqrt{2S}\,a_i,\quad
+S_i^-\simeq\sqrt{2S}\,a_i^\dagger.
+\]
+保留二次项后得到自由玻色子磁振子。各向同性交换铁磁体长波
+$\omega\propto q^2$；反铁磁体有两个子格，经 Bogoliubov 变换得到长波线性色散。磁振子是自旋有序背景的集体激发。
+
+量子自旋液体不是“自旋方向随机”的高温顺磁体，而是零温无常规磁长程序、仍有强量子纠缠和分数量子激发的基态。仅凭“没有磁峰”不能确证，还需排除无序、弱矩或动力学缓慢等普通解释。
+
+\section{Peierls 不稳定性与密度波}
+一维半填充金属有 $2k_F$ 嵌套：把右费米点平移 $2k_F$ 与左费米点重合。周期为 $\pi/k_F$ 的晶格畸变耦合 $\pm k_F$ 态并在费米能开隙，电子能降低。弹性能升高与电子能降低竞争；一维费米面响应在 $2k_F$ 特别强，使任意弱耦合也可能不稳定。
+
+电荷密度波写成
+\[
+\rho(\vb r)=\rho_0+\mathrm{Re}[
+\rho_{\vb Q}e^{i\vb Q\cdot\vb r}],
+\]
+自旋密度波把标量 $\rho_{\vb Q}$ 换成自旋矢量。其成因可能是费米面嵌套、电子--声子耦合或电子关联。实验上应综合超晶格峰、能隙、声子软化和局域谱，而非把所有周期调制都归于同一机制。
+
+\section{Berry 相位、连接与曲率}
+若 Hamiltonian 缓慢依赖参数 $\vb R$，绝热演化的本征态除动力学相位外还积累
+\[
+\gamma_n=\oint_{\mathcal C}
+\vb{\mathcal A}_n(\vb R)\cdot\dd\vb R,\qquad
+\vb{\mathcal A}_n=i\langle n|\nabla_{\vb R}n\rangle.
+\]
+改变局域相位
+$|n\rangle\to e^{i\chi(\vb R)}|n\rangle$ 时
+$\vb{\mathcal A}\to\vb{\mathcal A}-\nabla\chi$，连接依赖规范；曲率
+\[
+\vb\Omega_n=\nabla_{\vb R}\times\vb{\mathcal A}_n
+\]
+规范不变。闭合回路相位只模 $2\pi$ 有意义。
+
+在二维布里渊区
+\[
+\boxed{C_n=\frac1{2\pi}\int_{\rm BZ}\Omega_{n,z}(\vb k)\dd^2k}
+\]
+为第一 Chern 数。由于布里渊区是闭合流形，光滑规范拼接条件使积分量子化为整数。满带 Hall 电导
+\[
+\sigma_{xy}=C\frac{e^2}{h}.
+\]
+
+\begin{whybox}
+拓扑不变量为何必须在能隙关闭时才能改变？只要占据带与空带之间始终有隙，本征投影可随参数光滑变化，整数 $C$ 不可能连续改变。改变拓扑类必须让波函数失去全局光滑定义，通常对应体能隙关闭或相关对称性被破坏。
+\end{whybox}
+
+\section{二能带模型与 Dirac 点}
+一般二能带 Hamiltonian
+\[
+H(\vb k)=d_0(\vb k)I+\vb d(\vb k)\cdot\vb\sigma,
+\qquad E_\pm=d_0\pm|\vb d|.
+\]
+能隙关闭要求 $\vb d=0$。归一化
+$\hat{\vb d}(\vb k)$ 把布里渊区映射到 Bloch 球，Berry 曲率衡量该映射的局域扭转，Chern 数计数覆盖次数。
+
+二维 Dirac Hamiltonian
+\[
+H=v(k_x\sigma_x+k_y\sigma_y)+m\sigma_z
+\]
+有谱
+$E_\pm=\pm\sqrt{v^2k^2+m^2}$。$m$ 是质量项并打开 $2|m|$ 的隙；不同对称性限制哪些质量项允许。质量变号的界面可产生局域边界态，这是体边对应的最简连续图像。
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[scale=1.05]
+\draw[->] (-3,0)--(3.2,0) node[right] {$k$};
+\draw[->] (0,-3)--(0,3.2) node[above] {$E$};
+\draw[blue,thick,domain=-2.7:2.7,samples=100] plot (\x,{sqrt(\x*\x+0.55)});
+\draw[red,thick,domain=-2.7:2.7,samples=100] plot (\x,{-sqrt(\x*\x+0.55)});
+\draw[<->] (0,{-sqrt(0.55)})--(0,{sqrt(0.55)}) node[midway,right] {$2|m|$};
+\node at (1.75,2.45) {导带};
+\node at (1.75,-2.35) {价带};
+\end{tikzpicture}
+\caption{有质量 Dirac 模型的能隙。拓扑转变中质量变号通常伴随 $m=0$ 处体能隙关闭。}
+\end{figure}
+
+\section{SSH 模型与一维体边对应}
+SSH Bloch Hamiltonian
+\[
+H(k)=[t_1+t_2\cos ka]\sigma_x+
+[t_2\sin ka]\sigma_y.
+\]
+$\vb d(k)$ 位于赤道。若 $|t_2|>|t_1|$，随 $k$ 绕原点一周，绕数为 1；若
+$|t_1|>|t_2|$，绕数为 0。开边界且截断方式固定时，非平庸相出现端态。
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[scale=1.0,>=Latex]
+\foreach \x in {0,2,4,6}{
+  \fill[blue] (\x,0) circle (2.5pt);
+  \fill[red] (\x+0.8,0) circle (2.5pt);
+  \draw[very thick] (\x+0.08,0)--(\x+0.72,0);
+}
+\foreach \x in {0,2,4}{
+  \draw[thick,dashed] (\x+0.88,0)--(\x+1.92,0);
+}
+\node[below] at (0.4,-0.1) {$t_1$};
+\node[below] at (1.4,-0.1) {$t_2$};
+\node[right] at (6.9,0) {开边界};
+\end{tikzpicture}
+\caption{SSH 二聚化链。胞内和胞间跃迁的相对大小决定绕数与端态。}
+\end{figure}
+
+端态能量钉在零附近依赖手征/亚晶格对称性；破坏该对称性可移动端态能量，但只要保护条件和体隙保持，拓扑差异仍以适当形式存在。回答“有边界态所以拓扑”不充分，还要说明保护对称性与体不变量。
+
+\section{石墨烯、拓扑绝缘体与量子 Hall}
+石墨烯蜂窝格由两个子格组成，最近邻紧束缚在 $K,K'$ 点产生 Dirac 锥。低能
+\[
+H_\tau=\hbar v_F(\tau q_x\sigma_x+q_y\sigma_y),
+\]
+$\tau=\pm1$ 标记谷。子格势差产生 $\sigma_z$ 质量并开平庸隙；特定时间反演破缺的复次近邻跃迁可产生 Chern 绝缘体。
+
+二维量子自旋 Hall 可看作时间反演伙伴的两份相反 Chern 系统，总电荷 Chern 数为零但边缘态成 Kramers 对。三维拓扑绝缘体体内有隙、表面有奇数个 Dirac 锥；非磁无序不能单粒子弹性后向散射一个孤立 Kramers 对。强磁性可破坏时间反演并打开表面隙。
+
+\section{BCS 平均场与 Bogoliubov 准粒子}
+简化配对 Hamiltonian
+\[
+H=\sum_{\vb k\sigma}\xi_{\vb k}c_{\vb k\sigma}^\dagger c_{\vb k\sigma}
+-\sum_{\vb k\vb k'}V_{\vb k\vb k'}
+c_{\vb k\uparrow}^\dagger c_{-\vb k\downarrow}^\dagger
+c_{-\vb k'\downarrow}c_{\vb k'\uparrow}.
+\]
+定义序参量
+\[
+\Delta_{\vb k}=-\sum_{\vb k'}V_{\vb k\vb k'}
+\langle c_{-\vb k'\downarrow}c_{\vb k'\uparrow}\rangle.
+\]
+平均场分解后，每个 $(\vb k,-\vb k)$ 子空间写成 Nambu 矩阵
+\[
+H_{\vb k}=
+\begin{pmatrix}c_{\vb k\uparrow}^\dagger&
+c_{-\vb k\downarrow}\end{pmatrix}
+\begin{pmatrix}\xi_{\vb k}&\Delta_{\vb k}\\
+\Delta_{\vb k}^*&-\xi_{\vb k}\end{pmatrix}
+\binom{c_{\vb k\uparrow}}{c_{-\vb k\downarrow}^\dagger}.
+\]
+幺正 Bogoliubov 变换给
+\[
+\boxed{E_{\vb k}=\sqrt{\xi_{\vb k}^2+|\Delta_{\vb k}|^2}}.
+\]
+对常数吸引 $V$ 和 Debye 壳层，零温能隙方程
+\[
+1=VN(0)\int_0^{\hbar\omega_D}
+\frac{\dd\xi}{\sqrt{\xi^2+\Delta^2}}
+\]
+在弱耦合给
+\[
+\Delta(0)\simeq2\hbar\omega_D
+e^{-1/VN(0)},\qquad
+2\Delta(0)/\kb T_c\simeq3.53.
+\]
+指数非解析性体现费米面对任意弱吸引的不稳定。
+
+\begin{examplebox}
+\textbf{相干因子。}Bogoliubov 准粒子
+$\gamma_{\vb k\uparrow}=u_{\vb k}c_{\vb k\uparrow}
+-v_{\vb k}c_{-\vb k\downarrow}^\dagger$，
+\[
+|u_k|^2=\frac12\left(1+\frac{\xi_k}{E_k}\right),\quad
+|v_k|^2=\frac12\left(1-\frac{\xi_k}{E_k}\right).
+\]
+远高于费米面 $u^2\to1$，准粒子像电子；远低于费米面 $v^2\to1$，更像空穴；费米面处两者等混合。
+\end{examplebox}
+
+\section{非常规与拓扑超导的面试边界}
+常规 $s$ 波通常各向同性、全能隙、时间反演配对；非常规超导的序参量在动量空间可能变号或有节点，如
+$d_{x^2-y^2}\propto\cos k_x-\cos k_y$。节点导致低能态密度幂律，使低温比热、穿透深度和 NMR 松弛率与全能隙的指数行为不同。
+
+拓扑超导还要求 BdG 准粒子能带具有非平庸拓扑，并在边界或缺陷承载受保护的 Majorana 模。零偏压峰只是候选证据，也可能由普通 Andreev 束缚态、无序或 Kondo 效应产生，不能单凭一张谱图下结论。
+
+\section{DFT、Kohn--Sham 与 Wannier 工作流}
+Hohenberg--Kohn 思想表明基态密度决定外势和基态性质。Kohn--Sham 辅助非相互作用系统满足
+\[
+\left[-\frac{\hbar^2\nabla^2}{2m}+V_{\rm ext}
++V_H[n]+V_{\rm xc}[n]\right]\phi_i
+=\epsilon_i\phi_i,
+\qquad n(\vb r)=\sum_{i\in{\rm occ}}|\phi_i|^2.
+\]
+实际自洽循环为：猜密度 $\to$ 构造有效势 $\to$ 解本征方程 $\to$ 更新密度
+$\to$ 混合并判断收敛。交换关联泛函是主要近似来源。
+
+Kohn--Sham 本征值原则上是辅助量，不等同于严格准粒子激发谱；普通局域/半局域泛函常低估带隙，强关联体系可能错误给出金属。DFT+$U$、杂化泛函、GW 或 DMFT 分别修正不同问题。
+
+Wannier 函数由一组 Bloch 带作规范选择与 Fourier 变换：
+\[
+|W_{n\vb R}\rangle=\frac1N\sum_{\vb k}
+e^{-i\vb k\cdot\vb R}\sum_mU_{mn}(\vb k)|\psi_{m\vb k}\rangle.
+\]
+它把第一性原理能带映射成局域紧束缚模型，便于插值、计算 Berry 曲率、表面态和输运。结果依赖选带窗口、投影轨道和规范，必须检查能带复现质量。
+
+\section{三个综合例题}
+\begin{examplebox}
+\textbf{例 1：为什么 Mott 绝缘不能只看能带填充？}半填充单带按非相互作用理论必为金属；若 $U$ 大于带宽，加入一个电子必须产生双占据，移走一个电子产生空穴，粒子--空穴电荷激发之间出现关联能隙。自旋仍可低能波动，因此电荷绝缘不等于没有低能自由度。
+\end{examplebox}
+
+\begin{examplebox}
+\textbf{例 2：Dirac 质量变号的界面态。}取
+$H=-iv\sigma_x\partial_x+vk_y\sigma_y+m(x)\sigma_z$，
+$m(-\infty)m(+\infty)<0$。先令 $k_y=0,E=0$，方程有
+$\psi\propto\exp[-\int^xm(x')\dd x'/v]$ 的可归一化解；恢复
+$k_y$ 后得到沿界面传播的线性色散。边界态来自两侧质量拓扑不同。
+\end{examplebox}
+
+\begin{examplebox}
+\textbf{例 3：如何判别全能隙与节点？}不要只看一个量。全能隙低温电子比热和穿透深度呈指数抑制；线节点常给幂律态密度并导致 $C\sim T^2$（洁净三维线节点的典型结果）等。杂质会改变幂律，因此需结合热导、NMR、相位敏感实验和材料洁净度。
+\end{examplebox}
+
+\section{面试总结与自测}
+\begin{interviewbox}
+\textbf{强关联是什么？}不是简单指相互作用“不小”，而是相互作用使独立电子能带或微扰准粒子图像失效。Hubbard 模型中用 $U/W$ 衡量局域排斥与带宽竞争，Mott 绝缘是典型后果。
+
+\textbf{拓扑材料为什么特殊？}占据态波函数在整个布里渊区具有不能由局域微扰连续消除的整体结构，用 Berry 曲率和拓扑不变量描述；不同拓扑相之间通常必须闭合体能隙或破坏保护对称性，并在边界产生受保护态。
+
+\textbf{BCS 的最小回答：}费米面附近任意弱吸引导致 Cooper 不稳定；宏观相干配对产生复序参量；Bogoliubov 准粒子为电子空穴混合并具有能隙；Meissner 和相位刚度说明它是带电凝聚态。
+\end{interviewbox}
+\begin{selftestbox}
+\begin{enumerate}
+\item Hartree 与 Fock 项的来源和物理差别是什么？
+\item Thomas--Fermi 屏蔽为何在金属中有效？
+\item 解释 Lindhard 函数分子与分母。
+\item 从 Hubbard 强耦合推导 $J=4t^2/U$ 的符号。
+\item Mott 绝缘体和普通能带绝缘体怎样区分？
+\item 挫折为什么可能增强量子涨落？
+\item Peierls 不稳定为何在一维特别强？
+\item Berry 连接与电磁矢势的规范结构有何相似？
+\item Chern 数为什么是整数，何时能改变？
+\item SSH 端态依赖哪些对称性和边界约定？
+\item 时间反演如何约束 Berry 曲率与 Hall 电导？
+\item BCS 平均场为什么使用 Nambu 空间？
+\item 节点超导会怎样改变低温热力学？
+\item DFT 能带与真实光电子谱为何不必相同？
+\item Wannier 化在拓扑和输运计算中有何作用？
+\end{enumerate}
+\end{selftestbox}

@@ -1,5 +1,11 @@
-# Some-Shared-Undergraduate-Resources-for-BNU-Physics-Majors
-These are some resources may be useful for undergraduate students with physics major at Beijing Normal University. It includes some homework, experiment reports, class slides and so on from the sharer who will graduate at 2027.
+# Some Shared Undergraduate Resources for BNU Physics Majors
+
+这里整理北京师范大学物理学专业本科阶段可分享的学习资料，包括自写课程作业、实验报告、讲义和代码。仅收录作者明确选择公开分享的内容；不包含第三方教材/论文、个人申请材料、同学资料、隐私信息或 LaTeX 构建缓存。
+
+## 目录
+
+- [近代物理实验](#近代物理实验)
+- [研究生面试与复习](#研究生面试与复习)
 
 ## 近代物理实验
 
@@ -15,3 +21,12 @@ These are some resources may be useful for undergraduate students with physics m
 - [总结](近代物理实验/总结/) · [PDF](近代物理实验/总结/总结.pdf)（非线性电路实验总结）
 
 作业、课件等其他课程资料将按课程另建目录，此处不预留空文件夹。
+
+## 研究生面试与复习
+
+### 物理夏令营面试复习讲义
+
+- [源码目录](研究生面试与复习/物理夏令营面试复习讲义/)
+- [PDF 讲义](研究生面试与复习/物理夏令营面试复习讲义/summer_camp_physics_review_notes.pdf)
+
+面向量子材料/凝聚态物理夏令营与研究生面试的中文复习讲义，涵盖数学工具、理论力学、量子力学、热统、电动力学、固体物理、量子材料、计算与实验方法。项目保留可编译的 TeX 源文件、参考文献和最终 PDF；编译说明见该目录的 `README.md`。

@@ -1,0 +1,278 @@
+\chapter{角动量耦合、外场效应与绝热演化}
+
+\begin{mapbox}
+本章补齐原子物理和量子材料面试中常被追问的三条链：角动量相加决定简并与选择定则；外场通过简并微扰解除简并；缓慢或周期变化的 Hamiltonian 决定绝热、共振和几何相位。默认使用 SI 制。
+\end{mapbox}
+
+\section{旋转、$SU(2)$ 与角动量相加}
+绕单位矢量 $\vb n$ 转过无穷小角 $\dd\theta$ 的幺正算符写作
+\[
+U(\vb n,\dd\theta)=1-\frac{i}{\hbar}\dd\theta\,\vb n\cdot\vb J.
+\]
+连续旋转要求生成元满足
+\[
+[J_i,J_j]=i\hbar\epsilon_{ijk}J_k.
+\]
+定义 $J_\pm=J_x\pm iJ_y$，由对易关系逐项得到
+\[
+[J_z,J_\pm]=\pm\hbar J_\pm,\qquad
+[J_+,J_-]=2\hbar J_z.
+\]
+对共同本征态 $\ket{jm}$，
+\[
+J_\pm\ket{jm}
+=\hbar\sqrt{j(j+1)-m(m\pm1)}\ket{j,m\pm1}.
+\]
+升降必须终止，故 $m=-j,\ldots,j$，且 $2j$ 为非负整数。整数 $j$ 给 $SO(3)$ 的普通表示；半整数 $j$ 是其双覆盖 $SU(2)$ 的表示，转过 $2\pi$ 可多出负号。
+
+两个独立角动量的总生成元为 $\vb J=\vb J_1+\vb J_2$。直积空间既可用
+$\ket{j_1m_1}\ket{j_2m_2}$，也可用 $\ket{JM}$：
+\[
+\ket{JM}=\sum_{m_1m_2}
+C^{JM}_{j_1m_1j_2m_2}\ket{j_1m_1}\ket{j_2m_2},
+\qquad M=m_1+m_2.
+\]
+三角规则
+\[
+J=|j_1-j_2|,|j_1-j_2|+1,\ldots,j_1+j_2
+\]
+可由最高权态逐级剥离得到。
+
+\subsection{$\tfrac12\otimes\tfrac12$ 的完整构造}
+唯一的 $M=1$ 态为 $\ket{\uparrow\uparrow}$，所以
+\[
+\ket{1,1}=\ket{\uparrow\uparrow}.
+\]
+作用总降算符 $J_-=J_{1-}+J_{2-}$：
+\[
+J_-\ket{1,1}
+=\hbar(\ket{\downarrow\uparrow}+\ket{\uparrow\downarrow})
+=\hbar\sqrt2\ket{1,0}.
+\]
+因此
+\[
+\ket{1,0}=\frac1{\sqrt2}
+(\ket{\uparrow\downarrow}+\ket{\downarrow\uparrow}),\qquad
+\ket{1,-1}=\ket{\downarrow\downarrow}.
+\]
+$M=0$ 子空间剩余的归一化正交组合为
+\[
+\ket{0,0}=\frac1{\sqrt2}
+(\ket{\uparrow\downarrow}-\ket{\downarrow\uparrow}).
+\]
+前三态交换对称，单态交换反对称。这一结论直接控制两个相同费米子的空间波函数对称性。
+
+\subsection{$1\otimes\tfrac12$ 与一般 $l\otimes\tfrac12$}
+最高权态 $\ket{\tfrac32,\tfrac32}=\ket{1,1}\ket{\uparrow}$。降一次并归一化：
+\[
+\ket{\tfrac32,\tfrac12}
+=\sqrt{\frac23}\ket{1,0}\ket{\uparrow}
++\sqrt{\frac13}\ket{1,1}\ket{\downarrow}.
+\]
+与它正交的组合为
+\[
+\ket{\tfrac12,\tfrac12}
+=\sqrt{\frac13}\ket{1,0}\ket{\uparrow}
+-\sqrt{\frac23}\ket{1,1}\ket{\downarrow}.
+\]
+一般 $s=1/2$ 时
+\[
+\ket{j=l+\tfrac12,m}
+=\sqrt{\frac{l+m+1/2}{2l+1}}\ket{m-\tfrac12,\uparrow}
++\sqrt{\frac{l-m+1/2}{2l+1}}\ket{m+\tfrac12,\downarrow},
+\]
+\[
+\ket{j=l-\tfrac12,m}
+=-\sqrt{\frac{l-m+1/2}{2l+1}}\ket{m-\tfrac12,\uparrow}
++\sqrt{\frac{l+m+1/2}{2l+1}}\ket{m+\tfrac12,\downarrow}.
+\]
+相位约定可以整体改变，但所有可观测量不变。基变换的幺正性给出 CG 系数的两组正交关系。
+
+\section{Wigner--Eckart 定理与选择定则}
+球张量 $T_q^{(k)}$ 满足
+\[
+[J_z,T_q^{(k)}]=\hbar qT_q^{(k)},\qquad
+[J_\pm,T_q^{(k)}]
+=\hbar\sqrt{k(k+1)-q(q\pm1)}T_{q\pm1}^{(k)}.
+\]
+它的矩阵元分解为
+\[
+\bra{\alpha'j'm'}T_q^{(k)}\ket{\alpha jm}
+=\frac{\bra{\alpha'j'}T^{(k)}\ket{\alpha j}}
+{\sqrt{2j'+1}}
+C^{j'm'}_{jm\,kq}.
+\]
+约化矩阵元含径向和内部结构，CG 系数承担全部方向依赖。因此非零条件为
+\[
+m'=m+q,\qquad |j-k|\le j'\le j+k.
+\]
+电偶极算符 $\vb r$ 是 $k=1$ 的奇宇称张量，故
+\[
+\Delta l=\pm1,\qquad \Delta m=0,\pm1,
+\]
+且初末态宇称相反。选择定则只是“矩阵元必为零”的必要约束，并不保证允许跃迁强度一定大。
+
+\section{从最小耦合到 Zeeman Hamiltonian}
+电子电荷为 $-e$。均匀磁场取对称规范
+$\vb A=\tfrac12\vb B\times\vb r$：
+\[
+H=\frac{1}{2m}(\vb p+e\vb A)^2+V(r)+g_s\mu_B\frac{\vb S}{\hbar}\cdot\vb B.
+\]
+因 $\nabla\cdot\vb A=0$，
+\[
+\vb p\cdot\vb A+\vb A\cdot\vb p=2\vb A\cdot\vb p
+=(\vb B\times\vb r)\cdot\vb p=\vb B\cdot\vb L.
+\]
+故
+\[
+H=H_0+\frac{\mu_B}{\hbar}(\vb L+g_s\vb S)\cdot\vb B
++\frac{e^2}{8m}(\vb B\times\vb r)^2.
+\]
+弱场时最后的抗磁项是 $B^2$ 阶。若自旋可忽略，$\Delta E=\mu_BBm_l$，得到正常 Zeeman 效应。
+
+\subsection{Landé 因子与弱场反常 Zeeman 效应}
+自旋轨道耦合先把 $\vb L,\vb S$ 锁成 $\vb J$。定态中垂直于 $\vb J$ 的磁矩分量平均为零。利用
+\[
+\vb L\cdot\vb J=\frac12(J^2+L^2-S^2),\quad
+\vb S\cdot\vb J=\frac12(J^2-L^2+S^2),
+\]
+把 $\vb L+g_s\vb S$ 投影到 $\vb J$，得到
+\[
+g_J=1+\frac{j(j+1)+s(s+1)-l(l+1)}{2j(j+1)}
+\quad(g_s\simeq2),
+\]
+\[
+\boxed{\Delta E=\mu_BBg_Jm_j}.
+\]
+当 $\mu_BB$ 大于自旋轨道能标，$\vb L,\vb S$ 分别绕磁场进动，$m_l,m_s$ 成为好量子数：
+\[
+\Delta E\simeq\mu_BB(m_l+2m_s).
+\]
+这就是 Paschen--Back 极限；在中间场区必须在固定 $m_j$ 子空间对角化完整 Hamiltonian。
+
+\section{Stark 效应：宇称与简并的作用}
+沿 $z$ 的静电场给电子的微扰
+\[
+H'=e\mathcal E z.
+\]
+若未扰态有确定宇称，则
+\[
+E_n^{(1)}=e\mathcal E\bra n z\ket n=0,
+\]
+因为被积函数为奇函数。非简并基态的最低修正因此为
+\[
+E_0^{(2)}
+=e^2\mathcal E^2\sum_{m\ne0}
+\frac{|\bra m z\ket0|^2}{E_0-E_m}
+\equiv-\frac12\alpha\mathcal E^2.
+\]
+基态分母均为负，所以 $\alpha>0$，电场降低能量。
+
+\subsection{氢原子 $n=2$ 线性 Stark 效应}
+$n=2$ 的 $\ket{200}$ 与 $\ket{210}$ 等能，且 $z=r\cos\theta$ 只连接
+$\Delta l=\pm1,\Delta m=0$。在这两个态构成的子空间中
+\[
+W=e\mathcal E
+\begin{pmatrix}0&\bra{200}z\ket{210}\\
+\bra{210}z\ket{200}&0\end{pmatrix}.
+\]
+分离径向和角向积分可得
+\[
+\bra{200}z\ket{210}=-3a_0
+\]
+（符号随相位约定改变）。所以本征态
+\[
+\ket\pm=\frac1{\sqrt2}(\ket{200}\pm\ket{210})
+\]
+的一阶能移为
+\[
+\boxed{\Delta E_\pm^{(1)}=\mp3ea_0\mathcal E}.
+\]
+$m=\pm1$ 的 $2p$ 态一阶不移动。线性 Stark 效应并未违反宇称论证：真正的零场本征态在简并子空间内并非必须选成宇称本征态。
+
+\section{相互作用绘景、Dyson 展开与 Rabi 振荡}
+令 $H=H_0+V(t)$，定义
+\[
+\ket{\psi_I(t)}=e^{iH_0t/\hbar}\ket{\psi_S(t)},\qquad
+V_I=e^{iH_0t/\hbar}Ve^{-iH_0t/\hbar}.
+\]
+则
+\[
+i\hbar\pdv{}{t}\ket{\psi_I}=V_I(t)\ket{\psi_I}.
+\]
+积分后迭代：
+\[
+U_I(t)=1-\frac{i}{\hbar}\int_0^tV_I(t_1)\dd t_1
++\left(-\frac{i}{\hbar}\right)^2
+\int_0^t\dd t_1\int_0^{t_1}\dd t_2\,V_I(t_1)V_I(t_2)+\cdots.
+\]
+时间有序的积分上限来自“较晚算符写在左边”，不能把二重积分随意换成方形区域而不加时间排序。
+
+对能级差 $\hbar\omega_0$ 的二能级系统，近共振驱动在旋波近似下化为
+\[
+H_{\rm rot}=\frac{\hbar}{2}
+\begin{pmatrix}-\Delta&\Omega\\ \Omega&\Delta\end{pmatrix},
+\qquad \Delta=\omega-\omega_0.
+\]
+其本征频率为 $\Omega_R=\sqrt{\Omega^2+\Delta^2}$。初态为基态时
+\[
+P_e(t)=\frac{\Omega^2}{\Omega_R^2}
+\sin^2\frac{\Omega_Rt}{2}.
+\]
+共振时振幅可达一；失谐既降低振幅又提高振荡频率。旋波近似要求驱动弱且
+$|\Delta|,\Omega\ll\omega_0$。
+
+\section{绝热定理与 Berry 相位}
+设
+\[
+H(t)\ket{n(t)}=E_n(t)\ket{n(t)}
+\]
+且能级无简并。展开
+\[
+\ket{\psi(t)}
+=\sum_n c_n(t)e^{-\frac{i}{\hbar}\int_0^tE_n(t')\dd t'}\ket{n(t)}.
+\]
+代入 Schrödinger 方程，动力学相位项抵消：
+\[
+\dot c_m=-\sum_n c_n\bra m\dot n\ket{}
+e^{\frac{i}{\hbar}\int_0^t(E_m-E_n)\dd t'}.
+\]
+对本征方程求导并左乘 $\bra m$（$m\ne n$）：
+\[
+\bra m\dot H\ket n+(E_m-E_n)\bra m\dot n\ket{}=0,
+\]
+\[
+\bra m\dot n\ket{}=\frac{\bra m\dot H\ket n}{E_n-E_m}.
+\]
+快速振荡可压低跃迁的充分判据是
+\[
+\boxed{
+\left|\frac{\hbar\bra m\dot H\ket n}{(E_m-E_n)^2}\right|\ll1}.
+\]
+能隙闭合时该判据必然危险。保留 $m=n$ 项得到额外相位
+\[
+\gamma_n(t)=i\int_0^t\bra{n(t')}\dot n(t')\ket{}\dd t'.
+\]
+闭合参数回路 $C$ 上
+\[
+\gamma_n(C)=i\oint_C\bra n\nabla_{\vb R}n\ket{}\cdot\dd\vb R,
+\]
+这就是 Berry 相位；局域规范改变连接，但闭合回路相位模 $2\pi$ 不变。
+
+\begin{interviewbox}
+\textbf{30 秒回答绝热定理：}若 Hamiltonian 的变化时间尺度远长于能隙对应的量子时间，且演化中能隙不闭合，初态若是瞬时本征态，就保持在对应瞬时本征支上，只积累动力学相位和 Berry 几何相位。定量上非绝热耦合由
+$\hbar\bra m\dot H\ket n/(E_m-E_n)^2$ 控制。
+\end{interviewbox}
+
+\begin{selftestbox}
+\begin{enumerate}
+\item 用总降算符构造 $\ket{\frac32,-\frac12}$。
+\item 推导 $l\otimes\frac12$ 两组 CG 系数的归一化。
+\item 为什么电偶极跃迁要求宇称改变？
+\item 对 $l=1,s=1/2$ 分别计算 $j=3/2,1/2$ 的 $g_J$。
+\item 为什么氢基态没有线性 Stark 效应，而 $n=2$ 有？
+\item 从旋转框架 Hamiltonian 推导失谐 Rabi 公式。
+\item 绝热演化经过真正能级交叉时会遇到什么问题？
+\item Berry 连接为何规范依赖而 Berry 相位可观测？
+\end{enumerate}
+\end{selftestbox}
