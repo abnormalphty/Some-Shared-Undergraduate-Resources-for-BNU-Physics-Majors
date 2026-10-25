@@ -1,0 +1,31 @@
+\documentclass{ctexbook}
+\usepackage{amsmath}
+\title{弹性力学}
+\begin{document}
+	\chapter{平面问题基本理论}
+	\section{弹性力学基本概念}
+	\paragraph{外力}
+	分布在物理体积内的力，如惯性力、重力等，这样的力称为体力$\vec{F}$。
+	为了便于研究，我们取出一个体微元$\bigtriangleup V$，并在此上定义体力集度
+	
+	$\vec{F}=\lim\limits_{\bigtriangleup V\to 0}=\frac{\bigtriangleup \vec{F}}{\bigtriangleup V}$
+	
+	这个矢量体现了体力在$\bigtriangleup V$上的平均集度，分量可记作$F_{\alpha} (\alpha=x,y,z)$。
+	
+	同理，我们可以定义面力$\vec{P}$，如接触力（支持力，摩擦力），流体压力。如此，我们可以得到面力密度$\vec{p}$
+	
+	$\vec{p}=\lim\limits_{\bigtriangleup S\to 0}\frac{\bigtriangleup \vec{P}}{\bigtriangleup S}$
+	
+	面力集度的分量表示为$p_{\alpha} (\alpha=x,y,z)$。
+	\paragraph{内力}
+	在物体内部各部分的力称为内力。在物体内部由于牛三定律自相平衡，在物体边界与面力相互平衡。
+	
+	同外力，我们定义内力在小面元的平均集度
+	
+	$\vec{p}=\lim\limits_{\bigtriangleup S\to 0}\frac{\bigtriangleup \vec{P}}{\bigtriangleup S}$
+	
+	我们把这个$\vec{p}$称为该点的应力矢量。它在截面法线上的投影称为正应力，记为$\sigma_{N}$，在截面内的投影称为剪应力，记为$\tau_{N}$。
+	
+	由于剪应力在一个平面内，本来就可以被分解成两个方向，再加上截面外法向方向，则常常需要两个下标来描述。如$\tau_{xy}$，这里的$x$表示外法线方向是$x$轴方向，$y$表示该剪应力沿着$y$轴方向。
+	
+\end{document}
