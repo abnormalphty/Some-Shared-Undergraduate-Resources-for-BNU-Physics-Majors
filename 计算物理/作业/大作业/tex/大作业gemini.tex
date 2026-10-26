@@ -1,0 +1,213 @@
+\documentclass[a4paper,12pt]{article}
+
+% 引入必要的宏包
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{physics} % 提供物理常用的符号支持
+\usepackage{subcaption} % 用于子图排版
+\usepackage{xeCJK} % 中文支持，如果在Overleaf上请选择 XeLaTeX 编译器
+
+% 页面设置
+\geometry{left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
+
+% 标题信息
+\title{\textbf{广义相对论时空结构的数值模拟与可视化研究：}\\从史瓦西解到赖斯纳-诺德斯特洛姆黑洞}
+\author{你的姓名 \\ 学号：XXXXXXXX}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+本研究基于广义相对论框架，利用数值模拟技术深入探讨了静态球对称黑洞的时空特性。通过对比史瓦西（Schwarzschild）度规与赖斯纳-诺德斯特洛姆（Reissner-Nordström, RN）度规，我们分析了带电荷对时空几何的影响。本论文结合五个独立的数值计算模块，分别实现了彭罗斯图（Penrose Diagram）的绘制、穿越虫洞的测地线模拟、行星轨道进动的计算以及基于逆向光线追踪（Backward Ray Tracing）的黑洞吸积盘视觉渲染。研究结果直观地展示了RN黑洞的多重视界结构、类时奇点的可穿越性以及强引力场下的光线偏折效应，特别是针对 $Q/M$ 比值变化导致的视界消失与裸奇点现象进行了详细的视觉化分析。
+\end{abstract}
+
+\newpage
+
+\section{度规的引入与广义相对论简介}
+
+广义相对论（General Relativity, GR）将引力解释为时空的几何属性。其核心方程——爱因斯坦场方程（Einstein Field Equations）建立了时空曲率与物质能量动量张量之间的联系：
+\begin{equation}
+    G_{\mu\nu} \equiv R_{\mu\nu} - \frac{1}{2}R g_{\mu\nu} = \frac{8\pi G}{c^4} T_{\mu\nu}
+\end{equation}
+其中，$g_{\mu\nu}$ 是度规张量，它决定了黎曼流形上的距离定义。在四维时空中，任意两个邻近事件的线元 $ds^2$ 定义为：
+\begin{equation}
+    ds^2 = g_{\mu\nu} dx^\mu dx^\nu
+\end{equation}
+粒子在引力场中的运动遵循测地线方程（Geodesic Equation），即在弯曲时空中走“直线”：
+\begin{equation}
+    \frac{d^2 x^\mu}{d\tau^2} + \Gamma^\mu_{\alpha\beta} \frac{dx^\alpha}{d\tau} \frac{dx^\beta}{d\tau} = 0
+\end{equation}
+其中 $\Gamma^\mu_{\alpha\beta}$ 是克里斯托费尔符号（Christoffel Symbols），由度规张量及其导数决定。本论文的数值模拟部分（如 \texttt{traveler} 和 \texttt{RN\_orbit}）本质上即是对该二阶微分方程组的数值积分。
+
+\section{静态黑洞下的度规形式}
+
+对于静态、球对称的真空或电真空解，根据伯克霍夫定理（Birkhoff's Theorem），最通用的度规形式可以写为：
+
+\subsection{史瓦西度规 (Schwarzschild Metric)}
+描述质量为 $M$ 的不带电静态黑洞。在球坐标 $(t, r, \theta, \phi)$ 下，线元为：
+\begin{equation}
+    ds^2 = -\left(1-\frac{2M}{r}\right)dt^2 + \left(1-\frac{2M}{r}\right)^{-1}dr^2 + r^2 d\Omega^2
+\end{equation}
+该度规在 $r=2M$ 处存在坐标奇点（视界），在 $r=0$ 处存在物理奇点（曲率标量发散）。
+
+\subsection{赖斯纳-诺德斯特洛姆度规 (RN Metric)}
+当黑洞带有电荷 $Q$ 时，能量动量张量 $T_{\mu\nu}$ 不再为零（包含电磁场贡献）。RN 度规形式为：
+\begin{equation}
+    ds^2 = -f(r)dt^2 + \frac{1}{f(r)}dr^2 + r^2 d\Omega^2
+\end{equation}
+其中几何因子 $f(r)$ 定义为：
+\begin{equation}
+    f(r) = 1 - \frac{2M}{r} + \frac{Q^2}{r^2}
+\end{equation}
+令 $f(r)=0$，可解得两个视界半径：
+\begin{equation}
+    r_{\pm} = M \pm \sqrt{M^2 - Q^2}
+\end{equation}
+\begin{itemize}
+    \item $r_+$：外视界（Event Horizon），类似于史瓦西视界。
+    \item $r_-$：内视界（Cauchy Horizon），是时空性质发生剧烈转变的边界。
+\end{itemize}
+当 $Q=0$ 时，RN 度规退化为史瓦西度规；当 $|Q|=M$ 时，称为极端黑洞；当 $|Q|>M$ 时，视界消失，形成裸奇点。
+
+\section{静态黑洞的彭罗斯图与因果结构}
+
+彭罗斯图（Penrose Diagram）通过保角变换将无限大的时空映射到有限的二维平面上，且保持光锥角度为 $45^\circ$，是分析时空因果结构的有力工具。
+
+\subsection{时空结构的对比}
+利用代码 \texttt{pplot}，我们绘制了两种黑洞的彭罗斯图。如图 \ref{fig:penrose} 所示：
+\begin{itemize}
+    \item \textbf{史瓦西黑洞}：奇点 $r=0$ 表现为水平的锯齿线，属于类空奇点（Spacelike Singularity）。这意味着一旦越过视界，观察者不可避免地会在有限固有时内撞击奇点，时间在奇点处终止。
+    \item \textbf{RN 黑洞}：奇点 $r=0$ 表现为垂直的锯齿线，属于类时奇点（Timelike Singularity）。这意味着观察者可以避开奇点，通过内视界进入另一个无限的外部宇宙，这在理论上构成了虫洞通道。
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{penrose_sch.jpg}
+        \caption{史瓦西黑洞彭罗斯图}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{penrose_rn.jpg}
+        \caption{RN黑洞彭罗斯图}
+    \end{subfigure}
+    \caption{两种静态黑洞时空的彭罗斯图对比 (由 \texttt{pplot} 生成)}
+    \label{fig:penrose}
+\end{figure}
+
+\subsection{穿越虫洞的旅行者世界线}
+利用代码 \texttt{traveler} 和 \texttt{RN\_Geodesic\_Simulation\_Final}，我们模拟了一位勇敢的旅行者穿越 RN 黑洞的过程。图 \ref{fig:worldline} 展示了旅行者在彭罗斯图中的世界线以及其径向坐标随固有时的演化。
+
+在 RN 时空中，由于度规项 $Q^2/r^2$ 的存在，引力势能包含了强烈的排斥项。当旅行者穿过内视界 $r_-$ 后，离心力势垒会导致其在接触奇点前被“反弹”，随后重新向外运动，穿过另一个视界进入新的宇宙区域。
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{worldline_penrose.jpg}
+        \caption{穿越虫洞的世界线}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{proper_time_r.png}
+        \caption{径向坐标随固有时演化 $r(\tau)$}
+    \end{subfigure}
+    \caption{旅行者穿越RN黑洞的动力学模拟}
+    \label{fig:worldline}
+\end{figure}
+
+\section{黑洞附近天体的进动问题}
+
+在牛顿引力中，单体绕行轨道是闭合的椭圆。但在广义相对论中，有效势能的高阶修正项会导致轨道发生进动。
+
+\subsection{轨道方程与有效势}
+根据 \texttt{RN\_orbit} 中的哈密顿力学推导，测试粒子在 RN 时空中的径向运动方程满足：
+\begin{equation}
+    \left(\frac{dr}{d\tau}\right)^2 + V_{eff}(r) = E^2
+\end{equation}
+其中有效势 $V_{eff}(r)$ 为：
+\begin{equation}
+    V_{eff}(r) = \left(1 - \frac{2M}{r} + \frac{Q^2}{r^2}\right) \left(1 + \frac{L^2}{r^2}\right)
+\end{equation}
+展开后包含项 $-\frac{2M}{r}$ (牛顿引力), $\frac{L^2}{r^2}$ (离心势), 以及 GR 特有的修正项 $-\frac{2ML^2}{r^3}$ 和 $\frac{Q^2L^2}{r^4}$。其中，$r^{-3}$ 项是导致近日点进动的主要原因。
+
+\subsection{进动模拟结果}
+图 \ref{fig:orbit} 展示了粒子在强引力场下的轨迹。可以明显观察到，粒子每完成一圈公转，其近地点位置都会发生角度偏移。这种进动效应随 $r$ 的减小而显著增强，验证了广义相对论在强场近似下的非牛顿行为。
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{orbit_precession.png}
+    \caption{RN黑洞周围的轨道进动模拟 (由 \texttt{RN\_orbit} 生成)}
+    \label{fig:orbit}
+\end{figure}
+
+\section{黑洞视觉效果与光线追踪实现}
+
+本章详细阐述代码 \texttt{bh\_plate} 的核心算法。为了生成逼真的黑洞图像，我们采用了逆向光线追踪（Backward Ray Tracing）技术，即从摄像机（屏幕像素）出发，逆向追踪光子直到其击中光源（吸积盘）或逃逸至无穷远。
+
+\subsection{度规张量定义与局域标架}
+函数 \texttt{gdown\_RN(r, th, M, Q)} 定义了弯曲时空的几何背景。为了将屏幕坐标 $(\alpha, \beta)$ 转换为物理上的四动量，我们在观察者位置构建了局域正交标架（Tetrad），由函数 \texttt{localtetrad\_RN} 实现。该标架对应于零角动量观察者（ZAMO），确保了视角的物理合理性。
+
+\subsection{屏幕动量映射与测地线积分}
+函数 \texttt{GetRayMomentum\_RN} 将像素点映射为初始四动量 $p^\mu$。随后，函数 \texttt{geodesic\_RN} 利用哈密顿方程组：
+\begin{equation}
+    \frac{dx^\mu}{d\lambda} = \frac{\partial H}{\partial p_\mu}, \quad \frac{dp_\mu}{d\lambda} = -\frac{\partial H}{\partial x^\mu}
+\end{equation}
+对光子轨迹进行数值积分。由于光子是零测地线，哈密顿量满足 $H = \frac{1}{2}g^{\mu\nu}p_\mu p_\nu = 0$。
+
+\subsection{着色与纹理映射机制}
+在积分过程中，函数 \texttt{TraceSingleRay\_RN} 负责判断光线的最终命运：
+\begin{enumerate}
+    \item \textbf{落入视界}：若 $r < r_+$，光线被黑洞吞噬，像素标记为黑色（黑洞阴影区域）。
+    \item \textbf{撞击吸积盘}：若光线穿过赤道面 ($z=0$) 且半径在吸积盘范围内 ($6M < r < 20M$)，则调用 \texttt{Diskvalue} 函数计算颜色。我们引入了正弦纹理以增强视觉层次，并应用 $1/r^2$ 的光度衰减以模拟引力红移效应。
+\end{enumerate}
+
+\subsection{不同电荷量 Q 下的视觉模拟}
+通过改变参数 $Q$（固定 $M=1$），我们得到了一系列视觉图像（图 \ref{fig:visuals}）：
+\begin{itemize}
+    \item \textbf{$Q=0$ (史瓦西)}：典型的黑洞阴影，吸积盘在后方隆起（爱因斯坦环效应）。
+    \item \textbf{$Q=0.5, 0.75$}：随着电荷增加，引力排斥效应增强，视界半径 $r_+$ 减小，黑洞阴影面积收缩。
+    \item \textbf{$Q=1$ (极端黑洞)}：视界缩至最小。
+    \item \textbf{$Q>1$ (裸奇点)}：理论上视界消失。我们的模拟显示中心出现极亮的光点，这意味着奇点不再被遮蔽，光线可以无限接近奇点并逃逸，导致极强的引力透镜效应。
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.19\textwidth}
+        \includegraphics[width=\textwidth]{bh_q0.jpg}
+        \caption{$Q=0$}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.19\textwidth}
+        \includegraphics[width=\textwidth]{bh_q025.jpg}
+        \caption{$Q=0.25$}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.19\textwidth}
+        \includegraphics[width=\textwidth]{bh_q05.jpg}
+        \caption{$Q=0.5$}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.19\textwidth}
+        \includegraphics[width=\textwidth]{bh_q075.jpg}
+        \caption{$Q=0.75$}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.19\textwidth}
+        \includegraphics[width=\textwidth]{bh_q1.jpg}
+        \caption{$Q=1.0$}
+    \end{subfigure}
+    \caption{不同电荷量 $Q$ 下黑洞及其吸积盘的视觉渲染结果 ($M=1$)}
+    \label{fig:visuals}
+\end{figure}
+
+\section{结论}
+本大作业通过五个独立的数值模块，完整地复现了静态黑洞的时空几何特性。从彭罗斯图中因果结构的定性分析，到测地线方程的精确数值解，再到利用光线追踪技术生成的逼真图像，我们不仅验证了广义相对论的理论预言，更直观地揭示了电荷参数 $Q$ 如何深刻地改变时空的拓扑结构与光学表现。
+
+\end{document}

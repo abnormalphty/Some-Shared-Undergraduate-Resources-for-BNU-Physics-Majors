@@ -1,0 +1,213 @@
+\chapter{对称性、时间演化与多体语言}
+
+\begin{prereqbox}
+熟悉 Schrödinger 方程、线性代数、本征态展开、角动量和定态微扰论。本章目标是补上量子材料理论真正反复使用的工具：表象、对称性、含时微扰、全同粒子和二次量子化。
+\end{prereqbox}
+\begin{mapbox}
+\[
+\text{幺正对称性}\to\text{守恒量与简并},\qquad
+\text{反幺正时间反演}\to\text{Kramers 简并},
+\]
+\[
+\text{全同粒子}\to\text{Fock 空间}\to
+\text{多体模型},\qquad
+\text{含时微扰}\to\text{谱学与散射率}.
+\]
+\end{mapbox}
+
+\section{表象、幺正变换与对称性}
+态矢量不依赖表象。若基底由幺正算符 $U$ 变换，则
+\[
+|\psi\rangle'=U|\psi\rangle,\qquad A'=UAU^\dagger,
+\]
+保证期望值不变。对称操作 $U(g)$ 若满足
+$U(g)HU^\dagger(g)=H$，就把能量本征态映到同能态。若该能级非简并，变换后的态只能相差相位；若简并，则在简并子空间中形成群表示。
+
+连续变换写成
+\[
+U(\epsilon)=1-\frac{i}{\hbar}\epsilon G+O(\epsilon^2).
+\]
+代入 $UHU^\dagger=H$ 的一阶项得 $[G,H]=0$，于是
+$\dd\langle G\rangle/\dd t=0$。这就是量子版本的 Noether 图像：生成元既产生变换，也给出守恒量。
+
+\begin{examplebox}
+\textbf{平移生成元。}对无穷小位移 $\vb a$，
+$T(\vb a)=1-i\vb a\cdot\vb p/\hbar$。在位置表象
+\[
+T(\vb a)\psi(\vb r)=\psi(\vb r-\vb a)
+\simeq\psi(\vb r)-\vb a\cdot\nabla\psi,
+\]
+比较系数得到 $\vb p=-i\hbar\nabla$。晶体只有离散平移对称，连续动量不守恒，但离散平移本征值仍定义 Bloch 准动量。
+\end{examplebox}
+
+\section{时间反演与 Kramers 简并}
+时间反演 $\Theta$ 必须把 $i$ 变为 $-i$，因此是反幺正算符：
+\[
+\Theta(c_1|\psi\rangle+c_2|\phi\rangle)
+=c_1^*\Theta|\psi\rangle+c_2^*\Theta|\phi\rangle.
+\]
+对无自旋粒子可取复共轭 $K$；对自旋 $1/2$，
+\[
+\Theta=i\sigma_yK,\qquad \Theta^2=-1.
+\]
+若 $[\Theta,H]=0$，则 $|\psi\rangle$ 与 $\Theta|\psi\rangle$ 同能。证明二者正交：
+\[
+\langle\psi|\Theta\psi\rangle
+=\langle\Theta^2\psi|\Theta\psi\rangle
+=-\langle\psi|\Theta\psi\rangle,
+\]
+故内积为零。这就是 Kramers 简并。晶体中时间反演把 $\vb k$ 变为 $-\vb k$，在满足
+$-\vb k=\vb k+\vb G$ 的时间反演不变动量处，半整数自旋能带至少二重简并。
+
+\begin{pitfallbox}
+时间反演简并需要半整数自旋、$\Theta^2=-1$ 且 Hamiltonian 保持时间反演。外磁场或磁有序通常破坏它。反演对称性不是 Kramers 定理的必要条件，但反演与时间反演同时存在时可使每个 $\vb k$ 上出现二重简并。
+\end{pitfallbox}
+
+\section{自旋轨道耦合}
+电子静止系中，原子核电场在相对论变换下产生有效磁场，电子磁矩与之耦合。非相对论展开给
+\[
+H_{\rm SO}=\frac{1}{2m^2c^2}\frac1r\dv{V}{r}\,\vb L\cdot\vb S.
+\]
+因
+\[
+\vb L\cdot\vb S=\frac12(\vb J^2-\vb L^2-\vb S^2),
+\]
+以 $|nljm_j\rangle$ 为基即可对角化。固体中自旋轨道耦合把轨道纹理与自旋纹理绑定，是拓扑绝缘体、反常 Hall 和自旋电子学的关键。
+
+若结构反演对称性破缺，可出现 Rashba 项
+\[
+H_R=\alpha_R(\vb\sigma\times\vb k)\cdot\hat{\vb z}.
+\]
+其本征值 $E_\pm(k)=\hbar^2k^2/2m\pm\alpha_Rk$，在同一 $k$ 处产生螺旋自旋分裂，但 $k=0$ 仍受 Kramers 简并保护。
+
+\section{含时微扰与 Fermi 黄金规则}
+设
+\[
+H(t)=H_0+V(t),\qquad
+|\psi(t)\rangle=\sum_n c_n(t)\ee^{-iE_nt/\hbar}|n\rangle.
+\]
+代入 Schrödinger 方程并左乘 $\langle f|$：
+\[
+i\hbar\dot c_f(t)=\sum_n V_{fn}(t)
+\ee^{i\omega_{fn}t}c_n(t),\qquad
+\omega_{fn}=(E_f-E_n)/\hbar.
+\]
+一阶近似取初态 $i$ 的 $c_i\simeq1$：
+\[
+c_f^{(1)}(t)=-\frac{i}{\hbar}\int_0^t
+V_{fi}(t')\ee^{i\omega_{fi}t'}\dd t'.
+\]
+若扰动近似恒定且末态连续，有限时间振荡因子在长时极限形成能量守恒的
+$\delta(E_f-E_i)$，对末态求和得到
+\[
+\boxed{\Gamma_{i\to f}=\frac{2\pi}{\hbar}
+|\langle f|V|i\rangle|^2\rho(E_f)}.
+\]
+黄金规则由“矩阵元 $\times$ 末态态密度”组成：前者管选择定则，后者管可用相空间。它适用于弱扰动、初态耗尽可忽略且观察时间足够长。
+
+\begin{examplebox}
+\textbf{周期驱动的共振。}若
+$V(t)=Fe^{-i\omega t}+F^\dagger e^{i\omega t}$，跃迁振幅含
+\[
+\int_0^t\ee^{i(\omega_{fi}-\omega)t'}\dd t'.
+\]
+当 $\omega\simeq\omega_{fi}$ 时相位长期同向累积，出现吸收峰。光学谱、电子-声子散射和中子散射的基本结构都可追溯到这一表达式。
+\end{examplebox}
+
+\section{全同粒子与 Fock 空间}
+对单粒子正交轨道 $\phi_\alpha$，玻色/费米产生湮灭算符满足
+\[
+[a_\alpha,a_\beta^\dagger]_{\mp}=\delta_{\alpha\beta},
+\]
+其中玻色子取对易子，费米子取反对易子。占据数态写成
+\[
+|n_1,n_2,\ldots\rangle
+=\prod_\alpha\frac{(a_\alpha^\dagger)^{n_\alpha}}
+{\sqrt{n_\alpha!}}|0\rangle
+\]
+（费米子 $n_\alpha=0,1$，且必须固定算符顺序）。
+
+任意单体算符
+$\hat O=\sum_{i=1}^N o(i)$ 在二次量子化中为
+\[
+\boxed{\hat O=\sum_{\alpha\beta}
+\langle\alpha|o|\beta\rangle a_\alpha^\dagger a_\beta}.
+\]
+两体相互作用
+\[
+\boxed{\hat V=\frac12\sum_{\alpha\beta\gamma\delta}
+V_{\alpha\beta;\gamma\delta}
+a_\alpha^\dagger a_\beta^\dagger a_\delta a_\gamma}.
+\]
+因子 $1/2$ 避免粒子对重复计数。二次量子化没有改变物理，只是把交换对称性自动编码进算符代数，并允许粒子数改变。
+
+\begin{whybox}
+为什么紧束缚 Hamiltonian 写成
+$-t\sum_{\langle ij\rangle}c_i^\dagger c_j$？$c_j$ 先从 $j$ 点移走电子，$c_i^\dagger$ 再在 $i$ 点创建电子，整项正是一次跃迁。对其 Fourier 变换
+$c_j=N^{-1/2}\sum_k e^{ikR_j}c_k$，平移不变性让不同 $k$ 解耦，得到能带色散。
+\end{whybox}
+
+\section{约化密度矩阵与混合态}
+统计混合用密度算符
+\[
+\rho=\sum_\lambda p_\lambda|\psi_\lambda\rangle\langle\psi_\lambda|,
+\quad \mathrm{Tr}\rho=1,\quad \rho\ge0.
+\]
+期望值 $\langle A\rangle=\mathrm{Tr}(\rho A)$。复合系统 $AB$ 的局域状态是
+$\rho_A=\mathrm{Tr}_B\rho_{AB}$。即使整体为纯态，纠缠也可使子系统成为混合态；因此“混合”不必来自经典无知，也可能来自忽略了纠缠自由度。
+
+\section{三个完整例题}
+\begin{examplebox}
+\textbf{例 1：二能级简并微扰。}设简并子空间中
+\[
+W=\begin{pmatrix}\Delta&v\\v^*&-\Delta\end{pmatrix}.
+\]
+特征方程为 $\lambda^2-(\Delta^2+|v|^2)=0$，故一阶能移
+$\lambda_\pm=\pm\sqrt{\Delta^2+|v|^2}$。当 $\Delta=0$ 时能级劈裂
+$2|v|$，与近自由电子区边界开隙完全同构。
+\end{examplebox}
+
+\begin{examplebox}
+\textbf{例 2：自旋 $1/2$ 在磁场中的时间演化。}取
+$H=-\gamma B S_z=-\hbar\omega_L\sigma_z/2$。初态
+$|+x\rangle=(|\uparrow\rangle+|\downarrow\rangle)/\sqrt2$，则
+\[
+|\psi(t)\rangle=\frac1{\sqrt2}
+(e^{i\omega_Lt/2}|\uparrow\rangle+
+e^{-i\omega_Lt/2}|\downarrow\rangle).
+\]
+由此 $\langle S_x\rangle=\frac\hbar2\cos\omega_Lt$、
+$\langle S_y\rangle=-\frac\hbar2\sin\omega_Lt$，即自旋绕场进动。
+\end{examplebox}
+
+\begin{examplebox}
+\textbf{例 3：一维紧束缚的算符推导。}取
+$H=-t\sum_j(c_{j+1}^\dagger c_j+\mathrm{h.c.})$，代入 Fourier 展开：
+\[
+\sum_jc_{j+1}^\dagger c_j
+=\sum_k e^{-ika}c_k^\dagger c_k.
+\]
+故
+$H=\sum_k[-2t\cos(ka)]c_k^\dagger c_k$。占据数表象直接表明每个 $k$ 模独立，单粒子色散为 $-2t\cos ka$。
+\end{examplebox}
+
+\section{面试总结与自测}
+\begin{interviewbox}
+\textbf{二次量子化是什么？}30 秒回答：它用产生、湮灭算符和占据数态描述全同粒子，使 Bose/Fermi 交换对称性自动满足；单体项形如 $a^\dagger a$，两体项形如 $a^\dagger a^\dagger aa$。它不是“再次量子化”，而是多体量子力学的便利语言。
+
+\textbf{Kramers 简并为什么重要？}说明反幺正时间反演、$\Theta^2=-1$、正交同能伙伴，并联系拓扑绝缘体表面态在时间反演不变动量处不能单独开隙。
+\end{interviewbox}
+\begin{selftestbox}
+\begin{enumerate}
+\item 证明幺正变换保持对易关系与期望值。
+\item 推导旋转算符的生成元并说明 $[H,J_z]=0$ 的意义。
+\item 为什么时间反演要满足 $\Theta i\Theta^{-1}=-i$？
+\item 写出 Rashba Hamiltonian 的本征值并画出两支色散。
+\item 从一阶含时微扰推到黄金规则时用了哪些极限？
+\item 二次量子化中 $a_i^\dagger a_j$ 的物理含义是什么？
+\item 为什么费米产生算符满足 $(c_i^\dagger)^2=0$？
+\item 把动量算符和粒子数算符写成二次量子化形式。
+\item 纯态、经典混合与纠缠导致的约化混合有何区别？
+\item 哪些量子力学结构会在 Bloch 能带拓扑中再次出现？
+\end{enumerate}
+\end{selftestbox}

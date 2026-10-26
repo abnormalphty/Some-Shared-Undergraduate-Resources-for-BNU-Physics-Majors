@@ -1,0 +1,7 @@
+"Type","TypeDesc","ErrorCode","Filename","LineNumber","DateTime","ComputerName","UserName","Message"
+3,"Default",0,"agstkinitobj.cpp",2089,12/22/2023 09:42:23,"LAPTOP-VTDI2970","A","The STK Electro Optical Infrared Sensor Performance (EOIR) license is present, but a valid install was not found."
+3,"Default",0,"agstkinitobj.cpp",2166,12/22/2023 09:42:23,"LAPTOP-VTDI2970","A","STK Radar Advanced Environment license is present, but a valid install was not found."
+3,"MsgWnd",0,"",0,12/22/2023 09:42:34,"LAPTOP-VTDI2970","A","No valid 64 bit Matlab automation server is available.  Please run matlab /regserver as administrator or see Mathworks online help."
+2,"Default",0,"agaprmtmsg.cpp",1420,12/22/2023 09:42:34,"LAPTOP-VTDI2970","A","STK/CON: Initializing STK/CON module."
+2,"Default",0,"agaprmtmsg.cpp",1635,12/22/2023 09:42:34,"LAPTOP-VTDI2970","A","STK/CON: Accepting connection requests"
+1,"Default",0,"",0,12/22/2023 09:42:36,"LAPTOP-VTDI2970","A","Version 12.3.0 of STK is now available online."

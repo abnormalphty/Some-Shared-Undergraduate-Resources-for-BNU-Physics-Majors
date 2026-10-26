@@ -1,0 +1,10 @@
+<?xml version = "1.0" standalone = "yes"?>
+<User_Preferences version = "1.0">
+    <AgUiRt3Views.AgUiRt3DisplayManagerSMI Label = "1" Line = "1" Marker = "1" Model = "1" version = "1.0" />
+    <WorkbookSection Version = "2.0">
+        <Settings DisableAllWorkbooks = "BST_UNCHECKED" EnableLoadingApplication = "BST_CHECKED" EnableLoadingScenario = "BST_CHECKED" EnableLogging = "BST_UNCHECKED" EnableSavingApplication = "BST_CHECKED" EnableSavingScenario = "BST_CHECKED" ShowLaunchPad = "BST_CHECKED" ShowTransitionGraphic = "BST_CHECKED" />
+    </WorkbookSection>
+    <Help Version = "1.0">
+        <Settings Online = "TRUE" />
+    </Help>
+</User_Preferences>

@@ -1,0 +1,24 @@
+\documentclass{ctexbook}
+\usepackage{amsmath}
+\title{yx期末特供}
+\begin{document}
+	证明：由题意$f(x)$的二阶导存在，则$f'(x)$在$(0,1)$上连续。又由于$f(x)$在$(0,1)$上有最大值，则必有极大值。由Fermat引理可得，$\exists c\in (0,1)$，s.t.$f'(c)=0$。
+	
+	在$x=c$处对$f'(x)$做含Lagrange余项的一阶Taylor展开，则有
+	
+	\centerline{$f'(x)=f''(\xi)(x-c)$}
+	
+	分别带入$x=0,1$，取绝对值，有
+	
+	\centerline{$|f'(0)|=c|f''(\xi _1)|$}
+	
+	\centerline{$|f'(1)|=(1-c)|f''(\xi _2)|$}
+	
+	两式相加，有
+	
+	\centerline{$|f'(0)|+|f'(1)|=c|f''(\xi _1)|+(1-c)|f''(\xi _2)| \le cM+(1-c)M=M$}
+	
+	\rightline{Q.E.D.}
+	
+	
+\end{document}

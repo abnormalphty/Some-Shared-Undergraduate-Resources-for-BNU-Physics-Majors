@@ -1,0 +1,287 @@
+\chapter{晶格、电子气与能带的核心推导}
+
+\section{倒格基矢与体积}
+要求
+$\vb a_i\cdot\vb b_j=2\pi\delta_{ij}$。$\vb b_1$ 必须垂直
+$\vb a_2,\vb a_3$，故
+$\vb b_1=C\vb a_2\times\vb a_3$。点乘 $\vb a_1$：
+\[
+C\,\vb a_1\cdot(\vb a_2\times\vb a_3)=2\pi,
+\]
+\[
+\boxed{\vb b_1=2\pi
+\frac{\vb a_2\times\vb a_3}{\Omega_c}},
+\quad
+\Omega_c=\vb a_1\cdot(\vb a_2\times\vb a_3).
+\]
+循环置换得其余基矢。矩阵形式 $B^TA=2\pi I$：
+\[
+\boxed{\Omega_c^*=\det B=\frac{(2\pi)^3}{\Omega_c}}.
+\]
+
+\section{Laue 与 Bragg 等价}
+格点散射振幅
+\[
+\mathcal A\propto\sum_{\vb R}
+e^{i(\vb k-\vb k')\cdot\vb R}.
+\]
+所有格点同相要求
+\[
+(\vb k'-\vb k)\cdot\vb R=2\pi n
+\quad\forall\vb R,
+\]
+所以
+\[
+\boxed{\vb k'-\vb k=\vb G}.
+\]
+弹性散射 $|\vb k|=|\vb k'|=2\pi/\lambda$。几何上
+$|\vb G|=2k\sin\theta$；晶面族
+$|\vb G|=2\pi n/d$：
+\[
+2\frac{2\pi}{\lambda}\sin\theta=\frac{2\pi n}{d}
+\Rightarrow\boxed{2d\sin\theta=n\lambda}.
+\]
+
+\section{单原子链色散}
+\[
+M\ddot u_n=K(u_{n+1}+u_{n-1}-2u_n).
+\]
+取
+$u_n=u e^{i(kna-\omega t)}$：
+\[
+-M\omega^2u
+=Ku(e^{ika}+e^{-ika}-2)
+=-4Ku\sin^2(ka/2).
+\]
+所以
+\[
+\boxed{\omega=2\sqrt{K/M}|\sin(ka/2)|}.
+\]
+$ka\ll1$：
+\[
+\omega\simeq a\sqrt{K/M}|k|,\quad
+v_s=a\sqrt{K/M}.
+\]
+$k=0$ 是刚性平移，故频率必须为零。
+
+\section{Debye 态密度与热容}
+三维 $q$ 空间每态体积 $(2\pi)^3/V$。含三偏振：
+\[
+N(q)=3\frac{V}{(2\pi)^3}\frac{4\pi q^3}{3}
+=\frac{Vq^3}{2\pi^2}.
+\]
+$\omega=v_sq$：
+\[
+g(\omega)=\dv{N}{\omega}
+=\frac{3V\omega^2}{2\pi^2v_s^3}.
+\]
+以 $\int_0^{\omega_D}g\,\dd\omega=3N$ 定义截止。热能
+\[
+U=9N\kb T\left(\frac T{\Theta_D}\right)^3
+\int_0^{\Theta_D/T}\frac{x^3}{e^x-1}\dd x.
+\]
+$T\ll\Theta_D$ 时上限延至无穷，
+$\int_0^\infty x^3/(e^x-1)\dd x=\pi^4/15$：
+\[
+U=\frac{3\pi^4}{5}N\kb\frac{T^4}{\Theta_D^3},
+\quad
+\boxed{C_V=\frac{12\pi^4}{5}N\kb(T/\Theta_D)^3}.
+\]
+
+\section{自由电子态密度与费米能}
+含自旋的 $k$ 球内态数
+\[
+N(k)=2\frac V{(2\pi)^3}\frac{4\pi k^3}{3}
+=\frac{Vk^3}{3\pi^2}.
+\]
+$E=\hbar^2k^2/2m$：
+\[
+\dv kE=\frac m{\hbar^2k},
+\]
+\[
+g(E)=\dv Nk\dv kE
+=\frac{Vk^2}{\pi^2}\frac m{\hbar^2k}
+=\boxed{\frac V{2\pi^2}
+\left(\frac{2m}{\hbar^2}\right)^{3/2}\sqrt E}.
+\]
+$T=0$：
+\[
+N=\int_0^{E_F}g(E)\dd E
+=\frac V{3\pi^2}
+\left(\frac{2mE_F}{\hbar^2}\right)^{3/2},
+\]
+\[
+\boxed{E_F=\frac{\hbar^2}{2m}(3\pi^2n)^{2/3}}.
+\]
+
+\section{Bloch 定理}
+周期势使
+$[H,T_{\vb R}]=0$。平移算符幺正，取共同本征态：
+\[
+T_{\vb R}\psi=\lambda(\vb R)\psi,\quad|\lambda|=1.
+\]
+平移群性质
+$T_{\vb R}T_{\vb R'}=T_{\vb R+\vb R'}$ 给
+\[
+\lambda(\vb R)\lambda(\vb R')
+=\lambda(\vb R+\vb R').
+\]
+其一维表示写成
+$\lambda=e^{i\vb k\cdot\vb R}$。定义
+\[
+u_{\vb k}(\vb r)=e^{-i\vb k\cdot\vb r}\psi_{\vb k}(\vb r),
+\]
+\[
+u(\vb r+\vb R)
+=e^{-i\vb k\cdot(\vb r+\vb R)}
+e^{i\vb k\cdot\vb R}\psi(\vb r)=u(\vb r).
+\]
+故
+\[
+\boxed{\psi_{n\vb k}=e^{i\vb k\cdot\vb r}u_{n\vb k}}.
+\]
+
+\section{区边界能隙}
+周期势
+$V=\sum_GV_Ge^{iGx}$ 耦合 $|k\rangle$ 和 $|k-G\rangle$。
+$k=G/2$ 时二者自由能相同。简并子空间：
+\[
+\begin{pmatrix}
+E_0+V_0&V_G\\
+V_G^*&E_0+V_0
+\end{pmatrix}.
+\]
+特征方程
+\[
+(E_0+V_0-E)^2-|V_G|^2=0,
+\]
+\[
+E_\pm=E_0+V_0\pm|V_G|,
+\quad\boxed{\Delta=2|V_G|}.
+\]
+本征态是两平面波的相干叠加，即不同相位的驻波；其电荷密度与离子势重叠不同，故能量劈裂。
+
+\section{Boltzmann 电导}
+均匀稳态、弱电场：
+\[
+\dot{\vb k}\cdot\nabla_kf
+=-\frac{f-f_0}{\tau},\qquad
+\hbar\dot{\vb k}=-e\vb E.
+\]
+令 $f=f_0+\delta f$ 并只保留一阶：
+\[
+-\frac e\hbar\vb E\cdot\nabla_kf_0
+=-\frac{\delta f}{\tau}.
+\]
+因
+$\nabla_kf_0=(\partial_Ef_0)\nabla_kE
+=\hbar\vb v\partial_Ef_0$：
+\[
+\delta f=e\tau\vb E\cdot\vb v(-\partial_Ef_0).
+\]
+\[
+j_\alpha=-e\int\frac{\dd^3k}{(2\pi)^3}
+v_\alpha\delta f
+=\sigma_{\alpha\beta}E_\beta,
+\]
+\[
+\boxed{\sigma_{\alpha\beta}
+=e^2\int\frac{\dd^3k}{(2\pi)^3}
+\tau v_\alpha v_\beta(-\partial_Ef_0)}.
+\]
+零温 $-\partial_Ef_0=\delta(E-E_F)$，明确显示输运是费米面性质。
+
+\section{半导体载流子浓度}
+导带底抛物线态密度
+\[
+g_c(E)=\frac1{2\pi^2}
+\left(\frac{2m_e^*}{\hbar^2}\right)^{3/2}
+\sqrt{E-E_c}.
+\]
+非简并极限
+$f\simeq e^{-(E-E_F)/\kb T}$：
+\[
+n=\int_{E_c}^\infty g_c(E)f(E)\dd E.
+\]
+令 $\epsilon=E-E_c$：
+\[
+n=e^{-(E_c-E_F)/\kb T}
+\frac1{2\pi^2}\left(\frac{2m_e^*}{\hbar^2}\right)^{3/2}
+\int_0^\infty\epsilon^{1/2}e^{-\epsilon/\kb T}\dd\epsilon.
+\]
+用
+$\int_0^\infty x^{1/2}e^{-x}\dd x=\sqrt\pi/2$：
+\[
+\boxed{n=N_ce^{-(E_c-E_F)/\kb T}},
+\quad
+N_c=2\left(\frac{m_e^*\kb T}{2\pi\hbar^2}\right)^{3/2}.
+\]
+同理
+$p=N_ve^{-(E_F-E_v)/\kb T}$，相乘：
+\[
+\boxed{np=N_cN_ve^{-E_g/\kb T}=n_i^2}.
+\]
+
+\section{Curie--Weiss 平均场}
+独立两能级磁矩
+\[
+Z=2\cosh(\beta\mu B),\quad
+\langle m\rangle=\frac1\beta\pdv{\ln Z}{B}
+=\mu\tanh(\beta\mu B).
+\]
+弱场
+$\langle m\rangle\simeq\mu^2B/\kb T$，得 Curie 定律。
+平均场取
+$H_{\rm eff}=H+\lambda M$：
+\[
+M=\frac CT(H+\lambda M).
+\]
+移项：
+\[
+M\left(1-\frac{C\lambda}{T}\right)=\frac CT H,
+\]
+\[
+\boxed{\chi=\frac MH=\frac C{T-C\lambda}
+=\frac C{T-T_c}}.
+\]
+
+\section{London 穿透深度}
+London 第二方程
+\[
+\nabla\times\vb j_s=-\frac{n_se^{*2}}{m^*}\vb B.
+\]
+对 Ampère 方程
+$\nabla\times\vb B=\mu_0\vb j_s$ 取旋度：
+\[
+\nabla\times\nabla\times\vb B
+=\mu_0\nabla\times\vb j_s.
+\]
+用
+$\nabla\times\nabla\times\vb B
+=\nabla(\nabla\cdot\vb B)-\nabla^2\vb B=-\nabla^2\vb B$：
+\[
+-\nabla^2\vb B
+=-\mu_0\frac{n_se^{*2}}{m^*}\vb B.
+\]
+\[
+\boxed{\nabla^2\vb B=\vb B/\lambda_L^2},
+\quad
+\lambda_L=\sqrt{\frac{m^*}{\mu_0n_se^{*2}}}.
+\]
+半无限样品 $x>0$ 的有限解
+$B(x)=B(0)e^{-x/\lambda_L}$。
+
+\begin{selftestbox}
+\begin{enumerate}
+\item 倒格原胞体积如何由矩阵行列式推出？
+\item Laue 条件怎样化成 Bragg 条件？
+\item 单原子链周期色散来自哪个离散结构？
+\item Debye 态密度的 $\omega^2$ 来自哪里？
+\item 自由电子态密度如何包含自旋因子？
+\item Bloch 平移本征值为何是指数形式？
+\item 能隙为何等于 $2|V_G|$？
+\item Boltzmann 电导中费米面窗口是什么？
+\item 有效态密度 $N_c$ 的 $T^{3/2}$ 怎样出现？
+\item London 方程如何区别超导与完美导体？
+\end{enumerate}
+\end{selftestbox}

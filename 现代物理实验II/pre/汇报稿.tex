@@ -1,0 +1,180 @@
+% !TeX program = xelatex
+\documentclass[UTF8,fontset=none,12pt]{ctexart}
+\usepackage[a4paper,margin=2.2cm]{geometry}
+\usepackage{amsmath,amssymb,bm,mathtools}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\setCJKmainfont[Path=/System/Library/Fonts/Supplemental/,AutoFakeBold=2.5]{Songti.ttc}
+\setCJKsansfont[Path=/System/Library/Fonts/,AutoFakeBold=2.5]{Hiragino Sans GB.ttc}
+\setCJKmonofont[Path=/System/Library/Fonts/Supplemental/,AutoFakeBold=2.5]{Songti.ttc}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.35em}
+\linespread{1.18}
+\begin{document}
+\pagestyle{plain}
+\section*{《从 SLM 像素晶格到晶体物理模拟》汇报稿}
+
+各位老师、同学大家好，我是学生。今天我的汇报题目是《从 SLM 像素晶格到晶体物理模拟》。\par
+
+这次汇报的核心想法其实很简单：空间光调制器 SLM 本来是一个光学实验中的相位调制器件，但如果我们换一个角度看，它的二维像素阵列非常像一块二维晶体。每个像素就像一个格点，每个像素上的相位延迟就像这个格点上的可调势能。于是我们自然会问：能不能用 SLM 来模拟晶体里发生的一些波动现象？比如晶体中的缺陷、无序，以及由此导致的 Anderson 局域化。\par
+
+\bigskip\hrule\bigskip
+
+\subsection*{Slide 2：SLM 为什么像一块可编程晶体}
+
+首先我从 SLM 的基本物理出发。\par
+
+SLM 的核心材料是向列型液晶。液晶不是各向同性介质，它的介电响应要用张量来描述。这里我写成指标形式：\par
+
+\[
+D_i=\epsilon_{ij}E_j,
+\qquad
+\epsilon_{ij}=\epsilon_\perp\delta_{ij}+\Delta\epsilon n_i n_j .
+\]
+
+其中 $n_i$ 是液晶分子的局域指向矢。外加电压 $U(x,y)$ 会改变每个像素处液晶分子的取向，也就是改变 $n_i(x,y,z)$，从而改变介电张量 $\epsilon_{ij}$。\par
+
+光在这样的各向异性介质中传播时，看到的是一个有效折射率。用折射率椭球的语言，可以写成：\par
+
+\[
+\frac{1}{n_{\mathrm{eff}}^2}
+=s_i(\epsilon^{-1})_{ij}s_j .
+\]
+
+也就是说，有效折射率来自介电张量逆矩阵在传播或偏振方向上的投影。\par
+
+接下来，光通过厚度为 $d$ 的液晶层，会积累相位延迟：\par
+
+\[
+\Gamma(x,y)=k_0\int_0^d[n_{\mathrm{eff}}(\theta[U],z)-n_o]\,dz .
+\]
+
+所以 SLM 对入射光场的作用可以写成：\par
+
+\[
+E_{\mathrm{out}}(x,y)=A(x,y)e^{i\Gamma(x,y)}E_{\mathrm{in}}(x,y).
+\]
+
+这就是我想强调的第一点：SLM 不是简单地“显示一张灰度图”，而是在二维像素网格上写入一个可编程的相位场。于是像素坐标 $(m,n)$ 就可以类比晶体格点，而 $\Gamma_{mn}$ 可以类比格点上的局域势。\par
+
+\bigskip\hrule\bigskip
+
+\subsection*{Slide 3：把光学平台翻译成晶体语言}
+
+第二步是说明这个类比为什么不只是形式上的。\par
+
+在近轴近似下，光场包络满足：\par
+
+\[
+i\frac{\partial\psi}{\partial z}
+=-\frac{1}{2k_0n_0}\nabla_\perp^2\psi
+-k_0\Delta n(\mathbf r)\psi .
+\]
+
+这个形式和二维薛定谔方程是同构的。传播方向 $z$ 类似时间，横向衍射项类似动能项，而折射率调制 $\Delta n(\mathbf r)$ 类似势能项。\par
+
+另一方面，4f 系统提供了倒空间读出。透镜后焦面的光场本质上是前一平面光场的傅里叶变换：\par
+
+\[
+E_f(\boldsymbol\rho)\propto \mathcal F\{E_0(\mathbf r)\}.
+\]
+
+因此，光学系统和晶体物理之间有一张翻译表：SLM 的像素周期对应晶格常数，SLM 的相位图对应周期势，4f 后焦面对应倒易空间，而有限光阑可以理解为对第一布里渊区的截断。\par
+
+这就给了我们一个很清楚的图像：SLM 可以构造“实空间晶格”，4f 系统可以观察“倒空间结构”。\par
+
+\bigskip\hrule\bigskip
+
+\subsection*{Slide 4：在这块人造晶体中写入缺陷}
+
+有了人造晶格之后，我们就可以做更进一步的事情：在晶体里写入缺陷和无序。\par
+
+如果没有无序，理想周期势可以写成倒格矢展开：\par
+
+\[
+V_0(\mathbf r)=\sum_{\mathbf G}V_{\mathbf G}e^{i\mathbf G\cdot\mathbf r}.
+\]
+
+然后我们在每个格点附近叠加随机相位缺陷：\par
+
+\[
+V_W(\mathbf r)=V_0(\mathbf r)+W\sum_{m,n}\eta_{mn}\chi(\mathbf r-\mathbf R_{mn}).
+\]
+
+这里 $W$ 是无序强度，$\eta_{mn}$ 是随机数，$\chi$ 描述单个格点附近缺陷的空间形状。\par
+
+如果进一步把连续光场投影到局域 Wannier 基底上，就会得到类似 Anderson 模型的 tight-binding 形式：\par
+
+\[
+\hat H=\sum_{mn}\varepsilon_{mn}|mn\rangle\langle mn|
+-J\sum_{\langle mn,m'n'\rangle}
+(|mn\rangle\langle m'n'|+\mathrm{h.c.}) .
+\]
+
+这个式子里，$\varepsilon_{mn}$ 是随机在位能，$J$ 是最近邻格点之间的耦合。物理上，这对应晶体中的波在随机杂质势中传播。光场当然不是电子，但标量波动方程的形式相同，所以我们可以模拟晶体波函数如何被缺陷和无序困住。\par
+
+\bigskip\hrule\bigskip
+
+\subsection*{Slide 5：如何在实验中观测局域化}
+
+接下来是实验观测方案。这里我想特别区分两个层次。\par
+
+如果我们只是想判断最终是否出现局域化，可以固定一个输出面 $L$，记录：\par
+
+\[
+I(\mathbf r;L)=|\psi(\mathbf r;L)|^2 .
+\]
+
+如果强无序下光强分布接近指数衰减：\par
+
+\[
+I(\mathbf r;L)\sim e^{-2|\mathbf r-\mathbf r_0|/\xi(W)},
+\]
+
+那么可以通过拟合得到局域长度 $\xi(W)$。\par
+
+但如果我们想看“局域化是如何形成的”，那就需要在不同传播距离 $z$ 上成像，也就是记录：\par
+
+\[
+I(\mathbf r;z_1), I(\mathbf r;z_2),\cdots .
+\]
+
+这时可以计算光斑二阶矩：\par
+
+\[
+\sigma_r^2(z)=
+\frac{\iint |\mathbf r-\bar{\mathbf r}|^2I(\mathbf r;z)d^2r}
+{\iint I(\mathbf r;z)d^2r}.
+\]
+
+如果没有局域化，光斑会持续扩散，$\sigma_r^2(z)$ 会不断增大；如果发生局域化，光斑展宽会逐渐停止，$\sigma_r^2(z)$ 趋于饱和。\par
+
+同时我们也可以由同一张 CCD 图像后处理得到 IPR，也就是逆参与率。局域化越强，光强越集中在少数区域，IPR 就越大。\par
+
+倒空间则作为辅助证据。在 4f 后焦面中，理想周期晶格会给出清晰的 Bragg 峰；无序增强后，Bragg 峰会展宽，背景增强：\par
+
+\[
+\Delta k\uparrow,\qquad I_{\mathrm{Bragg}}/I_{\mathrm{bg}}\downarrow .
+\]
+
+所以最完整的证据链是：实空间证明波函数真的局域，倒空间证明晶格动量选择定则被无序破坏。\par
+
+这里还要强调一点：单个 SLM 更像薄相位屏。如果要真正展示局域化的形成过程，需要多 $z$ 成像，或者用多次相位调制和自由传播的分步方法来模拟连续演化。\par
+
+\bigskip\hrule\bigskip
+
+\subsection*{Slide 6：总结}
+
+最后总结一下。\par
+
+这份汇报的主线不是单纯讲 SLM 的电光效应，而是从一个结构相似性出发：SLM 的二维像素阵列很像二维晶体格点。\par
+
+进一步，SLM 可以写入实空间相位势，4f 系统可以读出倒空间结构。因此，我们可以把传统的光学调制器提升为一个晶体物理的模拟平台。\par
+
+在这个平台上，最直接的拓展就是写入随机相位缺陷，模拟晶体中杂质无序导致的 Anderson 局域化。实验上，我们可以通过实空间的局域长度、光斑二阶矩、IPR，以及倒空间的 Bragg 峰展宽和背景增强，来建立局域化的证据链。\par
+
+未来如果进一步引入多平面调制、时间调制或者分步传播算法，还可以尝试模拟准周期晶格、拓扑边界态以及非平衡晶体动力学。\par
+
+我的汇报到这里结束，谢谢大家，欢迎老师和同学提问。\par
+\end{document}

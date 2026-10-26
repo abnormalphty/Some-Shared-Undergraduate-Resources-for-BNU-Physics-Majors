@@ -1,0 +1,15 @@
+[Analytical Graphics, Inc]
+WorkbookVersion=9.0
+Title=STK
+Description=Systems Tool Kit
+ApplicationVersion=11.6.0
+Scenario=NO
+ActiveMDIState=FALSE
+[WorkState_v1_2]
+ptn_Child1=Frames
+[WorkState_v1_2.Frames]
+ptn_Child1=MainFrame
+ptn_Child2=ChildFrames
+[WorkState_v1_2.Frames.MainFrame]
+WindowPlacement=MCAAAAAAAAAAAAAABAAAAAAAPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPOBEAAAAALPAAAAAAOGJAAAAAPCEAAAAA
+Title=STK 11

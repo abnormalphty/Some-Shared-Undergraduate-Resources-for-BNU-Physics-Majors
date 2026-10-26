@@ -1,0 +1,261 @@
+\chapter{作用量、正则结构与正规模}
+
+\section{从 Newton 到 D'Alembert}
+对 $N$ 个质点
+\[
+m_\alpha\ddot{\vb r}_\alpha=\vb F_\alpha+\vb R_\alpha,
+\]
+$\vb R_\alpha$ 为约束力。完整约束写成
+$f_s(\vb r_1,\ldots,t)=0$。同一时刻满足线性化约束的虚位移满足
+\[
+\sum_\alpha\nabla_\alpha f_s\cdot\delta\vb r_\alpha=0.
+\]
+理想约束定义为
+$\sum_\alpha\vb R_\alpha\cdot\delta\vb r_\alpha=0$。将 Newton 方程移项、点乘虚位移并求和：
+\[
+\sum_\alpha(\vb F_\alpha-m_\alpha\ddot{\vb r}_\alpha)
+\cdot\delta\vb r_\alpha
+=-\sum_\alpha\vb R_\alpha\cdot\delta\vb r_\alpha=0.
+\]
+这就是 D'Alembert 原理。它不是新的力学定律，而是 Newton 方程在允许虚位移子空间中的投影。
+
+\section{广义坐标推导 Lagrange 方程}
+取独立坐标 $q_i$：
+\[
+\vb r_\alpha=\vb r_\alpha(q_1,\ldots,q_s,t),\qquad
+\delta\vb r_\alpha=\sum_i\pdv{\vb r_\alpha}{q_i}\delta q_i.
+\]
+定义广义力
+\[
+Q_i=\sum_\alpha\vb F_\alpha\cdot
+\pdv{\vb r_\alpha}{q_i}.
+\]
+惯性项使用链式法则：
+\[
+\pdv T{\dot q_i}
+=\sum_\alpha m_\alpha\dot{\vb r}_\alpha\cdot
+\pdv{\dot{\vb r}_\alpha}{\dot q_i}
+=\sum_\alpha m_\alpha\dot{\vb r}_\alpha\cdot
+\pdv{\vb r_\alpha}{q_i}.
+\]
+对时间求导：
+\[
+\dv{}{t}\pdv T{\dot q_i}
+=\sum_\alpha m_\alpha\ddot{\vb r}_\alpha\cdot
+\pdv{\vb r_\alpha}{q_i}
++\sum_\alpha m_\alpha\dot{\vb r}_\alpha\cdot
+\dv{}{t}\pdv{\vb r_\alpha}{q_i}.
+\]
+另一方面
+\[
+\pdv T{q_i}
+=\sum_\alpha m_\alpha\dot{\vb r}_\alpha\cdot
+\pdv{\dot{\vb r}_\alpha}{q_i}
+=\sum_\alpha m_\alpha\dot{\vb r}_\alpha\cdot
+\dv{}{t}\pdv{\vb r_\alpha}{q_i}.
+\]
+相减得关键恒等式
+\[
+\sum_\alpha m_\alpha\ddot{\vb r}_\alpha\cdot
+\pdv{\vb r_\alpha}{q_i}
+=\dv{}{t}\pdv T{\dot q_i}-\pdv T{q_i}.
+\]
+代回 D'Alembert 原理，独立 $\delta q_i$ 的系数必须为零：
+\[
+\dv{}{t}\pdv T{\dot q_i}-\pdv T{q_i}=Q_i.
+\]
+若 $Q_i=-\partial V/\partial q_i$，定义 $L=T-V$：
+\[
+\boxed{\dv{}{t}\pdv L{\dot q_i}-\pdv L{q_i}=0}.
+\]
+
+\section{作用量变分与端点条件}
+\[
+S[q]=\int_{t_1}^{t_2}L(q,\dot q,t)\dd t.
+\]
+取 $q_i\to q_i+\epsilon\eta_i$，固定端点
+$\eta_i(t_1)=\eta_i(t_2)=0$：
+\[
+\delta S=\int\sum_i\left(
+\pdv L{q_i}\eta_i+\pdv L{\dot q_i}\dot\eta_i\right)\dd t.
+\]
+第二项分部积分：
+\[
+\int\pdv L{\dot q_i}\dot\eta_i\dd t
+=\left.\pdv L{\dot q_i}\eta_i\right|_{t_1}^{t_2}
+-\int\dv{}{t}\pdv L{\dot q_i}\eta_i\dd t.
+\]
+边界项因固定端点为零，
+\[
+\delta S=\int\sum_i\left[
+\pdv L{q_i}-\dv{}{t}\pdv L{\dot q_i}
+\right]\eta_i\dd t.
+\]
+任意内部 $\eta_i$ 推出 Euler--Lagrange 方程。作用量通常只是驻值，不保证最小值。
+
+\section{Noether 定理的有限自由度推导}
+无穷小变换
+$q_i\to q_i+\epsilon X_i(q,t)$ 使
+\[
+\delta L=\epsilon\dv F t.
+\]
+沿满足运动方程的轨道：
+\[
+\delta L=\sum_i\left(
+\pdv L{q_i}X_i+\pdv L{\dot q_i}\dv{X_i}{t}\right)\epsilon.
+\]
+用
+$\partial L/\partial q_i=\dot p_i$：
+\[
+\delta L=\epsilon\sum_i(\dot p_iX_i+p_i\dot X_i)
+=\epsilon\dv{}{t}\sum_ip_iX_i.
+\]
+与 $\epsilon\dot F$ 比较：
+\[
+\boxed{\dv{}{t}\left(\sum_ip_iX_i-F\right)=0}.
+\]
+空间平移、旋转和时间平移分别给线动量、角动量和能量。
+
+\section{Legendre 变换到 Hamilton 方程}
+若 Hessian
+$W_{ij}=\partial^2L/\partial\dot q_i\partial\dot q_j$ 可逆，
+$p_i=\partial L/\partial\dot q_i$ 可反解 $\dot q_i(q,p,t)$。定义
+\[
+H(q,p,t)=\sum_ip_i\dot q_i-L.
+\]
+全微分：
+\[
+\dd H=\sum_i(\dot q_i\dd p_i+p_i\dd\dot q_i)
+-\sum_i\left(\pdv L{q_i}\dd q_i+
+\pdv L{\dot q_i}\dd\dot q_i\right)-\pdv L t\dd t.
+\]
+$p_i=\partial L/\partial\dot q_i$ 使 $\dd\dot q_i$ 项抵消；Lagrange 方程使
+$\partial L/\partial q_i=\dot p_i$：
+\[
+\dd H=\sum_i(\dot q_i\dd p_i-\dot p_i\dd q_i)
+-\pdv L t\dd t.
+\]
+与
+$\dd H=\sum_i(\partial_qH\dd q_i+\partial_pH\dd p_i)+\partial_tH\dd t$
+比较：
+\[
+\boxed{\dot q_i=\pdv H{p_i},\quad
+\dot p_i=-\pdv H{q_i},\quad
+\pdv Ht=-\pdv Lt}.
+\]
+
+\section{Poisson 括号与 Liouville 定理}
+\[
+\{f,g\}=\sum_i\left(
+\pdv f{q_i}\pdv g{p_i}
+-\pdv f{p_i}\pdv g{q_i}\right).
+\]
+链式法则配合 Hamilton 方程：
+\[
+\dot f=\sum_i(\partial_{q_i}f\,\dot q_i+
+\partial_{p_i}f\,\dot p_i)+\partial_tf
+=\{f,H\}+\partial_tf.
+\]
+相空间速度散度：
+\[
+\sum_i\left(
+\pdv{\dot q_i}{q_i}+\pdv{\dot p_i}{p_i}\right)
+=\sum_i\left(
+\frac{\partial^2H}{\partial q_i\partial p_i}
+-\frac{\partial^2H}{\partial p_i\partial q_i}\right)=0.
+\]
+因此相体积不变。概率密度满足
+$\partial_t\rho+\{\rho,H\}=0$，是经典 Liouville 方程。
+
+\section{正则变换和生成函数}
+要求一阶作用量只差全导数：
+\[
+\sum_ip_i\dd q_i-H\dd t
+=\sum_iP_i\dd Q_i-K\dd t+\dd F.
+\]
+若选择第二类生成函数 $F_2(q,P,t)$，
+\[
+\dd F_2=\sum_i\pdv{F_2}{q_i}\dd q_i+
+\sum_i\pdv{F_2}{P_i}\dd P_i+\pdv{F_2}t\dd t.
+\]
+比较独立微分得到
+\[
+\boxed{p_i=\pdv{F_2}{q_i},\qquad
+Q_i=\pdv{F_2}{P_i},\qquad
+K=H+\pdv{F_2}t}.
+\]
+这比死记四类生成函数可靠：先写正则一形式，再按所选独立变量作 Legendre 变换。
+
+\section{Hamilton--Jacobi 方程}
+寻找正则变换使新 Hamiltonian $K=0$。令生成函数
+$S(q,\alpha,t)$：
+\[
+p_i=\pdv S{q_i},\qquad
+\boxed{\pdv St+H\left(q,\pdv S q,t\right)=0}.
+\]
+$S$ 是 Hamilton 主函数。若 $H$ 不显含时间，
+$S=W(q,\alpha)-Et$，得到定态 HJ 方程
+\[
+H(q,\partial_qW)=E.
+\]
+在 WKB 中令 $\psi=Ae^{iS/\hbar}$，Schrödinger 方程的
+$\hbar\to0$ 领先阶正是 Hamilton--Jacobi 方程，说明经典作用量是量子相位。
+
+\section{小振动的质量加权推导}
+稳定平衡附近
+\[
+T=\frac12\dot{\vb q}^{T}M\dot{\vb q},\qquad
+V=\frac12\vb q^TK\vb q.
+\]
+方程
+$M\ddot{\vb q}+K\vb q=0$。因 $M$ 正定，定义
+$\vb x=M^{1/2}\vb q$：
+\[
+\ddot{\vb x}+D\vb x=0,\qquad
+D=M^{-1/2}KM^{-1/2}.
+\]
+$D$ 为实对称矩阵，存在正交本征矢
+$D\vb e_\lambda=\omega_\lambda^2\vb e_\lambda$。展开
+$\vb x=\sum_\lambda Q_\lambda\vb e_\lambda$：
+\[
+L=\frac12\sum_\lambda
+(\dot Q_\lambda^2-\omega_\lambda^2Q_\lambda^2).
+\]
+因此正规模是同时对角化动能和势能的坐标。原坐标本征矢满足质量内积正交：
+\[
+\vb a_\lambda^TM\vb a_{\lambda'}=\delta_{\lambda\lambda'}.
+\]
+
+\section{刚体 Euler 方程}
+惯性系与随体系导数满足
+\[
+\left(\dv{\vb A}{t}\right)_{\rm space}
+=\left(\dv{\vb A}{t}\right)_{\rm body}
++\vb\omega\times\vb A.
+\]
+取 $\vb A=\vb L$，Newton 转动定律
+$(\dd\vb L/\dd t)_{\rm space}=\vb N$：
+\[
+\left(\dv{\vb L}{t}\right)_{\rm body}
++\vb\omega\times\vb L=\vb N.
+\]
+主轴系 $\vb L=(I_1\omega_1,I_2\omega_2,I_3\omega_3)$：
+\[
+I_1\dot\omega_1+(I_3-I_2)\omega_2\omega_3=N_1
+\]
+及循环置换。无力矩时绕最大或最小主惯量轴稳定，绕中间轴不稳定。
+
+\begin{selftestbox}
+\begin{enumerate}
+\item 推导惯性项恒等式时哪两项抵消？
+\item 变分端点若不固定会出现什么自然边界条件？
+\item Noether 变换使 $L$ 改变全导数为何仍有守恒量？
+\item Legendre 变换何时不可逆？
+\item Liouville 定理为何不等于“轨迹不混合”？
+\item 从正则一形式推导第二类生成函数关系。
+\item HJ 方程怎样连接 WKB？
+\item 质量矩阵内积下正规模为何正交？
+\item Euler 方程中的叉积项从哪里来？
+\item 中间轴不稳定的线性化思路是什么？
+\end{enumerate}
+\end{selftestbox}

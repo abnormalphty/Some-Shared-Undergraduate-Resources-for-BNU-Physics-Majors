@@ -1,0 +1,83 @@
+\chapter{量子力学概念骨架：公设、模型与近似}
+\section{公设、演化与概率流}
+纯态是 Hilbert 空间中的射线；可观测量对应自伴算符；测量结果是本征值，概率由 Born 规则给出，完备本征态满足 $\sum_n|n\rangle\langle n|=1$。相容可观测量对易并可取共同本征态。
+封闭系统满足
+\[
+i\hbar\partial_t|\psi\rangle=\hat H|\psi\rangle,
+\]
+若 $H$ 不显含时间，令 $\psi(\vb r,t)=\phi(\vb r)\ee^{-iEt/\hbar}$ 得
+$H\phi=E\phi$。将 Schrödinger 方程乘 $\psi^*$，减去共轭式：
+\[
+\partial_t|\psi|^2+\nabla\cdot\vb j=0,\qquad
+\vb j=\frac{\hbar}{2mi}(\psi^*\nabla\psi-\psi\nabla\psi^*).
+\]
+它表达幺正演化保存总概率。
+
+\section{一维模型与谐振子}
+无限深势阱 $0<x<L$ 内解为正弦余弦，边界 $\psi(0)=\psi(L)=0$ 给
+$\psi_n=\sqrt{2/L}\sin(n\pi x/L)$，
+$E_n=n^2\pi^2\hbar^2/(2mL^2)$。有限矩形势垒中禁阻区波函数按
+$\ee^{\pm\kappa x}$ 变化，$\kappa=\sqrt{2m(V_0-E)}/\hbar$；宽高势垒透射率主导因子
+$T\sim\ee^{-2\kappa a}$，说明隧穿来自波函数连续延伸，而非粒子经典越过势垒。
+
+谐振子定义
+\[
+a=\sqrt{\frac{m\omega}{2\hbar}}x+\frac{i}{\sqrt{2m\hbar\omega}}p,\quad
+[a,a^\dagger]=1.
+\]
+代回 $H=p^2/2m+m\omega^2x^2/2$：
+\[
+H=\hbar\omega(a^\dagger a+\tfrac12).
+\]
+$N=a^\dagger a$ 的非负整数本征值来自范数不能为负，故
+\[
+\boxed{E_n=\hbar\omega(n+\tfrac12)}.
+\]
+
+\section{角动量、自旋与氢原子}
+\[
+[J_i,J_j]=i\hbar\epsilon_{ijk}J_k,\quad
+J^2|jm\rangle=\hbar^2j(j+1)|jm\rangle,\quad
+J_z|jm\rangle=\hbar m|jm\rangle.
+\]
+$J_\pm=J_x\pm iJ_y$ 改变 $m$ 一个单位；有限范数要求梯子有顶底，推出
+$m=-j,\ldots,j$。自旋 $1/2$ 用
+$\vb S=\hbar\vb\sigma/2$ 表示，Pauli 矩阵满足
+$\sigma_i\sigma_j=\delta_{ij}+i\epsilon_{ijk}\sigma_k$。自旋是内禀角动量，并非小球自转。
+
+中心势中令 $\psi=R_{nl}(r)Y_l^m(\theta,\phi)$，角向给 $l,m$，径向方程含
+$\hbar^2l(l+1)/(2mr^2)$ 离心项。氢原子库仑势解得
+\[
+E_n=-\frac{13.6\,\mathrm{eV}}{n^2},\quad n=1,2,\ldots
+\]
+非相对论纯 Coulomb 情形能量只依赖 $n$，其额外简并与 Runge--Lenz 对称性有关；精细结构、Lamb 位移和外场会解除简并。
+
+\section{微扰、变分与 WKB}
+设 $H=H_0+\lambda H'$，逐阶展开能量与态。将一阶方程左乘
+$\langle n^{(0)}|$ 得
+\[
+E_n^{(1)}=\langle n^{(0)}|H'|n^{(0)}\rangle.
+\]
+将一阶态投影到 $m\ne n$，得到
+$\langle m|n^{(1)}\rangle=\langle m|H'|n\rangle/(E_n^{(0)}-E_m^{(0)})$，再代入二阶能量：
+\[
+\boxed{E_n^{(2)}=\sum_{m\ne n}
+\frac{|\langle m^{(0)}|H'|n^{(0)}\rangle|^2}
+{E_n^{(0)}-E_m^{(0)}}}.
+\]
+若存在简并，分母失去意义；必须先在简并子空间内对角化矩阵
+$H'_{\alpha\beta}$，选择“正确的零阶态”。微扰在矩阵元不再远小于能级差、近简并或级数不收敛时失效。
+
+变分原理
+$E[\psi]=\langle\psi|H|\psi\rangle/\langle\psi|\psi\rangle\ge E_0$，
+通过试探族最小化给基态能量上界。WKB 在势变化尺度远大于局域德布罗意波长时成立；两个光滑转向点间
+\[
+\boxed{\int_{x_1}^{x_2}p(x)\dd x=(n+\tfrac12)\pi\hbar}.
+\]
+$1/2$ 来自两个转向点的连接相位。
+
+\section{全同粒子与易错点}
+玻色子多体波函数交换对称，费米子交换反对称。费米态可写 Slater 行列式；两粒子若占据同一单粒子态，两列相同使行列式为零，即 Pauli 不相容原理。
+\pitfall{不确定性 $\Delta A\Delta B\ge\frac12|\langle[A,B]\rangle|$ 来自 Hilbert 空间的 Cauchy--Schwarz 不等式与不对易，不是仪器扰动的经验规律；测量概率与测后态更新是不同陈述。}
+\section{核心公式与面试回答}
+\interview{回答量子问题时按“态空间—算符谱—测量概率—时间演化”分层。回答角动量量子化时，从旋转代数和升降算符的有限范数推出离散谱，而不要诉诸经典轨道。}

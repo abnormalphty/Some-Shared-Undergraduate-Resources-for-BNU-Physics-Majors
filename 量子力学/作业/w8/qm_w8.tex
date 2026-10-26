@@ -1,0 +1,305 @@
+\documentclass[12pt, a4paper, oneside]{ctexart}
+\usepackage{amsmath, amsthm, amssymb, bm, xcolor, tikz, framed, graphicx, hyperref, mathrsfs}
+\usepackage{bookmark}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+\newcommand{\bra}[1]{\langle #1 |}
+\newcommand{\ket}[1]{| #1 \rangle}
+\newcommand{\braket}[2]{\langle #1 | #2 \rangle}
+
+\title{Quantum Mechanics Homework (Week 8)}
+\author{Tang Yi \\ [学号已脱敏]}
+\usepackage[a4paper, left=2cm, right=2cm, top=2cm, bottom=2cm]{geometry}
+\linespread{1.3} % 行距更紧凑
+\definecolor{shadecolor}{RGB}{241, 241, 255}
+
+\newcounter{problemname}
+\newenvironment{problem}
+  {\begin{shaded}\stepcounter{problemname}\par\noindent\textbf{题目 \theproblemname. }}
+  {\end{shaded}\par}
+\newenvironment{solution}
+  {\par\noindent\textbf{题目 \theproblemname 的解答. }}
+  {\par}
+\newenvironment{note}
+  {\par\noindent\textbf{题目 \theproblemname 的注记. }}
+  {\par}
+
+\begin{document}
+
+\maketitle
+
+\begin{problem}
+  考虑一维体系，证明：
+
+  (1)$\sigma_x \sigma_H \ge \dfrac{\hbar}{2m} \langle p \rangle$;
+
+  (2)束缚定态下，满足不确定关系的下限。
+\end{problem}
+
+\begin{solution}
+  (1)
+  \begin{align*}
+    \sigma_x \sigma_H &\ge \dfrac{|i \langle [x,H] \rangle|}{2}\\
+    &= \dfrac{|i^2 \hbar \dfrac{\mathrm{d}\langle x \rangle}{\mathrm{d}t}|}{2} \\
+    &= \dfrac{\hbar}{2m} \langle p \rangle
+  \end{align*}
+
+  (2)
+  由柯西–施瓦兹不等式，
+\[
+(\Delta x)^2(\Delta p)^2 \ge 
+\left|\frac{1}{2i}\langle[\hat x,\hat p]\rangle\right|^2
+= \frac{\hbar^2}{4}.
+\]
+等号成立当且仅当存在复常数 $\alpha$ 使
+\[
+(\hat p - \langle \hat p\rangle)\psi(x)
+= \alpha\,(\hat x - \langle \hat x\rangle)\psi(x).
+\]
+在位置表象下，$\hat p = -i\hbar\,\dfrac{d}{dx}$，代入得
+\[
+-i\hbar\,\frac{d\psi}{dx}
+= \langle \hat p\rangle\psi(x)
++ \alpha\,(x-\langle x\rangle)\psi(x).
+\]
+整理得
+\[
+\frac{d\psi}{dx}
+= \frac{i\langle \hat p\rangle}{\hbar}\psi(x)
++ \frac{i\alpha}{\hbar}(x-\langle x\rangle)\psi(x),
+\]
+其通解为
+\[
+\psi(x) = C
+\exp\!\left[\frac{i\langle \hat p\rangle x}{\hbar}
++ \frac{i\alpha}{2\hbar}(x-\langle x\rangle)^2\right].
+\]
+令 $\alpha = a + ib$（$a,b\in\mathbb R$），则
+\[
+|\psi(x)|^2 \propto
+\exp\!\left[-\frac{b}{\hbar}(x-\langle x\rangle)^2\right],
+\]
+要使波函数平方可积，必须有 $b>0$。
+
+取上述关系的虚部，
+\[
+\frac{\hbar}{2}
+= \operatorname{Im}\!\bigl(\alpha\bigr)\,(\Delta x)^2,
+\quad\Rightarrow\quad
+\operatorname{Im}\alpha = \frac{\hbar}{2(\Delta x)^2}.
+\]
+又由 $(\Delta p)^2 = |\alpha|^2(\Delta x)^2$，若达到下限
+$\Delta x\,\Delta p = \hbar/2$，则
+\[
+|\alpha|^2(\Delta x)^4 = \frac{\hbar^2}{4}
+\ \Rightarrow\
+\operatorname{Re}\alpha = 0.
+\]
+因此
+\[
+\boxed{\ \alpha = i\,\frac{\hbar}{2(\Delta x)^2}\ }.
+\]
+
+代回得等号成立时的波函数为
+\[
+\boxed{
+\psi(x)
+= C\,
+\exp\!\left[-\frac{(x-\langle x\rangle)^2}{4(\Delta x)^2}
++\frac{i\langle \hat p\rangle x}{\hbar}\right],
+}
+\]
+即为带相位的高斯波包，满足
+$\Delta x\,\Delta p = \hbar/2$。
+
+故束缚定态满足不确定关系下限的充分必要条件是波函数为高斯型，
+特别地，谐振子基态即为该形式。
+\end{solution}
+
+\begin{problem}
+  设体系处于$\hat{\boldsymbol{l}^2}$和$\hat{l}_z$的共同本征态$|(l,m)\rangle$，求$(\Delta_{l_x})^2$和$(\Delta_{l_y})^2$。
+
+  （提示：先利用对易关系证明$\langle (l,m)| \hat{l_x^2} (l,m) \rangle = \langle (l,m)| \hat{l_y^2} (l,m) \rangle$）
+\end{problem}
+
+\begin{solution}
+  \begin{align*}
+    \hat{\boldsymbol{l}^2} | l,m \rangle &= l(l+1) |l,m \rangle \\
+    \hat{l_z^2} | l,m \rangle &= m^2 |l,m \rangle \\
+    \Rightarrow (\hat{l_x^2} + \hat{l_y^2}) |l,m \rangle &= [l(l+1) - m^2] |l,m \rangle
+  \end{align*}
+
+  同时，不难有
+  \begin{align*}
+    \hat{l_x^2} &= \dfrac{1}{4} (l_+ +l_-)^2\\
+    &= \dfrac{1}{4} (l_+^2 + l_-^2 + l_+ l_- + l_- l_+)\\
+    \hat{l_y^2} &= -\dfrac{1}{4} (l_+ - l_-)^2\\
+    &= -\dfrac{1}{4} (l_+^2 + l_-^2 - l_+ l_- - l_- l_+)
+  \end{align*}
+
+  同时，不难有$\langle l,m | l_+^2 | l,m \rangle = \langle l,m | l_-^2 | l,m \rangle = 0$。
+
+  因此，可以证明
+
+  \centerline{$\langle l_x^2 \rangle = \langle l_y^2 \rangle = \dfrac{l(l+1)-m^2}{2}$}
+
+  同时，利用升降算符，不难有
+
+  \centerline{$\langle l_x \rangle = \langle l_y \rangle = 0$}
+
+  因此恢复量纲后，有，
+
+  \centerline{$(\Delta_{l_x})^2=(\Delta_{l_y})^2=\dfrac{l(l+1)-m^2}{2} \hbar^2$}
+\end{solution}
+
+\begin{problem}
+  (1)证明：角动量算符沿任意方向$(\theta,\phi)$的分量$\hat{l}_\alpha$与$\hat{\boldsymbol{l}^2}$对易。
+  (2)求$\hat{l}_\alpha$在$\hat{l}_z$的本征态下的期望值。
+\end{problem}
+
+\begin{solution}
+  (1)
+  \begin{align*}
+    l_\alpha &= \boldsymbol{l}\cdot \boldsymbol{n}_\alpha \\
+    &= \cos \alpha l_x +\cos \beta l_y + \cos \gamma l_z\\
+    &= \sin \theta \cos \phi l_x + \sin \theta \sin \phi l_y + \cos \theta l_z
+  \end{align*}
+
+  而$l_x,l_y,l_z$与$\hat{\boldsymbol{l}^2}$对易是显然的。因此，角动量算符沿任意方向的分量$\hat{l}_\alpha$与$\hat{\boldsymbol{l}^2}$对易。
+
+  (2)
+  \begin{align*}
+    \langle l_\alpha \rangle &= \langle l,m | l_\alpha | l,m \rangle\\
+    &=  m\hbar \cos \theta
+  \end{align*}
+\end{solution}
+
+\begin{problem}
+  \begin{equation*}
+    \ket{a} = c\ket{1, 1} + \frac{1}{3}\ket{1, -1} - \frac{2}{3}\ket{2, 0}
+  \end{equation*}
+其中 $\ket{l, m}$ 为 $\hat{l}^2$ 和 $\hat{l}_z$ 的共同本征态。若 $\ket{a}$ 是归一化的，求：\\
+    (1)系数 $c$ (取实数)；\\
+    (2)$\hat{l}^2$ 和 $\hat{l}_z$ 的可能测值、相应的几率和期望值。\\
+    (3)此状态下测量 $\hat{l}^2$ 得到 $2\hbar^2$，再测量 $\hat{l}_z$，可能的测值和相应的几率是多少？\\
+    (4)此状态下，在 $x, y, z > 0$ 的范围内找到该粒子的几率有多大？
+\end{problem}
+
+\begin{solution}
+  (1)由归一化条件，有
+
+  \centerline{$c^2 + \dfrac{1}{9} + \dfrac{4}{9} = 1$}
+
+  解得，$c = \pm \dfrac{2}{3}$。
+
+  (2)由于是共同本征态，因此有
+
+  \centerline{$l^2 = 2\hbar^2 \,\mathrm{or} \,\,6\hbar^2$}
+
+  有量子力学公设，不难有
+
+  \centerline{$P(l^2 = 2\hbar^2) = \dfrac{5}{9}$}
+
+  \centerline{$P(l^2 = 6\hbar^2) = \dfrac{4}{9}$}
+
+  \centerline{$\langle l^2 \rangle = \dfrac{34}{9} \hbar^2$}
+
+  同理，有
+
+  \centerline{$l_z = \hbar , -\hbar \,\mathrm{or} \,\,0$}
+
+  有量子力学公设，不难有
+
+  \centerline{$P(l_z = \hbar) = \dfrac{4}{9}$}
+
+  \centerline{$P(l^2 = -\hbar) = \dfrac{1}{9}$}
+
+  \centerline{$P(l^2 = 0) = \dfrac{4}{9}$}
+
+  \centerline{$\langle l_z \rangle = \dfrac{1}{3} \hbar$}
+
+  (3)此时的态为
+
+  \centerline{$| \alpha_p \rangle = \dfrac{2}{\sqrt{5}} | 1,1\rangle +\dfrac{1}{\sqrt{5}} |1,-1\rangle$}
+
+  则此时有
+
+  \centerline{$l_z = \hbar  \,\,\mathrm{or} \,\, -\hbar$}
+
+  有量子力学公设，不难有
+
+  \centerline{$P(l_z = \hbar) = \dfrac{4}{5}$}
+
+  \centerline{$P(l^2 = -\hbar) = \dfrac{1}{5}$}
+
+  \centerline{$\langle l_z \rangle = \dfrac{3}{5} \hbar$}
+
+  (4)
+
+  \centerline{$P = \displaystyle\int_0^\frac{\pi}{2}\mathrm{d}\theta \int_0^\frac{\pi}{2} \mathrm{d}\phi |\psi(\theta,\phi)|^2\sin\theta$}
+
+  其中，有$\psi = \dfrac{2}{3} Y_1^1 + \dfrac{1}{3} Y_1^{-1} - \dfrac{2}{3} Y_2^0$，代入利用mma积分得
+
+  \centerline{$P = \dfrac{72-\sqrt{30}}{576}$}
+\end{solution}
+
+\begin{problem}
+  \[
+    V(x, y, z) = \begin{cases}
+        0, & 0 < x, y, z < a \\
+        \infty, & \text{其它地方}
+    \end{cases}
+\]
+    (1)写出本征态及相应的能量；\\
+    (2)按能量增加的顺序标记能级 $E_1, E_2, E_3, \ldots$，给出前六个能级的本征能量和能级简并度。
+
+\end{problem}
+
+\begin{solution}
+  (1)
+粒子被限制在立方势阱内，边界处波函数为零。分离变量法可得本征波函数为
+\[
+\psi_{n_x,n_y,n_z}(x,y,z)
+= \sqrt{\frac{8}{a^3}}\,
+\sin\!\left(\frac{n_x\pi x}{a}\right)
+\sin\!\left(\frac{n_y\pi y}{a}\right)
+\sin\!\left(\frac{n_z\pi z}{a}\right),
+\qquad n_x,n_y,n_z = 1,2,\dots
+\]
+对应的能量为
+\[
+E_{n_x,n_y,n_z}
+= \frac{\hbar^2\pi^2}{2ma^2}
+\,(n_x^2 + n_y^2 + n_z^2)
+\equiv E_0 (n_x^2 + n_y^2 + n_z^2),
+\quad E_0 = \frac{\hbar^2\pi^2}{2ma^2}.
+\]
+
+(2)
+\[
+\begin{array}{cclcl}
+\hline
+\text{能级} & \text{量子数组合 }(n_x,n_y,n_z) & n_x^2+n_y^2+n_z^2 & E_i/E_0 & \text{简并度 } g_i\\
+\hline
+E_1 & (1,1,1) & 3 & 3 & 1\\[4pt]
+E_2 & (1,1,2),(1,2,1),(2,1,1) & 6 & 6 & 3\\[4pt]
+E_3 & (1,2,2),(2,1,2),(2,2,1) & 9 & 9 & 3\\[4pt]
+E_4 & (1,1,3),(1,3,1),(3,1,1) & 11 & 11 & 3\\[4pt]
+E_5 & (2,2,2) & 12 & 12 & 1\\[4pt]
+E_6 & (1,2,3)\ \text{及其排列共6个} & 14 & 14 & 6\\
+\hline
+\end{array}
+\]
+
+因此，能量依次为
+\[
+E_1 = 3E_0,\quad
+E_2 = 6E_0,\quad
+E_3 = 9E_0,\quad
+E_4 = 11E_0,\quad
+E_5 = 12E_0,\quad
+E_6 = 14E_0.
+\]
+\end{solution}
+\end{document}

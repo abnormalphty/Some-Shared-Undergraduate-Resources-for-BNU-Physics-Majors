@@ -1,0 +1,89 @@
+\documentclass[12pt,a4paper]{article}
+
+% --- 核心宏包加载 ---
+\usepackage[utf8]{inputenc}
+\usepackage{ctex}            % 中文支持
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{geometry}        % 页面布局
+\usepackage{enumitem}        % 列表优化
+\usepackage{titlesec}        % 标题格式
+\usepackage{setspace}        % 行间距控制
+\usepackage{mathrsfs}        % 花体字母
+
+% --- 页面深度定制 ---
+\geometry{left=2cm,right=2cm,top=2.5cm,bottom=2.5cm}
+\onehalfspacing              % 1.5倍行距提升篇幅视觉感
+\setlength{\parindent}{2em}  % 首行缩进
+
+% --- 标题格式化 ---
+\titleformat{\section}{\Large\bfseries}{\thesection}{1em}{}
+
+\begin{document}
+
+\begin{center}
+    \LARGE \textbf{He-Ne 激光模式动力学与模分裂物理本质深度总结} \\
+    \vspace{0.8em}
+    \large 实验人员：同学 \quad 学号：[学号已脱敏] \\
+    \vspace{0.4em}
+    \rule{\textwidth}{1pt}
+\end{center}
+
+\section{激光纵横模的本征态分布与非线性动力学反思}
+
+激光器输出的模式并非简单的单色叠加，而是谐振腔几何约束与增益介质原子能级动力学相互作用的本征解。
+
+\subsection{纵模频率的量子化与增益剖面博弈}
+在有源谐振腔中，光场必须满足单程相位移动为 $2\pi$ 整数倍的相干条件。对于物理长度为 $L$ 的谐振腔，第 $q$ 个纵模的频率 $\nu_q$ 满足：
+\begin{equation}
+    \oint \vec{k} \cdot d\vec{l} = 2\pi q \implies \nu_{q} = q \frac{c}{2 \sum \mu_i L_i}
+\end{equation}
+其中 $\mu_i$ 为腔内各元件的折射率。本实验观察到的纵模包络受限于 He-Ne 气体的多普勒展宽。根据统计力学，原子的速度遵循麦克斯韦分布，导致小信号增益 $G(\nu)$ 呈现高斯剖面：
+\begin{equation}
+    G(\nu) = G_0 \exp \left[ -\frac{(\nu - \nu_0)^2}{\Delta \nu_D^2} \ln 2 \right]
+\end{equation}
+其中 $\Delta \nu_D = \frac{\nu_0}{c} \sqrt{\frac{8kT \ln 2}{M}}$。示波器显示的波形实质上是增益剖面与损耗线 $L_{total}$ 的割集。这一深刻现象启示我：激光的频谱纯度不仅受限于腔的 $Q$ 值，更受制于介质的微观热运动。
+
+\subsection{横模的空间对称性与 Guoy 相位漂移}
+横模 $TEM_{mn}$ 的出现源于光场在横向边界上的衍射受限。对于本实验所用的非共焦腔，横模频率偏移是由横向模式在腔内往返一周产生的额外相位（Guoy Phase）引起的：
+\begin{equation}
+    \nu_{mnq} = \left[ q + \frac{1}{\pi}(m+n+1) \arccos \sqrt{(1-\frac{L}{R_1})(1-\frac{L}{R_2})} \right] \frac{c}{2L}
+\end{equation}
+定义稳定性参数 $g_i = 1 - L/R_i$，当 $0 < g_1 g_2 < 1$ 时，谐振腔处于稳定区。这一数学模型与实验中观察到的主峰旁侧的“卫星峰”完美契合，证明了物理实验是抽象代数方程的空间实像。
+
+\section{双折射模分裂：从各向异性破缺到精密频率演化}
+
+模分裂现象是本实验的物理核心，它展示了各向异性扰动如何打破频率简并态。
+
+\subsection{偏振态的相位解耦与有效腔长演变}
+当腔内引入石英晶体时，晶体的主轴（快轴与慢轴）导致 $o$ 光与 $e$ 光感受到的光程不再相等。根据晶体光学菲涅尔方程，当晶轴与光轴夹角为 $\theta$ 时，有效折射率 $n''(\theta)$ 为：
+\begin{equation}
+    \frac{1}{n''(\theta)^2} = \frac{\cos^2 \theta}{n_o^2} + \frac{\sin^2 \theta}{n_e^2}
+\end{equation}
+由此引入的光程差 $\delta = (n'' - n')h$ 导致了同一纵模序数 $q$ 对应两个不同的物理腔长。通过对频率公式 $\nu = q \frac{c}{2L}$ 进行变分推导：
+\begin{equation}
+    d\nu = -\frac{c \cdot q}{2L^2} dL = -\frac{\nu}{L} \delta
+\end{equation}
+代入实验参数，$\nu \approx 4.74 \times 10^{14}$ Hz，腔长 $L \approx 0.25$ m。这意味着，即使晶体产生 $1$ nm 的光程差，也会导致近 $2$ MHz 的频率分裂。这种“微观扰动、巨观响应”的特性，让我深刻理解了精密光学测量在引力波探测（LIGO）和激光陀螺中的核心逻辑。
+
+\subsection{模式竞争与非线性动力学反思}
+在模分裂过程中，由于两个正交偏振模共用同一支增益曲线，它们之间存在激烈的反转粒子数争夺。根据拉姆（Lamb）理论，模式间的耦合系数 $\xi$ 决定了系统是双模共振还是单模竞存。当分裂间距较小时，空间烧孔效应会导致强烈的模式涨落。这教会了我：物理系统中的“独立性”往往是相对的，非线性耦合才是真实世界的常态。
+
+\section{实验工程建议与科研方法论总结}
+
+\subsection{基于数字化反馈与定量的实验改进建议}
+\begin{enumerate}
+    \item \textbf{引入 PDH (Pound-Drever-Hall) 锁相反馈}：实验中示波器谱线的晃动主要源于腔长的热漂移和机械振动引起的相位噪声 $\phi_{noise}$。建议引入压电陶瓷（PZT）作为受控元件，建立闭环反馈系统。
+    \item \textbf{全斯托克斯（Stokes）矢量偏振测定}：目前的偏振观测过于定性。应使用 $\lambda/4$ 波片与旋转检偏器组合，采集光强的四个斯托克斯参数：
+    \begin{equation}
+        \vec{S} = [S_0, S_1, S_2, S_3]^T
+    \end{equation}
+    通过计算机解算偏振椭圆，可定量研究腔内各向异性对偏振态的细微调制。
+\end{enumerate}
+
+\subsection{科研习惯与方法论的系统化提升}
+\begin{itemize}
+    \item \textbf{图景映射思维}：将复杂的 Hermite-Gaussian 模式解与示波器波形关联。我意识到，物理学习的最高境界是将冰冷的算式转化为动态的物理图景。
+    \item \textbf{定标（Calibration）的敬畏感}：没有自由光谱区 $FSR = \frac{c}{4L}$ 为基准的测量是无效的。这培养了我对“基准意识”的深度认同——所有数据必须在已知的物理标尺下才有生命力。
+\end{itemize}
+
+\end{document}

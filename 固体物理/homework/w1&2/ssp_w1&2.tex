@@ -1,0 +1,443 @@
+\documentclass[12pt, a4paper, oneside]{ctexart}
+\usepackage{amsmath, amsthm, amssymb, bm, xcolor, tikz, framed, graphicx, hyperref, mathrsfs}
+
+\title{Soild State Physics Homework (Week 1-2)}
+\author{Tang Yi \\ [学号已脱敏]}
+\usepackage[a4paper, left=2cm, right=2cm, top=2cm, bottom=2cm]{geometry}
+\linespread{1.3} % 行距更紧凑
+\definecolor{shadecolor}{RGB}{241, 241, 255}
+
+\newcounter{problemname}
+\newenvironment{problem}
+  {\begin{shaded}\stepcounter{problemname}\par\noindent\textbf{题目 \theproblemname. }}
+  {\end{shaded}\par}
+\newenvironment{solution}
+  {\par\noindent\textbf{题目 \theproblemname 的解答. }}
+  {\par}
+\newenvironment{note}
+  {\par\noindent\textbf{题目 \theproblemname 的注记. }}
+  {\par}
+
+\begin{document}
+
+\maketitle
+
+\begin{problem}
+    如果将等体积球分别排成下列结构，设 $x$ 表示刚球所占体积与总体积之比，证明
+    
+    \begin{center}
+    \begin{tabular}{cc}
+        结构 & $x$ \\
+        简单立方 & $\pi/6 \approx 0.52$ \\
+        体心立方 & $\sqrt{3}\pi/8 \approx 0.68$ \\
+        面心立方 & $\sqrt{2}\pi/6 \approx 0.74$ \\
+        六方密排 & $\sqrt{2}\pi/6 \approx 0.74$ \\
+        金刚石 & $\sqrt{3}\pi/16 \approx 0.34$
+    \end{tabular}
+    \end{center}
+\end{problem}
+
+\begin{solution}
+
+设原子为半径 $R$ 的刚球，单位晶胞体积为 $V_c$，晶胞内原子数为 $N$，则堆积因子为
+
+\[
+x=\frac{N \cdot \frac{4}{3}\pi R^3}{V_c}.
+\]
+
+\textbf{(1) 简单立方结构 (SC)}
+
+简单立方晶格中 8 个顶点原子各贡献 $1/8$，故
+
+\[
+N=1.
+\]
+
+原子沿立方体棱方向接触，因此
+
+\[
+a=2R.
+\]
+
+晶胞体积
+
+\[
+V_c=a^3=(2R)^3=8R^3.
+\]
+
+因此
+
+\[
+x=\frac{\frac{4}{3}\pi R^3}{8R^3}
+=\frac{\pi}{6}\approx0.52.
+\]
+
+\textbf{(2) 体心立方结构 (BCC)}
+
+单位胞内原子数
+
+\[
+N=2.
+\]
+
+原子沿体对角线接触：
+
+\[
+\sqrt{3}a=4R.
+\]
+
+因此
+
+\[
+a=\frac{4R}{\sqrt3}.
+\]
+
+晶胞体积
+
+\[
+V_c=a^3=\left(\frac{4R}{\sqrt3}\right)^3
+=\frac{64R^3}{3\sqrt3}.
+\]
+
+堆积因子
+
+\[
+x=\frac{2\cdot\frac{4}{3}\pi R^3}{V_c}
+=\frac{\sqrt3\pi}{8}
+\approx0.68.
+\]
+
+\textbf{(3) 面心立方结构 (FCC)}
+
+单位胞原子数
+
+\[
+N=4.
+\]
+
+原子沿面对角线接触
+
+\[
+\sqrt2 a=4R.
+\]
+
+因此
+
+\[
+a=2\sqrt2 R.
+\]
+
+晶胞体积
+
+\[
+V_c=a^3=(2\sqrt2R)^3=16\sqrt2R^3.
+\]
+
+堆积因子
+
+\[
+x=\frac{4\cdot\frac{4}{3}\pi R^3}{16\sqrt2R^3}
+=\frac{\sqrt2\pi}{6}
+\approx0.74.
+\]
+
+\textbf{(4) 六方密排结构 (HCP)}
+
+HCP 与 FCC 具有相同的堆积效率，因此
+
+\[
+x=\frac{\sqrt2\pi}{6}\approx0.74.
+\]
+
+\textbf{(5) 金刚石结构}
+
+金刚石结构为 FCC 晶格加两原子基元，单位胞中共有
+
+\[
+N=8
+\]
+
+个原子。
+
+最近邻距离为
+
+\[
+d=\frac{\sqrt3}{4}a.
+\]
+
+由于原子接触
+
+\[
+2R=d,
+\]
+
+故
+
+\[
+R=\frac{\sqrt3}{8}a.
+\]
+
+单位胞体积
+
+\[
+V_c=a^3.
+\]
+
+球体总体积为
+
+\[
+8\cdot\frac{4}{3}\pi R^3.
+\]
+
+因此
+
+\[
+x=\frac{8\cdot\frac{4}{3}\pi R^3}{a^3}
+=\frac{\sqrt3\pi}{16}
+\approx0.34.
+\]
+
+\end{solution}
+
+\begin{problem}
+    试证六方密排密堆积结构中 $\dfrac{c}{a} = \left( \dfrac{8}{3} \right)^{1/2} \approx 1.633$.
+\end{problem}
+
+\begin{solution}
+
+考虑六方密排结构中三层原子堆积。底层三个原子中心形成边长为 $2R$ 的正三角形。
+
+设上层原子中心到该三角形平面的高度为 $h$。三角形中心到顶点距离为
+
+\[
+r=\frac{2R}{\sqrt3}.
+\]
+
+由于上层原子与三个底层原子相接触，因此球心距离满足
+
+\[
+(2R)^2=h^2+r^2.
+\]
+
+代入 $r$ 得
+
+\[
+4R^2=h^2+\frac{4R^2}{3}.
+\]
+
+于是
+
+\[
+h^2=\frac{8R^2}{3},
+\qquad
+h=\sqrt{\frac{8}{3}}R.
+\]
+
+HCP 单胞高度为
+
+\[
+c=2h,
+\]
+
+而
+
+\[
+a=2R.
+\]
+
+因此
+
+\[
+\frac{c}{a}
+=\frac{2h}{2R}
+=\frac{h}{R}
+=\sqrt{\frac{8}{3}}
+\approx1.633.
+\]
+
+\end{solution}
+
+\begin{problem}
+    证明：体心立方晶格的倒格子是面心立方；面心立方晶格的倒格子是体心立方.
+\end{problem}
+
+\begin{solution}
+
+倒格子基矢定义为
+
+\[
+\boldsymbol b_1
+=2\pi
+\frac{\boldsymbol a_2\times\boldsymbol a_3}
+{\boldsymbol a_1\cdot(\boldsymbol a_2\times\boldsymbol a_3)},
+\]
+
+\[
+\boldsymbol b_2
+=2\pi
+\frac{\boldsymbol a_3\times\boldsymbol a_1}
+{\boldsymbol a_1\cdot(\boldsymbol a_2\times\boldsymbol a_3)},
+\]
+
+\[
+\boldsymbol b_3
+=2\pi
+\frac{\boldsymbol a_1\times\boldsymbol a_2}
+{\boldsymbol a_1\cdot(\boldsymbol a_2\times\boldsymbol a_3)}.
+\]
+
+\textbf{(1) BCC 的倒格子}
+
+取 BCC 原胞基矢
+
+\[
+\boldsymbol a_1=\frac a2(1,1,-1),\qquad
+\boldsymbol a_2=\frac a2(1,-1,1),\qquad
+\boldsymbol a_3=\frac a2(-1,1,1).
+\]
+
+计算得到
+
+\[
+\boldsymbol b_1=\frac{2\pi}{a}(0,1,1),\quad
+\boldsymbol b_2=\frac{2\pi}{a}(1,0,1),\quad
+\boldsymbol b_3=\frac{2\pi}{a}(1,1,0).
+\]
+
+这正是面心立方晶格的原胞基矢，因此
+
+\[
+\text{BCC 的倒格子为 FCC}.
+\]
+
+\textbf{(2) FCC 的倒格子}
+
+FCC 原胞基矢为
+
+\[
+\boldsymbol a_1=\frac a2(0,1,1),\qquad
+\boldsymbol a_2=\frac a2(1,0,1),\qquad
+\boldsymbol a_3=\frac a2(1,1,0).
+\]
+
+计算得到
+
+\[
+\boldsymbol b_1=\frac{2\pi}{a}(1,-1,1),\quad
+\boldsymbol b_2=\frac{2\pi}{a}(1,1,-1),\quad
+\boldsymbol b_3=\frac{2\pi}{a}(-1,1,1).
+\]
+
+这正是体心立方晶格的原胞基矢，因此
+
+\[
+\text{FCC 的倒格子为 BCC}.
+\]
+
+\end{solution}
+
+\begin{problem}
+    证明：倒格子原胞的体积为 $(2\pi)^3/v_c$，其中 $v_c$ 为正格子原胞的体积.
+\end{problem}
+
+\begin{solution}
+
+正格子原胞体积为
+
+\[
+V_c=\boldsymbol a_1\cdot(\boldsymbol a_2\times\boldsymbol a_3).
+\]
+
+倒格子基矢
+
+\[
+\boldsymbol b_1
+=2\pi\frac{\boldsymbol a_2\times\boldsymbol a_3}{V_c},\quad
+\boldsymbol b_2
+=2\pi\frac{\boldsymbol a_3\times\boldsymbol a_1}{V_c},\quad
+\boldsymbol b_3
+=2\pi\frac{\boldsymbol a_1\times\boldsymbol a_2}{V_c}.
+\]
+
+倒格子原胞体积
+
+\[
+V^*=\boldsymbol b_1\cdot(\boldsymbol b_2\times\boldsymbol b_3).
+\]
+
+代入上式并整理可得
+
+\[
+V^*=(2\pi)^3
+\frac{(\boldsymbol a_2\times\boldsymbol a_3)\cdot
+[(\boldsymbol a_3\times\boldsymbol a_1)\times(\boldsymbol a_1\times\boldsymbol a_2)]}
+{V_c^3}.
+\]
+
+利用向量恒等式
+
+\[
+(\boldsymbol a_2\times\boldsymbol a_3)\cdot
+[(\boldsymbol a_3\times\boldsymbol a_1)\times(\boldsymbol a_1\times\boldsymbol a_2)]
+=V_c^2
+\]
+
+最终得到
+
+\[
+V^*=\frac{(2\pi)^3}{V_c}.
+\]
+
+\end{solution}
+
+\begin{problem}
+    证明：倒格子矢量 $\boldsymbol{G} = h_1 \boldsymbol{b}_1 + h_2 \boldsymbol{b}_2 + h_3 \boldsymbol{b}_3$ 垂直于密勒指数为 $(h_1 h_2 h_3)$ 的晶面系.
+\end{problem}
+
+\begin{solution}
+
+设倒格子矢量
+
+\[
+\boldsymbol G=h_1\boldsymbol b_1+h_2\boldsymbol b_2+h_3\boldsymbol b_3.
+\]
+
+具有密勒指数 $(h_1h_2h_3)$ 的晶面与晶轴的截距为
+
+\[
+\frac{a_1}{h_1},\qquad
+\frac{a_2}{h_2},\qquad
+\frac{a_3}{h_3}.
+\]
+
+该晶面方程可以写为
+
+\[
+\boldsymbol G\cdot\boldsymbol r=2\pi.
+\]
+
+而一般平面方程为
+
+\[
+\boldsymbol n\cdot\boldsymbol r=\text{const},
+\]
+
+其中 $\boldsymbol n$ 为平面的法向量。
+
+比较两式可知
+
+\[
+\boldsymbol n=\boldsymbol G.
+\]
+
+因此倒格子矢量
+
+\[
+\boldsymbol G=h_1\boldsymbol b_1+h_2\boldsymbol b_2+h_3\boldsymbol b_3
+\]
+
+垂直于密勒指数为 $(h_1h_2h_3)$ 的晶面系。
+
+\end{solution}
+
+\end{document}

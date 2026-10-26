@@ -1,0 +1,556 @@
+\documentclass[12pt, a4paper, oneside]{ctexart}
+\usepackage{amsmath, textcomp,siunitx,amsthm, amssymb, bm, xcolor, tikz, framed, graphicx, hyperref, mathrsfs}
+
+\title{Statistical Mechanics Homework (Chapter6)}
+\author{Tang Yi \\ [学号已脱敏]}
+\usepackage[a4paper, left=2cm, right=2cm, top=2cm, bottom=2cm]{geometry}
+\linespread{1.3} % 行距更紧凑
+\definecolor{shadecolor}{RGB}{241, 241, 255}
+
+\newcounter{problemname}
+\newenvironment{problem}
+  {\begin{shaded}\stepcounter{problemname}\par\noindent\textbf{题目 \theproblemname. }}
+  {\end{shaded}\par}
+\newenvironment{solution}
+  {\par\noindent\textbf{题目 \theproblemname 的解答. }}
+  {\par}
+\newenvironment{note}
+  {\par\noindent\textbf{题目 \theproblemname 的注记. }}
+  {\par}
+
+
+\newcommand{\dbar}{\; \bar{} \hspace{-0.3em} \mathrm d}
+\newcommand{\tpar}[3]{\left(\dfrac{\partial #1}{\partial #2}\right)_{#3}}
+\begin{document}
+
+\maketitle
+
+\begin{problem}{6-1}
+  在体积 $V$ 中有 $N$ 个可区分的粒子，系统的能量为 $E = \displaystyle\sum_{i=1}^{N} cp_i$，其中 $c$ 为光速，$p_i$ 为第 $i$ 粒子的动量，气体的温度为 $T$。试求：
+\begin{itemize}
+    \item[(a)] 物态方程；
+    \item[(b)] 内能。
+\end{itemize}
+\end{problem}
+
+\begin{solution}
+  这是一个经典极端相对论理想气体，能量动量关系为
+\[
+E=\sum_{i=1}^{N} c p_i ,
+\]
+其中粒子可区分，服从 Maxwell–Boltzmann 统计。
+
+\medskip
+\noindent
+\textbf{(a) 物态方程}
+
+在正则系综中，单粒子配分函数为
+\[
+z_1=\frac{1}{h^3}\int_V d^3x\int d^3p\,e^{-\beta c p}
+= \frac{V}{h^3}4\pi\int_0^\infty p^2 e^{-\beta c p}\,dp
+= \frac{V}{h^3}\frac{8\pi}{(\beta c)^3},
+\]
+其中 \(\beta = 1/(kT)\)。
+
+由于粒子可区分，体系的配分函数为
+\[
+Z_N = z_1^N .
+\]
+
+自由能
+\[
+F=-kT\ln Z_N .
+\]
+压强由
+\[
+P=-\left(\frac{\partial F}{\partial V}\right)_T
+\]
+给出，计算得
+\[
+P=\frac{NkT}{V}.
+\]
+因此物态方程为
+\[
+\boxed{PV=NkT}.
+\]
+
+\medskip
+\noindent
+\textbf{(b) 内能}
+
+内能由
+\[
+U=-\frac{\partial}{\partial\beta}\ln Z_N
+\]
+给出。注意
+\[
+\ln z_1=\ln V-\ln h^3+\ln(8\pi)-3\ln(\beta c),
+\]
+于是
+\[
+U=-N\frac{\partial}{\partial\beta}\ln z_1
+=\frac{3N}{\beta}
+=3NkT.
+\]
+
+因此内能为
+\[
+\boxed{U=3NkT}.
+\]
+\end{solution}
+
+\begin{problem}{6-2}
+  体积 $V$ 内盛有两种组元的单原子分子混合理想气体，其物质的量分别为 $\nu_1$ 和 $\nu_2$，温度为 $T$。试用正则分布导出混合理想气体的内能、熵以及物态方程。
+\end{problem}
+
+\begin{solution}
+  设体系体积为 $V$，温度为 $T$，由两种单原子理想气体组成，
+物质的量分别为 $\nu_1,\nu_2$，对应粒子数
+\[
+N_1=\nu_1 N_A,\qquad N_2=\nu_2 N_A .
+\]
+
+两种组元之间无相互作用，总哈密顿量为
+\[
+H=\sum_{i=1}^{N_1}\frac{p_i^2}{2m_1}
+ +\sum_{j=1}^{N_2}\frac{p_j^2}{2m_2}.
+\]
+
+
+单粒子配分函数分别为
+\[
+z_1=\frac{V}{h^3}\int d^3p\,e^{-\beta p^2/(2m_1)}
+= \frac{V}{\lambda_1^3},\qquad
+z_2=\frac{V}{h^3}\int d^3p\,e^{-\beta p^2/(2m_2)}
+= \frac{V}{\lambda_2^3},
+\]
+其中
+\[
+\lambda_i=\frac{h}{\sqrt{2\pi m_i kT}}
+\]
+为第 $i$ 种粒子的热德布罗意波长。
+
+由于同种粒子不可分辨，总配分函数为
+\[
+Z=\frac{z_1^{N_1}}{N_1!}\frac{z_2^{N_2}}{N_2!}.
+\]
+
+自由能
+\[
+F=-kT\ln Z .
+\]
+
+
+
+内能由
+\[
+U=-\frac{\partial}{\partial\beta}\ln Z
+\]
+给出。注意
+\[
+\ln z_i=\ln V-3\ln\lambda_i,
+\qquad
+\lambda_i\propto T^{-1/2},
+\]
+可得
+\[
+U=\frac{3}{2}(N_1+N_2)kT
+=\frac{3}{2}(\nu_1+\nu_2)RT.
+\]
+
+
+
+熵由
+\[
+S=-\left(\frac{\partial F}{\partial T}\right)_V
+\]
+给出。计算得
+\[
+S
+= N_1 k\!\left[
+\ln\!\frac{V}{N_1\lambda_1^3}+\frac{5}{2}
+\right]
+\]
+\end{solution}
+
+\begin{problem}{6-3}
+求证
+\begin{equation*}
+\overline{\left( \frac{\mathrm{d} \ln D(E)}{\mathrm{d} E} \right)_{\text{正则}}} = \frac{1}{k_B T}
+\end{equation*}
+\end{problem}
+
+\begin{solution}
+  在正则系综中，体系处于能量为 $E$ 的微观态的概率分布为
+\[
+P(E)=\frac{1}{Z} D(E)\, e^{-\beta E},
+\qquad 
+\beta=\frac{1}{k_B T},
+\]
+其中 $D(E)$ 为能量为 $E$ 的态密度，$Z$ 为配分函数。
+
+考虑函数
+\[
+f(E)=\ln\!\big[D(E)e^{-\beta E}\big]
+= \ln D(E)-\beta E .
+\]
+概率分布 $P(E)$ 在其极大值 $E=\bar E$ 处满足
+\[
+\left.\frac{d f(E)}{dE}\right|_{E=\bar E}=0 .
+\]
+于是有
+\[
+\left.\frac{d\ln D(E)}{dE}\right|_{E=\bar E}=\beta .
+\]
+
+在热力学极限下，正则分布在 $\bar E$ 附近高度尖锐，
+任意光滑函数 $g(E)$ 的正则平均满足
+\[
+\overline{g(E)} \simeq g(\bar E).
+\]
+因此
+\[
+\overline{\left(\frac{d\ln D(E)}{dE}\right)_{\text{正则}}}
+= \left.\frac{d\ln D(E)}{dE}\right|_{E=\bar E}
+= \beta
+= \frac{1}{k_B T}.
+\]
+
+由此证明
+\[
+\boxed{
+\overline{\left( \frac{\mathrm{d} \ln D(E)}{\mathrm{d} E} \right)_{\text{正则}}}
+= \frac{1}{k_B T}
+}.
+\]
+\end{solution}
+
+\begin{problem}{6-4}
+证明正则系综的配分函数 $Z(N, V, T)$ 满足
+\begin{equation*}
+N \left( \frac{\partial \ln Z}{\partial N} \right)_{V, T} + V \left( \frac{\partial \ln Z}{\partial V} \right)_{N, T} = \ln Z
+\end{equation*}
+\end{problem}
+
+\begin{solution}
+  在正则系综中，设体系由 $N$ 个粒子组成，体积为 $V$，温度为 $T$。
+对一类通常的多粒子体系（如理想气体或具有平移不变性的相互作用体系），
+正则配分函数具有如下的尺度性质：
+\[
+Z(N,V,T)=\frac{1}{N!}\,V^N\, z(T)^N ,
+\]
+其中 $z(T)$ 只与温度有关，与 $N,V$ 无关。
+这一性质源于体系的可加性与体积平移不变性。
+
+因此
+\[
+\ln Z
+= N\ln V + N\ln z(T) - \ln N!.
+\]
+
+在热力学极限 $N\gg1$ 下，利用 Stirling 公式
+\[
+\ln N! \simeq N\ln N - N,
+\]
+得
+\[
+\ln Z
+= N\ln V + N\ln z(T) - N\ln N + N.
+\]
+
+下面分别计算偏导数。
+
+\medskip
+\noindent
+\textbf{(1) 对 $N$ 的偏导}
+
+在 $V,T$ 固定下，
+\[
+\left(\frac{\partial \ln Z}{\partial N}\right)_{V,T}
+= \ln V + \ln z(T) - \ln N.
+\]
+因此
+\[
+N\left(\frac{\partial \ln Z}{\partial N}\right)_{V,T}
+= N\ln V + N\ln z(T) - N\ln N.
+\]
+
+\medskip
+\noindent
+\textbf{(2) 对 $V$ 的偏导}
+
+在 $N,T$ 固定下，
+\[
+\left(\frac{\partial \ln Z}{\partial V}\right)_{N,T}
+= \frac{N}{V},
+\]
+从而
+\[
+V\left(\frac{\partial \ln Z}{\partial V}\right)_{N,T}
+= N.
+\]
+
+\medskip
+\noindent
+\textbf{(3) 合并结果}
+
+将上述两式相加：
+\[
+\begin{aligned}
+N\left(\frac{\partial \ln Z}{\partial N}\right)_{V,T}
++ V\left(\frac{\partial \ln Z}{\partial V}\right)_{N,T}
+&= N\ln V + N\ln z(T) - N\ln N + N \\
+&= \ln Z.
+\end{aligned}
+\]
+
+\medskip
+\noindent
+由此证明
+\[
+\boxed{
+N \left( \frac{\partial \ln Z}{\partial N} \right)_{V, T}
++ V \left( \frac{\partial \ln Z}{\partial V} \right)_{N, T}
+= \ln Z
+}.
+\]
+
+\end{solution}
+
+\begin{problem}{6-5}
+\begin{itemize}
+    \item[(a)] 求证巨正则系综的粒子数的方均涨落为
+    \begin{equation*}
+    \overline{(\Delta N)^2} = k_B T \frac{\partial \bar{N}}{\partial \mu}
+    \end{equation*}
+    \item[(b)] 据此求单原子分子和双原子分子理想气体的粒子数相对涨落。
+\end{itemize}
+\end{problem}
+
+\begin{solution}
+  \noindent
+\textbf{(a) 巨正则系综中粒子数的方均涨落}
+
+巨正则系综的巨配分函数为
+\[
+\Xi(\mu,V,T)=\sum_{N=0}^{\infty} e^{\beta\mu N} Z(N,V,T),
+\qquad \beta=\frac{1}{k_BT}.
+\]
+其对数满足
+\[
+\ln \Xi = \ln \Xi(\mu,V,T).
+\]
+
+粒子数的平均值为
+\[
+\bar N
+= \sum_N N P_N
+= \frac{1}{\beta}\frac{\partial \ln \Xi}{\partial \mu}.
+\]
+
+粒子数平方的平均值可写为
+\[
+\overline{N^2}
+= \frac{1}{\beta^2}\frac{\partial^2 \ln \Xi}{\partial \mu^2}
++ \bar N^2 .
+\]
+
+因此粒子数的方均涨落为
+\[
+\overline{(\Delta N)^2}
+= \overline{N^2}-\bar N^2
+= \frac{1}{\beta^2}\frac{\partial^2 \ln \Xi}{\partial \mu^2}.
+\]
+
+另一方面，
+\[
+\frac{\partial \bar N}{\partial \mu}
+= \frac{1}{\beta}\frac{\partial^2 \ln \Xi}{\partial \mu^2}.
+\]
+于是得到
+\[
+\boxed{
+\overline{(\Delta N)^2}
+= k_B T \frac{\partial \bar N}{\partial \mu}
+}.
+\]
+
+这一定理是巨正则系综中的涨落–响应关系。
+
+\bigskip
+\noindent
+\textbf{(b) 单原子与双原子理想气体的粒子数相对涨落}
+
+对理想气体，巨正则系综给出
+\[
+\bar N = e^{\beta\mu}\frac{V}{\lambda^3},
+\]
+其中 $\lambda$ 为热德布罗意波长。
+因此
+\[
+\frac{\partial \bar N}{\partial \mu}
+= \beta \bar N.
+\]
+
+代入 (a) 中的结果，
+\[
+\overline{(\Delta N)^2}
+= k_B T \beta \bar N
+= \bar N.
+\]
+
+于是粒子数的相对涨落为
+\[
+\frac{\sqrt{\overline{(\Delta N)^2}}}{\bar N}
+= \frac{1}{\sqrt{\bar N}}.
+\]
+
+\medskip
+\noindent
+\textbf{单原子分子理想气体}
+
+单原子分子仅有平动自由度，上式直接成立：
+\[
+\boxed{
+\frac{\sqrt{\overline{(\Delta N)^2}}}{\bar N}
+= \frac{1}{\sqrt{\bar N}}
+}.
+\]
+
+\medskip
+\noindent
+\textbf{双原子分子理想气体}
+
+双原子分子虽具有转动（及可能的振动）自由度，
+但在理想气体近似下，巨配分函数对粒子数的依赖仍然是
+\[
+\Xi=\exp\!\left(e^{\beta\mu} Z_1\right),
+\]
+其中 $Z_1$ 为单分子配分函数（包含平动与内自由度）。
+因此仍有
+\[
+\overline{(\Delta N)^2}=\bar N,
+\qquad
+\frac{\sqrt{\overline{(\Delta N)^2}}}{\bar N}
+= \frac{1}{\sqrt{\bar N}}.
+\]
+
+\bigskip
+\noindent
+\textbf{结论}
+
+对于单原子和双原子理想气体，粒子数的相对涨落相同，均为
+\[
+\boxed{
+\frac{\sqrt{\overline{(\Delta N)^2}}}{\bar N}
+= \frac{1}{\sqrt{\bar N}}
+},
+\]
+在宏观体系 ($\bar N\sim10^{23}$) 中极其微小，因此可忽略不计。
+\end{solution}
+
+\begin{problem}{6-6}
+  求证巨正则系综的能量方均涨落为
+\begin{equation*}
+\overline{(\Delta E)^2}_{\text{巨}} = -\frac{\partial \bar{E}}{\partial \beta} = k_B T^2 \left( \frac{\partial \bar{E}}{\partial T} \right)_{\frac{\mu}{T}, V}
+\end{equation*}
+\end{problem}
+
+\begin{solution}
+  在巨正则系综中，巨配分函数定义为
+\[
+\Xi(\mu,V,T)
+= \sum_{N=0}^{\infty}\sum_r 
+\exp\!\big[-\beta(E_{Nr}-\mu N)\big],
+\qquad \beta=\frac{1}{k_BT},
+\]
+其中 $r$ 标记在给定 $N$ 下的微观态。
+
+
+体系能量的平均值为
+\[
+\bar E
+= \overline{E}
+= \sum_{N,r} E_{Nr} P_{Nr},
+\qquad
+P_{Nr}=\frac{1}{\Xi}e^{-\beta(E_{Nr}-\mu N)} .
+\]
+利用巨配分函数可写成
+\[
+\bar E
+= -\frac{\partial \ln \Xi}{\partial \beta}
++ \mu \bar N,
+\]
+其中
+\[
+\bar N=\frac{1}{\beta}\frac{\partial \ln \Xi}{\partial \mu}.
+\]
+
+
+类似地，
+\[
+\overline{E^2}
+= \frac{1}{\Xi}
+\sum_{N,r} E_{Nr}^2 e^{-\beta(E_{Nr}-\mu N)} .
+\]
+直接计算能量涨落：
+\[
+\overline{(\Delta E)^2}
+= \overline{E^2}-\bar E^2
+= \frac{\partial^2 \ln \Xi}{\partial \beta^2}.
+\]
+
+注意到
+\[
+\frac{\partial \bar E}{\partial \beta}
+= -\frac{\partial^2 \ln \Xi}{\partial \beta^2},
+\]
+于是得到
+\[
+\boxed{
+\overline{(\Delta E)^2}_{\text{巨}}
+= -\frac{\partial \bar E}{\partial \beta}
+}.
+\]
+
+
+由
+\[
+\beta=\frac{1}{k_BT},
+\qquad
+\frac{\partial}{\partial\beta}
+= -k_BT^2\frac{\partial}{\partial T},
+\]
+但在巨正则系综中，$\mu$ 与 $T$ 并非独立，
+自然变量是 $\mu/T$ 与 $T$。
+因此有
+\[
+\left(\frac{\partial}{\partial\beta}\right)_{\mu,V}
+= -k_BT^2
+\left(\frac{\partial}{\partial T}\right)_{\mu/T,V}.
+\]
+
+代入上式，
+\[
+\overline{(\Delta E)^2}_{\text{巨}}
+= k_BT^2
+\left(\frac{\partial \bar E}{\partial T}\right)_{\mu/T,V}.
+\]
+
+
+巨正则系综中，能量的方均涨落满足
+\[
+\boxed{
+\overline{(\Delta E)^2}_{\text{巨}}
+= -\frac{\partial \bar E}{\partial \beta}
+= k_BT^2
+\left( \frac{\partial \bar E}{\partial T} \right)_{\mu/T,\,V}
+}.
+\]
+
+该结果体现了巨正则系综中
+能量涨落与热响应之间的普适联系。
+
+\end{solution}
+
+\end{document}

@@ -1,0 +1,332 @@
+\chapter{固体物理概念主线：结构、声子、电子与能带}
+
+\section{晶体结构与倒格子}
+
+\subsection{直接格子、原胞与晶面}
+理想晶体的结构写成“Bravais 格子 $+$ 基元”。Bravais 格点
+\[
+\vb R=n_1\vb a_1+n_2\vb a_2+n_3\vb a_3,\qquad n_i\in\mathbb Z
+\]
+描述平移对称性；每个格点附着的一组原子称基元。原胞只要求平移后无缝铺满空间，体积
+$\Omega_c=\abs{\vb a_1\cdot(\vb a_2\times\vb a_3)}$；Wigner--Seitz 原胞则是到某格点比到其他格点更近的点集，直观地保留点群对称性。
+
+晶面族 $(hkl)$ 的截距与 $a/h,b/k,c/l$ 成比例。立方晶系中，相邻晶面沿法向的相位增加 $2\pi$，故
+\[
+\vb G_{hkl}=\frac{2\pi}{a}(h,k,l),\qquad
+d_{hkl}=\frac{2\pi}{\abs{\vb G_{hkl}}}
+=\frac{a}{\sqrt{h^2+k^2+l^2}}.
+\]
+这里 $d=2\pi/G$ 是“一段实空间位移使平面波相位增加 $2\pi$”的直接结果。
+
+\subsection{倒格子的构造}
+倒格基矢定义为
+\[
+\vb a_i\cdot\vb b_j=2\pi\delta_{ij}.
+\]
+要构造 $\vb b_1$，它必须同时垂直于 $\vb a_2,\vb a_3$，所以
+$\vb b_1=C(\vb a_2\times\vb a_3)$。再用 $\vb a_1\cdot\vb b_1=2\pi$ 定出
+\[
+\boxed{\vb b_1=2\pi\frac{\vb a_2\times\vb a_3}
+{\vb a_1\cdot(\vb a_2\times\vb a_3)}} ,
+\]
+循环置换即得
+\[
+\vb b_2=2\pi\frac{\vb a_3\times\vb a_1}{\vb a_1\cdot(\vb a_2\times\vb a_3)},\quad
+\vb b_3=2\pi\frac{\vb a_1\times\vb a_2}{\vb a_1\cdot(\vb a_2\times\vb a_3)}.
+\]
+任意倒格矢 $\vb G=h\vb b_1+k\vb b_2+l\vb b_3$ 对任意格矢满足
+\[
+\vb G\cdot\vb R=2\pi(hn_1+kn_2+ln_3),\qquad
+\boxed{\ee^{\ii\vb G\cdot\vb R}=1}.
+\]
+因此倒格子恰好给出所有与晶格周期相容的傅里叶波矢。第一布里渊区是倒格子的 Wigner--Seitz 原胞；相差 $\vb G$ 的 Bloch 波矢等价，故它是独立准动量的基本区域。
+
+\paragraph{bcc 与 fcc 的互为倒格子}
+取 bcc 原始基矢
+\[
+\vb a_1=\frac a2(-1,1,1),\quad \vb a_2=\frac a2(1,-1,1),\quad
+\vb a_3=\frac a2(1,1,-1).
+\]
+代入交叉乘积公式，得到
+\[
+\vb b_1=\frac{2\pi}{a}(0,1,1),\quad
+\vb b_2=\frac{2\pi}{a}(1,0,1),\quad
+\vb b_3=\frac{2\pi}{a}(1,1,0),
+\]
+正是常规边长 $4\pi/a$ 的 fcc 原始基矢。反向计算表明 fcc 的倒格子为 bcc。sc 自身对偶；hcp 不是 Bravais 格子名称的完整替代，它是六角 Bravais 格子加双原子基元。
+
+\pitfall{原胞不一定是 Wigner--Seitz 原胞；晶格不等于晶体结构；$(hkl)$ 是晶面族，$[hkl]$ 是晶向。只有立方晶系中同指标的晶向才必与晶面垂直。}
+\interview{回答“为何引入倒格子”时先说周期函数适合傅里叶展开，再说衍射动量转移和 Bloch 准动量均天然生活在倒空间，最后指出第一布里渊区消除了 $\vb k$ 与 $\vb k+\vb G$ 的重复。}
+
+\section{晶体衍射}
+入射与散射波分别为 $\ee^{\ii\vb k\cdot\vb r}$ 和
+$\ee^{\ii\vb k'\cdot\vb r}$。相邻格点贡献的相位差是
+$(\vb k'-\vb k)\cdot\vb R$。所有格点相干增强要求它为 $2\pi$ 的整数倍，结合倒格子定义得到
+\[
+\boxed{\Delta\vb k=\vb k'-\vb k=\vb G}\qquad\text{（Laue 条件）}.
+\]
+弹性散射有 $k'=k=2\pi/\lambda$。几何上 $\abs{\Delta\vb k}=2k\sin\theta$；而
+$G=2\pi n/d$，于是
+\[
+2\frac{2\pi}{\lambda}\sin\theta=\frac{2\pi n}{d}
+\quad\Longrightarrow\quad
+\boxed{2d\sin\theta=n\lambda}.
+\]
+这证明 Laue 条件与 Bragg 条件是同一相干条件的倒空间和实空间表述。
+
+若一个原胞内原子位于 $\vb r_j$，单胞散射振幅为
+\[
+S_{\vb G}=\sum_j f_j\ee^{-\ii\vb G\cdot\vb r_j},\qquad I_{\vb G}\propto|S_{\vb G}|^2 .
+\]
+$f_j$ 是原子散射因子；$S_{\vb G}$ 编码基元内部的相消或相长。对同种原子：
+\[
+\begin{array}{ll}
+\text{bcc:}&S=f[1+\ee^{-\ii\pi(h+k+l)}],\quad h+k+l\text{ 为偶数才允许};\\
+\text{fcc:}&S=f[1+\ee^{-\ii\pi(k+l)}+\ee^{-\ii\pi(h+l)}+\ee^{-\ii\pi(h+k)}],\\
+&h,k,l\text{ 全奇或全偶才允许};\\
+\text{diamond:}&S_{\rm dia}=S_{\rm fcc}[1+\ee^{-\ii\pi(h+k+l)/2}].
+\end{array}
+\]
+因此 diamond 先满足 fcc 选择定则；全偶反射中若 $h+k+l=4n+2$ 则额外消光，全奇反射仍允许但强度不同。
+
+X 射线主要耦合电子云，适合测电子密度；中子耦合原子核且带磁矩，擅长轻元素和磁结构；电子带电、散射强，适合薄样品与表面，但多重散射更明显。
+\pitfall{“峰消失”可能来自基元结构因子，也可能是实验几何、有限温度 Debye--Waller 因子或仪器灵敏度，不能一概称为不存在该晶面。}
+
+\section{晶格振动与声子}
+\subsection{一维单原子链}
+质量 $M$、间距 $a$、最近邻弹性常数 $K$ 的链满足
+\[
+M\ddot u_n=K(u_{n+1}+u_{n-1}-2u_n).
+\]
+代入正规模 $u_n=u\ee^{\ii(kna-\omega t)}$：
+\[
+-M\omega^2=K(\ee^{\ii ka}+\ee^{-\ii ka}-2)=-4K\sin^2\frac{ka}{2},
+\]
+故
+\[
+\boxed{\omega(k)=2\sqrt{\frac KM}\abs{\sin\frac{ka}{2}}}.
+\]
+长波极限 $\sin(ka/2)\simeq ka/2$，
+\[
+\omega\simeq a\sqrt{K/M}\abs k\equiv v_s\abs k.
+\]
+它就是连续介质中的声波。$k=0$ 是整体平移，不产生弹性恢复力，所以声学支频率为零。
+
+\subsection{双原子链}
+每个原胞含质量 $M_1,M_2$，相邻间距 $a/2$。令位移振幅为 $U,V$，方程化为
+\[
+\begin{pmatrix}
+2K-M_1\omega^2&-2K\cos(ka/2)\\
+-2K\cos(ka/2)&2K-M_2\omega^2
+\end{pmatrix}
+\binom UV=0.
+\]
+行列式为零给出
+\[
+\omega_\pm^2=K\left(\frac1{M_1}+\frac1{M_2}\right)
+\pm K\sqrt{\left(\frac1{M_1}+\frac1{M_2}\right)^2-
+\frac{4\sin^2(ka/2)}{M_1M_2}}.
+\]
+$-$ 支在 $k\to0$ 时两原子同相运动，是声学支；$+$ 支反相运动且有有限频率，是光学支。离子晶体中反相位移产生振荡电偶极矩，故可与红外电磁波耦合。
+
+\subsection{量子化、态密度与热容}
+将位移展开为正规坐标 $Q_{\vb q s}$ 后，哈密顿量成为独立简谐振子之和：
+\[
+H=\sum_{\vb q s}\left(\frac{P_{\vb q s}^2}{2}
++\frac{\omega_{\vb q s}^2Q_{\vb q s}^2}{2}\right)
+=\sum_{\vb q s}\hbar\omega_{\vb q s}
+\left(a_{\vb q s}^\dagger a_{\vb q s}+\frac12\right).
+\]
+一个模式的能量为 $E_n=\hbar\omega(n+\tfrac12)$；其激发量子称声子。声子是集体模的准粒子，不是脱离晶格存在的基本粒子，数目一般不守恒。
+
+Debye 模型把三条声学支近似为 $\omega=v_s q$。半径 $q$ 的球内模式数（含三偏振）为
+$N(q)=3V(4\pi q^3/3)/(2\pi)^3$，所以
+\[
+g(\omega)=\dv{N}{\omega}=\frac{3V}{2\pi^2}\frac{\omega^2}{v_s^3}
+\quad(\text{单一平均声速近似}).
+\]
+以截止频率 $\omega_D$ 保证总模数 $\int_0^{\omega_D}g(\omega)\dd\omega=3N$。热能
+\[
+U_{\rm th}=\int_0^{\omega_D}\frac{\hbar\omega\,g(\omega)}
+{\ee^{\beta\hbar\omega}-1}\dd\omega.
+\]
+低温 $T\ll\Theta_D$ 时令 $x=\hbar\omega/\kb T$ 并将上限延至无穷：
+\[
+U_{\rm th}=9N\kb T\left(\frac{T}{\Theta_D}\right)^3
+\int_0^\infty\frac{x^3}{\ee^x-1}\dd x
+=\frac{3\pi^4}{5}N\kb\frac{T^4}{\Theta_D^3},
+\]
+于是
+\[
+\boxed{C_V=\frac{12\pi^4}{5}N\kb\left(\frac T{\Theta_D}\right)^3}.
+\]
+指数 $3$ 来自三维线性色散的 $g(\omega)\propto\omega^2$。Einstein 模型令所有原子同频，能描述高温极限但低温给指数衰减，遗漏了必然存在的低频声学模。
+
+\section{自由电子气与费米面}
+周期边界条件下，每个 $\vb k$ 态占据 $k$ 空间体积 $(2\pi)^3/V$，再乘自旋简并 $2$：
+\[
+N(k)=2\frac{V}{(2\pi)^3}\frac{4\pi k^3}{3}
+=\frac{Vk^3}{3\pi^2}.
+\]
+用 $E=\hbar^2k^2/2m$，
+\[
+g(E)=\dv{N}{E}=\frac{V}{2\pi^2}\left(\frac{2m}{\hbar^2}\right)^{3/2}E^{1/2}.
+\]
+$T=0$ 时 $N=\int_0^{E_F}g(E)\dd E$，即
+\[
+n=\frac{1}{3\pi^2}\left(\frac{2mE_F}{\hbar^2}\right)^{3/2},
+\qquad
+\boxed{E_F=\frac{\hbar^2}{2m}(3\pi^2n)^{2/3}}.
+\]
+$T_F=E_F/\kb$。费米面是 $T=0$ 占据区边界；低温下深处态的目标态已被 Pauli 原理占满，只有厚度约 $\kb T$ 的壳层能改变占据。Sommerfeld 展开给
+\[
+C_V^{\rm el}=\gamma T,\qquad \gamma=\frac{\pi^2}{3}\kb^2 g(E_F).
+\]
+同一费米面壳层也控制 Pauli 顺磁性；Landau 轨道量子化给抗磁修正。
+
+Drude 模型用平均碰撞时间 $\tau$：
+\[
+m\dv{\vb v_d}{t}=-e\vb E-\frac{m\vb v_d}{\tau}
+\quad\Rightarrow\quad
+\vb j=-ne\vb v_d=\frac{ne^2\tau}{m}\vb E,
+\]
+故 $\sigma=ne^2\tau/m$。在单一电子型载流子近似下
+$R_H=E_y/(j_xB_z)=-1/(ne)$。模型成功解释欧姆律、数量级与 Hall 符号，却用经典统计错误预测电子热容，也不能处理能带、正 Hall 系数和温度依赖的微观来源。电子瞬时速度约为费米速度，场只使分布发生极小偏移，所以漂移速度很小。
+
+\section{能带理论}
+\subsection{Bloch 定理}
+周期势满足 $V(\vb r+\vb R)=V(\vb r)$，故平移算符
+$T_{\vb R}$ 与 $H$ 对易。所有平移彼此对易，可选共同本征态
+\[
+T_{\vb R}\psi(\vb r)=\psi(\vb r+\vb R)=\lambda_{\vb R}\psi(\vb r).
+\]
+幺正性给 $|\lambda|=1$，群性质
+$\lambda_{\vb R+\vb R'}=\lambda_{\vb R}\lambda_{\vb R'}$ 允许写成
+$\lambda_{\vb R}=\ee^{\ii\vb k\cdot\vb R}$。定义
+$u_{\vb k}(\vb r)=\ee^{-\ii\vb k\cdot\vb r}\psi_{\vb k}(\vb r)$，则
+$u(\vb r+\vb R)=u(\vb r)$，从而
+\[
+\boxed{\psi_{n\vb k}(\vb r)=\ee^{\ii\vb k\cdot\vb r}u_{n\vb k}(\vb r)}.
+\]
+物理上电子不是自由平面波，但其平移相位仍由准动量 $\hbar\vb k$ 标记。
+
+\subsection{近自由电子与能隙}
+将周期势写为 $V(\vb r)=\sum_{\vb G}V_{\vb G}\ee^{\ii\vb G\cdot\vb r}$。
+在区边界 $\vb k=\vb G/2$，自由电子态
+$|\vb k\rangle$ 与 $|\vb k-\vb G\rangle$ 能量相同。简并子空间中的矩阵为
+\[
+\begin{pmatrix}E_0+V_0&V_{\vb G}\\V_{\vb G}^*&E_0+V_0\end{pmatrix},
+\]
+本征值 $E_\pm=E_0+V_0\pm|V_{\vb G}|$，所以
+\[
+\boxed{\Delta E=2|V_{\vb G}|}.
+\]
+这是 Bragg 反射使两平面波形成驻波；两驻波在离子附近概率密度不同，势能不同，于是简并劈裂。
+
+紧束缚极限以局域轨道为基。最近邻一维链取跃迁矩阵元 $-t$，Bloch 叠加给
+\[
+\boxed{E(k)=\epsilon_0-2t\cos ka}.
+\]
+近自由电子适合弱周期势、宽能带；紧束缚适合轨道重叠小、窄能带。能带曲率定义有效质量
+\[
+\frac1{m^*}=\frac1{\hbar^2}\frac{\dd^2E}{\dd k^2},
+\]
+配合
+\[
+\hbar\dot{\vb k}=-e\vb E,\qquad
+\vb v_n=\frac1\hbar\nabla_{\vb k}E_n
+\]
+使晶格作用被封装进 $E_n(\vb k)$。带顶曲率为负，电子有效质量可为负；改用带正电、正质量的空穴描述更自然。费米能穿过部分填充能带为金属；满带与空带间有带隙，带隙较小且热激发可观为半导体，较大为绝缘体。
+
+\section{半导体基础}
+非简并极限下，导带底附近
+$f(E)\simeq\ee^{-(E-E_F)/\kb T}$。将抛物线能带态密度积分，定义
+\[
+N_c=2\left(\frac{m_e^*\kb T}{2\pi\hbar^2}\right)^{3/2},\quad
+N_v=2\left(\frac{m_h^*\kb T}{2\pi\hbar^2}\right)^{3/2},
+\]
+可得
+\[
+n=N_c\ee^{-(E_c-E_F)/\kb T},\qquad
+p=N_v\ee^{-(E_F-E_v)/\kb T}.
+\]
+相乘消去 $E_F$：
+\[
+np=N_cN_v\ee^{-E_g/\kb T}=n_i^2.
+\]
+施主掺杂提供电子，使 $E_F$ 靠近导带；受主掺杂提供空穴，使其靠近价带。空穴是几乎满带中缺失电子的集体记账方式，带正电且具有正有效质量。
+
+直接带隙的带顶、带底在同一 $\vb k$，光子可近似竖直跃迁；间接带隙还需声子补偿晶格动量。PN 结接触后载流子扩散并留下离化杂质，形成耗尽层电场，漂移最终抵消扩散。突变结、完全离化与非简并近似下
+\[
+V_{bi}=\frac{\kb T}{e}\ln\frac{N_AN_D}{n_i^2}.
+\]
+
+\section{磁性、相变与超导}
+\subsection{局域磁矩与平均场}
+弱场下独立磁矩 $\mu$ 的两能级配分函数与平均磁矩为
+\[
+Z=2\cosh(\beta\mu B),\qquad
+\avg m=\mu\tanh(\beta\mu B)\simeq\frac{\mu^2B}{\kb T}.
+\]
+因此
+\[
+\chi=\frac{\partial M}{\partial H}\propto\frac{N\mu^2}{\kb T}
+\equiv\frac CT.
+\]
+Heisenberg 模型
+\[
+H=-J\sum_{\langle ij\rangle}\vb S_i\cdot\vb S_j
+\]
+中按此符号约定 $J>0$ 偏好平行（铁磁），$J<0$ 偏好反平行（反铁磁）。交换相互作用源于库仑作用、波函数交换对称性与 Pauli 原理，不是弱得多的经典偶极相互作用。Ising 模型
+$H=-J\sum_{\langle ij\rangle}s_is_j$，$s_i=\pm1$，保留竞争、热涨落与对称破缺，是相变的最小模型之一。
+
+平均场把邻居替换为平均磁化，写有效场 $H_{\rm eff}=H+\lambda M$。在线性区
+$M=(C/T)(H+\lambda M)$，解得
+\[
+\boxed{\chi=\frac{M}{H}=\frac{C}{T-\lambda C}
+=\frac{C}{T-T_C}}.
+\]
+它抓住自发磁化，但忽略临界涨落，临界指数通常不精确。
+
+\subsection{超导}
+超导的两个核心实验特征是零直流电阻与 Meissner 排磁。London 方程可写为
+\[
+\nabla\times\vb j_s=-\frac{n_se^2}{m}\vb B.
+\]
+取旋度并用 $\nabla\times\vb B=\mu_0\vb j_s$、$\nabla\cdot\vb B=0$：
+\[
+-\nabla^2\vb B=-\frac{\mu_0n_se^2}{m}\vb B
+\quad\Rightarrow\quad
+\boxed{\nabla^2\vb B=\frac{\vb B}{\lambda_L^2}},\qquad
+\lambda_L=\sqrt{\frac{m}{\mu_0n_se^2}}.
+\]
+半无限样品中 $B(x)=B(0)\ee^{-x/\lambda_L}$。完美导体只要求电阻为零，会“冻结”初始磁通；超导体在跨越临界温度时主动排斥体内磁场，显示它是新的热力学相。
+
+Cooper 问题中，费米海之上两个时间反演态电子即使只有任意弱吸引，也因费米面附近连续态与 Pauli 阻塞而出现束缚解。这说明正常费米面不稳定。BCS 态是大量重叠 Cooper 对的相干凝聚；准粒子谱
+$E_{\vb k}=\sqrt{\xi_{\vb k}^2+|\Delta|^2}$，$\Delta$ 是破坏配对所需激发能标度，导致低温热容和隧穿谱的能隙。Josephson 效应则直接展示宏观相位差驱动的超电流。
+
+\section{本章核心公式、问法与回答框架}
+\begin{longtable}{p{0.31\textwidth}p{0.61\textwidth}}
+\toprule
+核心公式&物理意义与口试切入点\\\midrule
+\endhead
+$\vb a_i\cdot\vb b_j=2\pi\delta_{ij}$&倒格子是晶格周期允许的傅里叶波矢集合。\\
+$\Delta\vb k=\vb G\Leftrightarrow2d\sin\theta=n\lambda$&同一相干衍射条件的倒空间与晶面语言。\\
+$\omega=2\sqrt{K/M}|\sin(ka/2)|$&离散平移对称性导致周期色散；长波端恢复声波。\\
+$C_V^{ph}\sim T^3,\ C_V^{el}\sim T$&前者源于三维声子态密度，后者只取费米面薄壳层。\\
+$E_F=\frac{\hbar^2}{2m}(3\pi^2n)^{2/3}$&填满自旋简并的三维 $k$ 球得到。\\
+$\psi=\ee^{i\vb k\cdot\vb r}u_{\vb k}$&周期势本征态是平面波相位乘周期函数。\\
+$\Delta E=2|V_G|$&区边界简并态被周期势的 Fourier 分量耦合并劈裂。\\
+$np=n_i^2$&热平衡、非简并半导体的质量作用定律。\\
+$\chi=C/(T-T_C)$&分子场反馈把 Curie 定律的发散点移至 $T_C$。\\
+$\nabla^2\vb B=\vb B/\lambda_L^2$&超导磁场只在穿透深度内存在。\\\bottomrule
+\end{longtable}
+
+\paragraph{高频问法与标准思路}
+\begin{enumerate}
+\item \textbf{第一布里渊区为何重要？} 先定义为倒格 Wigner--Seitz 原胞；再说明 $\vb k$ 模倒格矢等价；最后联系 Bragg 面、能隙和所有独立 Bloch 态。
+\item \textbf{声子是否真实粒子？} 它是可量子化集体正规模，能量和准动量离散、可散射；但依赖介质且数目不守恒，所以是准粒子。
+\item \textbf{为何区边界开隙？} 区边界满足 Bragg 条件，自由电子的两反向传播态简并；周期势耦合它们，二阶矩阵本征值相差 $2|V_G|$。
+\item \textbf{有效质量为何为负？} 半经典加速度取决于能带曲率；带顶曲率为负。实际常改用空穴，使电荷和质量符号都更直观。
+\item \textbf{Meissner 与零电阻有何不同？} 零电阻是输运性质，不能决定初始磁通；Meissner 是平衡态排磁，证明超导是热力学相。
+\end{enumerate}

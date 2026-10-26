@@ -1,0 +1,18 @@
+name=登录框
+lessonid=5
+difficulty=简单
+reward=1
+introduction=了解输入框的制作和对话框的弹出。
+1=在右边属性栏设置窗口大小为600x300。["SetSize_Form1_600x300"]
+2=从左边工具条拖动创建一个Label控件和一个Entry控件，Label控件在左边，Entry控件在右边。["Create_Label","Create_Entry"]
+3=用鼠标右键单击Label，在弹出菜单里点击“设置文字内容”，输入“账号”作为标题。["PopupMenu_SetText","SetText_账号"]
+4=选中账号Label，按着ALT键往下拖动复制出一个LABEL，修改文字内容为“密码”。["CopyCreate_Label_2","SetText_密码"]
+5=选中编辑框Entry_1，按着ALT键往下拖动复制出一个Entry_2，在属性栏里找到“替代符”设置为星号["Select_Entry","CopyCreate_Entry_2","SetShowChar_Entry_2_*"]
+6=从左边工具条拖动创建两个Button控件到Entry控件下边，然后修改文字为“确定”和“退出”。["Create_Button","SetText_确定","SetText_退出"]
+7=双击“确定”按钮进入响应函数。["BindEvent_Button_1_onCommand"]
+8=编写代码“账号=Fun.GetText(uiName,'Entry_1')”。["WriteCode_账号=Fun.GetText(uiName,'Entry_1')"]
+9=换行后编写代码“密码=Fun.GetText(uiName,'Entry_2')”。["WriteCode_密码=Fun.GetText(uiName,'Entry_2')"]
+10=换行后编写代码“Fun.MessageBox(text='账号:'+账号+'    密码:'+密码,title='info',type='info',parent=None)”。["WriteCode_Fun.MessageBox(text='账号:'+账号+'    密码:'+密码,title='info',type='info',parent=None)"]
+11=按ESC键保存并返回设计视图，双击“退出”按钮进入响应函数。["BindEvent_Button_2_onCommand"]
+12=编写代码“Fun.DestroyUI(uiName)”，这样就可以退出界面了。["WriteCode_Fun.DestroyUI(uiName)"]
+13=完成，点击运行。["Run"]

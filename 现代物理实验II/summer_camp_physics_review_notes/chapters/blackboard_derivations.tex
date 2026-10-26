@@ -1,0 +1,210 @@
+\chapter{黑板推导训练：十条必须能重建的主线}
+
+\begin{mapbox}
+本章不是新的知识清单，而是闭卷训练脚本。每条推导都按“起点、关键步骤、检查、追问”组织。建议给自己 8 分钟，只写决定性步骤；写完再与正文核对。
+\end{mapbox}
+
+\section{Bloch 定理}
+\textbf{起点：}$V(\vb r+\vb R)=V(\vb r)$，所以
+$[H,T_{\vb R}]=0$。
+
+\textbf{关键步骤：}
+\[
+T_{\vb R}|\psi\rangle=\lambda(\vb R)|\psi\rangle,\quad
+|\lambda|=1,
+\]
+\[
+\lambda(\vb R+\vb R')=\lambda(\vb R)\lambda(\vb R')
+\Rightarrow\lambda=e^{i\vb k\cdot\vb R}.
+\]
+定义 $u_{\vb k}=e^{-i\vb k\cdot\vb r}\psi_{\vb k}$，验证
+$u(\vb r+\vb R)=u(\vb r)$。
+
+\textbf{检查：}自由电子时 $u$ 可取常数；$\vb k\to\vb k+\vb G$ 给同一平移本征值。
+
+\textbf{追问：}准动量与机械动量有何区别？磁场下普通平移为何需要修改？
+
+\section{近自由电子区边界开隙}
+\textbf{起点：}$E_{\vb k}^{(0)}=E_{\vb k-\vb G}^{(0)}$ 在 Bragg 面成立。
+
+\textbf{关键步骤：}
+\[
+\begin{pmatrix}
+E_0+V_0&V_{\vb G}\\
+V_{\vb G}^*&E_0+V_0
+\end{pmatrix}
+\binom{c_1}{c_2}=E\binom{c_1}{c_2},
+\]
+\[
+E_\pm=E_0+V_0\pm|V_{\vb G}|,\qquad
+\Delta E=2|V_{\vb G}|.
+\]
+\textbf{检查：}$V_G\to0$ 恢复交叉；若对称性使 $V_G=0$，可以不打开隙。
+
+\textbf{追问：}驻波图像是什么？二维/三维中哪些面满足简并？
+
+\section{Debye 热容}
+\textbf{起点：}三条声学支，长波 $\omega=v_sq$。
+\[
+N(q)=3\frac{V}{(2\pi)^3}\frac{4\pi q^3}{3},
+\qquad g(\omega)\propto\omega^2.
+\]
+\[
+U=\int_0^{\omega_D}\frac{\hbar\omega\,g(\omega)}
+{e^{\beta\hbar\omega}-1}\dd\omega.
+\]
+低温令 $x=\hbar\omega/\kb T$，得到 $U\propto T^4$、
+$C_V\propto T^3$。
+
+\textbf{检查：}高温回到 $3N\kb$；二维线性色散给 $T^2$。
+
+\textbf{追问：}为什么 Einstein 模型低温失败？光学支低温贡献如何？
+
+\section{Sommerfeld 电子热容}
+\textbf{起点：}
+$U=\int Eg(E)f(E)\dd E$，固定 $N$。
+
+\textbf{关键步骤：}
+\[
+\int\phi(E)f(E)\dd E
+=\int_0^\mu\phi(E)\dd E
++\frac{\pi^2}{6}(\kb T)^2\phi'(\mu)+\cdots.
+\]
+同时展开粒子数以求 $\mu(T)$，最终
+\[
+U(T)-U(0)=\frac{\pi^2}{6}g(E_F)(\kb T)^2,\quad
+C_V=\frac{\pi^2}{3}\kb^2g(E_F)T.
+\]
+\textbf{检查：}经典均分给 $O(N\kb)$，量子结果被
+$T/T_F$ 抑制。
+
+\textbf{追问：}相互作用如何通过有效质量改变 $\gamma$？
+
+\section{Boltzmann 电导}
+\textbf{起点：}均匀稳态
+\[
+-\frac e\hbar\vb E\cdot\nabla_{\vb k}f
+=-\frac{f-f_0}{\tau}.
+\]
+\textbf{关键步骤：}
+\[
+\nabla_{\vb k}f_0=\hbar\vb v\,\partial_Ef_0,\quad
+\delta f=e\tau\vb E\cdot\vb v(-\partial_Ef_0).
+\]
+\[
+\sigma_{\alpha\beta}=e^2\int\frac{\dd^3k}{(2\pi)^3}
+\tau v_\alpha v_\beta(-\partial_Ef_0).
+\]
+\textbf{检查：}抛物线单带、常数 $\tau$ 恢复
+$ne^2\tau/m$。
+
+\textbf{追问：}为什么小角散射对量子寿命和输运寿命权重不同？
+
+\section{正则分布与涨落}
+\textbf{起点：}系统与大热库总能固定，
+\[
+\ln\Omega_R(E_{\rm tot}-E_i)
+\simeq\ln\Omega_R(E_{\rm tot})-\beta E_i.
+\]
+\[
+p_i=e^{-\beta E_i}/Z.
+\]
+\textbf{关键步骤：}
+\[
+U=-\partial_\beta\ln Z,\quad
+\partial_\beta^2\ln Z=\langle(\Delta E)^2\rangle,
+\]
+\[
+\langle(\Delta E)^2\rangle=\kb T^2C_V.
+\]
+\textbf{检查：}热容正时涨落非负；相对涨落随 $N^{-1/2}$ 消失。
+
+\textbf{追问：}负热容为何可在某些长程相互作用微正则系统出现？
+
+\section{Hubbard 到 Heisenberg}
+\textbf{起点：}半填充、$U\gg t$，低能子空间每点一个电子。
+
+\textbf{关键步骤：}一阶跃迁进入能量高 $U$ 的双占据子空间；二阶有效 Hamiltonian
+\[
+H_{\rm eff}=-P H_tQ\frac1UQH_tP.
+\]
+比较自旋单态与三重态，得到
+\[
+H_{\rm eff}=J\sum_{\langle ij\rangle}
+\left(\vb S_i\cdot\vb S_j-\frac14n_in_j\right),
+\quad J=4t^2/U.
+\]
+\textbf{检查：}$t\to0$ 交换消失；$U$ 越大虚跃迁越弱。
+
+\textbf{追问：}掺杂后为什么得到 $t$--$J$ 模型？多轨道 Hund 耦合怎样改变交换？
+
+\section{Berry 曲率与 Chern 数}
+\textbf{起点：}绝热占据带 $|u_n(\vb k)\rangle$。
+\[
+\mathcal A_n=i\langle u_n|\nabla_k u_n\rangle,\quad
+\Omega_n=\nabla_k\times\mathcal A_n.
+\]
+规范变换使 $\mathcal A\to\mathcal A-\nabla\chi$，但
+$\Omega$ 不变。
+\[
+C_n=\frac1{2\pi}\int_{\rm BZ}\Omega_{n,z}\dd^2k\in\mathbb Z.
+\]
+\textbf{检查：}时间反演使
+$\Omega_n(\vb k)=-\Omega_{\bar n}(-\vb k)$，完整 Kramers 占据子空间总 Chern 数为零。
+
+\textbf{追问：}为什么量子自旋 Hall 仍可非平庸？非 Abelian Berry 连接何时需要？
+
+\section{BCS Bogoliubov 对角化}
+\textbf{起点：}定义
+$\Delta=-V\sum_k\langle c_{-k\downarrow}c_{k\uparrow}\rangle$。
+\[
+\mathcal H_k=
+\begin{pmatrix}\xi_k&\Delta\\\Delta^*&-\xi_k\end{pmatrix}.
+\]
+\textbf{关键步骤：}
+\[
+\det(\mathcal H_k-E)=E^2-\xi_k^2-|\Delta|^2=0,
+\]
+\[
+E_k=\sqrt{\xi_k^2+|\Delta|^2}.
+\]
+由异常平均值回代得到能隙方程；弱耦合积分有对数，故
+$\Delta\sim\omega_D e^{-1/N(0)V}$。
+
+\textbf{检查：}$\Delta\to0$ 恢复粒子/空穴谱；费米面处最小隙为 $|\Delta|$。
+
+\textbf{追问：}节点配对时 $E_k=0$ 在哪里？规范相位如何联系超流？
+
+\section{Maxwell 到光学响应}
+\textbf{起点：}频域 Maxwell 与
+$\vb J=\sigma(\omega)\vb E$。
+\[
+\nabla\times\nabla\times\vb E
+=\frac{\omega^2}{c^2}\vb E+i\mu_0\omega\vb J.
+\]
+均匀横波得到
+\[
+k^2=\varepsilon(\omega)\frac{\omega^2}{c^2},
+\qquad
+\varepsilon(\omega)=1+\frac{i\sigma(\omega)}
+{\varepsilon_0\omega}.
+\]
+代 Drude 电导，在无阻尼极限得
+$\varepsilon=1-\omega_p^2/\omega^2$。
+
+\textbf{检查：}$\omega\gg\omega_p$ 时趋近真空传播；
+$\omega<\omega_p$ 时金属反射。
+
+\textbf{追问：}带间跃迁如何加入？介电函数零点和损耗函数峰有什么关系？
+
+\section{黑板自评量表}
+每条推导按下列标准各记 0--2 分：
+\begin{enumerate}
+\item 是否先声明模型与适用条件；
+\item 是否写出起点而非从结论倒推；
+\item 是否保留决定物理的中间步骤；
+\item 是否做量纲或特殊极限检查；
+\item 是否能接住一个实验或失效条件追问。
+\end{enumerate}
+8 分以上才算“面试可用”；5--7 分说明会做题但表达链不完整；4 分以下应回到对应正文，而不是继续刷更多题。
+

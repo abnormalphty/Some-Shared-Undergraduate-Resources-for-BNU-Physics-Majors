@@ -1,0 +1,331 @@
+\documentclass[12pt, a4paper, oneside]{ctexart}
+\usepackage{amsmath, amsthm, amssymb, bm, xcolor, tikz, framed, graphicx, hyperref, mathrsfs}
+\usepackage{bookmark}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+\newcommand{\bra}[1]{\langle #1 |}
+\newcommand{\ket}[1]{| #1 \rangle}
+\newcommand{\braket}[2]{\langle #1 | #2 \rangle}
+
+\title{Quantum Mechanics Homework (Week 13)}
+\author{Tang Yi \\ [学号已脱敏]}
+\usepackage[a4paper, left=2cm, right=2cm, top=2cm, bottom=2cm]{geometry}
+\linespread{1.3} % 行距更紧凑
+\definecolor{shadecolor}{RGB}{241, 241, 255}
+
+\newcounter{problemname}
+\newenvironment{problem}
+  {\begin{shaded}\stepcounter{problemname}\par\noindent\textbf{题目 \theproblemname. }}
+  {\end{shaded}\par}
+\newenvironment{solution}
+  {\par\noindent\textbf{题目 \theproblemname 的解答. }}
+  {\par}
+\newenvironment{note}
+  {\par\noindent\textbf{题目 \theproblemname 的注记. }}
+  {\par}
+
+\begin{document}
+
+\maketitle
+
+
+\begin{problem}
+  电子处于二维各向同性谐振子场
+\[
+V=\frac{1}{2}m\omega_0^2(x^2+y^2)
+\]
+中，又受到沿 $z$ 轴方向的匀强磁场 $B$ 的作用。
+
+(1) 求电子的能级和本征函数；
+
+(2) 分别讨论 $B\to0$ 和 $B\to\infty$ 两种极限情况以及能级简并度的变化。
+\end{problem}
+
+\begin{solution}
+  取对称规范
+\[
+\boldsymbol{A}=\frac{B}{2}(-y,x,0),
+\]
+电子的哈密顿量为
+\[
+H=\frac{1}{2m}\left(\boldsymbol{p}+\frac{e}{c}\boldsymbol{A}\right)^2
++\frac{1}{2}m\omega_0^2(x^2+y^2).
+\]
+整理得
+\[
+H=\frac{p_x^2+p_y^2}{2m}
++\frac{1}{2}m\Omega^2(x^2+y^2)
+-\frac{\omega_c}{2}L_z,
+\]
+其中
+\[
+\omega_c=\frac{eB}{mc},\qquad
+\Omega=\sqrt{\omega_0^2+\frac{\omega_c^2}{4}}.
+\]
+
+能级为
+\[
+E_{n_+,n_-}=\hbar\Omega(n_++n_-+1)
+-\frac{\hbar\omega_c}{2}(n_+-n_-),
+\quad n_\pm=0,1,2,\dots
+\]
+本征函数为二维谐振子本征函数与角动量本征态的组合。
+
+当 $B\to0$ 时，
+\[
+E=\hbar\omega_0(n_x+n_y+1),
+\]
+能级简并度为 $n+1$。
+
+当 $B\to\infty$ 时，
+\[
+E\simeq \hbar\omega_c\left(n_++\frac12\right),
+\]
+能级退化为朗道能级，简并度随磁场增强而增大。
+\end{solution}
+
+\begin{problem}
+  考虑 $\sigma_z$ 表象下的自旋状态：
+\[
+\chi=
+\begin{pmatrix}
+a\\
+b
+\end{pmatrix}
+\]
+
+(1) 若沿 $z$ 方向进行测量，测得自旋的取值和相应的几率分别为多少？
+
+(2) 若沿 $x$ 方向进行测量，测得自旋的取值和相应的几率分别为多少？
+
+(3) 若先沿 $z$ 方向进行测量，测得自旋向上，即取值为 $\hbar/2$，再沿 $z$ 方向进行测量，测得自旋的取值和相应的几率分别为多少？
+
+(4) 若先沿 $z$ 方向进行测量，测得自旋向上，即取值为 $\hbar/2$，再沿 $x$ 方向进行测量，测得自旋的取值和相应的几率分别为多少？
+\end{problem}
+
+\begin{solution}
+  (1) 沿 $z$ 方向测量：
+\[
+P\left(+\frac{\hbar}{2}\right)=|a|^2,\qquad
+P\left(-\frac{\hbar}{2}\right)=|b|^2.
+\]
+
+(2) 沿 $x$ 方向测量，
+\[
+|\pm\rangle_x=\frac{1}{\sqrt2}
+\begin{pmatrix}1\\ \pm1\end{pmatrix}.
+\]
+概率为
+\[
+P\left(\pm\frac{\hbar}{2}\right)
+=\frac12|a\pm b|^2.
+\]
+
+(3) 先沿 $z$ 方向测量并得到 $+\hbar/2$ 后，态坍缩为
+\[
+\chi=\begin{pmatrix}1\\0\end{pmatrix},
+\]
+再次沿 $z$ 测量必得
+\[
++\frac{\hbar}{2},\qquad P=1.
+\]
+
+(4) 在上述态下沿 $x$ 测量：
+\[
+P\left(\pm\frac{\hbar}{2}\right)=\frac12.
+\]
+\end{solution}
+
+\begin{problem}
+  考虑泡利算符沿任一方向 $(\theta,\varphi)$ 的分量 $\sigma_n$，在 $\sigma_z$ 表象下为：
+\[
+\sigma_n=\boldsymbol{\sigma}\cdot\boldsymbol{n}
+=\sigma_x n_x+\sigma_y n_y+\sigma_z n_z
+=
+\begin{pmatrix}
+\cos\theta & \sin\theta\,e^{-i\varphi} \\
+\sin\theta\,e^{i\varphi} & -\cos\theta
+\end{pmatrix}
+\]
+其中
+\[
+\boldsymbol{n}=(\sin\theta\cos\varphi,\ \sin\theta\sin\varphi,\ \cos\theta)
+\]
+是 $(\theta,\varphi)$ 方向的单位矢。
+
+(1) 求其本征值和本征态；
+
+(2) 在 $\sigma_z$ 的本征值为 $1$ 的本征态下，求 $\sigma_n$ 的可能测值、相应的概率和期望值；
+
+(3) 在 $\sigma_n$ 的本征值为 $1$ 的本征态下，求 $\sigma_x,\sigma_y,\sigma_z$ 的可能测值、相应的概率和期望值。
+\end{problem}
+
+\begin{solution}
+  (1) $\sigma_n$ 的本征值为
+\[
+\lambda=\pm1.
+\]
+对应本征态为
+\[
+|+\rangle_n=
+\begin{pmatrix}
+\cos\frac{\theta}{2} \\
+e^{i\varphi}\sin\frac{\theta}{2}
+\end{pmatrix},
+\qquad
+|-\rangle_n=
+\begin{pmatrix}
+-\sin\frac{\theta}{2} \\
+e^{i\varphi}\cos\frac{\theta}{2}
+\end{pmatrix}.
+\]
+
+(2) 在 $\sigma_z=1$ 的本征态
+\[
+|+\rangle_z=\begin{pmatrix}1\\0\end{pmatrix}
+\]
+下，
+\[
+P(\sigma_n=\pm1)=\frac12(1\pm\cos\theta),
+\]
+期望值为
+\[
+\langle\sigma_n\rangle=\cos\theta.
+\]
+
+(3) 在 $\sigma_n=1$ 的本征态下：
+\[
+\langle\sigma_x\rangle=\sin\theta\cos\varphi,
+\quad
+\langle\sigma_y\rangle=\sin\theta\sin\varphi,
+\quad
+\langle\sigma_z\rangle=\cos\theta.
+\]
+\end{solution}
+
+\begin{problem}
+  两个自旋为 $1/2$ 的全同粒子处于二维谐振子势中，记及自旋自由度，写出体系能量最低的三个能级、对应的本征态和简并度。
+\end{problem}
+
+\begin{solution}
+  单粒子二维谐振子能级为
+\[
+E=(n_x+n_y+1)\hbar\omega.
+\]
+
+基态：
+\[
+E_0=2\hbar\omega,
+\]
+空间对称，自旋反对称（单态），简并度 $1$。
+
+第一激发态：
+\[
+E_1=3\hbar\omega,
+\]
+空间反对称，自旋对称（三重态），简并度 $3$。
+
+第二激发态：
+\[
+E_2=4\hbar\omega,
+\]
+含空间与自旋多种组合，总简并度 $6$。
+\end{solution}
+
+\begin{problem}
+  两个自旋 $1/2$ 粒子构成的体系，其哈密顿量为
+\[
+H=J\,\boldsymbol{s}_1\cdot\boldsymbol{s}_2 .
+\]
+设 $t=0$ 时体系处于状态 $|\uparrow\rangle_1|\downarrow\rangle_2$，求 $t>0$ 时：
+
+(1) 粒子 1 自旋向上的几率；
+
+(2) 粒子 1 和粒子 2 自旋均向上的几率；
+
+(3) 总自旋 $\boldsymbol{S}^2,\,S_z$ 的可能测值和相应的几率；
+
+(4) $\boldsymbol{s}_1,\boldsymbol{s}_2$ 的期望值。
+\end{problem}
+
+\begin{solution}
+  解：
+
+利用
+\[
+\boldsymbol{s}_1\cdot\boldsymbol{s}_2
+=\frac12(S^2-s_1^2-s_2^2),
+\]
+三重态能量
+\[
+E_t=\frac{J}{4},\qquad
+\]
+
+单态能量
+\[
+E_s=-\frac{3J}{4}.
+\]
+
+初态分解为
+\[
+|\uparrow\downarrow\rangle
+=\frac{1}{\sqrt2}(|1,0\rangle+|0,0\rangle).
+\]
+
+(1)
+\[
+P_{1\uparrow}(t)=\frac12\left[1+\cos\left(\frac{Jt}{\hbar}\right)\right].
+\]
+
+(2)
+\[
+P_{\uparrow\uparrow}(t)=0.
+\]
+
+(3)
+\[
+S^2=2\hbar^2\ (P=\tfrac12),\quad
+S^2=0\ (P=\tfrac12),
+\quad
+S_z=0\ (P=1).
+\]
+
+(4)
+\[
+\langle\boldsymbol{s}_1\rangle
+=\frac{\hbar}{2}\cos\left(\frac{Jt}{\hbar}\right)\hat{z},
+\quad
+\langle\boldsymbol{s}_2\rangle
+=-\langle\boldsymbol{s}_1\rangle.
+\]
+
+\end{solution}
+
+\begin{problem}
+  证明贝尔基是 $\sigma_{1x}\sigma_{2x}$ 的本征态，并求其本征值。
+\end{problem}
+
+\begin{solution}
+  四个贝尔态为
+\[
+|\Phi^\pm\rangle=\frac{1}{\sqrt2}
+(|\uparrow\uparrow\rangle\pm|\downarrow\downarrow\rangle),
+\]
+\[
+|\Psi^\pm\rangle=\frac{1}{\sqrt2}
+(|\uparrow\downarrow\rangle\pm|\downarrow\uparrow\rangle).
+\]
+
+作用算符 $\sigma_{1x}\sigma_{2x}$ 得
+\[
+\sigma_{1x}\sigma_{2x}|\Phi^\pm\rangle=+|\Phi^\pm\rangle,
+\]
+\[
+\sigma_{1x}\sigma_{2x}|\Psi^\pm\rangle=-|\Psi^\pm\rangle.
+\]
+
+故贝尔基是 $\sigma_{1x}\sigma_{2x}$ 的本征态，
+本征值分别为 $\pm1$。
+\end{solution}
+\end{document}

@@ -1,0 +1,21 @@
+\frametitle{场方程试求解}
+^^I^^I综上所述，我们可以得到
+^^I^^I\begin{equation*}
+^^I^^I^^I\begin{split}
+^^I^^I^^I^^IB(r,t)=&B_0(t)+B'(r,t)=B_0(t)+u(r,t)+v(t)=B_0(t)+R(r)T(t)+v(t)\\
+^^I^^I^^I^^I=&B_0 \sin(\omega t+ \phi)+\left[C_3 J_0(\lambda r)+C_4 Y_0(\lambda r)\right]\left[C_5\mathrm{e}^{-\mathrm{i}\omega''_1 t}+C_6\mathrm{e}^{-\mathrm{i}\omega''_2 t}\right]+\\
+^^I^^I^^I^^I&C_1\mathrm{e}^{-\frac{\sigma}{\epsilon}t}+C_2+\displaystyle\int_0^{\infty} \mathrm{d}t' \left\{\dfrac{\mathrm{e}^{-\frac{\sigma}{2 \epsilon}(t-t')}}{\mathrm{i}\frac{\sigma}{2 \epsilon}} \sin\left[\mathrm{i}\dfrac{\sigma}{2 \epsilon}(t-t')\right] \theta(t-t')\right.\\
+^^I^^I^^I^^I&\left.\left[\omega^2 B_0 \sin(\omega t'+\phi)-\dfrac{ \sigma}{\epsilon} \omega B_0 \cos(\omega t'+\phi)\right]\right\}
+^^I^^I^^I\end{split}
+^^I^^I\end{equation*}
+^^I^^I
+^^I^^I接下来的任务：
+^^I^^I
+^^I^^I1.确定合适的边界条件和初值条件，来确定常数。
+^^I^^I
+^^I^^I2.尝试用matlab作图表示成直观的形式。
+^^I^^I
+^^I^^I3.极限分析，观察稳态解。
+^^I^^I
+^^I^^I4.与实验值做对比。
+^^I^^I
