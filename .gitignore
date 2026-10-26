@@ -6,24 +6,6 @@
 *.synctex.gz
 *.xdv
 *.out
-*.toc
-*.bbl
-*.blg
-*.bcf
-*.run.xml
-*.nav
-*.snm
-*.vrb
-*.lof
-*.lot
-*.thm
-*.pdfsync
-*.synctex
-*.synctex.gz(busy)
 
 # macOS
 .DS_Store
-
-# Editor and local preview files
-.vscode/
-tmp/
