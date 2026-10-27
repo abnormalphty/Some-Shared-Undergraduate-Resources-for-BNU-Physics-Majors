@@ -1,5 +1,0 @@
-n=eval(input())
-n8=oct(n)
-n16=hex(n)
-n2=bin(n)
-print(n2,n8,n16)
