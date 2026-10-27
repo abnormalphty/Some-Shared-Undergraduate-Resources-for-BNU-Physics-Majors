@@ -1,0 +1,669 @@
+\documentclass[a4paper]{ctexart}
+\usepackage[top=3cm, bottom=2cm]{geometry}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{xcolor}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{multirow}
+%\usepackage{hyperref}
+\usepackage[hidelinks]{hyperref} % 加载 hyperref 并隐藏链接边框
+
+%\usepackage[utf8]{inputenc}
+%\usepackage[ngerman]{babel} % 加载德语支持
+
+% booktabs 提供 \toprule, \midrule, \bottomrule 等表格命令
+% (booktabs 已在第9行加载，此处不再重复)
+
+% 定义占位命令以避免未定义控制序列错误
+%\newcommand{\placeholderspace}{}
+\usepackage{fancyhdr} % 导入fancyhdr宏包
+\usepackage{lipsum}   % 仅用于生成示例文本
+\usepackage{float}    % 提供 H 浮动位置选项
+
+% 设置页面样式为fancy
+\pagestyle{fancy}
+% 自定义页眉内容
+\fancyhead[L]{} % 左侧页眉
+\fancyhead[C]{\textbf{Physics-experiment Reporting Letter:\\Sound-light Effect and the Measurement of the Speed of Light}} % 中间页眉
+\fancyhead[R]{} % 右侧页眉
+% 自定义页脚内容
+\fancyfoot[L]{} % 左侧页脚
+\fancyfoot[C]{\thepage} % 中间页脚显示页码
+\fancyfoot[R]{} % 右侧页脚
+% 改变页眉线的粗细
+\renewcommand{\headrulewidth}{1.4pt}
+% 改变页脚线的粗细
+\renewcommand{\footrulewidth}{0pt}
+
+\title{声光效应和光速的测量}
+\author{实验人：学生\qquad 学号：[学号已脱敏]\qquad 指导教师：何聪丽}
+\date{实验日期：2026.5.8}
+
+\begin{document}
+    
+    \maketitle
+    
+    \begin{abstract}
+
+本实验基于声光效应产生的频移光束，通过光拍频干涉方法对空气中的光速进行了测量。实验中利用超声波驱动声光介质，使入射激光发生衍射与频移，并形成具有稳定频差的光拍频信号。在此基础上，采用双光束位相比较法，通过测量相位差分别达到 $\pi$ 与 $2\pi$ 时对应的位移变化，进而求得光拍频波的等效波长，并计算空气中的光速。
+
+实验结果表明，测得光速与真空光速理论值较为接近，但整体略低于理论值。分析认为，实验误差主要来源于共焦球面干涉仪的非线性响应、光路准直误差以及机械位移测量精度有限等因素。此外，环境振动与空气扰动也可能对相位测量产生一定影响。
+
+通过本实验，不仅验证了声光调制与光拍频干涉的基本物理原理，也加深了对相位测量方法及高精度光学测量技术的理解。\\
+
+\textbf{关键词：声光效应 \quad 光拍频 \quad 相位比较法 \quad 光速测量 \quad 共焦球面干涉仪}
+
+\end{abstract}
+    
+    \section{引言}
+
+光速作为自然界最基本的物理常数之一，不仅构成了经典电磁理论与相对论理论的核心基础，也深刻影响着现代物理学的发展。从伽利略利用山顶灯光尝试测量光速，到菲涅耳、傅科以及迈克耳孙等人不断改进实验方法，人类对于光速测量精度的追求贯穿了整个近代物理学的发展历程。随着激光技术、电子学技术以及精密干涉测量技术的发展，光速测量已经从早期的天文观测逐步发展为实验室中的高精度光学测量。
+
+本实验采用基于声光效应的光拍频方法测量空气中的光速。声光效应是指超声波在介质中传播时引起折射率周期性变化，从而形成相位光栅并使入射光发生衍射与频移。当两束具有微小频率差的激光重新叠加时，会形成随时间变化的光拍频信号。通过测量该拍频波在空间传播过程中的相位变化，可以进一步求得其等效波长，并最终计算光在空气中的传播速度。
+
+与传统直接测量飞行时间的方法相比，光拍频法将极高频率的光波信息转换为较低频率的电信号，大幅降低了测量难度，同时能够有效提高测量灵敏度与实验可操作性。因此，该方法在现代精密光学测量中具有重要应用价值。
+
+实验过程中，激光经过声光调制器后形成具有稳定频差的两束衍射光，它们在空间重新干涉形成拍频波。利用光电探测器与共焦球面干涉仪，可以对拍频波的相位变化进行测量。当移动反射镜改变光程时，系统输出信号会发生周期性变化，通过记录相位差达到 $\pi$ 或 $2\pi$ 时对应的位移量，即可获得拍频波的空间周期，并进一步计算光速。
+
+本实验不仅涉及声光调制、干涉测量以及光电探测等多个现代光学实验技术，也体现了“频率测量转化为空间测量”的精密测量思想。通过本实验，可以加深对声光效应、拍频干涉原理以及高精度相位测量方法的理解，并进一步认识实验系统误差对精密测量结果的影响。
+
+    \section{原理}
+
+\subsection{光拍频波的形成}
+
+根据波的叠加原理，两束传播方向相同、频率略有差异的相干光叠加后，其合成波振幅将随时间发生周期性变化，从而形成拍频现象。设两束线偏振单色光沿 $x$ 方向传播，振幅均为 $E_0$，角频率分别为 $\omega_1$ 与 $\omega_2$，初相位分别为 $\varphi_1$ 与 $\varphi_2$，则对应电场可表示为
+
+\begin{equation}
+    E_1 = E_0 \cos \left[\omega_1 \left(t-\frac{x}{c}\right)+\varphi_1\right],
+\end{equation}
+
+\begin{equation}
+    E_2 = E_0 \cos \left[\omega_2 \left(t-\frac{x}{c}\right)+\varphi_2\right].
+\end{equation}
+
+两束光叠加后的总电场为
+
+\begin{equation}
+    E = E_1 + E_2.
+\end{equation}
+
+利用三角恒等式
+\[
+\cos A+\cos B
+=
+2\cos\frac{A-B}{2}\cos\frac{A+B}{2},
+\]
+可得
+
+\begin{align}
+E
+=
+2E_0
+&\cos\left[
+\frac{\omega_1-\omega_2}{2}
+\left(t-\frac{x}{c}\right)
++\frac{\varphi_1-\varphi_2}{2}
+\right]
+\nonumber\\
+\times\,
+&\cos\left[
+\frac{\omega_1+\omega_2}{2}
+\left(t-\frac{x}{c}\right)
++\frac{\varphi_1+\varphi_2}{2}
+\right].
+\end{align}
+
+定义频差
+
+\begin{equation}
+    \Delta\omega=\omega_1-\omega_2,
+\end{equation}
+
+平均角频率
+
+\begin{equation}
+    \bar{\omega}=\frac{\omega_1+\omega_2}{2},
+\end{equation}
+
+则合成波可写为
+
+\begin{align}
+E
+=
+2E_0
+&\cos\left[
+\frac{\Delta\omega}{2}
+\left(t-\frac{x}{c}\right)
++\frac{\Delta\varphi}{2}
+\right]
+\nonumber\\
+\times\,
+&\cos\left[
+\bar{\omega}
+\left(t-\frac{x}{c}\right)
++\bar{\varphi}
+\right].
+\end{align}
+
+其中
+
+\[
+\Delta\varphi=\varphi_1-\varphi_2,
+\qquad
+\bar{\varphi}=\frac{\varphi_1+\varphi_2}{2}.
+\]
+
+由于
+\[
+\Delta\omega \ll \bar{\omega},
+\]
+因此该合成波可理解为：
+
+\begin{itemize}
+    \item 高频载波：
+    \[
+    \cos\left[\bar{\omega}\left(t-\frac{x}{c}\right)\right]
+    \]
+    
+    \item 低频包络：
+    \[
+    \cos\left[\frac{\Delta\omega}{2}\left(t-\frac{x}{c}\right)\right]
+    \]
+\end{itemize}
+
+即高频光波的振幅会以较低频率发生周期性变化，这种现象称为光拍频现象，其拍频频率为
+
+\begin{equation}
+    \Delta f = \frac{\Delta\omega}{2\pi}.
+\end{equation}
+
+由于拍频频率远低于光本身频率，因此可以通过普通电子学方法进行检测。
+
+
+\subsection{拍频信号的光电探测}
+
+实验中利用光电探测器接收叠加后的光信号。光电探测器输出的光电流与入射光强成正比，而光强又与电场平方成正比，因此有
+
+\begin{equation}
+    I \propto E^2.
+\end{equation}
+
+将前述合成电场代入并展开，可得到光强中包含两类频率成分：
+
+\begin{itemize}
+    \item 高频项：频率约为光频率量级（$10^{14}\,\mathrm{Hz}$）
+    \item 低频项：频率为拍频 $\Delta f$
+\end{itemize}
+
+由于普通光电器件无法响应如此高的光学频率，因此高频项会被时间平均消除，仅保留低频拍频项。最终探测器输出信号近似为
+
+\begin{equation}
+I_c
+=
+gE_0^2
+\left[
+1+
+\cos
+\left(
+\Delta\omega
+\left(t-\frac{x}{c}\right)
++\Delta\varphi
+\right)
+\right],
+\end{equation}
+
+其中 $g$ 为光电转换系数。
+
+滤去直流分量后，可得到频率为 $\Delta f$ 的简谐拍频电信号。该信号同时包含时间与空间相位信息，因此能够用于测量传播距离与传播速度。
+
+
+\subsection{利用声光效应产生频移光}
+
+本实验采用声光调制器产生具有固定频差的两束激光。
+
+当超声波在晶体中传播时，会引起介质折射率的周期性变化，从而形成随时间运动的相位光栅。激光通过该光栅后会发生衍射，并伴随频率移动，这种现象称为声光效应。
+
+设入射激光角频率为 $\omega_0$，超声波频率为 $\Omega$，则衍射后的光频率满足
+
+\begin{equation}
+    \omega = \omega_0 + n\Omega,
+\end{equation}
+
+其中 $n$ 为衍射级次。
+
+实验中采用驻波工作方式，使得一级衍射光中存在两个频率相差 $2\Omega$ 的频率分量。将这两束频移光重新叠加后，即形成拍频频率为
+
+\begin{equation}
+    \Delta f = 2\Omega
+\end{equation}
+
+的光拍频波。
+
+
+\subsection{基于相位比较法的光速测量}
+
+拍频波的相位可表示为
+
+\begin{equation}
+    \phi
+    =
+    \Delta\omega
+    \left(
+    t-\frac{x}{c}
+    \right)
+    +\Delta\varphi.
+\end{equation}
+
+当探测器沿传播方向移动距离 $\Delta x$ 时，相位变化为
+
+\begin{equation}
+    \Delta\phi
+    =
+    \frac{\Delta\omega}{c}\Delta x.
+\end{equation}
+
+若相位变化达到 $2\pi$，则对应一个完整空间周期，即
+
+\begin{equation}
+    \Delta\phi = 2\pi.
+\end{equation}
+
+因此有
+
+\begin{equation}
+    2\pi
+    =
+    \frac{\Delta\omega}{c}\Delta x.
+\end{equation}
+
+整理得到拍频波的空间波长
+
+\begin{equation}
+    \lambda
+    =
+    \Delta x
+    =
+    \frac{2\pi c}{\Delta\omega}
+    =
+    \frac{c}{\Delta f}.
+\end{equation}
+
+因此可进一步得到光速表达式
+
+\begin{equation}
+    c=\lambda\Delta f.
+\end{equation}
+
+实验中利用共焦球面干涉仪测量相位变化达到 $\pi$ 与 $2\pi$ 时对应的位移量，并由此求得拍频波长。考虑反射镜移动与光程变化之间的关系，可得实验测量公式
+
+\begin{equation}
+\label{Ccal}
+    c
+    =
+    2
+    \times
+    \left.
+    \left(
+    x_{\mathrm{内}}
+    +
+    x_{\mathrm{外}}
+    \right)
+    \right|_{\varphi}^{\varphi+2\pi}
+    \times
+    2\Omega.
+\end{equation}
+
+\vspace{0.5em}
+
+\textbf{空气折射率修正}
+
+实验实际测得的是空气中的光速。若需换算为真空中的光速，则需考虑空气折射率修正：
+
+\begin{equation}
+    \lambda_0 = n_g \lambda,
+\end{equation}
+
+其中
+
+\begin{itemize}
+    \item $\lambda$ 为空气中的测量波长；
+    \item $\lambda_0$ 为真空波长；
+    \item $n_g \approx 1.0002876$ 为标准大气条件下空气的群折射率。
+\end{itemize}
+
+因此真空中的光速可表示为
+
+\begin{equation}
+    c_0 = n_g c.
+\end{equation}
+
+    \section{实验}
+
+\subsection{实验仪器}
+
+本实验采用 LM2000C 型光速测量仪测量空气中的光速。实验系统主要由 He-Ne 激光器、声光调制器、共焦球面扫描干涉仪、光电探测器、数字频率计及示波器等部分组成。
+
+实验光源为氦氖激光器，其输出波长为
+\[
+\lambda = 632.8\ \mathrm{nm},
+\]
+输出功率大于 $1\,\mathrm{mW}$。激光经准直后入射至声光调制器，在超声驻波作用下发生衍射与频移。
+
+声光调制器由高频信号源驱动，其工作频率约为
+\[
+\Omega \approx 75\ \mathrm{MHz}.
+\]
+当超声波在晶体中形成稳定驻波后，入射激光会产生多个衍射级次。实验中主要选取一级衍射光中频率最强的两个分量进行叠加，从而形成拍频频率为
+\[
+\Delta f = 2\Omega
+\]
+的光拍频波。
+
+实验还配备共焦球面扫描干涉仪用于分析频移后的光谱结构。通过调节扫描干涉仪，可以观察不同衍射级次对应的频率分布，并进一步测量频率间隔与谱线强度。
+
+此外，系统采用光电探测器接收拍频信号，并利用示波器观察其波形与相位变化；数字频率计用于测量高频驱动信号频率，从而为最终光速计算提供频率参数。
+
+% \begin{figure}[h!]
+%     \centering
+%     \includegraphics[width=0.72\textwidth]{fig/lm2000c_structure}
+%     \caption{LM2000C 型光速测量仪结构示意图}
+%     \label{fig:lm2000c}
+% \end{figure}
+
+
+\subsection{实验内容与步骤}
+
+\subsubsection{实验系统检查与光路调整}
+
+首先检查各光学元件的安装位置与光路同轴性，确保激光器、声光调制器、反射镜及探测器处于近似等高状态。
+
+开启 He-Ne 激光器并预热约 $15\,\mathrm{min}$，待激光输出稳定后进行后续实验。调节反射镜与光阑，使激光束能够稳定通过系统中心位置，并在示波器上观察到稳定信号。
+
+\vspace{0.5em}
+
+\subsubsection{声光频移信号的观测}
+
+连接扫描干涉仪与示波器，调节干涉仪工作状态，使入射激光与扫描干涉仪近似共轴。
+
+实验中利用扫描干涉仪的自由光谱区（FSR）分析不同衍射级次对应的频率结构。开启高频驱动信号源，并将输出频率调节至约 $75\,\mathrm{MHz}$ 附近，同时控制驱动功率在额定范围内。
+
+随后分别观察：
+
+\begin{itemize}
+    \item $0$ 级衍射光的频率分布；
+    \item $\pm1$ 级衍射光的频率结构；
+    \item $\pm2$ 级衍射光的频率结构。
+\end{itemize}
+
+通过微调驱动频率与扫描干涉仪位置，使各级衍射谱线清晰可辨，并记录不同频率成分之间的间隔及相对强度分布。
+
+\vspace{0.5em}
+
+\subsubsection{双光束位相比较法测量光速}
+
+实验采用双光束位相比较法测量光拍频波的空间波长。
+
+首先调整近程光路与远程光路，使两束光均能够稳定进入光电探测器。实验中分别对近程与远程光路进行独立调节：
+
+\begin{enumerate}
+    \item 调节近程光路，使示波器上出现稳定的正弦拍频信号；
+    
+    \item 调节远程光路，保证直角棱镜在导轨移动过程中，远程光始终能够稳定进入探测器；
+    
+    \item 打开斩波器后，同时观察近程与远程拍频波形，并进一步调节光路，使两路信号幅度尽可能相等且波形稳定。
+\end{enumerate}
+
+在实验过程中，通过移动直角棱镜改变远程光路长度，从而引起拍频信号相位变化。当两路信号之间的相位差分别达到
+\[
+\pi \quad \text{或} \quad 2\pi
+\]
+时，记录对应的位移变化量。
+
+根据位相比较法，可由位移变化求得拍频波的等效波长 $\lambda$。
+
+最后，由数字频率计读取高频驱动频率 $\Omega$，结合关系式
+
+\begin{equation}
+    c
+    =
+    \Delta f \cdot \lambda
+    =
+    2\Omega \cdot \lambda
+\end{equation}
+
+即可计算得到空气中的光速。
+
+实验中还需进一步考虑空气折射率修正，从而换算得到真空中的光速值。
+
+    \section{结果与分析讨论}
+
+\subsection{声光效应测量}
+
+\subsubsection{无超声驱动时的纵模结构}
+
+本实验所使用的共焦球面扫描干涉仪自由光谱区为
+\[
+f_{\mathrm{SR}} = 1800\ \mathrm{MHz}.
+\]
+
+在未加入超声驱动信号时，示波器上可以观察到两个自由光谱区，每个自由光谱区内均出现两条纵模谱线。测得相邻自由光谱区对应峰值之间的时间间隔为
+\begin{equation}
+    \Delta t_{\mathrm{SR}} = 15.3\ \mathrm{ms}.
+\end{equation}
+
+同时测得同一自由光谱区内两条纵模谱线之间的时间间隔为
+\begin{equation}
+    \Delta t_0 = 5.4\ \mathrm{ms}.
+\end{equation}
+
+由于扫描干涉仪的扫描时间与频率变化近似线性相关，因此激光纵模频率间隔为
+\begin{equation}
+    \Delta \nu
+    =
+    f_{\mathrm{SR}}
+    \frac{\Delta t_0}{\Delta t_{\mathrm{SR}}}
+    =
+    635.3\ \mathrm{MHz}.
+\end{equation}
+
+
+\subsubsection{加入超声驱动后的频移测量}
+
+加入超声驱动后，由于声光效应的作用，原有纵模进一步发生频率分裂。在同一级衍射级次 $L$ 下，可以观察到多条频率不同的谱线。
+
+实验分别对 $L=0$ 与 $L=-1$ 级衍射进行了测量，结果如表 \ref{tab:diffraction_modes} 所示。
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{ccccccc}
+        \toprule
+        $L$ & $\Delta m$ & $\Delta t$/ms & $\Delta t_{\mathrm{SR}}$/ms &
+        $\Delta f$/MHz & $2\Omega$/MHz & $\delta$ \\
+        \midrule
+        $0$ & $2$ & $1.28$ & $15.3$ &
+        $150.588$ & $150.355$ & $0.16\%$ \\
+        
+        $1$ & $2$ & $1.48$ & $15.3$ &
+        $142.150$ & $150.228$ & $5.44\%$ \\
+        
+        $2$ & $2$ & $1.52$ & $15.3$ &
+        $148.776$ & $150.783$ & $1.33\%$ \\
+        \bottomrule
+    \end{tabular}
+    \caption{不同衍射级次下的频率分裂测量结果}
+    \label{tab:diffraction_modes}
+\end{table}
+
+其中，
+\begin{equation}
+    \Delta f
+    =
+    \Delta \nu
+    \frac{\Delta t}{\Delta t_{\mathrm{SR}}},
+\end{equation}
+$\Omega$ 为高频信号源给出的超声驱动频率，$\delta$ 表示实验测量值与理论值 $2\Omega$ 之间的相对误差。
+
+实验结果表明，在误差范围内满足
+\[
+\Delta f \approx 2\Omega,
+\]
+与声光调制理论预期一致，说明实验中已经成功产生稳定的光拍频信号。
+
+
+\subsubsection{不同参数对衍射现象的影响}
+
+实验过程中进一步调节高频驱动信号的功率、频率及声光器件转角，并观察衍射图样变化。
+
+\vspace{0.5em}
+
+\paragraph{（1）驱动功率的影响}
+
+随着驱动功率增大，$0$ 级衍射光强逐渐减弱，而高阶衍射光强逐渐增强。这是由于超声波在晶体中形成的相位光栅调制增强，使更多光能量转移至高阶衍射级次。
+
+实验初期还观察到左右衍射级次光强存在一定不对称性，即一侧衍射明显强于另一侧。经过重新调节光路与声光器件位置后，两侧衍射强度趋于对称。该现象可能与入射光束未严格满足布拉格条件以及声光作用区域偏移有关。
+
+\vspace{0.5em}
+
+\paragraph{（2）驱动频率的影响}
+
+实验中观察到衍射图样随驱动频率变化呈现周期性演化。
+
+% 对应同一衍射状态时记录得到的驱动频率为（单位：MHz）：
+% \[
+% 74.9288
+% \rightarrow
+% 75.1517
+% \rightarrow
+% 75.3595
+% \rightarrow
+% 75.5832
+% \rightarrow
+% 75.7917
+% \rightarrow
+% 76.0210.
+% \]
+
+
+% \begin{figure}[h!]
+%     \centering
+%     \includegraphics[width=0.55\textwidth]{fit}
+%     \caption{衍射状态变化对应的驱动频率拟合结果}
+%     \label{fig:fit}
+% \end{figure}
+
+同时，在一个完整频率周期内，衍射图样经历了由单列分布逐渐过渡到多列分布的变化过程。
+
+
+
+\vspace{0.5em}
+
+\paragraph{（3）转角的影响}
+
+改变声光器件转角后，可以观察到衍射中心位置发生偏移，同时不同级次衍射强度的分布也发生变化。这表明衍射效率与入射角密切相关，其本质上来源于布拉格匹配条件的改变。
+
+\subsubsection*{误差分析}
+
+实验测得的频率分裂值 $\Delta f$ 几乎略小于理论值 $2\Omega$，且 $L=1$ 级衍射对应的测量误差明显大于 $L=0$ 级衍射。造成这一现象的原因可能有多个方面。首先，声光介质内部并非理想无耗散体系，超声波在晶体中的传播会受到耗散效应与频率响应特性的影响，从而使实际形成的折射率调制频率略低于外加驱动频率，因此实验测得的频率分裂值会偏小。
+
+其次，对于 $L=1$ 级衍射而言，其谱线宽度相对更大，峰形不够尖锐，因此在示波器上读取峰中心位置时存在更大的不确定性，从而导致误差进一步增大。此外，共焦球面扫描干涉仪的扫描过程并非严格线性，时间坐标与实际频率之间可能存在一定的非线性关系，这也会给频率换算带来系统误差。
+
+另一方面，实验过程中光路的准直程度有限，激光束与扫描干涉仪之间可能存在微小夹角，从而影响谱线的清晰度与稳定性，进一步降低测量精度。
+
+\subsection{光拍法测量光速}
+
+实验中选取 $-1$ 级衍射光作为测量对象，并将其分为近程光与远程光两路进行位相比较测量。调节光路后，在示波器上能够同时观察到两路稳定的拍频波形。通过移动远程光路中的直角棱镜，改变两束光之间的光程差，并分别记录等相位与相位差为 $\pi$ 时对应的位置数据。
+
+实验共进行了五组重复测量，结果如表 \ref{tab:phase_measurement} 所示。
+
+\begin{table}[ht]
+    \centering
+    \caption{位相比较法测量结果}
+    \label{tab:phase_measurement}
+    \begin{tabular}{cccc}
+        \toprule
+        组别 & 等相位 $L_0$/cm & 相位差$\pi$时 $L_{\pi}$/cm & $\lambda =2L_{\pi}-L_0$/cm \\
+        \midrule
+        1 & 11.66 & 109.80 & 207.94 \\
+        2 & 13.40 & 117.40 & 221.40 \\
+        3 & 10.74 & 99.80 & 188.86 \\
+        4 & 7.80 & 101.00 & 194.20 \\
+        5 & 25.50 & 125.80 & 226.10 \\
+        \midrule
+        平均值 & 13.82 & 110.76 & 207.70 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+由实验测得高频信号发生器输出频率为
+\[
+\Omega =75.7532\ \mathrm{MHz},
+\]
+因此拍频为
+\[
+\Delta f =2\Omega =151.5064\ \mathrm{MHz}.
+\]
+
+代入关系式
+\[
+c=\lambda \Delta f
+\]
+得到空气中的光速为
+\[
+c =3.147\times10^8\ \mathrm{m/s}.
+\]
+
+进一步考虑空气折射率修正后，可得真空中的光速约为
+\[
+c_0 =3.148\times10^8\ \mathrm{m/s},
+\]
+相对于理论值
+\[
+c_{\mathrm{std}} =2.9979\times10^8\ \mathrm{m/s}
+\]
+的相对误差约为
+\[
+\delta =5.01\%.
+\]
+
+\subsubsection*{误差分析}
+
+实验结果略大于理论值，说明实验过程中测得的等效光程差可能偏大。造成误差的原因可能包括：导轨刻度方向与实际光路不完全平行，从而导致位移测量偏大；共焦球面干涉仪的扫描响应并非严格线性，使频率测量存在系统误差；此外，光路准直误差以及环境振动噪声也会影响波形相位的判定精度，从而影响最终结果。
+
+
+    \section{总结}
+
+本实验利用声光效应产生稳定的光拍频信号，并结合双光束位相比较法实现了空气中光速的测量。实验中首先通过扫描干涉仪观测不同级次衍射光的频率分裂情况，验证了拍频满足
+$
+\Delta f \approx 2\Omega
+$
+的理论关系；随后通过测量等相位与相位差为 $\pi$ 时对应的光程差，进一步计算得到空气中的光速。
+
+实验结果表明，测得空气中的光速约为
+$
+c = 3.147\times10^8\ \mathrm{m/s},
+$
+经空气折射率修正后，得到真空中的光速约为
+$
+c_0 = 3.148\times10^8\ \mathrm{m/s},
+$
+相对于理论值
+$
+c_{\mathrm{std}} = 2.9979\times10^8\ \mathrm{m/s}
+$
+的相对误差约为 $5.01\%$。
+
+实验过程中可以观察到，扫描干涉仪的响应并非严格线性，且衍射谱线存在一定展宽，这会影响频率分裂量的测量精度。此外，光路准直误差、导轨与实际光路方向不完全平行以及环境噪声等因素，也会导致相位判定与光程测量出现系统偏差，从而影响最终结果。
+
+总体而言，本实验较好地验证了声光调制产生光拍频波的基本原理，并展示了利用相位比较法测量光速的实验思想。通过本实验，可以进一步加深对声光效应、光拍频现象以及精密光学测量方法的理解。
+
+   
+    \begin{thebibliography}{99}
+        \bibitem{1}
+        北京师范大学物理实验教学中心. 近代物理实验讲义一 (2019)
+    \end{thebibliography}
+
+
+\end{document}

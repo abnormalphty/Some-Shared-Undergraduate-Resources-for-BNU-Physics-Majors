@@ -1,0 +1,302 @@
+% !TeX program = xelatex
+\documentclass[UTF8,fontset=none,aspectratio=169,10pt]{ctexbeamer}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{caption}[numbered]
+
+\usepackage{amsmath,amssymb,bm,mathtools}
+\usepackage{booktabs,array}
+\usepackage{tikz}
+
+\setCJKmainfont[Path=/System/Library/Fonts/Supplemental/,AutoFakeBold=2.5]{Songti.ttc}
+\setCJKsansfont[Path=/System/Library/Fonts/,AutoFakeBold=2.5]{Hiragino Sans GB.ttc}
+\setCJKmonofont[Path=/System/Library/Fonts/Supplemental/,AutoFakeBold=2.5]{Songti.ttc}
+
+\definecolor{BNUBlue}{RGB}{0,64,128}
+\definecolor{BNUDeep}{RGB}{0,40,85}
+\definecolor{BNULight}{RGB}{232,240,250}
+\definecolor{BNUGrey}{RGB}{70,78,90}
+
+\setbeamercolor{palette primary}{bg=BNUBlue,fg=white}
+\setbeamercolor{palette secondary}{bg=BNUDeep,fg=white}
+\setbeamercolor{palette tertiary}{bg=BNUBlue,fg=white}
+\setbeamercolor{frametitle}{bg=BNUBlue,fg=white}
+\setbeamercolor{title}{fg=white,bg=BNUBlue}
+\setbeamercolor{block title}{bg=BNUBlue,fg=white}
+\setbeamercolor{block body}{bg=BNULight,fg=black}
+\setbeamercolor{normal text}{fg=black,bg=white}
+\setbeamerfont{frametitle}{series=\bfseries,size=\large}
+\setbeamerfont{title}{series=\bfseries,size=\Large}
+
+\newcommand{\ii}{\mathrm{i}}
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\ee}{\mathrm{e}}
+\newcommand{\FT}{\mathcal{F}}
+\newcommand{\eps}{\boldsymbol{\epsilon}}
+\newcommand{\kb}{\mathbf{k}}
+\newcommand{\rb}{\mathbf{r}}
+\newcommand{\ab}{\mathbf{a}}
+\newcommand{\Gb}{\mathbf{G}}
+\newcommand{\BZ}{\mathrm{BZ}_1}
+\newcommand{\Rn}{\mathbf{R}_{mn}}
+\newcommand{\Ein}{E_{\mathrm{in}}}
+\newcommand{\Eout}{E_{\mathrm{out}}}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\sinc}{sinc}
+
+\title[SLM 人造晶格模拟]{从 SLM 像素晶格到晶体物理模拟}
+\subtitle{近代物理实验期末汇报}
+\author[学生]{学生（[学号已脱敏]）}
+\institute[北京师范大学]{北京师范大学物理学系}
+\date{\today}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}[t]{第一步：SLM 为什么像一块“可编程晶体”}
+\scriptsize
+\setlength{\abovedisplayskip}{2pt}
+\setlength{\belowdisplayskip}{2pt}
+\begin{block}{指标语言：液晶把电压写进介电张量}
+向列型液晶的局域指向矢为 $n_i(x,y,z)$，满足 $n_i n_i=1$。线性响应写作
+\[
+D_i=\epsilon_{ij}E_j,\qquad
+\epsilon_{ij}=\epsilon_{\perp}\delta_{ij}
++\Delta\epsilon\,n_i n_j ,
+\quad
+\Delta\epsilon=\epsilon_{\parallel}-\epsilon_{\perp}.
+\]
+外加像素电压 $U(x,y)$ 改变 $n_i$ 的倾角 $\theta[U(x,y)]$，于是改变光所见的本征折射率。
+\end{block}
+
+\begin{columns}[T,onlytextwidth]
+\column{0.48\textwidth}
+\begin{block}{从张量本征值到有效折射率}
+对异常光，折射率椭球给出
+\[
+\frac{1}{n_{\mathrm{eff}}^2}
+=s_i\bigl(\epsilon^{-1}\bigr)_{ij}s_j ,
+\]
+若传播方向固定、光轴与偏振夹角为 $\theta$，化为
+\[
+\frac{1}{n_{\mathrm{eff}}^2(\theta)}
+=\frac{\cos^2\theta}{n_e^2}
++\frac{\sin^2\theta}{n_o^2}.
+\]
+\end{block}
+
+\column{0.48\textwidth}
+\begin{block}{从光程积分到二维相位算符}
+\[
+\Gamma(x,y)=k_0\!\int_0^d
+\big[n_{\mathrm{eff}}(\theta[U],z)-n_o\big]\dd z .
+\]
+单层平均近似下
+\[
+\Gamma(x,y)\simeq
+\frac{2\pi d}{\lambda}
+\Delta n_{\mathrm{eff}}\!\left[U(x,y)\right].
+\]
+\end{block}
+\end{columns}
+
+\vspace{-0.4em}
+\begin{alertblock}{核心观察}
+\[
+\Eout(x,y)=A(x,y)\ee^{\ii\Gamma(x,y)}\Ein(x,y),
+\qquad (x,y)\rightarrow(m,n).
+\]
+像素坐标给出二维离散格点，$\Gamma_{mn}$ 是每个格点可编程的局域势。
+\end{alertblock}
+\end{frame}
+
+\begin{frame}{第二步：把光学平台翻译成晶体语言}
+\small
+\setlength{\abovedisplayskip}{3pt}
+\setlength{\belowdisplayskip}{3pt}
+\begin{block}{从 Helmholtz 方程到近轴薛定谔方程}
+标量光场满足
+\[
+\big[\nabla_{\perp}^{2}+\partial_z^2+k_0^2 n^2(\rb)\big]E=0,
+\quad
+n(\rb)=n_0+\Delta n(\rb).
+\]
+令 $E(\rb,z)=\psi(\rb,z)\ee^{\ii k_0 n_0 z}$，忽略 $\partial_z^2\psi$ 与 $(\Delta n)^2$，得到
+\[
+\ii\frac{\partial\psi}{\partial z}
+=-\frac{1}{2k_0 n_0}\nabla_{\perp}^{2}\psi
+-k_0\,\Delta n(\rb)\psi .
+\]
+对应量为
+\[
+z\leftrightarrow t,\qquad
+\frac{1}{k_0 n_0}\leftrightarrow \frac{\hbar}{m},\qquad
+V_{\mathrm{opt}}(\rb)=-k_0\Delta n(\rb)\leftrightarrow V(\rb)/\hbar .
+\]
+\end{block}
+
+\begin{columns}[T,onlytextwidth]
+\column{0.48\textwidth}
+\[
+\begin{aligned}
+E_f(\boldsymbol{\rho})
+&=\frac{\ee^{\ii kf}}{\ii\lambda f}
+\iint E_0(\rb)
+\ee^{-\ii\frac{2\pi}{\lambda f}\boldsymbol{\rho}\cdot\rb}\dd^2\rb  \\
+&\equiv C\,\FT\!\{E_0\}(\kb),\qquad
+\kb=\frac{2\pi}{\lambda f}\boldsymbol{\rho}.
+\end{aligned}
+\]
+
+\column{0.48\textwidth}
+\begin{center}
+\scriptsize
+\setlength{\tabcolsep}{2pt}
+\begin{tabular}{>{\raggedright}p{0.37\linewidth}c>{\raggedright\arraybackslash}p{0.38\linewidth}}
+\toprule
+\textbf{光学系统} & & \textbf{凝聚态语言}\\
+\midrule
+像素周期 $p$ & $\Longleftrightarrow$ & 晶格常数 $a$\\
+相位图 $\Gamma(x,y)$ & $\Longleftrightarrow$ & 周期势 $V(\rb)$\\
+4f 后焦面 & $\Longleftrightarrow$ & 倒易空间 $\kb$\\
+有限光阑 & $\Longleftrightarrow$ & 第一布里渊区 $\BZ$\\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{columns}
+\end{frame}
+
+\begin{frame}[t]{第三步：在“晶体”中写入缺陷与无序}
+\footnotesize
+\setlength{\abovedisplayskip}{3pt}
+\setlength{\belowdisplayskip}{3pt}
+\begin{block}{从完美晶体到缺陷晶体}
+先用 SLM 写入二维方格晶格，格矢 $\ab_1,\ab_2$，倒格矢 $\Gb$；再在每个格点叠加随机相位缺陷。令 $\Rn=m\ab_1+n\ab_2$，则
+\[
+\begin{aligned}
+V_0(\rb)&=\sum_{\Gb}V_{\Gb}\ee^{\ii\Gb\cdot\rb},\\
+V_W(\rb)&=V_0(\rb)+
+W\sum_{m,n}\eta_{mn}\chi(\rb-\Rn),\qquad
+\langle\eta_{mn}\eta_{m'n'}\rangle=\delta_{mm'}\delta_{nn'} .
+\end{aligned}
+\]
+\end{block}
+
+\vspace{-0.15em}
+\begin{columns}[T,onlytextwidth]
+\column{0.58\textwidth}
+\begin{block}{投影后得到晶体中的有效模型}
+\[
+\varepsilon_{mn}=\langle w_{mn}|V_W|w_{mn}\rangle,\qquad
+J=-\langle w_i|\hat H_{\perp}|w_j\rangle .
+\]
+\[
+\hat H=
+\sum_{mn}\varepsilon_{mn}|mn\rangle\langle mn|
+-J\sum_{\langle mn,m'n'\rangle}
+\bigl(|mn\rangle\langle m'n'|+\mathrm{h.c.}\bigr).
+\]
+\end{block}
+
+\column{0.38\textwidth}
+\begin{alertblock}{物理图像}
+这对应晶体里电子波遇到随机杂质。光场不是电子，但标量波动方程相同，因此可以模拟“晶体波函数如何被缺陷困住”。
+\end{alertblock}
+
+\begin{block}{可调旋钮}
+\[
+W/J:\quad
+\text{平移对称性破缺强度}
+\]
+\end{block}
+\end{columns}
+\end{frame}
+
+\begin{frame}[t]{第四步：实空间与 $k$ 空间联合观测局域化}
+\footnotesize
+\setlength{\abovedisplayskip}{3pt}
+\setlength{\belowdisplayskip}{3pt}
+\begin{columns}[T,onlytextwidth]
+\column{0.47\textwidth}
+\begin{block}{实空间量：先定义再判定}
+\[
+\begin{aligned}
+I(\rb;z)&=|\psi(\rb;z)|^2,\\
+I(\rb;L)&\sim
+\exp[-2|\rb-\rb_0|/\xi(W)],\\
+\bar{\rb}(z)&=
+\frac{\iint \rb I(\rb;z)\dd^2\rb}{\iint I(\rb;z)\dd^2\rb},\\
+\sigma_r^2(z)&=
+\frac{\iint |\rb-\bar{\rb}|^2 I(\rb;z)\dd^2\rb}
+{\iint I(\rb;z)\dd^2\rb}.
+\end{aligned}
+\]
+$\rb=(x,y)$ 为 CCD 横向坐标；$L$ 是固定输出面，$z$ 是传播或等效分步传播距离。
+\end{block}
+
+\column{0.49\textwidth}
+\begin{block}{符号含义与实验读出}
+\begin{center}
+\scriptsize
+\setlength{\tabcolsep}{2pt}
+\begin{tabular}{>{\raggedright}p{0.24\linewidth}>{\raggedright\arraybackslash}p{0.63\linewidth}}
+\toprule
+物理量 & 含义与测量方式\\
+\midrule
+$W$ & SLM 写入的随机相位缺陷强度\\
+$\xi(W)$ & 由 $I(\rb;L)$ 指数包络拟合的局域长度\\
+$\sigma_r^2$ & 光斑二阶矩；若局域化，随 $z$ 增长会趋于饱和\\
+$\Delta k$ & 后焦面 Bragg 峰宽；反映动量展宽\\
+IPR & 逆参与率，由同一实空间 CCD 图像后处理得到\\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{block}
+\end{columns}
+
+\vspace{-0.1em}
+\begin{alertblock}{判据：实空间为主，倒空间为辅}
+\[
+\begin{aligned}
+\xi(W)&\downarrow,\quad \sigma_r^2(z;W)\to\mathrm{const.},\quad \mathrm{IPR}(L;W)\uparrow,\\
+\Delta k&\uparrow,\quad I_{\mathrm{Bragg}}/I_{\mathrm{bg}}\downarrow .
+\end{aligned}
+\]
+固定 $L$ 比较局域化结果；多 $z$ 成像或分步传播模拟，才能展示局域化的形成过程。
+\end{alertblock}
+\end{frame}
+
+\begin{frame}{总结与展望}
+\begin{block}{本汇报的逻辑主线}
+\[
+\boxed{
+\text{SLM 像素网格}
+\rightarrow
+\text{人造晶体}
+\rightarrow
+\text{倒空间读出}
+\rightarrow
+\text{模拟晶体缺陷与局域化}
+}
+\]
+\end{block}
+
+\begin{itemize}
+  \item 起点不是复杂材料，而是一个结构相似性：SLM 的二维像素阵列对应晶体的二维格点。
+  \item 4f 系统提供倒空间读出，使布里渊区、Bragg 峰和无序散射背景成为可观测量。
+  \item 在像素晶格上写入随机相位缺陷，可以模拟晶体中杂质导致的 Anderson 局域化趋势。
+  \item 进一步可写入准周期势、边界态或时间调制，扩展到拓扑能带与非平衡晶体模拟。
+\end{itemize}
+
+\vfill
+\begin{center}
+{\Large\bfseries 感谢聆听。}
+\end{center}
+\end{frame}
+
+\end{document}

@@ -1,0 +1,271 @@
+\documentclass[12pt, a4paper, oneside]{ctexart}
+\usepackage{amsmath, amsthm, amssymb, bm, xcolor, tikz, framed, graphicx, hyperref, mathrsfs}
+
+\title{Statistical Mechanics Homework (Chapter1)}
+\author{Tang Yi \\ [学号已脱敏]}
+\usepackage[a4paper, left=2cm, right=2cm, top=2cm, bottom=2cm]{geometry}
+\linespread{1.3} % 行距更紧凑
+\definecolor{shadecolor}{RGB}{241, 241, 255}
+
+\newcounter{problemname}
+\newenvironment{problem}
+  {\begin{shaded}\stepcounter{problemname}\par\noindent\textbf{题目 \theproblemname. }}
+  {\end{shaded}\par}
+\newenvironment{solution}
+  {\par\noindent\textbf{题目 \theproblemname 的解答. }}
+  {\par}
+\newenvironment{note}
+  {\par\noindent\textbf{题目 \theproblemname 的注记. }}
+  {\par}
+
+
+\newcommand{\dbar}{\; \bar{} \hspace{-0.3em} \mathrm d}
+
+\begin{document}
+
+\maketitle
+
+\begin{problem}{1-1}
+    假设在压强不太高时，某$1\mathrm{mol}$的真实气体的物态方程为
+
+    \centerline{$pv = RT(1+Bp)$}
+
+    其中，$B$为温度的函数。求$\alpha$和$\kappa$，并给出在$p \to 0$时的极限值。
+\end{problem}
+
+\begin{solution}
+    由定义，得：
+
+    \centerline{$\alpha = \dfrac{1}{V} \left(\dfrac{\partial V}{\partial T}\right)_{p}$}
+
+    代入，得
+
+    \begin{align*}
+        \alpha &= \dfrac{1}{v}\left(\dfrac{\partial v}{\partial T}\right)_{p} \\
+        &= \dfrac{1}{v}\left[\left(\dfrac{\partial v}{\partial T}\right)_{p,B} + \left(\dfrac{\partial v}{\partial B}\right)_{p,T} \left(\dfrac{\partial B}{\partial T}\right)_{p}\right] \\
+        &= \dfrac{1}{T} + \dfrac{pv}{1+Bp} \left(\dfrac{\partial B}{\partial T}\right)_{p} \\
+    \end{align*}
+
+    同理，对$\kappa$，有
+
+    \centerline{$\kappa = -\dfrac{1}{V} \left(\dfrac{\partial V}{\partial p}\right)_{T}$}
+
+    代入，得
+
+    \begin{align*}
+        \kappa &= -\dfrac{1}{v}\left(\dfrac{\partial v}{\partial p}\right)_{T} \\
+        &=  -\dfrac{1}{v} \left( - \dfrac{RT}{p^2}\right) \\
+        &= \dfrac{1}{p(1+Bp)}
+    \end{align*}
+
+    当$p \to 0$时，$\alpha \to \dfrac{1}{T}$，$\kappa \sim \dfrac{1}{p} \to \infty $。
+\end{solution}
+
+\begin{problem}{1-2}
+    假设
+
+    \centerline{$\alpha = \dfrac{v-a}{Tv}$，$\kappa = \dfrac{3(v-a)}{4pv}$}
+
+    证明物态方程是
+
+    \centerline{$p^{3/4}(v-a) = AT$}
+
+    这里$a$和$T$均是常量。
+\end{problem}
+
+\begin{solution}
+    由定义，不难得到
+
+    \centerline{$\mathrm{d}V = \alpha V \mathrm{d}T - \kappa V \mathrm{d}p$}
+
+    代入，有
+
+    \begin{align*}
+        \mathrm{d}v &= \dfrac{v-a}{T} \mathrm{d}T - \dfrac{3(v-a)}{4p} \mathrm{d}p \\
+        \dfrac{\mathrm{d}v}{v-a} &= \dfrac{\mathrm{d}T}{T} - \dfrac{3}{4} \dfrac{\mathrm{d}p}{p} \\
+        \mathrm{d}(\ln(v-a)) &= \mathrm{d}\left(\ln T - \dfrac{3}{4} \ln p\right)\\
+        &= \mathrm{d}\left(\ln \dfrac{T}{p^{3/4}}\right)\\
+        p^{3/4}(v-a) &= AT
+    \end{align*}
+
+    得证！
+\end{solution}
+
+% \begin{problem}{1-3}
+%     证明：
+
+%     \centerline{$\left( \dfrac{\partial \alpha}{\partial p}\right)_{T} + \left( \dfrac{\partial \kappa}{\partial T}\right)_{p} = 0$}
+% \end{problem}
+
+% \begin{problem}{1-4}
+%     某气体的$\alpha$和$\kappa$为
+
+%     \centerline{$\alpha = \dfrac{\nu R}{pV}$，$\kappa = \dfrac{1}{p} + \dfrac{a}{V}$}
+
+%     其中$\nu$，$R$和$a$都是常量。求此气体的物态方程。
+% \end{problem}
+
+% \begin{solution}
+%     由定义，不难得到
+
+%     \centerline{$\mathrm{d}V = \alpha V \mathrm{d}T - \kappa V \mathrm{d}p$}
+
+%     代入，有
+
+%     \begin{align*}
+%         \mathrm{d}V &= \dfrac{\nu RT}{p} \mathrm{d}T - \left(\dfrac{V}{p} + a\right) \mathrm{d}p \\
+%         p\mathrm{d}V&= \nu R \mathrm{d}T - V \mathrm{d}p -ap\mathrm{d}p \\
+%         \mathrm{d}(pV) &=  \mathrm{d}(\nu RT - \dfrac{1}{2}ap^2) \\
+%         pV &= \nu RT - \dfrac{1}{2}ap^2 + C
+%     \end{align*}
+
+%     同时，$p \to 0$时，$\mathrm{gas} \to \mathrm{ideal\,\, gas}$即$pV \to \nu RT$，故$C=0$。
+
+%     则物态方程为：
+
+%     \centerline{$pV = \nu RT -\dfrac{1}{2}ap^2$}
+% \end{solution}
+
+\newpage
+
+\begin{problem}{1-5}
+    证明：
+
+    (a)$\left( \dfrac{\partial H}{\partial T}\right)_{V} = C_p\left(1-\dfrac{\alpha\mu}{\kappa}\right)$；
+
+    (b)$\left(\dfrac{\partial H}{\partial V}\right)_{T} = \dfrac{\mu C_p}{V\kappa}$；
+
+    (c)$\left(\dfrac{\partial T}{\partial V}\right)_{H} = \dfrac{\mu}{V(\mu\alpha-\kappa)}$。
+\end{problem}
+
+\begin{solution}
+    我们规定一下记号：题目中的$\mu$是焦耳-汤姆孙系数，即$\mu = \left(\dfrac{\partial T}{\partial p}\right)_H$。
+
+    (a)
+    \begin{align*}
+        \mathrm{RHS} &= C_p\left[1+\mu \dfrac{\left(\dfrac{\partial V}{\partial T}\right)_p}{\left(\dfrac{\partial V}{\partial p}\right)_T} \right] \\
+        &= C_p\left[1-\mu \left(\dfrac{\partial p}{\partial T}\right)_V \right] \\
+        &= \left(\dfrac{\partial H}{\partial T}\right)_p \left[1-\left(\dfrac{\partial p}{\partial T}\right)_V \left(\dfrac{\partial T}{\partial p}\right)_H\right] \\
+        &= \left(\dfrac{\partial H}{\partial T}\right)_p \left(\dfrac{\partial T}{\partial p}\right)_H \left[\left(\dfrac{\partial p}{\partial T}\right)_H - \left(\dfrac{\partial p}{\partial T}\right)_V\right] \\
+        &= -\left( \dfrac{\partial H}{\partial p}\right)_T \left(\dfrac{\partial T}{\partial p}\right)_H \left[\left(\dfrac{\partial p}{\partial T}\right)_H - \left(\dfrac{\partial p}{\partial T}\right)_V\right]\\
+        &= \left( \dfrac{\partial H}{\partial T}\right)_p + \left( \dfrac{\partial H}{\partial p}\right)_T \left(\dfrac{\partial p}{\partial T}\right)_V \\
+        &= \left( \dfrac{\partial H}{\partial T}\right)_V = \mathrm{LHS}
+    \end{align*}
+
+    (b)
+    \begin{align*}
+        \mathrm{RHS} &= \left(\dfrac{\partial T}{\partial p}\right)_H \left(\dfrac{\partial H}{\partial T}\right)_p \dfrac{1}{- \left(\dfrac{\partial V}{\partial p}\right)_T}\\
+        &= \left(\dfrac{\partial H}{\partial p}\right)_T \left(\dfrac{\partial p}{\partial V}\right)_T = \left(\dfrac{\partial H}{\partial V}\right)_T = \mathrm{LHS}
+    \end{align*}
+
+    (c)
+    \begin{align*}
+        \mathrm{RHS} &= \dfrac{\left(\dfrac{\partial T}{\partial p}\right)_H}{\left(\dfrac{\partial T}{\partial p}\right)_H \left(\dfrac{\partial V}{\partial T}\right)_p +\left(\dfrac{\partial V}{\partial p}\right)_T} \\
+        &= \dfrac{\left(\dfrac{\partial T}{\partial p}\right)_H}{\left(\dfrac{\partial V}{\partial p}\right)_H} = \left(\dfrac{\partial T}{\partial V}\right)_H = \mathrm{LHS}
+    \end{align*}
+
+
+\end{solution}
+
+
+\begin{problem}{1-6}
+    (a)证明焦耳系数为
+
+    \centerline{$\eta = \left(\dfrac{\partial T}{\partial V}\right)_U = \dfrac{1}{C_V} \left(p- \dfrac{T\alpha}{\kappa}\right)$}
+
+    (b)证明焦耳-汤姆孙系数为
+
+    \centerline{$\mu = \left(\dfrac{\partial T}{\partial p}\right)_H = \dfrac{V}{C_p} \left(T\alpha-1\right)$}
+\end{problem}
+
+\begin{solution}
+    (a)
+    \begin{align*}
+        \mathrm{RHS} &= \left(\dfrac{\partial T}{\partial U}\right)_V \left[p + T\dfrac{\left(\dfrac{\partial V}{\partial T}\right)_p}{\left(\dfrac{\partial V}{\partial p}\right)_T}\right] \\
+        &= \left(\dfrac{\partial T}{\partial U}\right)_V \left[p - T\left(\dfrac{\partial p}{\partial T}\right)_V\right] \\
+        &= \left(\dfrac{\partial T}{\partial U}\right)_V  \left[ - \left(\dfrac{\partial U}{\partial V}\right)_S - \left(\dfrac{\partial U}{\partial S}\right)_V \left(\dfrac{\partial S}{\partial V}\right)_T\right] \\
+        &= -\left(\dfrac{\partial T}{\partial U}\right)_V \left(\dfrac{\partial U}{\partial V}\right)_T = \left(\dfrac{\partial T}{\partial V}\right)_U = \mathrm{LHS}
+    \end{align*}
+
+    (b)
+    \begin{align*}
+        \mathrm{RHS} &= \left(\dfrac{\partial T}{\partial H}\right)_p \left[T\left(\dfrac{\partial V}{\partial T}\right)_p - V\right] \\
+        &= \left(\dfrac{\partial T}{\partial H}\right)_p \left[-\left(\dfrac{\partial H}{\partial S}\right)_p \left(\dfrac{\partial S}{\partial p}\right)_T - \left(\dfrac{\partial H}{\partial p}\right)_S\right]\\
+        &= -\left(\dfrac{\partial T}{\partial H}\right)_p \left(\dfrac{\partial H}{\partial p}\right)_T = \left(\dfrac{\partial T}{\partial p}\right)_H = \mathrm{LHS}
+    \end{align*}
+\end{solution}
+
+\begin{problem}{1-8}
+    某热力学系统，其热容为温度的函数：$C(T) = AT^3$，若取$T=0\mathrm{K}$时,熵$S_0 = 0$。试证明温度为$T$时，$S(T) = \dfrac{1}{3}C(T)$。
+\end{problem}
+
+\begin{solution}
+    \begin{align*}
+        C &= \dfrac{\dbar Q}{\mathrm{d}T} = T \dfrac{\mathrm{d}S}{\mathrm{d}T} \\
+        &=\dfrac{\mathrm{d} S}{\mathrm{d} (\log T)} = A \mathrm{e}^{3\log T}\\
+        \Rightarrow S &= \dfrac{1}{3}AT^3 + const
+    \end{align*}
+
+    当$T=0\mathrm{K}$时,熵$S_0 = 0$，故$const = 0$。则$S(T) = \dfrac{1}{3}C(T)$。
+\end{solution}
+
+\begin{problem}{1-13}
+    体积分别为$V_1$和$V_2$的两个容器，都装有$N$个分子的理想气体，压强均为$p$，但温度分别为$T_1$和$T_2$。现把它们链接起来，就热接触和连通两种方式，计算新的平衡时整个系统的熵变。
+\end{problem}
+
+\begin{solution}
+    对热接触而言，由于分子数相同，两容器的定容热容$C_V$是相同的，则有
+
+    \centerline{$\mathrm{d}U = C_V \mathrm{d}T = -p\mathrm{d} V + T \mathrm{d} S$}
+
+    对$V_1$：
+
+    \centerline{$\mathrm{d}U_1 = \dbar Q_1 = C_V \mathrm{d}T_1$}
+
+    对$V_2$：
+
+    \centerline{$\mathrm{d}U_2 = \dbar Q_2 = C_V \mathrm{d}T_2$}
+
+    同时由于$\dbar Q_1 + \dbar Q_2 = 0$，则有：
+
+    \centerline{$\mathrm{d}T_1 + \mathrm{d}T_2 = 0$}
+
+    积分，同时设热平衡的温度为$T$，则有：
+
+    \centerline{$T_1 +T_2 - 2T = 0$}
+
+    则熵变为：
+
+    \begin{align*}
+        \Delta S &= \int_{T_1}^{T} \dfrac{C_V \mathrm{d}T_1}{T_1} + \int_{T_2}^{T} \dfrac{C_V \mathrm{d}T_2}{T_2} \\
+        &= C_V \ln \dfrac{T}{T_1} + C_V \ln \dfrac{T}{T_2} \\
+        &= C_V \ln \dfrac{(T_1 + T_2)^2}{4T_1 T_2} 
+    \end{align*}
+
+    对于连通的方式，不仅涉及到热平衡引起的熵增，还有气压平衡引起的熵增。热平衡的熵增前已计算出，下面计算气压平衡导致熵增。
+
+    假设此时系统已经热平衡，再打开阀门扩散，设平衡后的压强为$p'$，则有:
+
+    \centerline{$p'(V_1+V_2) = 2NkT$}
+
+    可解得：
+
+    \centerline{$p' = \dfrac{Nk(T_1+T_2)}{V_1+V_2}$}
+
+    则我们可认为，$V_1$的气体体积从$V_1$等温变为为$V_1' = \dfrac{NkT}{p'}$，$V_2$的气体体积从$V_2$等温变为为$V_2' = \dfrac{NkT}{p'}$。我们在这两个态之间构建可逆过程，则有：
+
+    \begin{align*}
+        \Delta S' &=  \int_{V_1}^{V_1'} \dfrac{Nk}{V} \mathrm{d}V + \int_{V_2}^{V_2'} \dfrac{Nk}{V} \mathrm{d}V \\
+        &= Nk \ln \dfrac{V_1'}{V_1} + Nk \ln \dfrac{V_2'}{V_2} \\
+        &= Nk \ln \dfrac{(NkT)^2}{p'^2V_1V_2} \\
+        &= Nk \ln \dfrac{(V_1+V_2)^2}{4V_1 V_2}
+    \end{align*}
+
+    则连通方式整个的熵变化为：
+
+    \centerline{$\Delta S_{\mathrm{total}} = \Delta S + \Delta S' = C_V \ln \dfrac{(T_1 + T_2)^2}{4T_1 T_2} + Nk \ln \dfrac{(V_1+V_2)^2}{4V_1 V_2}$}
+
+
+
+\end{solution}
+\end{document}

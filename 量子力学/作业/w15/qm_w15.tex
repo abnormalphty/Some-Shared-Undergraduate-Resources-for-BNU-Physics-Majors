@@ -1,0 +1,617 @@
+\documentclass[12pt, a4paper, oneside]{ctexart}
+\usepackage{amsmath, amsthm, amssymb, bm, xcolor, tikz, framed, graphicx, hyperref, mathrsfs}
+\usepackage{bookmark}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+\newcommand{\bra}[1]{\langle #1 |}
+\newcommand{\ket}[1]{| #1 \rangle}
+\newcommand{\braket}[2]{\langle #1 | #2 \rangle}
+
+\title{Quantum Mechanics Homework (Week 14)}
+\author{Tang Yi \\ [学号已脱敏]}
+\usepackage[a4paper, left=2cm, right=2cm, top=2cm, bottom=2cm]{geometry}
+\linespread{1.3} % 行距更紧凑
+\definecolor{shadecolor}{RGB}{241, 241, 255}
+
+\newcounter{problemname}
+\newenvironment{problem}
+  {\begin{shaded}\stepcounter{problemname}\par\noindent\textbf{题目 \theproblemname. }}
+  {\end{shaded}\par}
+\newenvironment{solution}
+  {\par\noindent\textbf{题目 \theproblemname 的解答. }}
+  {\par}
+\newenvironment{note}
+  {\par\noindent\textbf{题目 \theproblemname 的注记. }}
+  {\par}
+
+\begin{document}
+
+\maketitle
+
+
+\begin{problem}
+  % w15-1
+考虑三维希尔伯特空间的哈密顿量：
+$$H = V_0 \begin{pmatrix} (1-\epsilon) & 0 & 0 \\ 0 & 1 & \epsilon \\ 0 & \epsilon & 2 \end{pmatrix}$$
+其中 $V_0$ 为常数，$\epsilon$ 为小量。
+
+1) 求出无微扰 ($\epsilon = 0$) 时的本征态和本征值；
+
+2) 严格求解 $H$ 的本征值，结果展开为 $\epsilon$ 的幂级数，保留到二阶；
+
+3) 求 $H^0$ 的非简并本征值在二级修正下的结果，并与精确结果比较；
+\end{problem}
+
+\begin{solution}
+  \[
+H = V_0
+\begin{pmatrix}
+1-\epsilon & 0 & 0 \\
+0 & 1 & \epsilon \\
+0 & \epsilon & 2
+\end{pmatrix},
+\qquad \epsilon \ll 1
+\]
+
+(1) 无微扰情形 $\epsilon=0$。
+
+此时哈密顿量为
+\[
+H^{(0)} = V_0
+\begin{pmatrix}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 2
+\end{pmatrix}.
+\]
+
+其本征值与对应本征态为
+\[
+E_1^{(0)} = V_0, \quad |1\rangle = (1,0,0)^T,
+\]
+\[
+E_2^{(0)} = V_0, \quad |2\rangle = (0,1,0)^T,
+\]
+\[
+E_3^{(0)} = 2V_0, \quad |3\rangle = (0,0,1)^T.
+\]
+
+其中 $E_1^{(0)}$ 与 $E_2^{(0)}$ 构成二重简并能级。
+
+\bigskip
+
+(2) 严格求解 $H$ 的本征值并展开到 $\epsilon^2$ 阶。
+
+由于态 $|1\rangle$ 与其余态完全解耦，其本征值可直接得到
+\[
+E_1 = V_0(1-\epsilon).
+\]
+
+其余两个能级由 $2\times2$ 子矩阵
+\[
+V_0
+\begin{pmatrix}
+1 & \epsilon \\
+\epsilon & 2
+\end{pmatrix}
+\]
+决定。
+
+特征方程为
+\[
+\lambda^2 - 3\lambda + (2-\epsilon^2)=0,
+\]
+其解为
+\[
+\lambda_{\pm}=\frac{3\pm\sqrt{1+4\epsilon^2}}{2}.
+\]
+
+对应能量
+\[
+E_{\pm}=V_0\lambda_{\pm}.
+\]
+
+对平方根作小量展开
+\[
+\sqrt{1+4\epsilon^2}=1+2\epsilon^2+O(\epsilon^4),
+\]
+得到
+\[
+E_2 = V_0(1-\epsilon^2)+O(\epsilon^4),
+\]
+\[
+E_3 = V_0(2+\epsilon^2)+O(\epsilon^4).
+\]
+
+\bigskip
+
+(3) 非简并本征值的二级微扰修正及比较。
+
+将哈密顿量分解为
+\[
+H = H^{(0)} + H',
+\qquad
+H' = V_0
+\begin{pmatrix}
+-\epsilon & 0 & 0 \\
+0 & 0 & \epsilon \\
+0 & \epsilon & 0
+\end{pmatrix}.
+\]
+
+考虑非简并态 $|3\rangle$。
+
+一阶能量修正为
+\[
+E_3^{(1)}=\langle 3|H'|3\rangle=0.
+\]
+
+二阶能量修正为
+\[
+E_3^{(2)}=\sum_{n\neq3}\frac{|\langle n|H'|3\rangle|^2}
+{E_3^{(0)}-E_n^{(0)}}.
+\]
+
+只有 $n=2$ 项有贡献，
+\[
+\langle 2|H'|3\rangle=V_0\epsilon,
+\qquad
+E_3^{(0)}-E_2^{(0)}=V_0,
+\]
+因此
+\[
+E_3^{(2)}=V_0\epsilon^2.
+\]
+
+最终得到
+\[
+E_3 = 2V_0 + V_0\epsilon^2,
+\]
+与精确本征值的展开结果
+\[
+E_3 = V_0(2+\epsilon^2)
+\]
+完全一致。
+
+\end{solution}
+
+\begin{problem}
+  % w15-2
+设非简谐振子的哈密顿量表示为 $H = H_0 + H'$，其中
+$$H_0 = -\frac{\hbar^2}{2\mu} \frac{\mathrm{d}^2}{\mathrm{d}x^2} + \frac{1}{2}\mu\omega^2 x^2$$
+$$H' = \beta x^3 \quad (\beta \text{ 为常数})$$
+用微扰法求其能量本征值（准到二级近似）和本征函数（准到一级近似）。
+\end{problem}
+
+\begin{solution}
+设
+\[
+H = H_0 + H', \qquad H' = \beta x^3 ,
+\]
+其中
+\[
+H_0 = -\frac{\hbar^2}{2\mu}\frac{\mathrm{d}^2}{\mathrm{d}x^2}
++ \frac{1}{2}\mu\omega^2 x^2 .
+\]
+
+无微扰谐振子的本征值与本征态为
+\[
+E_n^{(0)} = \hbar\omega\left(n+\frac{1}{2}\right),
+\qquad
+|n\rangle ,
+\quad n=0,1,2,\dots
+\]
+
+引入升降算符
+\[
+x = \sqrt{\frac{\hbar}{2\mu\omega}}\,(a+a^\dagger),
+\]
+因此
+\[
+x^3=\left(\frac{\hbar}{2\mu\omega}\right)^{3/2}
+(a+a^\dagger)^3 .
+\]
+
+
+一阶修正为
+\[
+E_n^{(1)}=\langle n|H'|n\rangle
+=\beta\langle n|x^3|n\rangle .
+\]
+
+由于 $x^3$ 为奇函数，而 $|n\rangle$ 具有确定宇称，
+\[
+\langle n|x^3|n\rangle=0,
+\]
+因此
+\[
+E_n^{(1)}=0.
+\]
+
+
+二阶修正公式为
+\[
+E_n^{(2)}=\sum_{m\neq n}
+\frac{|\langle m|H'|n\rangle|^2}
+{E_n^{(0)}-E_m^{(0)}}.
+\]
+
+展开
+\[
+(a+a^\dagger)^3
+= a^3 + 3a^2a^\dagger + 3aa^{\dagger 2} + a^{\dagger 3},
+\]
+可知 $x^3$ 只连接
+\[
+m = n\pm1,\quad n\pm3 .
+\]
+
+计算矩阵元并代入能量差，整理后得到
+\[
+E_n^{(2)}
+= -\frac{\beta^2\hbar^2}{8\mu^3\omega^4}
+\left(30n^2+30n+11\right).
+\]
+
+\end{solution}
+
+\begin{problem}
+  % w15-3
+接 w15-1，4) 求 $H^0$ 的简并本征值在一级修正下的结果，并与精确结果比较。
+\end{problem}
+
+\begin{solution}
+  (4) $H^{(0)}$ 的简并本征值在一级修正下的结果及与精确结果的比较。
+
+无微扰哈密顿量
+\[
+H^{(0)} = V_0
+\begin{pmatrix}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 2
+\end{pmatrix}
+\]
+在能量
+\[
+E^{(0)} = V_0
+\]
+处存在二重简并，对应简并子空间由
+\[
+|1\rangle = (1,0,0)^T, \qquad
+|2\rangle = (0,1,0)^T
+\]
+张成。
+
+微扰项为
+\[
+H' = V_0
+\begin{pmatrix}
+-\epsilon & 0 & 0 \\
+0 & 0 & \epsilon \\
+0 & \epsilon & 0
+\end{pmatrix}.
+\]
+
+将 $H'$ 限制在简并子空间 $\{|1\rangle,|2\rangle\}$ 上，得到有效微扰矩阵
+\[
+H'_{\text{deg}}
+=
+V_0
+\begin{pmatrix}
+\langle 1|H'|1\rangle & \langle 1|H'|2\rangle \\
+\langle 2|H'|1\rangle & \langle 2|H'|2\rangle
+\end{pmatrix}
+=
+V_0
+\begin{pmatrix}
+-\epsilon & 0 \\
+0 & 0
+\end{pmatrix}.
+\]
+
+对该矩阵对角化，得到一级能量修正
+\[
+\Delta E_1^{(1)} = -V_0\epsilon,
+\qquad
+\Delta E_2^{(1)} = 0.
+\]
+
+因此，简并能级在一级微扰下劈裂为
+\[
+E_1 = V_0(1-\epsilon),
+\qquad
+E_2 = V_0.
+\]
+
+对应的一级本征态仍为
+\[
+|1\rangle = (1,0,0)^T,
+\qquad
+|2\rangle = (0,1,0)^T.
+\]
+
+
+与精确结果的比较：
+
+在 w15-1 第 (2) 问中，精确对角化得到能量展开为
+\[
+E_1^{\text{exact}} = V_0(1-\epsilon),
+\]
+\[
+E_2^{\text{exact}} = V_0(1-\epsilon^2) = V_0 + O(\epsilon^2).
+\]
+
+可见，在一级近似下
+\[
+E_1^{(1)} = V_0(1-\epsilon)
+\]
+与精确结果完全一致，而
+\[
+E_2^{(1)} = V_0
+\]
+与精确结果在 $O(\epsilon)$ 阶一致，其差异出现在二级修正。
+
+因此，简并微扰论在一级近似下正确给出了简并能级的劈裂结构。
+
+\end{solution}
+\begin{problem}
+  % w15-4
+粒子被限制在圆环内自由转动，其哈密顿量为：
+$$H = \frac{\hat{l}_z^2}{2I}$$
+若在圆环的其中一段加上弱常势场：$V(\varphi) = V_0, -\beta < \varphi < \beta$，求基态和第一激发态能量的一级修正。
+\end{problem}
+
+\begin{solution}
+  粒子在圆环上自由转动，其无微扰哈密顿量为
+\[
+H_0=\frac{\hat l_z^2}{2I},
+\qquad
+\hat l_z=-i\hbar\frac{\partial}{\partial\varphi}.
+\]
+
+无微扰本征方程为
+\[
+H_0\psi_m(\varphi)=E_m^{(0)}\psi_m(\varphi),
+\]
+其本征值与本征函数为
+\[
+E_m^{(0)}=\frac{\hbar^2 m^2}{2I},
+\qquad
+\psi_m(\varphi)=\frac{1}{\sqrt{2\pi}}e^{im\varphi},
+\quad m=0,\pm1,\pm2,\dots
+\]
+
+其中基态为 $m=0$，第一激发态为 $m=\pm1$，具有二重简并。
+
+加入微扰势
+\[
+V(\varphi)=
+\begin{cases}
+V_0, & -\beta<\varphi<\beta,\\
+0, & \text{其它区域}.
+\end{cases}
+\]
+
+
+(1) 基态能量的一级修正。
+
+一级能量修正为
+\[
+E_0^{(1)}=\langle 0|V|0\rangle
+=\int_{-\pi}^{\pi}\psi_0^*(\varphi)\,V(\varphi)\,\psi_0(\varphi)\,\mathrm d\varphi.
+\]
+
+代入基态波函数
+\[
+\psi_0(\varphi)=\frac{1}{\sqrt{2\pi}},
+\]
+得到
+\[
+E_0^{(1)}
+=\frac{1}{2\pi}\int_{-\beta}^{\beta}V_0\,\mathrm d\varphi
+=\frac{V_0}{2\pi}(2\beta)
+=\frac{V_0\beta}{\pi}.
+\]
+
+
+(2) 第一激发态能量的一级修正。
+
+第一激发态 $m=\pm1$ 构成简并子空间，
+\[
+\psi_{\pm1}(\varphi)=\frac{1}{\sqrt{2\pi}}e^{\pm i\varphi}.
+\]
+
+计算微扰矩阵元
+\[
+V_{mn}=\langle m|V|n\rangle
+=\frac{V_0}{2\pi}\int_{-\beta}^{\beta}e^{i(n-m)\varphi}\,\mathrm d\varphi.
+\]
+
+在 $\{ |1\rangle, |-1\rangle \}$ 基底下，有
+\[
+V_{11}=V_{-1,-1}=\frac{V_0\beta}{\pi},
+\]
+\[
+V_{1,-1}=V_{-1,1}
+=\frac{V_0}{2\pi}\int_{-\beta}^{\beta}e^{-2i\varphi}\,\mathrm d\varphi
+=\frac{V_0}{2\pi}\frac{\sin(2\beta)}{1}.
+\]
+
+因此简并子空间内的有效微扰矩阵为
+\[
+V_{\text{deg}}=
+\begin{pmatrix}
+\dfrac{V_0\beta}{\pi} & \dfrac{V_0}{2\pi}\sin(2\beta) \\
+\dfrac{V_0}{2\pi}\sin(2\beta) & \dfrac{V_0\beta}{\pi}
+\end{pmatrix}.
+\]
+
+对角化该矩阵，得到一级能量修正
+\[
+E_{\pm1}^{(1)}
+=\frac{V_0\beta}{\pi}
+\pm \frac{V_0}{2\pi}\sin(2\beta).
+\]
+
+
+基态能量在一级近似下为
+\[
+E_0 = 0 + \frac{V_0\beta}{\pi}.
+\]
+
+第一激发态的简并在一级微扰下被解除，其能量为
+\[
+E_{1,\pm}
+=\frac{\hbar^2}{2I}
++\frac{V_0\beta}{\pi}
+\pm \frac{V_0}{2\pi}\sin(2\beta).
+\]
+
+\end{solution}
+\begin{problem}
+  % w15-5
+同样是圆环内的自由转子，带电情况下其电偶极矩 $\mathbf{D} = -q\mathbf{r}$，若加上与圆环平行，强度为 $\mathcal{E}$ 的匀强电场，分别计算：
+
+1) 电场很弱时，一级修正下的本征能量和本征函数；
+
+2) 电场很强时，转子只能局限在一个很窄的角度内振动，此时的基态能量。
+\end{problem}
+
+\begin{solution}
+  粒子带电量 $q$，在半径为 $R$ 的圆环上运动，其电偶极矩为
+\[
+\mathbf D = -q\mathbf r.
+\]
+
+设匀强电场 $\boldsymbol{\mathcal E}$ 与圆环平行，可取其方向为
+\[
+\boldsymbol{\mathcal E} = \mathcal E\,\hat x .
+\]
+
+在极角 $\varphi$ 表示下，
+\[
+\mathbf r = R(\cos\varphi,\sin\varphi),
+\]
+因此微扰势能为
+\[
+H' = -\mathbf D\cdot\boldsymbol{\mathcal E}
+= q\mathcal E R\cos\varphi .
+\]
+
+无微扰哈密顿量及其本征态为
+\[
+H_0=\frac{\hat l_z^2}{2I},
+\qquad
+E_m^{(0)}=\frac{\hbar^2 m^2}{2I},
+\qquad
+\psi_m(\varphi)=\frac{1}{\sqrt{2\pi}}e^{im\varphi},
+\quad m=0,\pm1,\pm2,\dots
+\]
+
+
+(1) 电场很弱时的一级微扰结果。
+
+一级能量修正为
+\[
+E_m^{(1)}=\langle m|H'|m\rangle
+=q\mathcal E R
+\int_{-\pi}^{\pi}\frac{\mathrm d\varphi}{2\pi}
+e^{-im\varphi}\cos\varphi\,e^{im\varphi}.
+\]
+
+由于
+\[
+\int_{-\pi}^{\pi}\cos\varphi\,\mathrm d\varphi = 0,
+\]
+可得
+\[
+E_m^{(1)}=0,
+\qquad \forall m.
+\]
+
+因此在一级近似下，所有能级的能量均不发生移动。
+
+一级近似下的本征函数修正为
+\[
+|m^{(1)}\rangle
+=\sum_{n\neq m}
+\frac{\langle n|H'|m\rangle}
+{E_m^{(0)}-E_n^{(0)}}\,|n\rangle.
+\]
+
+将
+\[
+\cos\varphi=\frac{1}{2}(e^{i\varphi}+e^{-i\varphi})
+\]
+代入，可得选择定则
+\[
+n = m\pm1.
+\]
+
+矩阵元为
+\[
+\langle m\pm1|H'|m\rangle
+=\frac{q\mathcal E R}{2}.
+\]
+
+因此本征函数在一级近似下为
+\[
+|m\rangle_{\text{pert}}
+=|m\rangle
++\frac{q\mathcal E R}{2}
+\left(
+\frac{|m+1\rangle}{E_m^{(0)}-E_{m+1}^{(0)}}
++\frac{|m-1\rangle}{E_m^{(0)}-E_{m-1}^{(0)}}
+\right).
+\]
+
+
+(2) 电场很强时的近似基态能量。
+
+强电场极限下，势能项
+\[
+V(\varphi)=q\mathcal E R\cos\varphi
+\]
+在 $\varphi=0$ 处取得最小值。
+
+在 $\varphi\simeq0$ 附近展开
+\[
+\cos\varphi\simeq1-\frac{\varphi^2}{2},
+\]
+势能近似为
+\[
+V(\varphi)\simeq
+q\mathcal E R
+-\frac{1}{2}q\mathcal E R\,\varphi^2.
+\]
+
+忽略常数项后，有效哈密顿量为
+\[
+H\simeq
+-\frac{\hbar^2}{2I}\frac{\mathrm d^2}{\mathrm d\varphi^2}
++\frac{1}{2}q\mathcal E R\,\varphi^2.
+\]
+
+这是一个一维谐振子，其有效角频率满足
+\[
+\frac{1}{2}I\omega_{\text{eff}}^2
+=\frac{1}{2}q\mathcal E R,
+\]
+即
+\[
+\omega_{\text{eff}}=\sqrt{\frac{q\mathcal E R}{I}}.
+\]
+
+因此基态能量近似为
+\[
+E_0\simeq
+-q\mathcal E R
++\frac{1}{2}\hbar\sqrt{\frac{q\mathcal E R}{I}}.
+\]
+
+其中第一项为势能最低点，第二项为零点能。
+
+\end{solution}
+\end{document}

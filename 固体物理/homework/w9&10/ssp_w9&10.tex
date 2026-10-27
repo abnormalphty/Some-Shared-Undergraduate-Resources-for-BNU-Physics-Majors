@@ -1,0 +1,273 @@
+\documentclass[12pt, a4paper, oneside]{ctexart}
+\usepackage{amsmath, amsthm, amssymb, bm, xcolor, tikz, framed, graphicx, hyperref, mathrsfs}
+
+\title{Soild State Physics Homework (Week 9-10)}
+\author{Tang Yi \\ [学号已脱敏]}
+\usepackage[a4paper, left=2cm, right=2cm, top=2cm, bottom=2cm]{geometry}
+\linespread{1.3} % 行距更紧凑
+\definecolor{shadecolor}{RGB}{241, 241, 255}
+
+\newcounter{problemname}
+\newenvironment{problem}
+  {\begin{shaded}\stepcounter{problemname}\par\noindent\textbf{题目 \theproblemname. }}
+  {\end{shaded}\par}
+\newenvironment{solution}
+  {\par\noindent\textbf{题目 \theproblemname 的解答. }}
+  {\par}
+\newenvironment{note}
+  {\par\noindent\textbf{题目 \theproblemname 的注记. }}
+  {\par}
+
+\begin{document}
+\maketitle
+
+\begin{problem}
+根据 $k=\pm \dfrac{\pi}{a}$ 状态简并微扰结果，求出与 $E_+,E_-$ 对应的本征态波函数 $\psi_+,\psi_-$。说明它们都代表驻波，并比较两个电子云分布（即 $|\psi|^2$），说明能隙的来源。假设 $V_K = V_K^*$。
+\end{problem}
+
+\begin{solution}
+在布里渊区边界：
+\[
+k=\frac{\pi}{a}
+\]
+自由电子的两个简并态为
+\[
+\psi_1=e^{ikx},\qquad \psi_2=e^{-ikx}
+\]
+周期势引起耦合，其微扰矩阵为
+\[
+\begin{pmatrix}
+E_0 & V_K \\
+V_K^* & E_0
+\end{pmatrix}
+\]
+由于题设 $V_K=V_K^*$，故本征值为
+\[
+E_\pm = E_0 \pm |V_K|
+\]
+
+对应本征态：
+\[
+\psi_+ = \frac{1}{\sqrt2}(e^{ikx}+e^{-ikx})
+= \sqrt2 \cos kx
+\]
+\[
+\psi_- = \frac{1}{\sqrt2}(e^{ikx}-e^{-ikx})
+= \sqrt2 i \sin kx
+\]
+
+二者均为驻波，因为不再具有传播相位因子，而是空间固定振荡。
+
+电子云分布：
+\[
+|\psi_+|^2 \propto \cos^2 kx
+\]
+\[
+|\psi_-|^2 \propto \sin^2 kx
+\]
+
+其中：
+
+\begin{itemize}
+\item $\psi_+$ 的电子主要集中在离子附近；
+\item $\psi_-$ 的电子主要集中在离子之间。
+\end{itemize}
+
+由于离子附近势能较低，因此：
+\[
+E_+ > E_-
+\]
+两者分裂形成能隙：
+\[
+\Delta E = 2|V_K|
+\]
+
+这就是布里渊区边界处能隙产生的原因。
+\end{solution}
+
+\begin{problem}
+写出一维近自由电子近似，第 $n$ 个能带（$n=1,2,3$）中，简约波数 $k=\dfrac{\pi}{2a}$ 时的 0 级波函数。
+\end{problem}
+
+\begin{solution}
+近自由电子近似中，0级波函数仍为平面波：
+\[
+\psi_k^{(0)}(x)=e^{ikx}
+\]
+
+在简约区方案中：
+\[
+k=\frac{\pi}{2a}
+\]
+
+不同能带对应不同倒格矢平移：
+\[
+k_n = k + G_n
+\]
+其中
+\[
+G_n = \frac{2n\pi}{a}
+\]
+
+因此：
+
+第一能带：
+\[
+\psi_1^{(0)}(x)=e^{i\frac{\pi}{2a}x}
+\]
+
+第二能带：
+\[
+\psi_2^{(0)}(x)=e^{-i\frac{3\pi}{2a}x}
+\]
+
+第三能带：
+\[
+\psi_3^{(0)}(x)=e^{i\frac{5\pi}{2a}x}
+\]
+\end{solution}
+
+\begin{problem}
+电子周期场的势能函数为
+\[
+V(x)=
+\begin{cases}
+\dfrac12 m\omega^2\left[b^2-(x-na)^2\right],
+& na-b\le x\le na+b
+\\
+0,
+& (n-1)a+b\le x\le na-b
+\end{cases}
+\]
+其中 $a=4b$，$\omega$ 为常数。
+
+\begin{enumerate}
+\item 试画出此势能曲线，并求其平均值。
+\item 用近自由电子近似模型求出晶体的第二个带隙宽度。
+\end{enumerate}
+\end{problem}
+
+\begin{solution}
+(1) 势能在每个格点附近为抛物线，其余区域为零，因此形成周期性抛物势阱。
+
+平均势能：
+\[
+\bar V=\frac1a\int_{-b}^{b}\frac12 m\omega^2(b^2-x^2)\,dx
+\]
+
+计算：
+\[
+\bar V
+=\frac{m\omega^2}{2a}
+\left[
+b^2x-\frac{x^3}{3}
+\right]_{-b}^{b}
+\]
+
+得到：
+\[
+\bar V
+=\frac{m\omega^2}{2a}\cdot\frac{4b^3}{3}
+\]
+
+由于 $a=4b$：
+\[
+\boxed{
+\bar V=\frac16 m\omega^2 b^2
+}
+\]
+
+(2) 第二带隙对应：
+\[
+G=\frac{4\pi}{a}
+\]
+
+带隙宽度：
+\[
+\Delta = 2|V_G|
+\]
+
+其中
+\[
+V_G=\frac1a\int_{-b}^{b}
+\frac12 m\omega^2(b^2-x^2)e^{-iGx}dx
+\]
+
+代入
+\[
+G=\frac{4\pi}{a}=\frac{\pi}{b}
+\]
+
+计算可得：
+\[
+V_G=\frac{2m\omega^2b^2}{\pi^3}
+\]
+
+因此第二带隙宽度：
+\[
+\boxed{
+\Delta
+=
+\frac{4m\omega^2b^2}{\pi^3}
+}
+\]
+\end{solution}
+
+\begin{problem}
+用紧束缚近似求出面心立方晶格和体心立方晶格 $s$ 态原子能级相对应的能带 $E(\mathbf{k})$ 关系。
+\end{problem}
+
+\begin{solution}
+紧束缚近似：
+\[
+E(\mathbf k)=E_s-\sum_n t_n e^{i\mathbf k\cdot \mathbf R_n}
+\]
+只考虑最近邻跃迁积分 $t$。
+
+(1) 面心立方（FCC）
+
+最近邻共有 12 个：
+\[
+\mathbf R=
+\frac a2(\pm1,\pm1,0),
+\frac a2(\pm1,0,\pm1),
+\frac a2(0,\pm1,\pm1)
+\]
+
+求和得到：
+\[
+\boxed{
+E(\mathbf k)
+=
+E_s
+-4t
+\left[
+\cos\frac{k_xa}{2}\cos\frac{k_ya}{2}
++\cos\frac{k_ya}{2}\cos\frac{k_za}{2}
++\cos\frac{k_za}{2}\cos\frac{k_xa}{2}
+\right]
+}
+\]
+
+(2) 体心立方（BCC）
+
+最近邻共有 8 个：
+\[
+\mathbf R=
+\frac a2(\pm1,\pm1,\pm1)
+\]
+
+因此：
+\[
+\boxed{
+E(\mathbf k)
+=
+E_s
+-8t
+\cos\frac{k_xa}{2}
+\cos\frac{k_ya}{2}
+\cos\frac{k_za}{2}
+}
+\]
+\end{solution}
+\end{document}

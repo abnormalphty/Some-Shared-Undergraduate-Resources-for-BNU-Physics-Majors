@@ -1,0 +1,309 @@
+\documentclass[12pt, a4paper, oneside]{ctexart}
+\usepackage{amsmath, amsthm, amssymb, bm, xcolor, tikz, framed, graphicx, hyperref, mathrsfs}
+\usepackage{bookmark}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+\newcommand{\bra}[1]{\langle #1 |}
+\newcommand{\ket}[1]{| #1 \rangle}
+\newcommand{\braket}[2]{\langle #1 | #2 \rangle}
+
+\title{Quantum Mechanics Homework (Week 10)}
+\author{Tang Yi \\ [学号已脱敏]}
+\usepackage[a4paper, left=2cm, right=2cm, top=2cm, bottom=2cm]{geometry}
+\linespread{1.3} % 行距更紧凑
+\definecolor{shadecolor}{RGB}{241, 241, 255}
+
+\newcounter{problemname}
+\newenvironment{problem}
+  {\begin{shaded}\stepcounter{problemname}\par\noindent\textbf{题目 \theproblemname. }}
+  {\end{shaded}\par}
+\newenvironment{solution}
+  {\par\noindent\textbf{题目 \theproblemname 的解答. }}
+  {\par}
+\newenvironment{note}
+  {\par\noindent\textbf{题目 \theproblemname 的注记. }}
+  {\par}
+
+\begin{document}
+
+\maketitle
+
+\begin{problem}
+  考虑$\delta$势阱$V(x) =−\gamma \delta(x)$中质量为$m$的粒子，处于束缚本征态。分别用坐标表象积分和费曼海尔曼定理求动能和势能的期望值。
+\end{problem}
+
+\begin{solution}
+  在势阱
+$$
+V(x)=-\gamma\delta(x)
+$$
+中，束缚态波函数可写为
+$$
+\psi(x)=A e^{-\kappa |x|}.
+$$
+
+由含 $\delta$ 势的导数跳跃条件可得
+$$
+\kappa=\frac{m\gamma}{\hbar^2},
+\qquad
+A=\sqrt{\kappa},
+\qquad
+E=-\frac{\hbar^2\kappa^2}{2m}
+=-\frac{m\gamma^2}{2\hbar^2}.
+$$
+
+为求期望值：
+
+1. 坐标表象积分法
+
+势能期望值
+$$
+\langle V\rangle
+=-\gamma|\psi(0)|^2
+=-\gamma\kappa
+=-\frac{m\gamma^2}{\hbar^2}.
+$$
+
+动能期望值
+$$
+\langle T\rangle
+=\frac{\hbar^2}{2m}\int_{-\infty}^\infty |\psi’(x)|^2 dx
+=\frac{\hbar^2}{2m}\kappa^2
+=\frac{m\gamma^2}{2\hbar^2}.
+$$
+
+2. 费曼–海尔曼定理
+
+对参数 $\gamma$，有
+$$
+\frac{\partial H}{\partial\gamma}=-\delta(x),
+\qquad
+E(\gamma)=-\frac{m\gamma^2}{2\hbar^2}.
+$$
+
+因此
+$$
+\frac{\mathrm{d}E}{\mathrm{d}\gamma}
+=-\frac{m\gamma}{\hbar^2}
+=-\langle\delta(x)\rangle,
+$$
+从而
+$$
+\langle\delta(x)\rangle
+=\frac{m\gamma}{\hbar^2}.
+$$
+
+势能期望值为
+$$
+\langle V\rangle
+=-\gamma\langle\delta(x)\rangle
+=-\frac{m\gamma^2}{\hbar^2}.
+$$
+
+最终
+$$
+\langle T\rangle=\frac{m\gamma^2}{2\hbar^2},
+\qquad
+\langle V\rangle=-\frac{m\gamma^2}{\hbar^2},
+\qquad
+E=-\frac{m\gamma^2}{2\hbar^2}.
+$$
+\end{solution}
+
+\begin{problem}
+  一维谐振子处于状态：
+
+  \centerline{$\psi(x) = \dfrac{1}{\sqrt{2}} \psi_0(x) + \dfrac{1}{\sqrt{2}} \psi_1(x)$}
+
+  在海森堡绘景下求在$t$时刻的动量期望值。
+\end{problem}
+
+\begin{solution}
+  设一维谐振子的能量本征态满足
+\[
+H\psi_n = E_n\psi_n,\qquad E_n=\hbar\omega\left(n+\frac12\right).
+\]
+给定初态
+\[
+\psi(x,0)=\frac{1}{\sqrt{2}}\psi_0(x)+\frac{1}{\sqrt{2}}\psi_1(x).
+\]
+
+在海森堡绘景中，算符随时间演化：
+\[
+\hat{p}(t)=e^{iHt/\hbar}\hat{p}\,e^{-iHt/\hbar}.
+\]
+
+谐振子中有关系
+\[
+\hat{x}=\sqrt{\frac{\hbar}{2m\omega}}(a+a^\dagger),\qquad
+\hat{p}=i\sqrt{\frac{m\hbar\omega}{2}}(a^\dagger-a).
+\]
+
+利用
+\[
+a(t)=a\,e^{-i\omega t},\qquad a^\dagger(t)=a^\dagger e^{i\omega t},
+\]
+可得
+\[
+\hat{p}(t)=i\sqrt{\frac{m\hbar\omega}{2}}\left(a^\dagger e^{i\omega t}-a e^{-i\omega t}\right).
+\]
+
+动量期望值为
+\[
+\langle p(t)\rangle
+=\langle\psi(0)|\hat{p}(t)|\psi(0)\rangle.
+\]
+
+代入初态：
+\[
+|\psi(0)\rangle=\frac1{\sqrt2}(|0\rangle+|1\rangle).
+\]
+
+只需用
+\[
+a|1\rangle=\sqrt{1}|0\rangle,\qquad 
+a^\dagger|0\rangle=\sqrt{1}|1\rangle,
+\]
+其余零。
+
+于是
+\[
+\langle p(t)\rangle
+= i\sqrt{\frac{m\hbar\omega}{2}}
+\frac12\left(
+\langle1|a^\dagger|0\rangle e^{i\omega t}
+-\langle0|a|1\rangle e^{-i\omega t}
+\right).
+\]
+
+注意
+\[
+\langle1|a^\dagger|0\rangle=\langle0|a|1\rangle=1,
+\]
+因此
+\[
+\langle p(t)\rangle
+= i\sqrt{\frac{m\hbar\omega}{2}}\,
+\frac12\left(e^{i\omega t}-e^{-i\omega t}\right).
+\]
+
+化简：
+\[
+e^{i\omega t}-e^{-i\omega t}=2i\sin(\omega t),
+\]
+得到最终结果
+\[
+\boxed{
+\langle p(t)\rangle
+= \sqrt{\frac{m\hbar\omega}{2}}\,\sin(\omega t)
+}.
+\]
+
+\end{solution}
+
+\begin{problem}
+  $D_x(a) = \exp \left[-a \frac{\partial}{\partial x}\right] = \exp \left[-i a \hat{p}_x / \hbar\right]$ 表示 $x$ 方向平移距离 $a$ 的算符。证明下列形式的波函数（称为布洛赫波函数）
+$$
+\psi(x) = e^{i k x} \phi_k(x), \quad \phi_k(x+a) = \phi_k(x)
+$$
+是 $D_x(a)$ 的本征态，相应本征值为 $e^{-i k a}$。
+\end{problem}
+
+
+\begin{solution}
+  \[
+D_x(a)=\exp\!\left[-a\frac{\partial}{\partial x}\right]
+=\exp\!\left[-\frac{i}{\hbar}a\hat p_x\right].
+\]
+该算符对任意函数的作用可由指数算符的泰勒展开给出：
+\[
+D_x(a)f(x)=\sum_{n=0}^{\infty}\frac{(-a)^n}{n!}\frac{\partial^n f(x)}{\partial x^n}
+=f(x-a),
+\]
+即 $D_x(a)$ 将函数平移距离 $a$。
+
+考虑布洛赫形式的波函数
+\[
+\psi(x)=e^{ikx}\phi_k(x), \qquad \phi_k(x+a)=\phi_k(x),
+\]
+作用平移算符得到
+\[
+D_x(a)\psi(x)=\psi(x-a)
+=e^{ik(x-a)}\phi_k(x-a).
+\]
+利用 $\phi_k$ 的周期性 $\phi_k(x-a)=\phi_k(x)$，有
+\[
+D_x(a)\psi(x)
+=e^{ik(x-a)}\phi_k(x)
+=e^{-ika}\,e^{ikx}\phi_k(x)
+=e^{-ika}\psi(x).
+\]
+因此 $\psi(x)$ 为 $D_x(a)$ 的本征态，其本征值为$e^{-ika}$.
+\end{solution}
+\begin{problem}
+  阱底范围在 $(0, a)$ 的无限深势阱中有两个质量为 $m$ 的粒子，设粒子之间没有相互作用，对 (1) 全同玻色子；(2) 全同费米子；(3) 可分辨粒子的情况，分别写出基态和第一激发态的本征能量、本征态和简并度。
+\end{problem}
+\begin{solution}
+  设单粒子在 $(0,a)$ 无限深势阱中的本征函数与本征能量为
+\[
+\psi_n(x)=\sqrt{\frac{2}{a}}\sin\!\left(\frac{n\pi x}{a}\right),\qquad
+E_n=\frac{n^2\pi^2\hbar^2}{2ma^2}.
+\]
+
+\noindent\textbf{（1）全同玻色子}
+
+基态：
+\[
+\Psi_{\mathrm{gs}}(x_1,x_2)=\psi_1(x_1)\psi_1(x_2),\qquad
+E_{\mathrm{gs}}=2E_1,
+\]
+简并度：$1$。
+
+第一激发态：
+\[
+\Psi_{1}(x_1,x_2)=\frac{1}{\sqrt{2}}\big[\psi_1(x_1)\psi_2(x_2)+\psi_2(x_1)\psi_1(x_2)\big],
+\qquad E_1=E_1+E_2,
+\]
+简并度：$1$。
+
+\bigskip
+
+\noindent\textbf{（2）全同费米子}
+
+基态：
+\[
+\Psi_{\mathrm{gs}}(x_1,x_2)=\frac{1}{\sqrt{2}}\big[\psi_1(x_1)\psi_2(x_2)-\psi_2(x_1)\psi_1(x_2)\big],\qquad
+E_{\mathrm{gs}}=E_1+E_2,
+\]
+简并度：$1$。
+
+第一激发态：
+\[
+\Psi_1(x_1,x_2)=\frac{1}{\sqrt{2}}\big[\psi_1(x_1)\psi_3(x_2)-\psi_3(x_1)\psi_1(x_2)\big],\qquad
+E_1=E_1+E_3,
+\]
+简并度：$1$。
+
+\bigskip
+
+\noindent\textbf{（3）可分辨粒子}
+
+基态：
+\[
+\Psi_{\mathrm{gs}}(x_1,x_2)=\psi_1(x_1)\psi_1(x_2),\qquad
+E_{\mathrm{gs}}=2E_1,
+\]
+简并度：$1$。
+
+第一激发态（两种有序组合）：
+\[
+\Psi_{(1,2)}=\psi_1(x_1)\psi_2(x_2),\qquad
+\Psi_{(2,1)}=\psi_2(x_1)\psi_1(x_2),
+\]
+\[
+E_1=E_1+E_2,
+\]
+简并度：$2$。
+\end{solution}
+\end{document}

@@ -1,0 +1,306 @@
+\documentclass[12pt, a4paper, oneside]{ctexart}
+\usepackage{amsmath, amsthm, amssymb, bm, xcolor, tikz, framed, graphicx, hyperref, mathrsfs}
+\usepackage{bookmark}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+
+\title{Quantum Mechanics Homework (Week 7)}
+\author{Tang Yi \\ [学号已脱敏]}
+\usepackage[a4paper, left=2cm, right=2cm, top=2cm, bottom=2cm]{geometry}
+\linespread{1.3} % 行距更紧凑
+\definecolor{shadecolor}{RGB}{241, 241, 255}
+
+\newcounter{problemname}
+\newenvironment{problem}
+  {\begin{shaded}\stepcounter{problemname}\par\noindent\textbf{题目 \theproblemname. }}
+  {\end{shaded}\par}
+\newenvironment{solution}
+  {\par\noindent\textbf{题目 \theproblemname 的解答. }}
+  {\par}
+\newenvironment{note}
+  {\par\noindent\textbf{题目 \theproblemname 的注记. }}
+  {\par}
+
+\begin{document}
+
+\maketitle
+
+\begin{problem}
+  考虑一维谐振子势场中的两个量子态,$|\phi\rangle$和 $|\varphi \rangle$,其中$|\phi\rangle$在坐标表象下的波函数形式为 $\phi(x)= \mathrm{e}^{-\alpha^2x^2}$,
+  $|\varphi \rangle$可以表示为能量本征态的线性叠加$|\varphi \rangle= |0\rangle+|1\rangle$,其中 $|0\rangle$,$|1\rangle$ 分别为基态和第一激发态。
+
+  (1)分别将$|\phi\rangle$和$|\varphi \rangle$归一化;
+
+  (2)求内积$\langle \phi|\varphi \rangle$.
+\end{problem}
+
+\begin{solution}
+  (1)
+  \begin{align*}
+    \langle \phi | \phi \rangle &= \displaystyle\int \mathrm{d}x \langle \phi | x \rangle \langle x | \phi \rangle \\
+    &= \displaystyle\int \mathrm{d}x \phi^*(x) \phi(x)\\
+    &= \displaystyle\int_{-\infty}^{+\infty} \mathrm{d}x \mathrm{e}^{-2\alpha^2x^2} = \sqrt{\dfrac{\pi}{2\alpha^2}}
+  \end{align*}
+  
+  因此,归一化的态为
+
+  \centerline{$| \tilde{\phi}\rangle = \left(\dfrac{2\alpha^2}{\pi}\right)^{\frac{1}{4}}|\phi\rangle$}
+
+  同理,有
+  \begin{align*}
+    \langle \varphi | \varphi \rangle &= (\langle 0 | + \langle 1 |)(|0\rangle + |1\rangle)\\
+    &= \langle 0 | 0 \rangle + \langle 0 | 1 \rangle +\langle 1 | 0 \rangle + \langle 1 | 1 \rangle = 2
+  \end{align*}
+
+  因此,归一化的态为
+
+  \centerline{$|\title{\varphi }\rangle = \dfrac{1}{\sqrt{2}} (|0\rangle + |1\rangle)$}
+
+  (2)
+  \begin{align*}
+    \langle \phi | \varphi \rangle &= \displaystyle\int \mathrm{d}x \langle \phi |x \rangle \langle x | 0 \rangle\\
+    &= \dfrac{\sqrt{\alpha}}{\pi^{\frac{1}{4}}} \displaystyle\int_{-\infty}^{+\infty} \mathrm{d}x \mathrm{e}^{-\frac{3}{2}\alpha^2x^2}\\
+    &= \dfrac{\sqrt{\alpha}}{\pi^{\frac{1}{4}}} \sqrt{\dfrac{2\pi}{3\alpha^2}} = \sqrt{\dfrac{2\sqrt{\pi}}{3\alpha}}
+  \end{align*}
+\end{solution}
+
+\begin{problem}
+  证明:若$\hat{A},\hat{B}$是厄米算符,则$\hat{C} = i[\hat{A},\hat{B}]$也是厄米算符.
+\end{problem}
+
+\begin{solution}
+  \begin{align*}
+    \hat{C}^\dagger &= -i((\hat{A}\hat{B})^\dagger - (\hat{B}\hat{A})^\dagger)\\
+    &= -i(\hat{B}^\dagger\hat{A}^\dagger - \hat{A}^\dagger\hat{B}^\dagger)\\
+    &=i(\hat{A}\hat{B} - \hat{B}\hat{A}) = \hat{C}
+  \end{align*}
+\end{solution}
+
+\begin{problem}
+  判断下列算符是否厄米.（注意:矢量算符应按分量处理）
+
+  (1)$\boldsymbol{l} = \boldsymbol{r} \times \boldsymbol{p}$,\,\,
+  (2)$\boldsymbol{r} \cdot \boldsymbol{p}$,\,\,
+  (3)$\boldsymbol{p} \times \boldsymbol{l}$,\,\,
+  (4)$\boldsymbol{r} \times \boldsymbol{l}$
+\end{problem}
+
+\begin{solution}
+  (1)
+  由角动量定义
+
+  \centerline{$\hat{l}_i = \varepsilon_{ijk} \hat{r}^j \hat{p}^k$}
+
+  两侧同时厄米,有
+  \begin{align*}
+    \hat{l}_i^\dagger &= \varepsilon_{ijk} \hat{p}^{k\dagger}\hat{r}^{j\dagger}\\
+    &= \varepsilon_{ijk} \hat{p}^k \hat{r}^j\\
+    &= \varepsilon_{ijk} (\hat{r}^j \hat{p}^k - i\hbar \delta^{kj})\\
+    &= \varepsilon_{ijk} \hat{r}^j \hat{p}^k = \hat{l}_i
+  \end{align*}
+  
+  因此,$\boldsymbol{l}$是厄米的.
+
+  (2)
+  \begin{align*}
+    (\boldsymbol{r} \cdot \boldsymbol{p})^\dagger &= (\hat{r}_i \hat{p}^i)^\dagger\\
+    &= \hat{p}^{i\dagger} {\hat{r}_i}^\dagger \\
+    &= \hat{p}^{i} {\hat{r}_i}\\
+    &= \hat{r}_i \hat{p}^i -i\hbar \delta^i_i \\
+    &= \boldsymbol{r} \cdot \boldsymbol{p} -3i\hbar
+  \end{align*}
+
+  因此,$\boldsymbol{r} \cdot \boldsymbol{p}$不是厄米的.
+
+  (3)
+  \begin{align*}
+    (\varepsilon_{ijk} p^j l^k)^\dagger &= \varepsilon_{ijk} l^{k\dagger} p^{j\dagger}\\
+    &= \varepsilon_{ijk} l^{k} p^{j} \\
+    &= \varepsilon_{ijk} (p^j l^k + i\hbar\varepsilon^{kjl} p_l)\\
+    &= \varepsilon_{ijk} p^j l^k +i\hbar (\delta_i^l - \delta_i^l \delta_j^j) p_l\\
+    &= \varepsilon_{ijk} p^j l^k - 2i\hbar p_i
+  \end{align*}
+
+  因此,$\boldsymbol{p} \times \boldsymbol{l}$不是厄米的.
+
+  (4)
+  \begin{align*}
+    (\varepsilon_{ijk} r^j l^k)^\dagger &= \varepsilon_{ijk} l^{k\dagger} r^{j\dagger}\\
+    &= \varepsilon_{ijk} l^{k} r^{j} \\
+    &= \varepsilon_{ijk} (r^j l^k + i\hbar\varepsilon^{kjl} r_l)\\
+    &= \varepsilon_{ijk} r^j l^k +i\hbar (\delta_i^l - \delta_i^l \delta_j^j) r_l\\
+    &= \varepsilon_{ijk} r^j l^k - 2i\hbar r_i
+  \end{align*}
+
+  因此,$\boldsymbol{r} \times \boldsymbol{l}$不是厄米的.
+
+\end{solution}
+
+\begin{problem}
+  利用对易关系证明:在 $l_z$ 的本征态下$l_x,l_y$的期望值为零.
+\end{problem}
+
+\begin{solution}
+  \begin{align*}
+    \langle l_x \rangle &= \langle l_z | \hat{l}_x | l_z \rangle\\
+    &= \dfrac{1}{i\hbar} \langle l_z | [\hat{l}_y,\hat{l}_z] | l_z \rangle\\
+    &= \dfrac{1}{i\hbar} \langle l_z | \hat{l}_y\hat{l}_z - \hat{l}_z\hat{l}_y | l_z \rangle\\
+    &= 0
+  \end{align*}
+
+  同理
+  \begin{align*}
+    \langle l_y \rangle &= \langle l_z | \hat{l}_y | l_z \rangle\\
+    &= \dfrac{1}{i\hbar} \langle l_z | [\hat{l}_z,\hat{l}_x] | l_z \rangle\\
+    &= \dfrac{1}{i\hbar} \langle l_z | \hat{l}_z\hat{l}_x - \hat{l}_x\hat{l}_z | l_z \rangle\\
+    &= 0
+  \end{align*}
+\end{solution}
+
+\begin{problem}
+  证明谐振子能量本征方程代数解法涉及的三个算符$a,a^\dagger,N$的两两对易关系.
+\end{problem}
+
+\begin{solution}
+  由定义
+  \begin{align*}
+    [a,a^\dagger] &= aa^\dagger - a^\dagger a\\
+    &= \dfrac{1}{2} (x + ip)(x - ip) - \dfrac{1}{2} (x - ip)(x + ip)\\
+    &= -i(xp-px) = -i^2 = 1
+  \end{align*}
+
+  同理,
+  \begin{align*}
+    [N,a] &= [a^\dagger a, a]\\
+    &= a^\dagger [a,a] + [a^\dagger,a] a\\
+    &= -a
+  \end{align*}
+
+  以及
+  \begin{align*}
+    [N,a^\dagger] &= [a^\dagger a, a^\dagger]\\
+    &= a^\dagger [a,a^\dagger] + [a^\dagger,a^\dagger] a\\
+    &= a^\dagger
+  \end{align*}
+\end{solution}
+
+\begin{problem}
+  一维谐振子处于这样的态：当对其测量能量时所得结果必是 $\dfrac{1}{2}\hbar \omega$或 $\dfrac{3}{2}\hbar \omega$其中之一, 并且得到两者的几率相等。在此态随时间演化的过程中,
+$\langle p \rangle$的最大值是多少? 假设在 $t = 0 $时刻 $\langle p \rangle$即为最大值, 写出谐振子波函数
+$\Psi(x, t) $。（注意叠加系数应取为复）
+\end{problem}
+
+\begin{solution}
+  不难发现,其态为
+
+  \centerline{$| \psi(0) \rangle = \dfrac{1}{\sqrt{2}}(| 0 \rangle + e^{i\theta}|1 \rangle)$}
+
+  随时演化后,有
+
+  \centerline{$| \psi(t) \rangle = \dfrac{1}{\sqrt{2}}(e^{i\frac{1}{2} \omega t}| 0 \rangle + e^{i(\frac{3}{2} \omega t+\theta)}|1 \rangle)$}
+
+  因此,有
+  \begin{align*}
+    \langle p \rangle(t) &= \langle \psi(t) | p | \psi(t) \rangle\\
+    &= \dfrac{1}{2} (e^{i(\omega t+\theta)}\langle 0 | p | 1 \rangle + e^{-i(\omega t+\theta)}\langle 1 | p | 0 \rangle)\\
+    &= \Re{(e^{i(\omega t+\theta)}\langle 0 | p | 1 \rangle)}\\
+    &= \Re{\left(e^{i(\omega t+\theta)}\left\langle 0 \left| \left.\dfrac{a-a^\dagger}{\sqrt{2}i} \right. \right| 1 \right\rangle \right)}\\
+    &= \Re \left(\dfrac{1}{\sqrt{2}}e^{i(\omega t+\theta-\frac{\pi}{2})} \left( \langle 0 | a | 1 \rangle - \langle 0 | a^\dagger | 1 \rangle\right)\right)\\
+    &= \Re \left(\dfrac{1}{\sqrt{2}}e^{i(\omega t+\theta-\frac{\pi}{2})} \left( \langle 0 | 0 \rangle - \sqrt{2} \langle 0 | 2 \rangle\right)\right)\\
+    &= \Re \left(\dfrac{1}{\sqrt{2}}e^{i(\omega t+\theta-\frac{\pi}{2})}\right) \\
+    &= \dfrac{1}{\sqrt{2}} \sin(\omega t+\theta)
+  \end{align*}
+
+  恢复量纲,不难有
+
+  \centerline{$\langle p \rangle(t) = \sqrt{\dfrac{m\hbar \omega}{2}}\sin(\omega t+\theta)$}
+
+  因此,在演化过程中,$\langle p \rangle_{\mathrm{max}} = \sqrt{\dfrac{m\hbar \omega}{2}}$.
+
+  若在 $t = 0 $时刻 $\langle p \rangle$即为最大值,则有$\theta = \dfrac{\pi}{2}$.则有
+
+  \centerline{$| \psi(t) \rangle = \dfrac{1}{\sqrt{2}}(e^{i\frac{1}{2} \omega t}| 0 \rangle + e^{i(\frac{3}{2} \omega t+\frac{\pi}{2})}|1 \rangle)$}
+
+  则有
+  \begin{align*}
+    \Psi(x,t) &= \langle x | \psi(t) \rangle\\
+    &= \dfrac{1}{\sqrt{2}}(e^{i\frac{1}{2} \omega t}\langle x | 0 \rangle + e^{i(\frac{3}{2} \omega t+\frac{\pi}{2})}\langle x|1 \rangle)
+  \end{align*}
+
+  我们下面计算$\psi_0$:
+  \begin{align*}
+    a | 0 \rangle &= \displaystyle\int \mathrm{d}x  |x\rangle \langle x |a| 0 \rangle \\
+    &= \displaystyle\int \mathrm{d}x  |x\rangle \left( \dfrac{x+\frac{\mathrm{d}}{\mathrm{d}x}}{\sqrt{2}}\right) \langle x | 0 \rangle = 0
+  \end{align*}
+
+  则有
+
+  \centerline{$\dfrac{\mathrm{d}}{\mathrm{d}x} \psi_0+x\psi_0 = 0$}
+
+  不难解得,
+
+  \centerline{$\psi_0 = \dfrac{1}{\sqrt[4]{\pi}} \mathrm{e}^{-\frac{1}{2}x^2}$}
+
+  下面计算$\psi_1$:
+  \begin{align*}
+    \langle x | 1 \rangle &= \langle x| a^\dagger | 1 \rangle\\
+    &= \dfrac{x-\frac{\mathrm{d}}{\mathrm{d}x}}{\sqrt{2}} \langle x| 0\rangle\\
+    &= \sqrt{2}x \psi_0
+  \end{align*}
+
+  因此,有
+
+  \centerline{$\psi_1 = \sqrt[4]{\dfrac{4}{\pi}} x\mathrm{e}^{-\frac{1}{2}x^2}$}
+
+  恢复量纲后,代入有
+  \begin{align*}
+    \psi_0 &= \dfrac{1}{\sqrt[4]{\pi}} \alpha^{\frac{1}{2}} \mathrm{e}^{-\frac{1}{2}\alpha^2x^2}\\
+    \psi_1 &= \sqrt[4]{\dfrac{4}{\pi}} \alpha^{\frac{3}{2}} x\mathrm{e}^{-\frac{1}{2}\alpha^2x^2}
+  \end{align*}
+
+  代入,有
+
+  \centerline{$\Psi(x,t) = \dfrac{1}{\sqrt{2}}(e^{i\frac{1}{2} \omega t}\dfrac{1}{\sqrt[4]{\pi}} \alpha^{\frac{1}{2}} \mathrm{e}^{-\frac{1}{2}\alpha^2x^2} + e^{i(\frac{3}{2} \omega t+\frac{\pi}{2})}\sqrt[4]{\dfrac{4}{\pi}} \alpha^{\frac{3}{2}} x\mathrm{e}^{-\frac{1}{2}\alpha^2x^2})$}
+
+  其中,$\alpha = \sqrt{\dfrac{m\omega}{\hbar}}$.
+\end{solution}
+
+\begin{problem}
+  已知厄米算符$\hat{A}$的两个本征态$| A_1 \rangle $和$| A_2 \rangle $,分别对应本征值$A_1$和$A_2$,
+  厄米算符$\hat{B}$的两个本征态$| B_1 \rangle $和$| B_2 \rangle $,分别对应本征值$B_1$和$B_2$。
+  两组本征态之间有关系:
+
+  \centerline{$|A_1\rangle = \dfrac{1}{5}(3|B_1\rangle +4|B_2\rangle),\quad|A_2\rangle = \dfrac{1}{5}(4|B_1\rangle -3|B_2\rangle)$}
+
+  (1)在任一状态测量可观测量$A$,所得结果为$A_1$.那么在测量之后（瞬时）体系处在什么态?
+
+  (2)如果紧接着再测量$B$,可能的测值是什么?它们出现的几率是多少?
+
+  (3)测完$B$之后, 再次紧接着测量$A$, 测值为$A_1$的几率是多少?
+\end{problem}
+
+\begin{solution}
+
+  (1) $|A_1\rangle$
+
+  (2)此时的态为$\dfrac{3}{5}|B_1\rangle + \dfrac{4}{5}|B_2\rangle$,因此可能的取值为$B_1$,$B_2$.
+  出现的几率分别为$\dfrac{9}{25}$与$\dfrac{16}{25}$.
+
+  (3)不难有
+
+  \centerline{$|B_1\rangle = \dfrac{1}{5}(3|A_1\rangle +4|A_2\rangle),\quad|B_2\rangle = \dfrac{1}{5}(4|A_1\rangle -3|A_2\rangle)$}
+
+  则密度算符$\rho$为
+
+  \centerline{$\rho = \dfrac{9}{25}|B_1\rangle \langle B_1| + \dfrac{16}{25}|B_2\rangle \langle B_2|$}
+
+  因此,测得$A_1$的几率为
+  \begin{align*}
+    \mathcal{P}(A_1) &= \mathrm{Tr}(\rho P_{A_1})\\
+    &= \mathrm{Tr}(\dfrac{9}{25}|B_1\rangle \langle B_1|A_1 \rangle \langle A_1 | + \dfrac{16}{25}|B_2\rangle \langle B_2|A_1 \rangle \langle A_1 |)\\
+    &= \dfrac{27}{125}\mathrm{Tr}(|B_1\rangle \langle A_1|) + \dfrac{64}{125}\mathrm{Tr}(|B_2\rangle \langle A_1|) \\
+    &= \dfrac{327}{625}
+  \end{align*}
+\end{solution}
+\end{document}

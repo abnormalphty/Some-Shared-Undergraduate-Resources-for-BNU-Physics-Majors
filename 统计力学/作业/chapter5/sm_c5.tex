@@ -1,0 +1,412 @@
+\documentclass[12pt, a4paper, oneside]{ctexart}
+\usepackage{amsmath, textcomp,siunitx,amsthm, amssymb, bm, xcolor, tikz, framed, graphicx, hyperref, mathrsfs}
+
+\title{Statistical Mechanics Homework (Chapter5)}
+\author{Tang Yi \\ [学号已脱敏]}
+\usepackage[a4paper, left=2cm, right=2cm, top=2cm, bottom=2cm]{geometry}
+\linespread{1.3} % 行距更紧凑
+\definecolor{shadecolor}{RGB}{241, 241, 255}
+
+\newcounter{problemname}
+\newenvironment{problem}
+  {\begin{shaded}\stepcounter{problemname}\par\noindent\textbf{题目 \theproblemname. }}
+  {\end{shaded}\par}
+\newenvironment{solution}
+  {\par\noindent\textbf{题目 \theproblemname 的解答. }}
+  {\par}
+\newenvironment{note}
+  {\par\noindent\textbf{题目 \theproblemname 的注记. }}
+  {\par}
+
+
+\newcommand{\dbar}{\; \bar{} \hspace{-0.3em} \mathrm d}
+\newcommand{\tpar}[3]{\left(\dfrac{\partial #1}{\partial #2}\right)_{#3}}
+\begin{document}
+
+\maketitle
+
+\begin{problem}{5-1}
+  一维谐振子的能谱为$\varepsilon_n = \left( n+\dfrac{1}{2} \right) h\nu , n = 0,1,2,\cdots$，而且系统的温度足够低。
+
+  (a)求振子处于第一激发态与基态的概率之比；
+
+  (b)如果振子仅可能占据基态和第一激发态，计算平均能量。
+\end{problem}
+
+\begin{solution}
+  设谐振子的能谱为
+\[
+\varepsilon_n=\left(n+\frac12\right)h\nu ,\qquad n=0,1,2,\ldots
+\]
+温度足够低，令 \(\beta=\dfrac{1}{k_B T}\)。
+
+(a) 第一激发态与基态的概率之比为
+\[
+\frac{P_1}{P_0}
+=\exp\!\left[-\beta(\varepsilon_1-\varepsilon_0)\right]
+=\exp(-\beta h\nu).
+\]
+
+(b) 若系统只可能处于 \(n=0,1\) 两个能级，配分函数为
+\[
+Z=e^{-\beta\varepsilon_0}+e^{-\beta\varepsilon_1}
+=e^{-\beta\varepsilon_0}\left(1+e^{-\beta h\nu}\right).
+\]
+平均能量为
+\[
+\langle \varepsilon\rangle
+=\frac{\varepsilon_0 e^{-\beta\varepsilon_0}
++\varepsilon_1 e^{-\beta\varepsilon_1}}{Z}
+=\varepsilon_0+h\nu\,\frac{e^{-\beta h\nu}}
+{1+e^{-\beta h\nu}}.
+\]
+代入 \(\varepsilon_0=\frac12 h\nu\)，得
+\[
+\langle\varepsilon\rangle
+=\frac12 h\nu+\frac{h\nu}{e^{\beta h\nu}+1}.
+\]
+\end{solution}
+
+\begin{problem}{5-2}
+  服从玻耳兹曼分布的某种理想气体粒子的能量和动量关系为$\varepsilon = cp$，其中$c$为光速。若单位体积中包含$ N $个粒子，计算此气体的定容热容。
+\end{problem}
+
+\begin{solution}
+  设单粒子能量与动量关系为 \(\varepsilon=cp\)，系统服从玻尔兹曼分布，单位体积中有 \(N\) 个粒子。取 \(\beta=1/(k_B T)\)。
+
+单粒子的配分函数（单位体积，经典近似）为
+\[
+Z_1=\frac{1}{h^3}\int_{\mathbb{R}^3} e^{-\beta c p}\,d^3p
+=\frac{4\pi}{h^3}\int_0^\infty p^2 e^{-\beta c p}\,dp.
+\]
+利用积分公式 \(\displaystyle\int_0^\infty x^2 e^{-ax}\,dx=\frac{2}{a^3}\)（\(a>0\)），得
+\[
+Z_1=\frac{4\pi}{h^3}\cdot\frac{2}{(\beta c)^3}
+=\frac{8\pi}{h^3}\frac{1}{(\beta c)^3}.
+\]
+
+总体配分函数为 \(Z=Z_1^N/N!\)（经典近似），系统总能量为
+\[
+U=-\frac{\partial}{\partial\beta}\ln Z
+=-N\frac{\partial}{\partial\beta}\ln Z_1.
+\]
+由 \(\ln Z_1=\ln\!\big(\tfrac{8\pi}{h^3 c^3}\big)-3\ln\beta\)，得到
+\[
+U=-N\left(-\frac{3}{\beta}\right)=\frac{3N}{\beta}=3N k_B T.
+\]
+
+因此定容热容为
+\[
+C_V=\left(\frac{\partial U}{\partial T}\right)_V=3N k_B.
+\]
+
+\end{solution}
+
+\begin{problem}{5-3}
+  有$ N $个质量为$ m $的单原子分子组成的理想气体，它们被装在边长为$ L $的立方容器内，其上下与地底表面平行，设在容器的范围内重力场均匀。气体处于温度为$ T $的平衡态，服从玻耳兹曼分布。试计算：
+
+(a) 分子的平均动能； (b) 分子的平均势能。
+\end{problem}
+
+\begin{solution}
+  设有 \(N\) 个质量为 \(m\) 的单原子分子置于边长为 \(L\) 的立方容器内，重力加速度为 \(g\)，取竖直方向 \(z\) 从底面（\(z=0\)）向上到顶面（\(z=L\)）。系统处于温度 \(T\) 的热平衡，服从玻尔兹曼分布，记 \(\beta=1/(k_B T)\)。
+
+单个分子的配分函数可分为动量部分与空间部分的乘积：
+\[
+Z_1=\frac{1}{h^3}\int_{\mathbb{R}^3} e^{-\beta\frac{p^2}{2m}}\,d^3p
+\int_{V} e^{-\beta m g z}\,d^3r.
+\]
+动量积分为高斯积分：
+\[
+\int_{\mathbb{R}^3} e^{-\beta\frac{p^2}{2m}}\,d^3p
+=\left(\int_{-\infty}^{\infty} e^{-\beta\frac{p_x^2}{2m}}dp_x\right)^3
+=\left(\sqrt{\frac{2\pi m}{\beta}}\right)^3
+=\left(\frac{2\pi m}{\beta}\right)^{3/2}.
+\]
+空间积分因为横向面积为 \(L^2\)，在 \(z\) 上为指数衰减：
+\[
+\int_{V} e^{-\beta m g z}\,d^3r
+= L^2\int_0^L e^{-\beta m g z}\,dz
+= L^2\frac{1-e^{-\beta m g L}}{\beta m g}.
+\]
+因此
+\[
+Z_1=\frac{1}{h^3}\left(\frac{2\pi m}{\beta}\right)^{3/2}
+L^2\frac{1-e^{-\beta m g L}}{\beta m g}.
+\]
+
+(a) 平均动能。动能只来自动量部分，平均动能可由动量配分函数给出：
+\[
+\langle K\rangle
+=-\frac{\partial}{\partial\beta}\ln\Big[\,(2\pi m/\beta)^{3/2}\,\Big]
+=\frac{3}{2\beta}=\frac{3}{2}k_B T.
+\]
+
+(b) 平均势能。只看位置的配分函数
+\[
+Z_{\text{pos}}=L^2\frac{1-e^{-\beta m g L}}{\beta m g},
+\]
+单粒子的平均势能为
+\[
+\langle V\rangle
+=-\frac{\partial}{\partial\beta}\ln Z_{\text{pos}}
+=\frac{1}{\beta}-\frac{m g L}{e^{\beta m g L}-1}.
+\]
+
+\end{solution}
+
+\begin{problem}{5-4}
+  1mol 带电荷为$ q $的单原子分子组成的理想气体，在边长$ L $的立方体中运动，其中心沿$ x $方向存在一个均匀电场$ E$，分子的能量为 $\varepsilon = \dfrac{p^2}{2m} - Eqx$。求出该气体的 (a) 配分函数；(b) 内能。
+\end{problem}
+
+\begin{solution}
+    设气体为 1 mol（粒子数为 \(N=N_A\)），单粒子能量为
+\[
+\varepsilon=\frac{p^2}{2m}-E q x,
+\]
+系统处于温度 \(T\)，记 \(\beta=\frac{1}{k_B T}\)。单粒子配分函数可分为动量和位置两部分：
+\[
+Z_1=\frac{1}{h^3}\int_{\mathbb{R}^3}e^{-\beta\frac{p^2}{2m}}\,d^3p
+\int_{V}e^{\beta E q x}\,d^3r.
+\]
+动量积分为高斯积分：
+\[
+\int_{\mathbb{R}^3}e^{-\beta\frac{p^2}{2m}}\,d^3p
+=\left(\frac{2\pi m}{\beta}\right)^{3/2}.
+\]
+空间积分在立方体 \(0\le x,y,z\le L\) 上为
+\[
+\int_{V}e^{\beta E q x}\,d^3r
+= L^2\int_0^L e^{\beta E q x}\,dx
+= L^2\frac{e^{\beta E q L}-1}{\beta E q}.
+\]
+因此单粒子配分函数为
+\[
+Z_1=\frac{1}{h^3}\left(\frac{2\pi m}{\beta}\right)^{3/2}
+L^2\frac{e^{\beta E q L}-1}{\beta E q}.
+\]
+
+(a) 全体系（经典近似）的配分函数为正则配分函数（可交换粒子）：
+\[
+Z=\frac{Z_1^{\,N}}{N!},\qquad N=N_A\ \text{（1 mol）}.
+\]
+
+(b) 内能由
+\[
+U=-\frac{\partial}{\partial\beta}\ln Z
+=-N\frac{\partial}{\partial\beta}\ln Z_1
+\]
+给出。写出 \(\ln Z_1\)：
+\[
+\ln Z_1=\frac{3}{2}\ln\!\left(\frac{2\pi m}{\beta}\right)
++\ln L^2+\ln\!\big(e^{\beta E q L}-1\big)-\ln(\beta E q)-3\ln h.
+\]
+对 \(\beta\) 求导得
+\[
+\frac{\partial}{\partial\beta}\ln Z_1
+=-\frac{3}{2}\frac{1}{\beta}
++\frac{E q L\,e^{\beta E q L}}{e^{\beta E q L}-1}-\frac{1}{\beta}.
+\]
+于是
+\[
+U=-N\left(-\frac{5}{2}\frac{1}{\beta}
++\frac{E q L\,e^{\beta E q L}}{e^{\beta E q L}-1}\right)
+= N\left(\frac{5}{2}k_B T-\;E q L\;\frac{e^{\beta E q L}}{e^{\beta E q L}-1}\right).
+\]
+
+其中，$N = N_A$。
+\end{solution}
+
+\begin{problem}{5-5}
+  气柱的高度为 H，处在重力场中。试证明此气柱的内能和热容为
+
+  \centerline{$U = U_0 + N k_B T - \frac{N m g H}{e^{\frac{m g H}{k_B T}} - 1}$}
+
+  \centerline{$C_V = C_V^0 + N k_B - \frac{N (mgH)^2 e^{\frac{mgH}{k_B T}}}{\left( e^{\frac{mgH}{k_B T}} - 1 \right)^2} \frac{1}{k_B T^2}$}
+\end{problem}
+
+\begin{solution}
+  设单粒子能量为
+\[
+\varepsilon=\frac{p_x^2+p_y^2+p_z^2}{2m}+mg z,\qquad 0\le z\le H.
+\]
+配分函数可分解为动量部分与位置部分：
+\[
+Z_1=Z_p\,Z_z,
+\]
+其中动量积分给出
+\[
+Z_p=\frac{1}{h^3}\!\left(\frac{2\pi m}{\beta}\right)^{3/2},
+\]
+竖直方向的重力势能部分
+\[
+Z_z=\int_0^H e^{-\beta mg z}\,dz
+=\frac{1-e^{-\beta mg H}}{\beta mg}.
+\]
+因此单粒子配分函数为
+\[
+Z_1=Z_{\rm int}\;\frac{1}{h^3}\!\left(\frac{2\pi m}{\beta}\right)^{3/2}
+\frac{1-e^{-\beta mg H}}{\beta mg},
+\]
+其中 \(Z_{\rm int}\) 为内部自由度配分函数，对应能量记为 \(U_0\)。
+
+系统总配分函数为 \(Z=Z_1^{\,N}/N!\)。  
+内能：
+\[
+U=-\frac{\partial}{\partial\beta}\ln Z
+=-N\frac{\partial}{\partial\beta}\ln Z_1.
+\]
+
+利用
+\[
+\ln Z_1=\ln Z_{\rm int}+\frac{3}{2}\ln\!\left(\frac{1}{\beta}\right)
++\ln(1-e^{-\beta mgH})-\ln(\beta mg),
+\]
+对 \(\beta\) 求导，并用 \(1/\beta=k_B T\)，得
+\[
+U
+=U_0+N k_B T - \frac{N mgH}{e^{\beta mgH}-1}.
+\]
+
+即
+\[
+\boxed{
+U=U_0+N k_B T-\frac{N mgH}{e^{\frac{mgH}{k_B T}}-1}
+}.
+\]
+
+再对 \(U\) 对 \(T\) 求导，注意
+\[
+x=\frac{mgH}{k_B T},
+\quad
+\frac{d}{dT}\frac{1}{e^x-1}
+=-\frac{(mgH)e^x}{k_B T^2 (e^x-1)^2},
+\]
+得到
+\[
+\boxed{
+C_V=C_V^0
++N k_B
+-\frac{N(mgH)^2e^{\frac{mgH}{k_B T}}}{(e^{\frac{mgH}{k_B T}}-1)^2}
+\frac{1}{k_B T^2}
+}.
+\]
+\end{solution}
+
+\begin{problem}{5-6}
+  有 N 个全同的、近独立二维简谐振子组成的系统，服从玻耳兹曼统计，已知每 个振子的能谱为
+
+  \centerline{$\varepsilon_{n_1, n_2} = \left(n_1 + \dfrac{1}{2}\right) h \nu_1 + \left(n_2 + \dfrac{1}{2}\right) h \nu_2, \quad n_1, n_2 = 0, 1, 2, \ldots$}
+
+  试求一个振子的平均能量，并给出当温度满足条件$h\nu_1 \ll k_B T \ll h\nu_2$时，它的近似表达式。
+\end{problem}
+
+\begin{solution}
+  设 \(\beta=\dfrac{1}{k_B T}\)。单个二维简谐振子的能级为
+\[
+\varepsilon_{n_1,n_2}
+=\left(n_1+\frac12\right)h\nu_1+\left(n_2+\frac12\right)h\nu_2,
+\qquad n_1,n_2=0,1,2,\ldots
+\]
+配分函数因两个方向独立而可写成乘积：
+\[
+Z_1=Z(\nu_1)Z(\nu_2),\qquad
+Z(\nu)=\sum_{n=0}^\infty e^{-\beta h\nu(n+1/2)}
+=\frac{e^{-\beta h\nu/2}}{1-e^{-\beta h\nu}}.
+\]
+单振子的平均能量为
+\[
+\langle E\rangle
+=-\frac{\partial}{\partial\beta}\ln Z_1
+=h\nu_1\Big(\tfrac12+\frac{1}{e^{\beta h\nu_1}-1}\Big)
++ h\nu_2\Big(\tfrac12+\frac{1}{e^{\beta h\nu_2}-1}\Big).
+\]
+写成更紧凑的形式：
+\[
+\boxed{\;
+\langle E\rangle
+= h\nu_1\left[\frac{1}{2}+\frac{1}{e^{\beta h\nu_1}-1}\right]
++ h\nu_2\left[\frac{1}{2}+\frac{1}{e^{\beta h\nu_2}-1}\right]\; }.
+\]
+
+当温度满足 \(h\nu_1\ll k_B T\ll h\nu_2\)时，可作近似：
+\[
+\frac{1}{e^{\beta h\nu_1}-1}\approx\frac{1}{\beta h\nu_1},\qquad
+\frac{1}{e^{\beta h\nu_2}-1}\approx e^{-\beta h\nu_2}.
+\]
+于是单振子的平均能量近似为
+\[
+\boxed{\;
+\langle E\rangle \simeq k_B T + \frac{1}{2}h\nu_2 + h\nu_2\,e^{-\beta h\nu_2}\; }.
+\]
+\end{solution}
+
+\begin{problem}{5-7}
+  经典转子的能量为
+
+  \centerline{$\epsilon = \dfrac{1}{2 I} p_{\theta}^2 + \dfrac{1}{2 I \sin^2 \theta} p_{\phi}^2$}
+
+  计算相体积、配分函数和定容热容。
+\end{problem}
+
+\begin{solution}
+  设经典线性转子（质点间距极小、仅有转动自由度）转动惯量为 \(I\)，广义角坐标为 \((\theta,\phi)\)，共轭动量为 \((p_\theta,p_\phi)\)，哈密顿量为
+\[
+\epsilon=\frac{p_\theta^2}{2I}+\frac{p_\phi^2}{2I\sin^2\theta},\qquad
+0\le\theta\le\pi,\;0\le\phi<2\pi.
+\]
+
+一、相空间体积（能量小于等于 \(E\) 的相空间体积）
+\[
+\Gamma(E)=\int_{H\le E} d\theta\,d\phi\,dp_\theta\,dp_\phi.
+\]
+对于固定的 \(\theta\)，动量空间上满足
+\[
+\frac{p_\theta^2}{2I}+\frac{p_\phi^2}{2I\sin^2\theta}\le E
+\]
+的区域是一个半轴长为 \(\sqrt{2I E}\) 与 \(\sqrt{2I E}\sin\theta\) 的椭圆，其面积为
+\(\pi\cdot( \sqrt{2IE})(\sqrt{2IE}\sin\theta)=2\pi I E\sin\theta\)。
+故
+\[
+\Gamma(E)=\int_0^{2\pi}d\phi\int_0^\pi d\theta\; \big(2\pi I E\sin\theta\big)
+=2\pi I E\cdot 2\pi\int_0^\pi \sin\theta\,d\theta
+=8\pi^2 I E.
+\]
+于是能量密度（对能量求导）为
+\[
+\frac{d\Gamma}{dE}=8\pi^2 I.
+\]
+
+二、单个转子的配分函数（经典近似）
+\[
+Z_1=\frac{1}{h^2}\int e^{-\beta\epsilon}\,d\theta\,d\phi\,dp_\theta\,dp_\phi
+=\frac{1}{h^2}\int_0^\infty e^{-\beta E}\frac{d\Gamma}{dE}\,dE
+=\frac{1}{h^2}\,8\pi^2 I\int_0^\infty e^{-\beta E}dE
+=\frac{8\pi^2 I}{\beta h^2}.
+\]
+记 \(\beta=1/(k_B T)\)，可写为
+\[
+\boxed{\,Z_1=\dfrac{8\pi^2 I k_B T}{h^2}\, }.
+\]
+
+若系统有 \(N\) 个互不相互作用的全同经典转子，则总体配分函数（经典近似，可交换粒子）为
+\[
+Z=\frac{Z_1^N}{N!}.
+\]
+
+三、定容内能与定容热容
+单个转子的平均能量
+\[
+\langle\epsilon\rangle
+=-\frac{\partial}{\partial\beta}\ln Z_1
+=\frac{1}{\beta}=k_B T.
+\]
+因此总内能与定容热容为
+\[
+\boxed{\,U=N k_B T,\qquad C_V=\left(\frac{\partial U}{\partial T}\right)_V
+= N k_B\, }.
+\]
+
+说明：上述结果与等分配定理一致——线性转子有两个独立的转动自由度，每个自由度贡献 \(\tfrac12k_B T\)，因而每个分子转动部分平均能量为 \(k_B T\)。
+\end{solution}
+\end{document}

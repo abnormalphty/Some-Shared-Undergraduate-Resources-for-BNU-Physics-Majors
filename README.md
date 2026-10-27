@@ -1,9 +1,12 @@
 # Some-Shared-Undergraduate-Resources-for-BNU-Physics-Majors
-These are some resources may be useful for undergraduate students with physics major at Beijing Normal University. It includes some homework, experiment reports, class slides and so on from the sharer who will graduate at 2027.
+
+北京师范大学物理学专业的课程资料：作业、实验报告、讲义、课件和试卷。实验报告中的姓名和学号已换成「学生」和 `[学号已脱敏]`。
+
+这里只保留与物理系课程有关的文件。英语、思政、心理、体育等通识课，以及竞赛、科研、支教和教材全文都没有放入。
 
 ## 近代物理实验
 
-每项实验保留 TeX 源文件、PDF，以及图表、代码或原始数据。
+每项实验保留 TeX 源文件、PDF，以及报告用到的图表和数据。2024 秋讲义在 [2024秋](近代物理实验/2024秋/)，课程讲义在 [笔记/lec](近代物理实验/笔记/lec/)。
 
 - [光学多道](近代物理实验/光学多道/) · [PDF](近代物理实验/光学多道/光学多道.pdf)
 - [光泵磁共振](近代物理实验/光泵磁共振/) · [PDF](近代物理实验/光泵磁共振/光泵磁共振.pdf)
@@ -12,6 +15,15 @@ These are some resources may be useful for undergraduate students with physics m
 - [超导](近代物理实验/超导/) · [PDF](近代物理实验/超导/超导.pdf)
 - [非线性电路](近代物理实验/非线性电路/) · [PDF](近代物理实验/非线性电路/非线性电路.pdf)
 - [塞曼效应](近代物理实验/塞曼效应/) · [PDF](近代物理实验/塞曼效应/塞曼效应.pdf)
-- [总结](近代物理实验/总结/) · [PDF](近代物理实验/总结/总结.pdf)（非线性电路实验总结）
+- [总结](近代物理实验/总结/) · [PDF](近代物理实验/总结/总结.pdf)
 
-作业、课件等其他课程资料将按课程另建目录，此处不预留空文件夹。
+## 其他物理系课程
+
+| 目录 | 内容 |
+| --- | --- |
+| [普通物理实验](普通物理实验/) | 实验报告和数据 |
+| [近代物理实验 II](近代物理实验%20II/) | 讲义、预习幻灯片、实验报告和复习笔记 |
+| [计算物理](计算物理/) | 笔记和作业 |
+| [量子力学](量子力学/) | 讲义、往年试题和每周作业 |
+| [统计力学](统计力学/) | 笔记和分章作业 |
+| [固体物理](固体物理/) | 课件、作业和讲义 |
