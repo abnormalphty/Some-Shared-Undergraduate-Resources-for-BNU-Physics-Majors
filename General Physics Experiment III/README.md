@@ -1,3 +1,3 @@
 # General Physics Experiment III
 
-实验讲义在 [reports](reports/)。
+Lab handouts are in [reports](reports/).
