@@ -1,0 +1,241 @@
+\documentclass[12pt, a4paper, oneside]{ctexart}
+\usepackage{amsmath, textcomp,siunitx,amsthm, amssymb, bm, xcolor, tikz, framed, graphicx, hyperref, mathrsfs}
+
+\title{Statistical Mechanics Homework (Chapter3)}
+\author{Tang Yi \\ [学号已脱敏]}
+\usepackage[a4paper, left=2cm, right=2cm, top=2cm, bottom=2cm]{geometry}
+\linespread{1.3} % 行距更紧凑
+\definecolor{shadecolor}{RGB}{241, 241, 255}
+
+\newcounter{problemname}
+\newenvironment{problem}
+  {\begin{shaded}\stepcounter{problemname}\par\noindent\textbf{题目 \theproblemname. }}
+  {\end{shaded}\par}
+\newenvironment{solution}
+  {\par\noindent\textbf{题目 \theproblemname 的解答. }}
+  {\par}
+\newenvironment{note}
+  {\par\noindent\textbf{题目 \theproblemname 的注记. }}
+  {\par}
+
+
+\newcommand{\dbar}{\; \bar{} \hspace{-0.3em} \mathrm d}
+\newcommand{\tpar}[3]{\left(\dfrac{\partial #1}{\partial #2}\right)_{#3}}
+\begin{document}
+
+\maketitle
+
+\begin{problem}{3-2}
+  在$p-v$图上讲范德瓦耳斯气体不同温度的等温线上的极大点与极小点连成一条曲线。证明这条曲线的方程为
+
+  \centerline{$pv^3 = a(v-2b)$}
+
+  其中$v$为气体的摩尔体积，并说明这条曲线分割的区域I、II、III的意义。
+\end{problem}
+
+\begin{solution}
+  不难知道，范德瓦耳斯气体的状态方程为
+  \[
+    p = \dfrac{RT}{v-b} - \dfrac{a}{v^2}
+  \]
+  设等温线在$p-v$图上的极值点为$v_e$，则有
+  \[
+    \tpar{p}{v}{T} = -\dfrac{RT}{(v_e - b)^2} + \dfrac{2a}{v_e^3} = 0  
+  \]
+  故不难有
+  \[
+    RT = \dfrac{2a(v_e - b)^2}{v_e^3}
+  \]
+  将其代入状态方程中，得到
+  \[
+    p = \dfrac{2a(v_e - b)}{v_e^3} - \dfrac{a}{v_e^2} = \dfrac{a(v_e - 2b)}{v_e^3}
+  \]
+  故有
+  \[
+    pv_e^3 = a(v_e - 2b)
+  \]
+
+  由此可见，极大点与极小点连成的曲线方程为$pv^3 = a(v-2b)$。故得证。
+
+  左侧区域（I）是液相区，等温线斜率为负，体系具有正压缩性，处于稳定或亚稳状态；右侧区域（III）是气相区，同样满足稳定条件，表示气体或过热气体的存在；而两条曲线之间的中间区域（II）斜率为正，对应等温压缩率为负，体系力学上不稳定，任何微小扰动都会导致相分离，因此该区不能实现均匀的热力学平衡。
+\end{solution}
+
+\begin{problem}{3-3}
+  证明：在用克拉珀龙方程描述相变过程中，内能的变化为
+  
+  \centerline{$u_2 - u_1 = L\left(1-\dfrac{\mathrm{d}\ln T}{\mathrm{d} \ln p}\right)$}
+\end{problem}
+
+\begin{solution}
+  由潜热的定义，有
+
+  \centerline{$\Delta h = h_2 - h_1 = L$}
+
+  同时，有焓的定义$h = u + pv$，同时相变过程中压强应该不变，故有
+
+  \centerline{$u_2 - u_1 = L - p(v_2 - v_1)$}
+
+  此时，再把$v_2 - v_1$代入克拉珀龙方程$\dfrac{\mathrm{d}p}{\mathrm{d}T} = \dfrac{L}{T(v_1 - v_2)}$，则有
+
+  \centerline{$u_2 - u_1 = L - L \dfrac{p}{T} \dfrac{\mathrm{d}T}{\mathrm{d}p}$}
+
+  化简后，可得
+
+  \centerline{$u_2 - u_1 = L\left(1-\dfrac{\mathrm{d}\ln T}{\mathrm{d} \ln p}\right)$}
+
+  故得证。
+
+  
+\end{solution}
+
+\begin{problem}{3-4}
+  设气体的物态方程如下所示：
+
+  \centerline{$p(v-b) = RT \exp\left(-\dfrac{a}{RTv}\right)$}
+
+  试求出临界温度$T_c$、临界压强$p_c$和临界体积$v_c$。
+\end{problem}
+
+\begin{solution}
+  由临界点的定义，有
+
+  \centerline{$\tpar{p}{v}{T} = 0$}
+
+  \centerline{$\tpar{^2p}{v^2}{T} = 0$}
+
+  首先，计算出$\tpar{p}{v}{T}$，有
+
+  \[
+    \tpar{p}{v}{T} = \dfrac{RT \exp\left(-\dfrac{a}{RTv}\right)}{(v-b)^2} \left[(v-b)\left(\dfrac{a}{RTv^2} + \dfrac{1}{v}\right) - 1\right]
+  \]
+
+  故由$\tpar{p}{v}{T} = 0$，可得
+
+  \[
+    (v-b)\left(\dfrac{a}{RTv^2} + \dfrac{1}{v}\right) - 1 = 0
+  \]
+
+  即
+
+  \[
+    RT v^2 - (a+bRT)v + ab = 0
+  \]
+
+  同理，计算出$\tpar{^2p}{v^2}{T}$，有
+
+  \[
+    \tpar{^2p}{v^2}{T} = \dfrac{RT \exp\left(-\dfrac{a}{RTv}\right)}{(v-b)^3} \left[(v-b)^2\left(-\dfrac{2a}{RTv^3} - \dfrac{2}{v^2}\right) + 2(v-b)\left(\dfrac{a}{RTv^2} + \dfrac{1}{v}\right) - 2\right]
+  \]
+
+  故由$\tpar{^2p}{v^2}{T} = 0$，可得
+
+  \[
+    (v-b)^2\left(-\dfrac{2a}{RTv^3} - \dfrac{2}{v^2}\right) + 2(v-b)\left(\dfrac{a}{RTv^2} + \dfrac{1}{v}\right) - 2 = 0
+  \]
+
+  即
+
+  \[
+    RT v^2 - (2a + bRT)v + 3ab = 0
+  \]
+  联立以上两个方程，解得
+  \[
+    v_c = 2b
+  \]
+  \[
+    T_c = \dfrac{a}{4bR}
+  \]
+  \[
+    p_c = \dfrac{a}{4b^2}e^{-2}
+  \]
+  \end{solution}
+
+  \begin{problem}{3-5}
+    证明处于两相平衡的单元系，有下式成立：
+
+    \centerline{$\dfrac{c_v}{\kappa_s} = Tv\left(\dfrac{\mathrm{d}p}{\mathrm{d}T}\right)^2$}
+    
+    其中，等熵压缩率定义为$\kappa_s = -\dfrac{1}{v}\tpar{v}{p}{s}$。
+  \end{problem}
+
+  \begin{solution}
+    \begin{align*}
+      \mathrm{LHS} &= \dfrac{T\tpar{s}{T}{v}}{-\dfrac{1}{v}\tpar{v}{p}{s}} \\
+      &= -Tv \tpar{s}{T}{v} \tpar{p}{v}{s}\\
+      \mathrm{RHS} &= Tv\tpar{p}{T}{v}^2\\
+      &= Tv \tpar{p}{T}{v} \tpar{s}{v}{T}
+    \end{align*}
+
+    化简后，只需要证
+
+    \centerline{$-\tpar{s}{T}{v} \tpar{p}{V}{s} = \tpar{p}{T}{v} \tpar{S}{v}{t}$}
+
+    化简后，等价于只需证
+
+    \centerline{$\tpar{p}{T}{s} = \tpar{p}{T}{v}$}
+
+    因为这是相变，$\tpar{T}{v}{p} = 0$是显然的。由此，上式成立也是显然的。
+
+    故得证。
+  \end{solution}
+
+  \begin{problem}{4-8}
+    计算经典转子能量曲面所包围的相体积。
+  \end{problem}
+
+  \begin{solution}
+    我们以二维转子为例，显然广义坐标$q = \theta$，广义动量$p = \dfrac{\partial L}{\partial \dot{q}}$
+
+    假设其再无势场条件下运动，则应有
+
+    \centerline{$L = \dfrac{1}{2} I \dot{\theta}^2$}
+
+    则应有
+
+    \centerline{$p = \dfrac{\partial L}{\partial \dot{q}} = I \dot{\theta}$}
+
+    则哈密顿量
+
+    \centerline{$H = pq - L = \dfrac{p^2}{2I}$}
+
+    当$H=E$时，有
+
+    \centerline{$\Sigma (E)_{2D} = \displaystyle\int_0^{2\pi} \mathrm{d}q \int_0^{\sqrt{2IE}}\mathrm{d}p = 2\pi \sqrt{2IE}$}
+
+    如果是三维转子会多一个自由度。从朴素的理解来说，$\Sigma(E)_{3D} = (\Sigma (E)_{2D})^2 = 8\pi^2 IE$。当然，我们下面依然来证明此。
+
+    对三维转子，其哈密顿量为
+
+    \centerline{$H = \dfrac{1}{2I}p_\theta^2 + \dfrac{1}{2I\sin^2 \theta}p_\phi^2$}
+
+    当$H=E$时，有
+
+    \centerline{$\Sigma(E)_{3D} = \displaystyle \int_0^\pi \mathrm{d}\theta \int_0^{2\pi} \mathrm{d}\phi \int \mathrm{d}p_\theta \int \mathrm{d}p_\phi = 8\pi^2 IE$}
+  \end{solution}
+
+  \begin{problem}{4-9}
+    当粒子的能量与动量之间的关系取以下形式时，
+
+    \centerline{$\varepsilon = \sqrt{p^2c^2 + m^2c^4}$}
+
+    计算其态密度。
+  \end{problem}
+
+  \begin{solution}
+    不难有
+
+    \centerline{$\mathrm{d} N = \dfrac{V}{h^3}\mathrm{d}p_x \mathrm{d}p_y \mathrm{d} p_z = \dfrac{4\pi p^2 V}{h^3}\mathrm{d}p$}
+
+    又因为动量能量关系，则应有
+
+    \centerline{$p^2 = \dfrac{\varepsilon^2-m^2c^4}{c^2}, \mathrm{d} p = \dfrac{1}{c} \dfrac{\varepsilon}{\sqrt{\varepsilon^2 - m^2 c^4}} \mathrm{d}\varepsilon$}
+
+    代入后，有
+
+    \centerline{$\mathrm{d} N = \dfrac{4\pi V \varepsilon \sqrt{\varepsilon^2 - m^2c^4}}{c^3h^3} \mathrm{d}\varepsilon$}
+
+    因此，态密度为
+
+    \centerline{$g(\varepsilon) = \dfrac{4\pi V \varepsilon \sqrt{\varepsilon^2 - m^2c^4}}{c^3h^3} \mathrm{d}\varepsilon$}
+  \end{solution}
+\end{document}

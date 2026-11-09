@@ -1,0 +1,455 @@
+\documentclass[12pt, a4paper, oneside]{ctexart}
+\usepackage{amsmath, amsthm, amssymb, bm, xcolor, tikz, framed, graphicx, hyperref, mathrsfs}
+
+\title{Soild State Physics Homework (Week 11-12)}
+\author{Tang Yi \\ [学号已脱敏]}
+\usepackage[a4paper, left=2cm, right=2cm, top=2cm, bottom=2cm]{geometry}
+\linespread{1.3} % 行距更紧凑
+\definecolor{shadecolor}{RGB}{241, 241, 255}
+
+\newcounter{problemname}
+\newenvironment{problem}
+  {\begin{shaded}\stepcounter{problemname}\par\noindent\textbf{题目 \theproblemname. }}
+  {\end{shaded}\par}
+\newenvironment{solution}
+  {\par\noindent\textbf{题目 \theproblemname 的解答. }}
+  {\par}
+\newenvironment{note}
+  {\par\noindent\textbf{题目 \theproblemname 的注记. }}
+  {\par}
+
+\begin{document}
+\maketitle
+
+\begin{problem}
+设有二维正方晶格，晶体势场为
+\[
+U(x,y)=-4U\cos\left(\frac{2\pi}{a}x\right)\cos\left(\frac{2\pi}{a}y\right)
+\]
+用近自由电子近似的微扰论，近似求出布里渊区顶角
+\[
+\left(\frac{\pi}{a},\frac{\pi}{a}\right)
+\]
+处的能隙。
+\end{problem}
+
+\begin{solution}
+利用恒等式
+\[
+\cos A\cos B
+=\frac12[\cos(A+B)+\cos(A-B)]
+\]
+势场可写成
+\[
+U(x,y)
+=
+-2U
+\left[
+\cos\frac{2\pi}{a}(x+y)
++
+\cos\frac{2\pi}{a}(x-y)
+\right]
+\]
+
+因此非零倒格矢傅里叶分量为
+\[
+\mathbf G_1=\left(\frac{2\pi}{a},\frac{2\pi}{a}\right),
+\qquad
+\mathbf G_2=\left(\frac{2\pi}{a},-\frac{2\pi}{a}\right)
+\]
+对应：
+\[
+U_{\mathbf G}=-U
+\]
+
+在布里渊区顶角：
+\[
+\mathbf k=
+\left(\frac{\pi}{a},\frac{\pi}{a}\right)
+\]
+自由电子能量为
+\[
+E_0=\frac{\hbar^2}{2m}
+\left[
+\left(\frac{\pi}{a}\right)^2+
+\left(\frac{\pi}{a}\right)^2
+\right]
+=
+\frac{\hbar^2\pi^2}{ma^2}
+\]
+
+此时
+\[
+\mathbf k
+\leftrightarrow
+\mathbf k-\mathbf G_1
+=
+\left(
+-\frac{\pi}{a},
+-\frac{\pi}{a}
+\right)
+\]
+发生简并。
+
+微扰矩阵：
+\[
+\begin{pmatrix}
+E_0 & -U \\
+-U & E_0
+\end{pmatrix}
+\]
+
+本征值：
+\[
+E_\pm=E_0\pm U
+\]
+
+因此能隙宽度：
+\[
+\boxed{
+\Delta E=2U
+}
+\]
+\end{solution}
+
+\begin{problem}
+设有一维晶体的电子能带可以写成
+\[
+E(k)=\frac{\hbar^2}{ma^2}
+\left(
+\frac78-\cos ka+\frac18\cos2ka
+\right)
+\]
+其中 $a$ 是晶格常数。试求：
+
+\begin{enumerate}
+\item 电子在波矢 $k$ 状态的速度；
+\item 能带底部和顶部的有效质量。
+\end{enumerate}
+\end{problem}
+
+\begin{solution}
+(1) 电子速度：
+\[
+v(k)=\frac1\hbar\frac{dE}{dk}
+\]
+
+求导：
+\[
+\frac{dE}{dk}
+=
+\frac{\hbar^2}{ma^2}
+\left(
+a\sin ka
+-\frac14 a\sin2ka
+\right)
+\]
+
+因此：
+\[
+\boxed{
+v(k)
+=
+\frac{\hbar}{ma}
+\left(
+\sin ka-\frac14\sin2ka
+\right)
+}
+\]
+
+(2) 有效质量定义：
+\[
+\frac1{m^*}
+=
+\frac1{\hbar^2}
+\frac{d^2E}{dk^2}
+\]
+
+二阶导数：
+\[
+\frac{d^2E}{dk^2}
+=
+\frac{\hbar^2}{m}
+\left(
+\cos ka-\frac12\cos2ka
+\right)
+\]
+
+带底位于：
+\[
+k=0
+\]
+此时：
+\[
+\frac{d^2E}{dk^2}
+=
+\frac{\hbar^2}{2m}
+\]
+
+故：
+\[
+\boxed{
+m^*_{\text{bottom}}=2m
+}
+\]
+
+带顶位于：
+\[
+k=\frac{\pi}{a}
+\]
+此时：
+\[
+\frac{d^2E}{dk^2}
+=
+-\frac{3\hbar^2}{2m}
+\]
+
+因此：
+\[
+\boxed{
+m^*_{\text{top}}
+=
+-\frac23 m
+}
+\]
+\end{solution}
+
+\begin{problem}
+由相同原子组成的一维原子链，每个原胞中有两个原子，原胞长度为 $a$，原胞内两个原子的相对距离为 $b$。
+\end{problem}
+
+\begin{solution}
+设原子位置分别为
+\[
+x_n=na,
+\qquad
+x_n'=na+b
+\]
+
+对应倒格矢：
+\[
+G=\frac{2\pi n}{a}
+\]
+
+结构因子：
+\[
+S(G)
+=
+1+e^{iGb}
+\]
+
+因此：
+\[
+\boxed{
+S(G)=1+\exp\left(i\frac{2\pi n b}{a}\right)
+}
+\]
+
+它决定了能隙出现的强弱与消失条件。
+\end{solution}
+
+\begin{problem}
+(1) 证明一个简单正方晶格在第一布里渊区顶角上一个自由电子的动能比该区一边中心点大 2 倍。
+
+(2) 对一个简单立方晶格，在第一布里渊区顶角上一个自由电子的动能比该区面心上大多少？
+
+(3) 说明 (2) 的结果对 2 价金属的电导有什么影响？
+\end{problem}
+
+\begin{solution}
+(1) 二维正方晶格：
+
+边中心：
+\[
+\mathbf k=
+\left(
+\frac{\pi}{a},0
+\right)
+\]
+动能：
+\[
+E_e
+=
+\frac{\hbar^2}{2m}
+\frac{\pi^2}{a^2}
+\]
+
+顶角：
+\[
+\mathbf k=
+\left(
+\frac{\pi}{a},
+\frac{\pi}{a}
+\right)
+\]
+动能：
+\[
+E_c
+=
+\frac{\hbar^2}{2m}
+\frac{2\pi^2}{a^2}
+\]
+
+故：
+\[
+\boxed{
+E_c=2E_e
+}
+\]
+
+(2) 三维简单立方：
+
+面心：
+\[
+\mathbf k=
+\left(
+\frac{\pi}{a},
+0,
+0
+\right)
+\]
+\[
+E_f=\frac{\hbar^2\pi^2}{2ma^2}
+\]
+
+顶角：
+\[
+\mathbf k=
+\left(
+\frac{\pi}{a},
+\frac{\pi}{a},
+\frac{\pi}{a}
+\right)
+\]
+\[
+E_c
+=
+\frac{3\hbar^2\pi^2}{2ma^2}
+\]
+
+因此：
+\[
+\boxed{
+E_c=3E_f
+}
+\]
+
+即顶角动能比面心大：
+\[
+\boxed{
+2E_f
+}
+\]
+
+(3) 对二价金属：
+
+自由电子费米面可能超过第一布里渊区边界，电子会进入第二能带。
+
+因此：
+
+\begin{itemize}
+\item 能带重叠；
+\item 金属保持导电；
+\item 不易形成满带绝缘体。
+\end{itemize}
+
+这解释了二价金属通常仍具有良好导电性。
+\end{solution}
+
+\begin{problem}
+证明面心立方晶体的 $s$ 带紧束缚近似下的 $E(k)$ 函数，在沿着布里渊区几个主对称轴方向，可约化成题中所给形式。
+\end{problem}
+
+\begin{solution}
+FCC 晶格最近邻紧束缚能带：
+\[
+E(\mathbf k)
+=
+\varepsilon_s-\beta
+-4\gamma
+\left[
+\cos\frac{k_xa}{2}\cos\frac{k_ya}{2}
++\cos\frac{k_ya}{2}\cos\frac{k_za}{2}
++\cos\frac{k_za}{2}\cos\frac{k_xa}{2}
+\right]
+\]
+
+分别代入各高对称方向即可。
+
+(i) 沿 $\Gamma X$：
+\[
+k_y=k_z=0,
+\qquad
+k_x=\mu\frac{2\pi}{a}
+\]
+
+代入：
+\[
+\boxed{
+E
+=
+\varepsilon_s-\beta
+-4\gamma(1+2\cos\mu\pi)
+}
+\]
+
+(ii) 沿 $\Gamma L$：
+\[
+k_x=k_y=k_z=\mu\frac{2\pi}{a}
+\]
+
+得到：
+\[
+\boxed{
+E
+=
+\varepsilon_s-\beta
+-12\gamma\cos^2\mu\pi
+}
+\]
+
+(iii) 沿 $\Gamma K$：
+\[
+k_z=0,
+\qquad
+k_x=k_y=\mu\frac{2\pi}{a}
+\]
+
+因此：
+\[
+\boxed{
+E
+=
+\varepsilon_s-\beta
+-4\gamma
+(\cos^2\mu\pi+2\cos\mu\pi)
+}
+\]
+
+(iv) 沿 $\Gamma W$：
+\[
+k_z=0,
+\qquad
+k_x=\mu\frac{2\pi}{a},
+\qquad
+k_y=\frac12\mu\frac{2\pi}{a}
+\]
+
+得到：
+\[
+\boxed{
+E
+=
+\varepsilon_s-\beta
+-4\gamma
+\left(
+\cos\mu\pi
++
+\cos\frac{\mu\pi}{2}
++
+\cos\mu\pi\cos\frac{\mu\pi}{2}
+\right)
+}
+\]
+\end{solution}
+\end{document}

@@ -1,0 +1,132 @@
+\documentclass[12pt, a4paper, oneside]{ctexart}
+\usepackage{amsmath, amsthm, amssymb, bm, xcolor, tikz, framed, graphicx, hyperref, mathrsfs}
+\usepackage{bookmark}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+\newcommand{\bra}[1]{\langle #1 |}
+\newcommand{\ket}[1]{| #1 \rangle}
+\newcommand{\braket}[2]{\langle #1 | #2 \rangle}
+
+\title{Quantum Mechanics Homework (Week 17)}
+\author{Tang Yi \\ [学号已脱敏]}
+\usepackage[a4paper, left=2cm, right=2cm, top=2cm, bottom=2cm]{geometry}
+\linespread{1.3} % 行距更紧凑
+\definecolor{shadecolor}{RGB}{241, 241, 255}
+
+\newcounter{problemname}
+\newenvironment{problem}
+  {\begin{shaded}\stepcounter{problemname}\par\noindent\textbf{题目 \theproblemname. }}
+  {\end{shaded}\par}
+\newenvironment{solution}
+  {\par\noindent\textbf{题目 \theproblemname 的解答. }}
+  {\par}
+\newenvironment{note}
+  {\par\noindent\textbf{题目 \theproblemname 的注记. }}
+  {\par}
+
+\begin{document}
+
+\maketitle
+
+
+\begin{problem}
+  在 w 16-1 中，若考虑 $x$ 方向的磁场是缓慢加上力的：
+
+$$B_x(t) = B_1 e^{\frac{t}{\tau}} (-\infty < t < 0)$$
+
+其中将初始时刻取为 $t = -\infty$，求 $t = 0$ 时粒子处于沿磁场方向自旋向上态的概率，并说明是否满足绝热定理。
+\end{problem}
+
+\begin{solution}
+仍考虑自旋 $1/2$ 粒子，其哈密顿量为
+\[
+H(t)=\mu_B B_0\sigma_z+\mu_B B_x(t)\sigma_x,
+\qquad 
+B_x(t)=B_1 e^{t/\tau}\;(t<0),
+\]
+其中 $B_1\ll B_0$，并取初始时刻 $t=-\infty$。
+此时
+\[
+B_x(-\infty)=0,
+\]
+哈密顿量趋于
+\[
+H(-\infty)=\mu_B B_0\sigma_z.
+\]
+初态取为
+\[
+|\psi(-\infty)\rangle=|\downarrow_z\rangle,
+\]
+即沿 $z$ 方向磁场的低能态。
+
+在任意时刻 $t$，哈密顿量可以写成
+\[
+H(t)=\mu_B \mathbf B(t)\cdot\boldsymbol{\sigma},
+\qquad 
+\mathbf B(t)=(B_x(t),0,B_0).
+\]
+其瞬时本征态是沿瞬时磁场方向
+\[
+\hat{\mathbf n}(t)
+=\frac{1}{\sqrt{B_0^2+B_x^2(t)}}(B_x(t),0,B_0)
+\]
+的自旋上、下态。对应的能级差为
+\[
+\Delta E(t)=2\mu_B\sqrt{B_0^2+B_x^2(t)}.
+\]
+
+绝热定理要求
+\[
+\left|
+\frac{\langle +(t)|\dot H(t)|-(t)\rangle}
+{[\Delta E(t)]^2}
+\right|
+\ll 1.
+\]
+在本问题中
+\[
+\dot B_x(t)=\frac{1}{\tau}B_x(t),
+\]
+可估算绝热条件为
+\[
+\frac{\mu_B |\dot B_x(t)|}{(2\mu_B B_0)^2}
+\sim
+\frac{B_x(t)}{4B_0^2\tau}
+\ll 1.
+\]
+在整个演化过程中 $B_x(t)\le B_1\ll B_0$，因此若
+\[
+\tau \gg \frac{1}{\omega_0},
+\qquad
+\omega_0=\frac{2\mu_B B_0}{\hbar},
+\]
+体系满足绝热条件。
+
+在绝热近似成立时，体系始终处于瞬时本征态。
+由于初态 $|\downarrow_z\rangle$ 在 $t=-\infty$ 正是瞬时磁场方向的自旋下态，
+演化到 $t=0$ 时，体系将演化为沿最终磁场
+\[
+\mathbf B(0)=(B_1,0,B_0)
+\]
+方向的自旋下态（仅相差一个相位）。
+
+因此，在 $t=0$ 时粒子处于沿磁场方向自旋向上态的概率为
+\[
+P_{\uparrow}^{(\text{adiabatic})}(0)=0.
+\]
+
+若考虑非绝热修正，在 $B_1\ll B_0$、$\tau$ 足够大时，跃迁概率是指数小量，
+可估计为
+\[
+P_{\uparrow}(0)\sim 
+\mathcal O\!\left(\frac{1}{(\omega_0\tau)^2}\right)\ll1.
+\]
+
+结论是：当磁场在时间尺度 $\tau\gg 1/\omega_0$ 上缓慢加上时，
+体系满足绝热定理，粒子始终跟随瞬时本征态演化，
+在 $t=0$ 时几乎不可能出现在沿磁场方向的自旋向上态。
+
+\end{solution}
+
+\end{document}

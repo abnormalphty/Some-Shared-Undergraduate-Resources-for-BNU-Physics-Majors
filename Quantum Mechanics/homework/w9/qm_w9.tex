@@ -1,0 +1,413 @@
+\documentclass[12pt, a4paper, oneside]{ctexart}
+\usepackage{amsmath, amsthm, amssymb, bm, xcolor, tikz, framed, graphicx, hyperref, mathrsfs}
+\usepackage{bookmark}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+\newcommand{\bra}[1]{\langle #1 |}
+\newcommand{\ket}[1]{| #1 \rangle}
+\newcommand{\braket}[2]{\langle #1 | #2 \rangle}
+
+\title{Quantum Mechanics Homework (Week 9)}
+\author{Tang Yi \\ [学号已脱敏]}
+\usepackage[a4paper, left=2cm, right=2cm, top=2cm, bottom=2cm]{geometry}
+\linespread{1.3} % 行距更紧凑
+\definecolor{shadecolor}{RGB}{241, 241, 255}
+
+\newcounter{problemname}
+\newenvironment{problem}
+  {\begin{shaded}\stepcounter{problemname}\par\noindent\textbf{题目 \theproblemname. }}
+  {\end{shaded}\par}
+\newenvironment{solution}
+  {\par\noindent\textbf{题目 \theproblemname 的解答. }}
+  {\par}
+\newenvironment{note}
+  {\par\noindent\textbf{题目 \theproblemname 的注记. }}
+  {\par}
+
+\begin{document}
+
+\maketitle
+
+\begin{problem}
+  考虑由正交归一完备基 $\left|1\right\rangle$, $\left|2\right\rangle$, $\left|3\right\rangle$ 构成的希尔伯特空间。右矢 $\left|\alpha\right\rangle$ 和 $\left|\beta\right\rangle$ 由下式给定：
+$$
+\left|\alpha\right\rangle = i\left|1\right\rangle - 2\left|2\right\rangle - i\left|3\right\rangle, \quad \left|\beta\right\rangle = i\left|1\right\rangle + 2\left|3\right\rangle
+$$
+
+(1) 写出左矢 $\left\langle\alpha\right|$ 和 $\left\langle\beta\right|$ (以 $\left\langle 1\right|$, $\left\langle 2\right|$, $\left\langle 3\right|$ 表示)。
+
+(2) 写出 $\left|\alpha\right\rangle$ 和 $\left\langle\alpha\right|$ 的矢量形式。
+
+(3) 求出 $\left\langle\alpha\mid\beta\right\rangle$ 和 $\left\langle\beta\mid\alpha\right\rangle$ 并证实 $\left\langle\beta\mid\alpha\right\rangle = \left\langle\alpha\mid\beta\right\rangle^{\ast}$。
+
+(4) 将 $\left|\alpha\right\rangle$ 归一化。
+
+(5) 定义厄米算符 $\hat{B} = \left|\beta\right\rangle\left\langle\beta\right|$，计算 $\hat{B}$ 在 $\left|\alpha\right\rangle$ 态下的期望值。
+
+(6) 算符 $\hat{B}$ 是否构成力学量完全集？
+
+(7) 再定义哈密顿算符 $\hat{H}$，在题设基矢下的矩阵形式为：
+$$
+H = \lambda_E \begin{pmatrix} 0 & 1 & 0 \\ 1 & 0 & 0 \\ 0 & 0 & 2 \end{pmatrix}
+$$
+其中 $\lambda_E$ 是能量量纲。求能量的本征值和本征态。
+
+(8) $\hat{H}$ 是否构成力学量完全集？
+
+(9) 写出能量表象下的量子态 $\left|\alpha\right\rangle$ 和算符 $\hat{B}$。
+
+(10) 设体系初始时刻处于量子态 $\left|\alpha\right\rangle$，求出 $t$ 时刻的状态。
+
+(11) 在 $t$ 时刻对 $\hat{H}$ 或 $\hat{B}$ 进行测量，分别写出可能的测值和相应的几率。
+\end{problem}
+
+\begin{solution}
+  (1)
+
+  \centerline{$\langle \alpha | = -i \langle 1 | -2\langle 2 | +i\langle 3| ,\quad \langle \beta| = -i\langle 1 | +2\langle 3 |$}
+
+  (2)
+
+  \centerline{$|\alpha \rangle \sim \begin{pmatrix} i\\ -2 \\ -i \end{pmatrix} , \quad \langle \alpha | \sim \begin{pmatrix} -i & -2 & i \end{pmatrix}$ }
+
+  (3)
+  \begin{align*}
+    \langle \alpha | \beta \rangle &= -i^2\langle1|1\rangle +2i\langle3|3\rangle\\
+    &= 1+2i\\
+    \langle \beta | \alpha \rangle &= -i^2\langle1|1\rangle -2i\langle3|3\rangle\\
+    &= 1-2i
+  \end{align*}
+
+  因此显然有
+
+  \centerline{$\langle\alpha|\beta\rangle = \langle\beta|\alpha\rangle^*$}
+
+  (4)
+
+  因为$\langle\alpha|\alpha\rangle = 6$，除以归一化因子后，归一化的$\alpha$态为
+
+  \centerline{$|\alpha_{\mathrm{to\,1}}\rangle = \dfrac{1}{\sqrt{6}}\left(i\left|1\right\rangle - 2\left|2\right\rangle - i\left|3\right\rangle\right) $}
+
+  (5)
+  \begin{align*}
+    \langle B \rangle_{\alpha} &= \langle \alpha | \hat{B} | \alpha \rangle \\
+    &= \langle \alpha | \beta \rangle \langle \beta | \alpha \rangle\\
+    &=5
+  \end{align*}
+
+  (6)
+
+  $\hat{B}$作为投影算符，$|\beta\rangle$是一个显然的本征态。
+
+  同时，对于在$|\beta\rangle$的正交补空间中的态，其都是投影算符的零本征态，且$\dim = 2$。
+
+  显然，这样的算符不能分辨补空间中的向量，因此其不构成力学量完全集。
+
+  (7)
+
+  \centerline{$\det (H - \lambda I) = 0$}
+
+  解得
+
+  \centerline{$\lambda_1 = 2\lambda_E ,\quad \lambda_2 = \lambda_E ,\quad \lambda_3 = -\lambda_E$}
+
+  对应的本征态分别为
+
+  \centerline{$|E_1 \rangle = | 3 \rangle,\quad |E_2 \rangle = \dfrac{1}{\sqrt{2}}(|1\rangle + |2\rangle),\quad |E_3\rangle = \dfrac{1}{\sqrt{2}} (|1\rangle - |2\rangle)$}
+
+  (8)
+  
+  显然构成，因为其本征值都是非简并的。
+
+  (9)
+  \begin{align*}
+    |\alpha\rangle &= \displaystyle\sum_i |E_i\rangle\langle E_i|\alpha\rangle\\
+    &= -i|E_1\rangle +\dfrac{i-2}{\sqrt{2}} |E_2\rangle + \dfrac{i+2}{\sqrt{2}} |E_3\rangle\\
+    \hat{B} &= \displaystyle\sum_i\sum_j |E_i\rangle \langle E_i | \hat{B} | E_j \rangle \langle E_j | 
+  \end{align*}
+  其中 $\hat{B}$ 在能量表象下的矩阵元 $B_{ij} = \left\langle E_i | \hat{B} | E_j \right\rangle$.
+$$
+\hat{B}_E \sim \begin{pmatrix} 4 & -i\sqrt{2} & -i\sqrt{2} \\ i\sqrt{2} & 1/2 & 1/2 \\ i\sqrt{2} & 1/2 & 1/2 \end{pmatrix}
+$$
+
+  (10)
+  
+  \centerline{$|\alpha(t)\rangle = \displaystyle\sum_i \langle E_i|\alpha\rangle |E_i \rangle \mathrm{e}^{-iE_i t/\hbar}$}
+
+  代入，则有
+
+  \centerline{$|\alpha(t)\rangle = (-i)\,\mathrm{e}^{-i2\lambda_E t/\hbar} |E_1\rangle + \left(\dfrac{i-2}{\sqrt{2}}\right)\,\mathrm{e}^{-i\lambda_E t/\hbar} |E_2\rangle + \left(\dfrac{i+2}{\sqrt{2}}\right)\,\mathrm{e}^{i\lambda_E t/\hbar} |E_3\rangle$}
+
+  (11)
+
+  对 $\hat H$ 的测量：
+\begin{align*}
+|\alpha\rangle &= \sum_{n=1}^3 c_n |E_n\rangle,\\
+c_1 &= \frac{i+2}{\sqrt{2}}, \quad 
+c_2 = \frac{i-2}{\sqrt{2}}, \quad 
+c_3 = -i,\\
+|c_1|^2 &= \frac{5}{2}, \quad 
+|c_2|^2 = \frac{5}{2}, \quad 
+|c_3|^2 = 1,\\
+\langle \alpha | \alpha \rangle &= 6,\\
+P(E_1) &= \frac{5}{12}, \quad 
+P(E_2) = \frac{5}{12}, \quad 
+P(E_3) = \frac{1}{6}.
+\end{align*}
+
+对 $\hat B = |\beta\rangle\langle\beta|$ 的测量：
+\begin{align*}
+d_1 &= \frac{i}{\sqrt{2}}, \quad 
+d_2 = \frac{i}{\sqrt{2}}, \quad 
+d_3 = 2,\\
+|\tilde{\alpha}\rangle &= \frac{|\alpha\rangle}{\sqrt{6}},\\
+|\psi(t)\rangle &= e^{-i\hat{H}t/\hbar}|\tilde{\alpha}\rangle 
+= \sum_n \frac{c_n}{\sqrt{6}} e^{-iE_n t/\hbar} |E_n\rangle,\\
+\langle \beta | \psi(t) \rangle 
+&= \frac{1}{\sqrt{6}}\!\left[
+\frac{1-2i}{2}e^{-iE_1 t/\hbar}
++ \frac{1+2i}{2}e^{-iE_2 t/\hbar}
+- 2i e^{-iE_3 t/\hbar}
+\right],\\
+P_B(5;t) &= \frac{|\langle \beta | \psi(t) \rangle|^2}{\langle \beta | \beta \rangle}
+= \frac{1}{30}
+\left|
+(1-2i)e^{-iE_1 t/\hbar}
++ (1+2i)e^{-iE_2 t/\hbar}
+- 4i e^{-iE_3 t/\hbar}
+\right|^2,\\
+P_B(0;t) &= 1 - P_B(5;t).
+\end{align*}
+
+其中 $E_1=-\lambda_E,\ E_2=+\lambda_E,\ E_3=2\lambda_E$。
+
+
+
+\end{solution}
+
+\begin{problem}
+  写出从题设$|1\rangle$,$|2\rangle$,$|3\rangle$基到能量本征态基到变换矩阵，并利用其直接计算（9）问。
+\end{problem}
+
+\begin{solution}
+  能量本征态取为（归一化）：
+\[
+|E_1\rangle=\frac{1}{\sqrt2}\begin{pmatrix}1\\-1\\0\end{pmatrix},\quad
+|E_2\rangle=\frac{1}{\sqrt2}\begin{pmatrix}1\\1\\0\end{pmatrix},\quad
+|E_3\rangle=\begin{pmatrix}0\\0\\1\end{pmatrix}.
+\]
+
+变换矩阵 \(U\)（列为能量本征态在原基下的坐标）为
+\begin{align*}
+U &= \big(|E_1\rangle\; |E_2\rangle\; |E_3\rangle\big)
+= \begin{pmatrix}
+\frac{1}{\sqrt2} & \frac{1}{\sqrt2} & 0\\[4pt]
+-\frac{1}{\sqrt2} & \frac{1}{\sqrt2} & 0\\[4pt]
+0 & 0 & 1
+\end{pmatrix}.
+\end{align*}
+
+注意 \(U\) 为实酉矩阵，故 \(U^\dagger=U^{\mathrm T}\)：
+\begin{align*}
+U^\dagger &= U^{\mathrm T}
+= \begin{pmatrix}
+\frac{1}{\sqrt2} & -\frac{1}{\sqrt2} & 0\\[4pt]
+\frac{1}{\sqrt2} & \frac{1}{\sqrt2} & 0\\[4pt]
+0 & 0 & 1
+\end{pmatrix}.
+\end{align*}
+
+题设态在原基下的列向量为
+\[
+|\alpha\rangle=\begin{pmatrix} i\\[2pt] -2\\[2pt] -i \end{pmatrix},\qquad
+|\beta\rangle=\begin{pmatrix} i\\[2pt] 0\\[2pt] 2 \end{pmatrix}.
+\]
+
+在能量表象下的系数由 \(c=U^\dagger|\alpha\rangle,\; d=U^\dagger|\beta\rangle\)。逐项计算：
+\begin{align*}
+c \;=\; U^\dagger|\alpha\rangle
+&= \begin{pmatrix}
+\frac{1}{\sqrt2} & -\frac{1}{\sqrt2} & 0\\[4pt]
+\frac{1}{\sqrt2} & \frac{1}{\sqrt2} & 0\\[4pt]
+0 & 0 & 1
+\end{pmatrix}
+\begin{pmatrix} i\\[2pt] -2\\[2pt] -i \end{pmatrix} \\[6pt]
+&= \begin{pmatrix}
+\frac{1}{\sqrt2}i -\frac{1}{\sqrt2}(-2) + 0\cdot(-i)\\[6pt]
+\frac{1}{\sqrt2}i +\frac{1}{\sqrt2}(-2) + 0\cdot(-i)\\[6pt]
+0\cdot i + 0\cdot(-2) + 1\cdot(-i)
+\end{pmatrix}
+= \begin{pmatrix}
+\frac{i+2}{\sqrt2}\\[6pt]
+\frac{i-2}{\sqrt2}\\[6pt]
+-\,i
+\end{pmatrix},
+\end{align*}
+
+\begin{align*}
+d \;=\; U^\dagger|\beta\rangle
+&= \begin{pmatrix}
+\frac{1}{\sqrt2} & -\frac{1}{\sqrt2} & 0\\[4pt]
+\frac{1}{\sqrt2} & \frac{1}{\sqrt2} & 0\\[4pt]
+0 & 0 & 1
+\end{pmatrix}
+\begin{pmatrix} i\\[2pt] 0\\[2pt] 2 \end{pmatrix} \\[6pt]
+&= \begin{pmatrix}
+\frac{1}{\sqrt2}i -\frac{1}{\sqrt2}\cdot 0 + 0\cdot 2\\[6pt]
+\frac{1}{\sqrt2}i +\frac{1}{\sqrt2}\cdot 0 + 0\cdot 2\\[6pt]
+0\cdot i + 0\cdot 0 + 1\cdot 2
+\end{pmatrix}
+= \begin{pmatrix}
+\frac{i}{\sqrt2}\\[6pt]
+\frac{i}{\sqrt2}\\[6pt]
+2
+\end{pmatrix}.
+\end{align*}
+
+为检验模方守恒：
+\begin{align*}
+|c_1|^2+|c_2|^2+|c_3|^2
+&= \frac{|i+2|^2}{2} + \frac{|i-2|^2}{2} + |-i|^2 \\
+&= \frac{(1+4)}{2} + \frac{(1+4)}{2} + 1 = 6,
+\end{align*}
+与原基下 \(\langle\alpha|\alpha\rangle=6\) 一致。归一化时系数除以 \(\sqrt6\)。
+
+% 可选：写出能量表象下的展开
+因此能量表象下
+\[
+|\alpha\rangle = c_1|E_1\rangle + c_2|E_2\rangle + c_3|E_3\rangle,
+\qquad
+|\beta\rangle = d_1|E_1\rangle + d_2|E_2\rangle + d_3|E_3\rangle,
+\]
+其中 \(c\) 与 \(d\) 如上。
+\end{solution}
+
+\begin{problem}
+  对于角动量，选择一个合适的表象，写出$l=1$的子空间中，算符$\boldsymbol{l}^2,l_x,l_y,l_z$的矩阵表示。
+
+  提示：$l_{\pm} = l_x \pm il_y$，且：
+
+  \centerline{$l_+ |l,m\rangle = \sqrt{(l-m)(l+m+1)} |l,m+1\rangle$}
+
+  \centerline{$l_- |l,m\rangle = \sqrt{(l+m)(l-m+1)} |l,m-1\rangle$}
+\end{problem}
+
+\begin{solution}
+  选择角动量的标准表象，即按顺序取基矢
+\[
+|1,1\rangle,\quad |1,0\rangle,\quad |1,-1\rangle.
+\]
+
+在该基下，角动量平方为
+\[
+\hat{l}^2 = l(l+1)\hbar^2\,\mathbb{I}_3 = 2\hbar^2
+\begin{pmatrix}
+1 & 0 & 0\\
+0 & 1 & 0\\
+0 & 0 & 1
+\end{pmatrix}.
+\]
+
+利用升降算符作用规律
+\[
+l_+|l,m\rangle = \sqrt{(l-m)(l+m+1)}\,|l,m+1\rangle,\qquad
+l_-|l,m\rangle = \sqrt{(l+m)(l-m+1)}\,|l,m-1\rangle,
+\]
+可得在上述基下
+\[
+l_+ = \hbar
+\begin{pmatrix}
+0 & \sqrt{2} & 0\\
+0 & 0 & \sqrt{2}\\
+0 & 0 & 0
+\end{pmatrix},\qquad
+l_- = \hbar
+\begin{pmatrix}
+0 & 0 & 0\\
+\sqrt{2} & 0 & 0\\
+0 & \sqrt{2} & 0
+\end{pmatrix}.
+\]
+
+由
+\[
+l_x=\frac{1}{2}(l_+ + l_-),\qquad
+l_y=\frac{1}{2i}(l_+ - l_-),
+\]
+可得
+\[
+l_x = \frac{\hbar}{2}
+\begin{pmatrix}
+0 & \sqrt{2} & 0\\
+\sqrt{2} & 0 & \sqrt{2}\\
+0 & \sqrt{2} & 0
+\end{pmatrix},
+\]
+\[
+l_y = \frac{\hbar}{2}
+\begin{pmatrix}
+0 & -i\sqrt{2} & 0\\
+i\sqrt{2} & 0 & -i\sqrt{2}\\
+0 & i\sqrt{2} & 0
+\end{pmatrix}.
+\]
+
+而 $l_z$ 的作用为 $l_z|l,m\rangle = m\hbar|l,m\rangle$，因此矩阵表示为
+\[
+l_z = \hbar
+\begin{pmatrix}
+1 & 0 & 0\\
+0 & 0 & 0\\
+0 & 0 & -1
+\end{pmatrix}.
+\]
+\end{solution}
+
+\begin{problem}
+  写出动量表象下，动量算符和坐标算符的矩阵元。
+\end{problem}
+
+\begin{solution}
+  在动量表象中，动量本征态满足
+\[
+\hat{p}\,|p\rangle = p\,|p\rangle , \qquad 
+\langle x | p \rangle = \frac{1}{\sqrt{2\pi\hbar}} e^{ipx/\hbar}.
+\]
+
+\noindent
+首先计算动量算符的矩阵元：
+\begin{align*}
+\langle p' | \hat{p} | p \rangle
+&= p \, \langle p' | p \rangle   \\
+&= p \, \delta(p'-p).
+\end{align*}
+
+\noindent
+接着计算坐标算符的矩阵元。利用
+\[
+\hat{x} = i\hbar \frac{\partial}{\partial p},
+\]
+则
+\begin{align*}
+\langle p' | \hat{x} | p \rangle
+&= i\hbar \frac{\partial}{\partial p} \langle p' | p \rangle \\
+&= i\hbar \frac{\partial}{\partial p} \delta(p'-p) \\
+&= -\,i\hbar \frac{\partial}{\partial p'} \delta(p'-p).
+\end{align*}
+
+\noindent
+因此，在动量表象中：
+\[
+\boxed{
+\langle p' | \hat{p} | p \rangle = p\,\delta(p'-p)
+}
+\]
+\[
+\boxed{
+\langle p' | \hat{x} | p \rangle = i\hbar\,\frac{\partial}{\partial p}\delta(p'-p)
+     = -i\hbar\,\frac{\partial}{\partial p'}\delta(p'-p)
+}
+\]
+\end{solution}
+\end{document}

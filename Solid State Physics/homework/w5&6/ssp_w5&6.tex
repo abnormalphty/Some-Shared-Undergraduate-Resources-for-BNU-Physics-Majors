@@ -1,0 +1,326 @@
+\documentclass[12pt, a4paper, oneside]{ctexart}
+\usepackage{amsmath, amsthm, amssymb, bm, xcolor, tikz, framed, graphicx, hyperref, mathrsfs}
+
+\title{Soild State Physics Homework (Week 5-6)}
+\author{Tang Yi \\ [学号已脱敏]}
+\usepackage[a4paper, left=2cm, right=2cm, top=2cm, bottom=2cm]{geometry}
+\linespread{1.3} % 行距更紧凑
+\definecolor{shadecolor}{RGB}{241, 241, 255}
+
+\newcounter{problemname}
+\newenvironment{problem}
+  {\begin{shaded}\stepcounter{problemname}\par\noindent\textbf{题目 \theproblemname. }}
+  {\end{shaded}\par}
+\newenvironment{solution}
+  {\par\noindent\textbf{题目 \theproblemname 的解答. }}
+  {\par}
+\newenvironment{note}
+  {\par\noindent\textbf{题目 \theproblemname 的注记. }}
+  {\par}
+
+\begin{document}
+\maketitle
+\begin{problem}
+证明：在一个周期性势场中，电子的能量是分立的，并且每个能级对应一个布洛赫态。假设 III--V 族化合物中，III 族、V 族原子都是电中性的（$q^* = 0$），求出其电离度 $f_i$。
+\end{problem}
+
+\begin{solution}
+
+对于 III--V 化合物，若有效电荷 $q^* = 0$，说明完全共价键合，
+即没有电荷转移，因此电离度定义为
+\[
+f_i = \frac{q^*}{e} = 0.
+\]
+
+因此
+\[
+\boxed{f_i = 0.}
+\]
+\end{solution}
+
+\begin{problem}
+    用林纳德--琼斯势计算 $Ne$ 在体心立方和面心立方结构中的结合能之比值。
+\end{problem}
+
+\begin{solution}
+    林纳德--琼斯势为
+\[
+V(r) = 4\epsilon \left[ \left(\frac{\sigma}{r}\right)^{12}
+- \left(\frac{\sigma}{r}\right)^6 \right].
+\]
+
+晶体总能量可写为
+\[
+U = 2\epsilon \left( A_{12}\left(\frac{\sigma}{r}\right)^{12}
+- A_6 \left(\frac{\sigma}{r}\right)^6 \right),
+\]
+其中 $A_{12}, A_6$ 为晶格求和常数。
+
+平衡条件：
+\[
+\frac{dU}{dr} = 0
+\Rightarrow r_0 = \sigma \left(\frac{2A_{12}}{A_6}\right)^{1/6}.
+\]
+
+代回得最小能量：
+\[
+U_{\min} = -\epsilon \frac{A_6^2}{2A_{12}}.
+\]
+
+已知：
+\[
+\begin{aligned}
+\text{FCC: } & A_6 = 14.45,\quad A_{12} = 12.13 \\
+\text{BCC: } & A_6 = 12.25,\quad A_{12} = 10.27
+\end{aligned}
+\]
+
+则
+\[
+U_{\text{FCC}} = -\epsilon \frac{(14.45)^2}{2\times 12.13},
+\quad
+U_{\text{BCC}} = -\epsilon \frac{(12.25)^2}{2\times 10.27}.
+\]
+
+比值：
+\[
+\frac{U_{\text{FCC}}}{U_{\text{BCC}}}
+= \frac{(14.45)^2 / 12.13}{(12.25)^2 / 10.27}
+\approx 1.09.
+\]
+
+因此
+\[
+\boxed{\frac{U_{\text{FCC}}}{U_{\text{BCC}}} \approx 1.09}
+\]
+说明 FCC 更稳定。
+\end{solution}
+
+\begin{problem}
+    对于 $H_2$，从气体的测量得到的林纳德--琼斯势参数为$\epsilon = 50 \times 10^{-13}\,\text{J}$，$\sigma = 2.96\,\text{\AA}$，计算 $H_2$ 结合成面心立方固体分子氢时的结合能（以千焦每摩尔为单位），
+    每个氢分子可当做球形来处理。结合能的实验值为 $0.751\,\text{kJ/mol}$，试与计算值进行比较。
+\end{problem}
+
+\begin{solution}
+    FCC 晶体中 LJ 势总能：
+\[
+U = 2\epsilon \left( A_{12}\left(\frac{\sigma}{r}\right)^{12}
+- A_6\left(\frac{\sigma}{r}\right)^6 \right).
+\]
+
+最小值：
+\[
+U_{\min} = -\epsilon \frac{A_6^2}{2A_{12}}.
+\]
+
+代入 FCC 常数：
+\[
+A_6 = 14.45,\quad A_{12} = 12.13
+\]
+
+得
+\[
+U_{\min} = -\epsilon \frac{(14.45)^2}{2\times 12.13}
+\approx -8.6 \epsilon.
+\]
+
+代入 $\epsilon = 50\times 10^{-13}\,\text{J}$：
+\[
+U_{\min} \approx -4.3\times 10^{-12}\,\text{J}.
+\]
+
+转为每摩尔：
+\[
+U = -4.3\times 10^{-12} \times 6.02\times 10^{23}
+\approx -2.6\times 10^{12}\,\text{J/mol}
+\]
+
+换算为 kJ/mol：
+\[
+U \approx -2.6\times 10^9\,\text{kJ/mol}
+\]
+
+显然远大于实验值 $0.751\,\text{kJ/mol}$。
+
+\[
+\boxed{\text{LJ 势严重高估结合能（忽略量子效应与分子结构）}}
+\]
+\end{solution}
+
+\begin{problem}
+    已知一维单原子链，其中第 $j$ 个格波，在第 $n$ 个格点引起的位移 $\mu_{nj}$ 为
+\[
+\mu_{nj} = a_j \sin(\omega_j t + naq_j + \delta_j)
+\]
+$\delta_j$ 为任意位相因子。并已知在较高温度下每个格波的平均能量为 $kT$，
+试计算每个原子的平均平方位移。
+\end{problem}
+
+\begin{solution}
+    位移为
+\[
+\mu_{nj} = a_j \sin(\omega_j t + naq_j + \delta_j)
+\]
+
+时间平均：
+\[
+\langle \sin^2 \rangle = \frac{1}{2}
+\Rightarrow \langle \mu_{nj}^2 \rangle = \frac{a_j^2}{2}.
+\]
+
+每个模态能量：
+\[
+E_j = \frac{1}{2}m\omega_j^2 a_j^2 = kT
+\Rightarrow a_j^2 = \frac{2kT}{m\omega_j^2}.
+\]
+
+因此
+\[
+\langle \mu_{nj}^2 \rangle = \frac{kT}{m\omega_j^2}.
+\]
+
+总平均：
+\[
+\boxed{
+\langle u^2 \rangle = \sum_j \frac{kT}{m\omega_j^2}
+}
+\]
+\end{solution}
+
+\begin{problem}
+    讨论 $N$ 个原胞的一维双原子链（相邻原子间距为 $a$），其 $2N$ 个格波解，
+    当 $M = m$ 时与一维单原子链的结果一一对应。
+\end{problem}
+
+\begin{solution}
+    双原子链色散关系：
+\[
+\omega^2 = \frac{C}{m} \left[ 1 \pm \sqrt{1 - \sin^2\frac{ka}{2}} \right]
+\]
+
+当 $M = m$ 时，两支分别为：
+\[
+\omega = \sqrt{\frac{2C}{m}} \left|\sin\frac{ka}{2}\right|,
+\quad
+\omega = \sqrt{\frac{2C}{m}} \left|\cos\frac{ka}{2}\right|.
+\]
+
+这两支正好拼成单原子链：
+\[
+\boxed{
+\omega = 2\sqrt{\frac{C}{m}}\left|\sin\frac{ka}{2}\right|
+}
+\]
+
+即一一对应。
+\end{solution}
+
+\begin{problem}
+    考虑一双原子链的晶格振动，链上最近邻原子间的力常数交错地等于 $c$ 和 $10c$。
+令两种原子的质量相等，并且最近邻的间距是 $a/2$，
+试求在 $k = 0$ 和 $k = \pi/a$ 处的 $\omega(k)$，
+并粗略画出色散关系。本题模拟双原子分子晶体，如 $H_2$。
+\end{problem}
+
+\begin{solution}
+    双原子链色散关系：
+\[
+\omega^2 = \frac{c_1 + c_2}{m}
+\pm \frac{1}{m}\sqrt{c_1^2 + c_2^2 + 2c_1c_2\cos ka}
+\]
+
+代入 $c_1 = c,\; c_2 = 10c$：
+
+\[
+\omega^2 = \frac{11c}{m}
+\pm \frac{c}{m}\sqrt{101 + 20\cos ka}
+\]
+
+(1) $k=0$：
+\[
+\omega = 0,\quad \omega = \sqrt{\frac{22c}{m}}
+\]
+
+(2) $k=\pi/a$：
+\[
+\omega^2 = \frac{11c}{m} \pm \frac{9c}{m}
+\Rightarrow
+\omega = \sqrt{\frac{2c}{m}},\quad \sqrt{\frac{20c}{m}}
+\]
+
+\[
+\boxed{
+\text{出现声学支和光学支，并存在带隙}
+}
+\]
+\end{solution}
+
+\begin{problem}
+    考虑一个全同原子组成的平面方格子，用 $u_{l,m}$ 记第 $l$ 行、第 $m$ 列
+的原子垂直于格平面的位移，每个原子质量为 $M$，最近邻原子的力常数为 $c$。
+
+\begin{enumerate}
+\item[(a)] 证明运动方程为：
+\[
+M \frac{d^2 u_{l,m}}{dt^2}
+= c \Big[ (u_{l+1,m} + u_{l-1,m} - 2u_{l,m})
++ (u_{l,m+1} + u_{l,m-1} - 2u_{l,m}) \Big]
+\]
+
+\item[(b)] 设解的形式为
+\[
+u_{l,m} = u(0)\exp\left[i(lk_x a + mk_y a - \omega t)\right]
+\]
+这里 $a$ 是最近邻原子的间距，证明运动方程是可以满足的，如果
+\[
+\omega^2 M = 2c(2 - \cos k_x a - \cos k_y a)
+\]
+这就是问题的色散关系。
+
+\item[(c)] 证明独立解存在的 $k$ 空间区域是一个边长为 $\frac{2\pi}{a}$ 的正方形，
+这就是平方格子的第一布里渊区。构出 $k = k_x$ 而 $k_y = 0$ 时，
+和 $k_x = k_y$ 时的 $\omega - k$ 图。
+
+\item[(d)] 对于 $ka \ll 1$，证明
+\[
+\omega = \left(\frac{ca^2}{M}\right)^{1/2} (k_x^2 + k_y^2)^{1/2}
+= \left(\frac{ca^2}{M}\right)^{1/2} k
+\]
+\end{enumerate}
+\end{problem}
+
+\begin{solution}
+    (a) 最近邻作用：
+\[
+M \ddot{u}_{l,m}
+= c[(u_{l+1,m} + u_{l-1,m} - 2u_{l,m})
++ (u_{l,m+1} + u_{l,m-1} - 2u_{l,m})]
+\]
+
+(b) 代入平面波：
+\[
+u_{l,m} = u_0 e^{i(lk_x a + mk_y a - \omega t)}
+\]
+
+得到：
+\[
+\omega^2 M = 2c(2 - \cos k_x a - \cos k_y a)
+\]
+
+(c) 第一布里渊区：
+\[
+\boxed{k_x, k_y \in \left[-\frac{\pi}{a}, \frac{\pi}{a}\right]}
+\]
+
+(d) 长波极限：
+\[
+\cos x \approx 1 - \frac{x^2}{2}
+\]
+
+\[
+\omega^2 = \frac{ca^2}{M}(k_x^2 + k_y^2)
+\Rightarrow
+\boxed{\omega = \left(\frac{ca^2}{M}\right)^{1/2} k}
+\]
+\end{solution}
+\end{document}

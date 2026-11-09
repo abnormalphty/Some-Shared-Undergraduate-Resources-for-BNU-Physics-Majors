@@ -1,0 +1,296 @@
+\documentclass[12pt, a4paper, oneside]{ctexart}
+\usepackage{amsmath, amsthm, amssymb, bm, xcolor, tikz, framed, graphicx, hyperref, mathrsfs}
+\usepackage{bookmark}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+\newcommand{\bra}[1]{\langle #1 |}
+\newcommand{\ket}[1]{| #1 \rangle}
+\newcommand{\braket}[2]{\langle #1 | #2 \rangle}
+
+\title{Quantum Mechanics Homework (Week 16)}
+\author{Tang Yi \\ [学号已脱敏]}
+\usepackage[a4paper, left=2cm, right=2cm, top=2cm, bottom=2cm]{geometry}
+\linespread{1.3} % 行距更紧凑
+\definecolor{shadecolor}{RGB}{241, 241, 255}
+
+\newcounter{problemname}
+\newenvironment{problem}
+  {\begin{shaded}\stepcounter{problemname}\par\noindent\textbf{题目 \theproblemname. }}
+  {\end{shaded}\par}
+\newenvironment{solution}
+  {\par\noindent\textbf{题目 \theproblemname 的解答. }}
+  {\par}
+\newenvironment{note}
+  {\par\noindent\textbf{题目 \theproblemname 的注记. }}
+  {\par}
+
+\begin{document}
+
+\maketitle
+
+
+\begin{problem}
+  考虑自旋 $1/2$ 的粒子，磁矩为 $\mu_B$，处于沿 $z$ 轴方向向上的常磁场 $B_0$ 中，初始时刻粒子自旋向下 ($\sigma_z = -1$)。某时刻加上沿 $x$ 方向的弱常磁场 $B_1 (\ll B_0)$，求经过 $t$ 时刻测得粒子自旋沿 $z$ 方向向上的概率。分别用含时微扰和严格求解的方法计算，并比较结果。
+\end{problem}
+
+\begin{solution}
+自旋 $1/2$ 粒子的磁矩为
+\[
+\boldsymbol{\mu}=-\mu_B\boldsymbol{\sigma},
+\]
+外磁场为
+\[
+\mathbf B = B_0\hat z + B_1\hat x,\qquad B_1\ll B_0.
+\]
+体系的哈密顿量
+\[
+H=-\boldsymbol{\mu}\cdot\mathbf B
+=\mu_B B_0\sigma_z+\mu_B B_1\sigma_x .
+\]
+定义
+\[
+\omega_0=\frac{2\mu_B B_0}{\hbar},\qquad
+\omega_1=\frac{2\mu_B B_1}{\hbar}.
+\]
+初态取为
+\[
+|\psi(0)\rangle=|\downarrow\rangle,\qquad
+\sigma_z|\downarrow\rangle=-|\downarrow\rangle.
+\]
+
+(1) 含时微扰法：
+
+取
+\[
+H_0=\mu_B B_0\sigma_z,\qquad
+V=\mu_B B_1\sigma_x .
+\]
+$H_0$ 的本征态为 $|\uparrow\rangle,|\downarrow\rangle$，能级差
+\[
+E_\uparrow-E_\downarrow=2\mu_B B_0=\hbar\omega_0.
+\]
+在相互作用绘景中，一阶跃迁振幅
+\[
+c_\uparrow^{(1)}(t)
+=\frac{1}{i\hbar}\int_0^t
+\langle\uparrow|V_I(t')|\downarrow\rangle\,dt'.
+\]
+利用
+\[
+\langle\uparrow|\sigma_x|\downarrow\rangle=1,
+\]
+可得
+\[
+c_\uparrow^{(1)}(t)
+=\frac{\mu_B B_1}{i\hbar}\int_0^t e^{i\omega_0 t'}dt'
+=\frac{\mu_B B_1}{\hbar}\frac{1-e^{i\omega_0 t}}{\omega_0}.
+\]
+因此在时刻 $t$ 测得自旋沿 $z$ 方向向上的概率为
+\[
+P_{\uparrow}^{(1)}(t)
+=|c_\uparrow^{(1)}(t)|^2
+=\left(\frac{\omega_1}{\omega_0}\right)^2
+\sin^2\frac{\omega_0 t}{2}.
+\]
+
+(2) 严格求解：
+
+将哈密顿量写成
+\[
+H=\mu_B(B_0\sigma_z+B_1\sigma_x)
+=\mu_B B\,\hat{\mathbf n}\cdot\boldsymbol{\sigma},
+\]
+其中
+\[
+B=\sqrt{B_0^2+B_1^2},\qquad
+\hat{\mathbf n}=\frac{1}{B}(B_1,0,B_0).
+\]
+能级劈裂
+\[
+\Omega=\frac{2\mu_B B}{\hbar}.
+\]
+时间演化算符为
+\[
+U(t)=\cos\frac{\Omega t}{2}
+-i(\hat{\mathbf n}\cdot\boldsymbol{\sigma})
+\sin\frac{\Omega t}{2}.
+\]
+由此得到跃迁概率
+\[
+P_{\uparrow}^{(\mathrm{exact})}(t)
+=\frac{B_1^2}{B_0^2+B_1^2}
+\sin^2\!\left(\frac{\Omega t}{2}\right)
+=\frac{\omega_1^2}{\omega_0^2+\omega_1^2}
+\sin^2\!\left(
+\frac{\sqrt{\omega_0^2+\omega_1^2}}{2}\,t
+\right).
+\]
+
+(3) 比较：
+
+在弱场条件 $B_1\ll B_0$ 下，
+\[
+\sqrt{\omega_0^2+\omega_1^2}\simeq\omega_0,\qquad
+\frac{\omega_1^2}{\omega_0^2+\omega_1^2}
+\simeq\left(\frac{\omega_1}{\omega_0}\right)^2.
+\]
+因此
+\[
+P_{\uparrow}^{(\mathrm{exact})}(t)
+\simeq
+\left(\frac{\omega_1}{\omega_0}\right)^2
+\sin^2\frac{\omega_0 t}{2},
+\]
+与含时微扰的一阶结果一致。
+
+\end{solution}
+
+\begin{problem}
+  带电一维谐振子在电磁波作用下可以发生跃迁。假设电磁波波长远大于谐振子振幅并忽略磁场，即只考虑交变匀强电场 $H' = ex\epsilon \cos(\omega t)$，写出跃迁选择定则。
+\end{problem}
+
+\begin{solution}
+
+一维带电谐振子的未扰动哈密顿量为
+\[
+H_0=\frac{p^2}{2m}+\frac{1}{2}m\omega_0^2 x^2,
+\]
+其本征态记为 $|n\rangle$，能级
+\[
+E_n=\hbar\omega_0\left(n+\frac12\right),\qquad n=0,1,2,\dots
+\]
+
+在电磁波作用下，忽略磁场并采用电偶极近似，微扰哈密顿量为
+\[
+H'(t)=e x \epsilon \cos(\omega t).
+\]
+跃迁是否允许由矩阵元
+\[
+\langle n'|x|n\rangle
+\]
+是否为零决定。
+
+将位置算符用产生与湮灭算符表示：
+\[
+x=\sqrt{\frac{\hbar}{2m\omega_0}}\,(a+a^\dagger).
+\]
+于是
+\[
+\langle n'|x|n\rangle
+=\sqrt{\frac{\hbar}{2m\omega_0}}
+\left(
+\sqrt{n+1}\,\delta_{n',\,n+1}
++\sqrt{n}\,\delta_{n',\,n-1}
+\right).
+\]
+可见只有当
+\[
+n'=n\pm1
+\]
+时矩阵元不为零，其余情况均为零。
+
+因此，一维带电谐振子在交变匀强电场作用下的跃迁选择定则为
+\[
+\Delta n=\pm1.
+\]
+
+这对应于相邻能级之间的跃迁，物理上即一次吸收或辐射一个能量为
+\[
+\hbar\omega_0
+\]
+的光子。
+
+\end{solution}
+
+\begin{problem}
+  氢原子处于基态，受到脉冲电场 $\epsilon(t) = \epsilon_0 \delta(t)$ 的作用，考虑一阶微扰下电子跃迁到各激发态的概率。
+\end{problem}
+
+\begin{solution}
+氢原子的未扰动哈密顿量为
+\[
+H_0=\frac{p^2}{2m}-\frac{e^2}{r},
+\]
+其本征态记为
+\[
+|n\ell m\rangle,\qquad 
+E_n=-\frac{13.6\,\mathrm{eV}}{n^2}.
+\]
+初态取为基态
+\[
+|\psi(0^-)\rangle = |100\rangle.
+\]
+
+在电偶极近似下，电场与原子的相互作用哈密顿量为
+\[
+H'(t) = -e\,\mathbf r\cdot \boldsymbol{\epsilon}(t).
+\]
+给定脉冲电场
+\[
+\boldsymbol{\epsilon}(t)=\epsilon_0\,\delta(t)\,\hat z,
+\]
+则
+\[
+H'(t)=-e\epsilon_0\,z\,\delta(t).
+\]
+
+在含时微扰理论的一阶近似下，从初态 $|i\rangle$ 到末态 $|f\rangle$ 的跃迁振幅为
+\[
+c_f^{(1)}(+\infty)
+=\frac{1}{i\hbar}\int_{-\infty}^{+\infty}
+\langle f|H'(t)|i\rangle
+e^{i\omega_{fi}t}\,dt,
+\qquad
+\omega_{fi}=\frac{E_f-E_i}{\hbar}.
+\]
+代入 $H'(t)$ 得
+\[
+c_f^{(1)}(+\infty)
+=-\frac{e\epsilon_0}{i\hbar}
+\langle f|z|i\rangle
+\int_{-\infty}^{+\infty}\delta(t)\,e^{i\omega_{fi}t}\,dt.
+\]
+利用
+\[
+\int_{-\infty}^{+\infty}\delta(t)\,e^{i\omega t}\,dt=1,
+\]
+得到
+\[
+c_f^{(1)}(+\infty)
+=-\frac{e\epsilon_0}{i\hbar}
+\langle f|z|100\rangle.
+\]
+
+因此，电子跃迁到激发态 $|n\ell m\rangle$ 的概率为
+\[
+P_{n\ell m}
+=|c_{n\ell m}^{(1)}|^2
+=\frac{e^2\epsilon_0^2}{\hbar^2}
+\left|\langle n\ell m|z|100\rangle\right|^2.
+\]
+
+下面讨论选择定则。算符 $z=r\cos\theta$ 在角动量表象中满足电偶极选择定则
+\[
+\Delta\ell=\pm1,\qquad \Delta m=0.
+\]
+而基态满足 $\ell=0,m=0$，因此允许的末态必须满足
+\[
+\ell=1,\qquad m=0.
+\]
+也就是说，只有 $|n,\,\ell=1,\,m=0\rangle$ 这些 $p$ 态可以被激发。
+
+于是，氢原子在脉冲电场作用后一阶微扰下跃迁到各激发态的概率为
+\[
+P_{n}
+=\frac{e^2\epsilon_0^2}{\hbar^2}
+\left|\langle n,1,0|z|1,0,0\rangle\right|^2,
+\qquad n=2,3,\dots
+\]
+其余激发态的跃迁概率均为零。
+
+该结果表明，$\delta(t)$ 型脉冲电场在时间上不含特征频率，因此不会引入能量选择规则，
+跃迁概率仅由电偶极矩阵元及选择定则决定。
+
+\end{solution}
+\end{document}

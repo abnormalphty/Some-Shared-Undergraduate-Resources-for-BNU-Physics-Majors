@@ -1,0 +1,441 @@
+\documentclass[12pt, a4paper, oneside]{ctexart}
+\usepackage{amsmath, amsthm, amssymb, bm, xcolor, tikz, framed, graphicx, hyperref, mathrsfs}
+\usepackage{bookmark}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+\newcommand{\bra}[1]{\langle #1 |}
+\newcommand{\ket}[1]{| #1 \rangle}
+\newcommand{\braket}[2]{\langle #1 | #2 \rangle}
+
+\title{Quantum Mechanics Homework (Week 12)}
+\author{Tang Yi \\ [学号已脱敏]}
+\usepackage[a4paper, left=2cm, right=2cm, top=2cm, bottom=2cm]{geometry}
+\linespread{1.3} % 行距更紧凑
+\definecolor{shadecolor}{RGB}{241, 241, 255}
+
+\newcounter{problemname}
+\newenvironment{problem}
+  {\begin{shaded}\stepcounter{problemname}\par\noindent\textbf{题目 \theproblemname. }}
+  {\end{shaded}\par}
+\newenvironment{solution}
+  {\par\noindent\textbf{题目 \theproblemname 的解答. }}
+  {\par}
+\newenvironment{note}
+  {\par\noindent\textbf{题目 \theproblemname 的注记. }}
+  {\par}
+
+\begin{document}
+
+\maketitle
+
+\begin{problem}
+  (1) 写出氢原子的基态波函数, 并求:
+
+(2) $\langle r \rangle$ 和 $\langle r^2 \rangle$; (3) $\langle x \rangle$ 和 $\langle x^2 \rangle$; (4) $\langle p_x \rangle$ 和 $\langle p_x^2 \rangle$; (5) $\Delta x \Delta p_x$;
+
+(6) 电子处于经典禁区, 即 $E - V < 0$ 的概率.
+
+提示: 求分量时要充分利用体系的对称性. (2)-(4) 同结果用玻尔半径 $a$ 表示即可.
+\end{problem}
+
+\begin{solution}
+  (1)\quad 氢原子基态波函数为球对称的 $1s$ 态，其径向形式为
+\[
+\psi_{1s}(r)=\frac{1}{\sqrt{\pi a^{3}}}e^{-r/a},
+\]
+其中 $a$ 为玻尔半径。
+
+(2)\quad 计算 $\langle r\rangle$ 与 $\langle r^2\rangle$。  
+由于波函数球对称，可写成
+\[
+\langle r^n\rangle=\int_0^\infty r^n |\psi|^2 4\pi r^2\,dr.
+\]
+代入并积分得
+\[
+\langle r\rangle=\frac{3}{2}a,
+\]
+\[
+\langle r^2\rangle=3a^2.
+\]
+
+(3)\quad 计算 $\langle x\rangle$ 与 $\langle x^2\rangle$。  
+由于基态完全球对称，
+\[
+\langle x\rangle=0.
+\]
+而
+\[
+\langle x^2\rangle=\frac{1}{3}\langle r^2\rangle=a^2.
+\]
+
+(4)\quad 计算 $\langle p_x\rangle$ 与 $\langle p_x^2\rangle$。  
+动量空间中基态同样各向同性，因此
+\[
+\langle p_x\rangle=0.
+\]
+总动量平方满足
+\[
+\langle p^2\rangle=\frac{\hbar^2}{a^2},
+\]
+由对称性
+\[
+\langle p_x^2\rangle=\frac{1}{3}\langle p^2\rangle
+=\frac{\hbar^2}{3a^2}.
+\]
+
+(5)\quad 不确定度 $\Delta x\,\Delta p_x$。  
+\[
+\Delta x=\sqrt{\langle x^2\rangle}=a,
+\qquad
+\Delta p_x=\frac{\hbar}{\sqrt{3}\,a}.
+\]
+因此
+\[
+\boxed{\Delta x\,\Delta p_x=\frac{\hbar}{\sqrt{3}}}.
+\]
+
+(6)\quad 电子处于经典禁区 $E-V<0$ 的概率。  
+基态氢原子的经典转折点为 $r_c=2a$。因波函数球对称，
+\[
+P(r>2a)=\frac{4}{a^3}\int_{2a}^\infty r^2 e^{-2r/a}\,dr
+=\frac12\int_4^\infty u^2 e^{-u}\,du
+=13e^{-4}.
+\]
+因此
+\[
+\boxed{P_{\text{classical forbidden}}=13e^{-4}}.
+\]
+\end{solution}
+
+\begin{problem}
+  氢原子的初始态为
+$$ \Psi(\mathbf{r}, 0) = \frac{1}{\sqrt{2}} \left( \Psi_{211}(\mathbf{r}) + \Psi_{21-1}(\mathbf{r}) \right) $$
+\begin{enumerate}
+    \item[(1)] 写出 $t$ 时刻的波函数;
+    \item[(2)] 此态下测量 $\hat{l}_x^2 + \hat{l}_y^2$, 可以得到哪些值? 相应的几率是多少?
+    \item[(3)] 求出势能的期望值 $\langle V \rangle$.
+\end{enumerate}
+\end{problem}
+
+\begin{solution}
+  初始态为
+\[
+\Psi(\mathbf r,0)=\frac{1}{\sqrt{2}}\bigl(\Psi_{2\,1\,1}(\mathbf r)+\Psi_{2\,1,-1}(\mathbf r)\bigr).
+\]
+
+(1) 时变波函数
+
+由于氢原子本征态 $\Psi_{n\ell m}$ 的能量仅依赖于主量子数 $n$，两项均属于 $n=2$ 能级，能量相同为 $E_2$. 因此每一项随时间演化获得相同的相因子 $e^{-iE_2 t/\hbar}$，得到
+\[
+\Psi(\mathbf r,t)=e^{-iE_2 t/\hbar}\,\Psi(\mathbf r,0)
+=\frac{e^{-iE_2 t/\hbar}}{\sqrt{2}}\bigl(\Psi_{2\,1\,1}(\mathbf r)+\Psi_{2\,1,-1}(\mathbf r)\bigr).
+\]
+可见时间演化只是总体相因子，态的概率分布与角动量指向不随时间变化。
+
+(2) 测量 $\hat{\ell}_x^2+\hat{\ell}_y^2$ 的可能值与概率
+
+利用算符恒等式
+\[
+\hat{\ell}_x^2+\hat{\ell}_y^2=\hat{\ell}^2-\hat{\ell}_z^2.
+\]
+对本题所用基矢 $|\,\ell=1,m=\pm1\rangle$，有
+\[
+\hat{\ell}^2|1,m\rangle=\hbar^2\ell(\ell+1)|1,m\rangle=\hbar^2\cdot 2\,|1,m\rangle,
+\]
+\[
+\hat{\ell}_z|1,m\rangle=m\hbar|1,m\rangle.
+\]
+因此在 $|1,m\rangle$ 上，
+\[
+(\hat{\ell}_x^2+\hat{\ell}_y^2)|1,m\rangle
+=\bigl[\,\ell(\ell+1)-m^2\,\bigr]\hbar^2\,|1,m\rangle
+=(2-m^2)\hbar^2\,|1,m\rangle.
+\]
+当 $m=\pm1$ 时，得到的本征值为
+\[
+(2-1)\hbar^2=\hbar^2.
+\]
+由于初始态就是 $m=1$ 与 $m=-1$ 的等权叠加，而这两个分量对 $\hat{\ell}_x^2+\hat{\ell}_y^2$ 给出相同的本征值 $\hbar^2$，所以测量结果只能是$\hbar^2$且其概率为 1（即必然得到该值）。
+
+(3) 势能期望值 $\langle V\rangle$
+
+势能算符为库仑势
+\[
+\hat V=-\frac{e^2}{4\pi\varepsilon_0}\frac{1}{r}.
+\]
+初态是 $n=2$ 能级的线性叠加，而势能期望值只依赖于 $n$（与 $\ell,m$ 无关），故可以直接利用能量定点与维里定理。对库仑势有
+\[
+2\langle T\rangle+\langle V\rangle=0,\qquad E=\langle T\rangle+\langle V\rangle,
+\]
+从而 $\langle V\rangle=2E$. 对于 $n=2$，
+\[
+E_2=-\frac{13.6\ \mathrm{eV}}{2^2}=-3.4\ \mathrm{eV},
+\]
+因此
+\[
+\boxed{\langle V\rangle=2E_2=-6.8\ \mathrm{eV}}.
+\]
+也可写成玻尔半径 $a$ 与基本常数的形式。利用 $\langle 1/r\rangle_{n}=\dfrac{1}{a n^2}$，得
+\[
+\langle V\rangle=-\frac{e^2}{4\pi\varepsilon_0}\frac{1}{a n^2}
+\quad\Rightarrow\quad
+\langle V\rangle\big|_{n=2}=-\frac{e^2}{4\pi\varepsilon_0}\frac{1}{4a}.
+\]
+这与 $2E_2$ 的形式等价。
+
+\[
+\boxed{\langle V\rangle=-\dfrac{e^2}{4\pi\varepsilon_0}\dfrac{1}{4a} = 2E_2 = -6.8\ \mathrm{eV}.}
+\]
+\end{solution}
+
+\begin{problem}
+  碱金属原子中的价电子所受原子实 (原子核 + 满壳电子) 的作用近似表示为:
+$$ V(r) = - \frac{e^2}{r} - \frac{\lambda e^2 a}{r^2} \quad (0 < \lambda \ll 1) $$
+其中第 2 项为屏蔽库仑势, $a$ 为玻尔半径, $\lambda$ 反映屏蔽势的强度.
+\begin{enumerate}
+    \item[(1)] 求价电子的能级 (提示: 令 $l(l+1) - 2\lambda = l'(l'+1)$, 写出关于 $l'$ 的径向方程, 结果用 $n, r_{l'}$ 表示);
+    \item[(2)] 实际上 $\lambda \ll 1$, 基于此条件, 将能级用量子数 $n, l$ 近似表示.
+\end{enumerate}
+\end{problem}
+
+\begin{solution}
+  \paragraph{径向方程与等效角动量}
+对单电子定态薛定谔方程，令波函数写成
+\[
+\Psi(\mathbf r)=\frac{u(r)}{r}Y_{\ell m}(\hat r),
+\]
+则径向方程为（写成无量纲形式）
+\[
+-\frac{\hbar^2}{2m}\frac{d^2 u}{dr^2}
++\frac{\hbar^2}{2m}\frac{\ell(\ell+1)}{r^2}u(r)
++V(r)u(r)=Eu(r).
+\]
+将给定的 \(V(r)\) 中的 \(1/r^2\) 项并入角动量项，可把系数合并为
+\[
+\frac{\hbar^2}{2m}\frac{\ell(\ell+1)}{r^2}-\frac{\lambda e^2 a}{r^2}
+=\frac{\hbar^2}{2m}\frac{\ell'(\ell'+1)}{r^2},
+\]
+其中引入等效角动量 \(\ell'\) 满足
+\[
+\ell'(\ell'+1)=\ell(\ell+1)-\underbrace{\frac{2m}{\hbar^2}\lambda e^2 a}_{\displaystyle 2\lambda_{\rm eff}}.
+\]
+（按提示可直接写成形如 \(\ell(\ell+1)-2\lambda=\ell'(\ell'+1)\) 的形式；此处的 \(\lambda\) 可视为已作无量纲化的屏蔽强度，或写为 \(\lambda_{\rm eff}=\dfrac{m e^2 a}{\hbar^2}\lambda\)。）
+
+于是径向方程形式与氢原子相同，只是把 \(\ell\) 换成 \(\ell'\)：
+\[
+-\frac{\hbar^2}{2m}\frac{d^2 u}{dr^2}
++\frac{\hbar^2}{2m}\frac{\ell'(\ell'+1)}{r^2}u(r)
+-\frac{e^2}{r}u(r)=Eu(r).
+\]
+
+\paragraph{（1）能级（用 \(n,\;r_{\ell'}\) 表示）}
+按氢原子解法，束缚态的能量只与主量子数 \(N\equiv n_r+\ell'+1\) 有关，其中 \(n_r=0,1,2,\dots\) 为径向量子数。定义常量
+\[
+{\rm R_y}\equiv\frac{m e^4}{2\hbar^2}\quad(\text{Rydberg}),
+\]
+则能级为
+\[
+\boxed{E_{n_r,\ell'}=-\frac{{\rm R_y}}{(n_r+\ell'+1)^2}.}
+\]
+若用常规定义的主量子数 \(n\) 表示（原未扰动氢的 \(n=n_r+\ell+1\)），可引入记号
+\[
+r_{\ell'}\equiv n_r+\ell'+1,
+\]
+于是能级写作
+\[
+\boxed{E_{n,\ell'}=-\dfrac{{\rm R_y}}{\,r_{\ell'}^{\,2}\,},\qquad r_{\ell'}=n_r+\ell'+1.}
+\]
+（该式即为第 (1) 问的结果：径向方程等价于把 \(\ell\) 替换为 \(\ell'\)，能级按 \(n_r+\ell'+1\) 给出。）
+
+\paragraph{（2）在 \(\lambda\ll1\) 下用 \(n,\ell\) 的近似表示}
+当 \(\lambda\) 很小时，\(\ell'\) 与 \(\ell\) 只相差很小。设 \(\Delta=\ell'-\ell\)，对小 \(\Delta\) 作线性展开：
+\[
+\ell'(\ell'+1)=\ell(\ell+1)+(2\ell+1)\Delta+\mathcal O(\Delta^2).
+\]
+由方程 \(\ell'(\ell'+1)=\ell(\ell+1)-2\lambda\) 得（忽略 \(\Delta^2\)）
+\[
+(2\ell+1)\Delta\approx-2\lambda \quad\Longrightarrow\quad
+\Delta\approx -\frac{2\lambda}{2\ell+1}.
+\]
+因此
+\[
+\ell'\approx \ell-\frac{2\lambda}{2\ell+1}.
+\]
+
+把 \(\ell'\) 代入 \(r_{\ell'}=n_r+\ell'+1\)，并令未扰动的主量子数 \(n=n_r+\ell+1\)，得
+\[
+r_{\ell'}=n+\Delta\approx n-\frac{2\lambda}{2\ell+1}.
+\]
+能量近似为
+\[
+E_{n,\ell'}=-\frac{{\rm R_y}}{(r_{\ell'})^2}
+\approx -\frac{{\rm R_y}}{n^2}\frac{1}{\bigl(1+\dfrac{\Delta}{n}\bigr)^2}
+\approx -\frac{{\rm R_y}}{n^2}\Bigl(1-2\frac{\Delta}{n}\Bigr).
+\]
+将 \(\Delta\) 代入并保持到一阶项，
+\[
+-2\frac{\Delta}{n}= -2\frac{1}{n}\Bigl(-\frac{2\lambda}{2\ell+1}\Bigr)
+=\frac{4\lambda}{n(2\ell+1)}.
+\]
+于是得到近似能级（用 \(n,\ell\) 表示）：
+\[
+\boxed{E_{n\ell}\approx -\frac{{\rm R_y}}{n^2}\left(1+\frac{4\lambda}{n(2\ell+1)}\right).}
+\]
+\end{solution}
+
+\begin{problem}
+  证明正则量子化下,
+\begin{enumerate}
+    \item[(1)] 机械动量各分量的对易关系:
+    $$ [\Pi_\alpha, \Pi_\beta] = i \hbar \frac{q}{c} \epsilon_{\alpha\beta\gamma} B_\gamma $$
+    \item[(2)] 机械动量的期望值规范不变.
+\end{enumerate}
+\end{problem}
+
+\begin{solution}
+  设带电粒子 ($q$) 在磁矢势 $\mathbf{A}(\mathbf{X})$ 中运动，其机械动量（规范协变动量）算符定义为：
+$$
+\boldsymbol{\Pi} = \mathbf{P} - \frac{q}{c} \mathbf{A}
+$$
+其中 $\mathbf{P}$ 是正则动量算符，满足正则量子化条件 $[X_\alpha, P_\beta] = i\hbar \delta_{\alpha\beta}$。
+
+(1)
+
+我们要证明 $[\Pi_\alpha, \Pi_\beta] = i \hbar \frac{q}{c} \epsilon_{\alpha\beta\gamma} B_\gamma$。
+
+
+计算对易子 $[\Pi_\alpha, \Pi_\beta]$：
+\begin{align*}
+[\Pi_\alpha, \Pi_\beta] &= \left[ P_\alpha - \frac{q}{c} A_\alpha, P_\beta - \frac{q}{c} A_\beta \right] \\
+&= \underbrace{[P_\alpha, P_\beta]}_{=0} - \frac{q}{c} [P_\alpha, A_\beta] - \frac{q}{c} [A_\alpha, P_\beta] + \underbrace{\left(\frac{q}{c}\right)^2 [A_\alpha, A_\beta]}_{=0} \\
+&= -\frac{q}{c} [P_\alpha, A_\beta] - \frac{q}{c} [A_\alpha, P_\beta]
+\end{align*}
+利用正则量子化对易关系 $[P_\alpha, f(\mathbf{X})] = -i\hbar \frac{\partial f}{\partial X_\alpha}$：
+\begin{align*}
+[P_\alpha, A_\beta(\mathbf{X})] &= -i\hbar \frac{\partial A_\beta}{\partial X_\alpha} \\
+[A_\alpha(\mathbf{X}), P_\beta] &= -[P_\beta, A_\alpha(\mathbf{X})] = - \left( -i\hbar \frac{\partial A_\alpha}{\partial X_\beta} \right) = i\hbar \frac{\partial A_\alpha}{\partial X_\beta}
+\end{align*}
+代入对易子表达式：
+\begin{align*}
+[\Pi_\alpha, \Pi_\beta] &= -\frac{q}{c} \left( -i\hbar \frac{\partial A_\beta}{\partial X_\alpha} \right) - \frac{q}{c} \left( i\hbar \frac{\partial A_\alpha}{\partial X_\beta} \right) \\
+&= i\hbar \frac{q}{c} \left( \frac{\partial A_\beta}{\partial X_\alpha} - \frac{\partial A_\alpha}{\partial X_\beta} \right)
+\end{align*}
+根据磁场 $\mathbf{B} = \nabla \times \mathbf{A}$ 的定义，括号内的项是磁场分量 $B_\gamma$ 的反对称组合：
+$$
+\frac{\partial A_\beta}{\partial X_\alpha} - \frac{\partial A_\alpha}{\partial X_\beta} = \epsilon_{\alpha\beta\gamma} B_\gamma
+$$
+因此，最终结果为：
+$$
+[\Pi_\alpha, \Pi_\beta] = i \hbar \frac{q}{c} \epsilon_{\alpha\beta\gamma} B_\gamma
+$$
+
+
+(2)
+
+规范变换定义为：
+\begin{align*}
+\mathbf{A}' &= \mathbf{A} + \nabla \Lambda \\
+\Psi' &= e^{i \frac{q}{\hbar c} \Lambda} \Psi
+\end{align*}
+其中 $\Lambda(\mathbf{X}, t)$ 是任意实函数。新的机械动量算符 $\boldsymbol{\Pi}'$ 为：
+$$
+\boldsymbol{\Pi}' = \mathbf{P} - \frac{q}{c} \mathbf{A}' = \boldsymbol{\Pi} - \frac{q}{c} \nabla \Lambda
+$$
+
+
+计算新的期望值 $\langle \boldsymbol{\Pi}' \rangle = \langle \Psi' | \boldsymbol{\Pi}' | \Psi' \rangle$。
+首先，计算 $\mathbf{P}$ 作用于 $| \Psi' \rangle$：
+\begin{align*}
+\mathbf{P} e^{i \frac{q}{\hbar c} \Lambda} &= e^{i \frac{q}{\hbar c} \Lambda} \left( \mathbf{P} + \mathbf{P}\left(i \frac{q}{\hbar c} \Lambda\right) \right) \\
+&= e^{i \frac{q}{\hbar c} \Lambda} \left( \mathbf{P} - i\hbar \nabla \left(i \frac{q}{\hbar c} \Lambda\right) \right) \\
+&= e^{i \frac{q}{\hbar c} \Lambda} \left( \mathbf{P} + \frac{q}{c} \nabla \Lambda \right)
+\end{align*}
+接着，计算 $\boldsymbol{\Pi}'$ 作用于 $| \Psi' \rangle$：
+\begin{align*}
+\boldsymbol{\Pi}' | \Psi' \rangle &= (\mathbf{P} - \frac{q}{c} \mathbf{A} - \frac{q}{c} \nabla \Lambda) e^{i \frac{q}{\hbar c} \Lambda} | \Psi \rangle \\
+&= \mathbf{P} e^{i \frac{q}{\hbar c} \Lambda} | \Psi \rangle - \frac{q}{c} (\mathbf{A} + \nabla \Lambda) e^{i \frac{q}{\hbar c} \Lambda} | \Psi \rangle \\
+&= e^{i \frac{q}{\hbar c} \Lambda} \left[ \mathbf{P} + \frac{q}{c} \nabla \Lambda - \frac{q}{c} (\mathbf{A} + \nabla \Lambda) \right] | \Psi \rangle \\
+&= e^{i \frac{q}{\hbar c} \Lambda} \left[ \mathbf{P} - \frac{q}{c} \mathbf{A} \right] | \Psi \rangle \\
+&= e^{i \frac{q}{\hbar c} \Lambda} \boldsymbol{\Pi} | \Psi \rangle
+\end{align*}
+最后，计算期望值：
+\begin{align*}
+\langle \boldsymbol{\Pi}' \rangle &= \langle \Psi' | \boldsymbol{\Pi}' | \Psi' \rangle \\
+&= \left\langle e^{i \frac{q}{\hbar c} \Lambda} \Psi \left| e^{i \frac{q}{\hbar c} \Lambda} \boldsymbol{\Pi} \Psi \right\rangle \right. \\
+&= \left\langle \Psi \left| \left( e^{i \frac{q}{\hbar c} \Lambda} \right)^\dagger e^{i \frac{q}{\hbar c} \Lambda} \boldsymbol{\Pi} \Psi \right\rangle \right. \\
+&= \left\langle \Psi \left| e^{-i \frac{q}{\hbar c} \Lambda} e^{i \frac{q}{\hbar c} \Lambda} \boldsymbol{\Pi} \Psi \right\rangle \right. \\
+&= \langle \Psi | \boldsymbol{\Pi} | \Psi \rangle = \langle \boldsymbol{\Pi} \rangle
+\end{align*}
+因此，机械动量的期望值规范不变。
+
+\end{solution}
+
+\begin{problem}
+  按 w12-2, 若此时加上 $z$ 方向的强度为 $B$ 的匀强磁场,
+\begin{enumerate}
+    \item[(4)] 写出 $t$ 时刻的量子态;
+    \item[(5)] 求 $t$ 时刻能量的期望值.
+\end{enumerate}
+\end{problem}
+
+\begin{solution}
+  氢原子的初始态为 $n=2, l=1$ 的定态波函数的叠加：
+$$
+\Psi(\mathbf{r}, 0) = \frac{1}{\sqrt{2}} \left( \Psi_{211}(\mathbf{r}) + \Psi_{21-1}(\mathbf{r}) \right)
+$$
+施加沿 $z$ 方向的匀强磁场 $\mathbf{B} = B \mathbf{k}$ 后，系统的哈密顿量 $\hat{H}'$ 变为：
+$$
+\hat{H}' = \hat{H}_0 + \hat{H}_Z = \hat{H}_0 + \frac{e B}{2 m_e c} \hat{L}_z = \hat{H}_0 + \frac{\mu_B B}{\hbar} \hat{L}_z
+$$
+其中 $E_n$ 是未受扰动的能级，$\mu_B$ 为玻尔磁子。$\Psi_{n l m}$ 仍是 $\hat{H}'$ 的本征态，新的能量本征值为：
+$$
+E'_{n, m} = E_n + m \mu_B B
+$$
+对于初始态中的两个分量 $(n=2, l=1)$：
+\begin{align*}
+E'_{2, 1} &= E_2 + 1 \cdot \mu_B B \\
+E'_{2, -1} &= E_2 + (-1) \cdot \mu_B B
+\end{align*}
+
+(4)
+
+$t$ 时刻的量子态 $\Psi(\mathbf{r}, t)$ 的演化为：
+$$
+\Psi(\mathbf{r}, t) = \sum_{j} c_j \Psi_j(\mathbf{r}) e^{-i E'_j t / \hbar}
+$$
+代入系数 $c_{211} = c_{21-1} = \frac{1}{\sqrt{2}}$ 和对应的能级：
+$$
+\Psi(\mathbf{r}, t) = \frac{1}{\sqrt{2}} \Psi_{211}(\mathbf{r}) e^{-i E'_{2, 1} t / \hbar} + \frac{1}{\sqrt{2}} \Psi_{21-1}(\mathbf{r}) e^{-i E'_{2, -1} t / \hbar}
+$$
+代入 $E'_{2, m}$ 的表达式，并定义拉莫尔频率 $\omega_L = \frac{\mu_B B}{\hbar}$：
+$$
+\Psi(\mathbf{r}, t) = \frac{1}{\sqrt{2}} \Psi_{211}(\mathbf{r}) e^{-i (E_2 + \hbar \omega_L) t / \hbar} + \frac{1}{\sqrt{2}} \Psi_{21-1}(\mathbf{r}) e^{-i (E_2 - \hbar \omega_L) t / \hbar}
+$$
+最终 $t$ 时刻的量子态为：
+$$
+\Psi(\mathbf{r}, t) = \frac{1}{\sqrt{2}} e^{-i E_2 t / \hbar} \left[ \Psi_{211}(\mathbf{r}) e^{-i \omega_L t} + \Psi_{21-1}(\mathbf{r}) e^{+i \omega_L t} \right]
+$$
+
+(5)
+
+能量的期望值 $\langle E \rangle_t = \langle \hat{H}' \rangle$ 是本征值的加权平均，不随时间变化：
+$$
+\langle E \rangle = \sum_{j} |c_j|^2 E'_j = |c_{211}|^2 E'_{2, 1} + |c_{21-1}|^2 E'_{2, -1}
+$$
+代入系数和能级表达式：
+\begin{align*}
+\langle E \rangle &= \left(\frac{1}{\sqrt{2}}\right)^2 (E_2 + \mu_B B) + \left(\frac{1}{\sqrt{2}}\right)^2 (E_2 - \mu_B B) \\
+&= \frac{1}{2} E_2 + \frac{1}{2} \mu_B B + \frac{1}{2} E_2 - \frac{1}{2} \mu_B B \\
+&= E_2
+\end{align*}
+其中 $E_2$ 为氢原子 $n=2$ 能级能量：
+$$
+E_2 = -\frac{E_I}{4} = -3.4 \text{ eV}
+$$
+因此，能量的期望值为：
+$$
+\langle E \rangle = E_2 = -3.4 \text{ eV}
+$$
+\end{solution}
+\end{document}

@@ -1,0 +1,388 @@
+\documentclass[12pt, a4paper, oneside]{ctexart}
+\usepackage{amsmath, amsthm, amssymb, bm, xcolor, tikz, framed, graphicx, hyperref, mathrsfs}
+\usepackage{bookmark}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+
+\title{Quantum Mechanics Homework (Week 5)}
+\author{Tang Yi \\ [学号已脱敏]}
+\usepackage[a4paper, left=2cm, right=2cm, top=2cm, bottom=2cm]{geometry}
+\linespread{1.3} % 行距更紧凑
+\definecolor{shadecolor}{RGB}{241, 241, 255}
+
+\newcounter{problemname}
+\newenvironment{problem}
+  {\begin{shaded}\stepcounter{problemname}\par\noindent\textbf{题目 \theproblemname. }}
+  {\end{shaded}\par}
+\newenvironment{solution}
+  {\par\noindent\textbf{题目 \theproblemname 的解答. }}
+  {\par}
+\newenvironment{note}
+  {\par\noindent\textbf{题目 \theproblemname 的注记. }}
+  {\par}
+
+\begin{document}
+
+\maketitle
+
+\begin{problem}
+  （1）在动量表象下求解一维谐振子的定态薛定谔方程，写出能级和本征波函数（用厄米多项式表示）。提示：写出动量表象下的定态薛定谔方程，无量纲化后可以发现其形式上与坐标表象下一致，并且动量表象下的束缚态亦满足条件 $\varphi(p \to \pm \infty)\to 0$ ，以此可以直接套用坐标表象下的结果。
+  
+  （2）以基态为例，验证两个表象下的能量本征态符合表象变换关系。
+\end{problem}
+
+\begin{solution}
+
+  (1)我们写出动量表象下的薛定谔方程,即为:
+
+  \centerline{$\left(-\dfrac{m\hbar^2\omega^2}{2}\dfrac{\partial^2}{\partial p^2}+\dfrac{p^2}{2m}\right)\varphi = E \varphi$}
+
+  做变量替换$p = m\omega X$,即有
+
+  \centerline{$\left(-\dfrac{\hbar^2}{2m}\dfrac{\partial^2}{\partial X^2}+\dfrac{m\omega^2X^2}{2}\right)\varphi = E \varphi$}
+
+  形式上,其与坐标表象的薛定谔方程一样.不难得到,其解为
+
+  \centerline{$\varphi_n = \sqrt{\dfrac{\alpha}{\sqrt{\pi} 2^n n! m\omega} } H_n(\dfrac{\alpha}{m\omega}p)\exp\left(-\dfrac{\alpha^2}{2m^2\omega^2}p^2\right)$}
+
+  同理,不难得到
+
+  \centerline{$E_n = (n+\dfrac{1}{2}) \hbar \omega$}
+
+  (2)
+  
+  \centerline{$\varphi_0 = \sqrt[4]{\dfrac{1}{\pi m\hbar \omega}} \exp\left(-\dfrac{1}{2m\hbar \omega}p^2\right)$}
+
+  对其做Founier变换,得到
+  \begin{align*}
+    \psi(x) &= \dfrac{1}{\sqrt{2\pi \hbar}} \displaystyle\int_{-\infty}^{+\infty} \mathrm{d} p \sqrt[4]{\dfrac{1}{\pi m \hbar \omega}} \exp\left(-\dfrac{1}{2m\hbar \omega}p^2 \right)e^{ipx/\hbar} \\
+    &=\sqrt[4]{\dfrac{m\omega}{\pi \hbar}}\exp\left(-\dfrac{m\omega}{2\hbar}x^2\right) \\
+    &= \sqrt{\dfrac{\alpha}{\sqrt{\pi}}} \exp\left(-\dfrac{\alpha^2x^2}{2}\right)\\
+    &= \psi_0
+  \end{align*}
+
+  由此可见,两个表象下的能量本征态符合表象变换关系.
+\end{solution}
+
+\begin{problem}
+  不同阶的厄米多项式之间满足递推关系：
+\[
+H_{n+1}(\xi) - 2\xi H_n(\xi) + 2n H_{n-1}(\xi) = 0, \qquad 
+\dfrac{\mathrm{d}H_n(\xi)}{\mathrm{d}\xi} = 2n H_{n-1}(\xi)
+\]
+
+据此可以证明谐振子本征波函数满足下列关系：
+\[
+x\psi_n(x) = \dfrac{1}{\alpha} \left( 
+\sqrt{\dfrac{n}{2}}\, \psi_{n-1}(x) + 
+\sqrt{\dfrac{n+1}{2}}\, \psi_{n+1}(x) 
+\right)
+\]
+\[
+x^2 \psi_n(x) = \dfrac{1}{2\alpha^2} \left(
+\sqrt{n(n-1)}\, \psi_{n-2}(x) + 
+(2n+1)\psi_n(x) + 
+\sqrt{(n+1)(n+2)}\, \psi_{n+2}(x)
+\right)
+\]
+\[
+\dfrac{\mathrm{d}}{\mathrm{d}x}\psi_n(x) = \alpha \left(
+\sqrt{\dfrac{n}{2}}\, \psi_{n-1}(x) - 
+\sqrt{\dfrac{n+1}{2}}\, \psi_{n+1}(x)
+\right)
+\]
+\[
+\dfrac{\mathrm{d}^2}{\mathrm{d}x^2}\psi_n(x) = 
+\dfrac{\alpha^2}{2} \left(
+\sqrt{n(n-1)}\, \psi_{n-2}(x) - 
+(2n+1)\psi_n(x) + 
+\sqrt{(n+1)(n+2)}\, \psi_{n+2}(x)
+\right)
+\]
+
+利用以上关系，求在本征态 $\psi_n(x)$ 下，位置、动量、动能、势能的期望值，以及
+位置和动量的不确定度和满足的不确定关系。
+
+\end{problem}
+
+\begin{solution}
+  由谐振子解,有
+
+  \centerline{$\psi_n = N_n H_n(\alpha x) \exp\left(-\dfrac{\alpha^2 x^2}{2}\right)$}
+
+  其中$N_n = \sqrt{\dfrac{\alpha}{\sqrt{\pi} 2^n n!}}$.不难得到$N_n$的递推关系:
+
+  \centerline{$N_{n+1} = \sqrt{\dfrac{\alpha}{\sqrt{\pi} 2^{n+1} (n+1)!}} = \dfrac{1}{\sqrt{2(n+1)}} N_n$}
+
+  下面证明第一个关系式:
+  \begin{align*}
+    x\psi_n &= x N_n H_n(\alpha x) \exp\left(-\dfrac{\alpha^2 x^2}{2}\right) \\
+    &= \dfrac{N_n}{\alpha} \alpha x H_n(\alpha x) \exp\left(-\dfrac{\alpha^2 x^2}{2}\right) \\
+    &= \dfrac{N_n}{\alpha} \dfrac{1}{2} \left(H_{n+1}(\alpha x) + 2n H_{n-1}(\alpha x)\right) \exp\left(-\dfrac{\alpha^2 x^2}{2}\right) \\
+    &= \dfrac{N_n}{\alpha} \dfrac{1}{2} \left(\dfrac{1}{N_{n+1}} \psi_{n+1} + 2n \dfrac{1}{N_{n-1}} \psi_{n-1}\right) \\
+    &= \dfrac{1}{\alpha} \left(\sqrt{\dfrac{n+1}{2}} \psi_{n+1} + \sqrt{\dfrac{n}{2}} \psi_{n-1}\right)
+  \end{align*}
+
+  第二个关系式:
+  \begin{align*}
+    x^2 \psi_n &= x \cdot x \psi_n \\
+    &= x \cdot \dfrac{1}{\alpha} \left(\sqrt{\dfrac{n+1}{2}} \psi_{n+1} + \sqrt{\dfrac{n}{2}} \psi_{n-1}\right) \\
+    &= \dfrac{1}{\alpha} \left(\sqrt{\dfrac{n+1}{2}} x\psi_{n+1} + \sqrt{\dfrac{n}{2}} x\psi_{n-1}\right) \\
+    &= \dfrac{1}{\alpha} \left(\sqrt{\dfrac{n+1}{2}} \cdot \dfrac{1}{\alpha} (\sqrt{\dfrac{n+2}{2}} \psi_{n+2} + \sqrt{\dfrac{n+1}{2}} \psi_n) + \sqrt{\dfrac{n}{2}} \cdot \dfrac{1}{\alpha} (\sqrt{\dfrac{n}{2}} \psi_n + \sqrt{\dfrac{n-1}{2}} \psi_{n-2})\right)\\
+    &= \dfrac{1}{2\alpha^2} (\sqrt{(n+1)(n+2)}\psi_{n+2} + (2n+1)\psi_n + \sqrt{n(n-1)}\psi_{n-2})
+  \end{align*}
+
+  第三个关系式:
+  \begin{align*}
+    \dfrac{\mathrm{d}}{\mathrm{d}x} \psi_n &= N_n \left(2n\alpha H_{n-1}(\alpha x) - \alpha^2 x H_n(\alpha x)\right) \exp\left(-\dfrac{\alpha^2 x^2}{2}\right) \\
+    &= N_n \alpha \left(2n H_{n-1}(\alpha x) - \alpha x H_n(\alpha x)\right) \exp\left(-\dfrac{\alpha^2 x^2}{2}\right) \\
+    &= N_n \alpha \left(2n H_{n-1}(\alpha x) - \dfrac{1}{2}(H_{n+1}(\alpha x) + 2n H_{n-1}(\alpha x))\right) \exp\left(-\dfrac{\alpha^2 x^2}{2}\right) \\
+    &= N_n \alpha \left(-\dfrac{1}{2} H_{n+1}(\alpha x) + n H_{n-1}(\alpha x)\right) \exp\left(-\dfrac{\alpha^2 x^2}{2}\right) \\
+    &= \alpha \left(-\dfrac{1}{2N_{n+1}} \psi_{n+1} + \dfrac{n}{N_{n-1}} \psi_{n-1}\right)\\
+    &= \alpha (\sqrt{\dfrac{n}{2}} \psi_{n-1} - \sqrt{\dfrac{n+1}{2}} \psi_{n+1})
+  \end{align*}
+
+  第四个关系式:
+  \begin{align*}
+    \dfrac{\mathrm{d}^2}{\mathrm{d}x^2} \psi_n &= \dfrac{\mathrm{d}}{\mathrm{d}x} \left(\alpha (\sqrt{\dfrac{n}{2}} \psi_{n-1} - \sqrt{\dfrac{n+1}{2}} \psi_{n+1})\right) \\
+    &= \alpha \left(\sqrt{\dfrac{n}{2}} \dfrac{\mathrm{d}}{\mathrm{d}x} \psi_{n-1} - \sqrt{\dfrac{n+1}{2}} \dfrac{\mathrm{d}}{\mathrm{d}x} \psi_{n+1}\right) \\
+    &= \alpha \left(\sqrt{\dfrac{n}{2}} \cdot \alpha (\sqrt{\dfrac{n-1}{2}} \psi_{n-2} - \sqrt{\dfrac{n}{2}} \psi_n) - \sqrt{\dfrac{n+1}{2}} \cdot \alpha (\sqrt{\dfrac{n+1}{2}} \psi_n - \sqrt{\dfrac{n+2}{2}} \psi_{n+2})\right)\\
+    &= \alpha^2 \left(\sqrt{\dfrac{n(n-1)}{4}} \psi_{n-2} - \dfrac{n}{2} \psi_n - \dfrac{n+1}{2} \psi_n + \sqrt{\dfrac{(n+1)(n+2)}{4}} \psi_{n+2}\right)\\
+    &= \dfrac{\alpha^2}{2} (\sqrt{n(n-1)}\psi_{n-2} - (2n+1)\psi_n + \sqrt{(n+1)(n+2)}\psi_{n+2})
+  \end{align*}
+
+  下面计算各个期望值:
+  
+  首先,位置的期望是显然的,这是由对称性告诉我们的.即$\langle x \rangle_n = 0$.
+
+  其次,计算位置平方的期望:
+  \begin{align*}
+    \langle x^2 \rangle_n &= \langle \psi_n | x^2 | \psi_n \rangle \\
+    &= \langle \psi_n | \dfrac{1}{2\alpha^2} (\sqrt{n(n-1)}\psi_{n-2} + (2n+1)\psi_n + \sqrt{(n+1)(n+2)}\psi_{n+2}) \rangle \\
+    &= \langle \psi_n | \dfrac{2n+1}{2\alpha^2} \psi_n \rangle \\
+    &= \dfrac{2n+1}{2\alpha^2}
+  \end{align*}
+
+  由此,位置的不确定度为:
+  \begin{align*}
+    \Delta x_n &= \sqrt{\langle x^2 \rangle_n - \langle x \rangle^2_n} \\
+    &= \sqrt{\dfrac{2n+1}{2\alpha^2}} \\
+    &= \sqrt{\dfrac{(2n+1)\hbar}{2m\omega}}
+  \end{align*}
+
+  同时,势能的期望值为:
+
+  \centerline{$\langle V \rangle_n = \dfrac{1}{2} m \omega^2 \langle x^2 \rangle_n = \dfrac{(2n+1)\hbar \omega}{4}$}
+
+  接下来,计算动量的期望值:
+  \begin{align*}
+    \langle p \rangle_n &= \langle \psi_n | p | \psi_n \rangle \\
+    &= \langle \psi_n | -i\hbar \dfrac{\mathrm{d}}{\mathrm{d}x} | \psi_n \rangle \\
+    &= -i\hbar \langle \psi_n | \alpha (\sqrt{\dfrac{n}{2}} \psi_{n-1} - \sqrt{\dfrac{n+1}{2}} \psi_{n+1}) \rangle \\
+    &= 0
+  \end{align*}
+
+  计算动量平方的期望值:
+  \begin{align*}
+    \langle p^2 \rangle_n &= \langle \psi_n | p^2 | \psi_n \rangle \\
+    &= \langle \psi_n | -\hbar^2 \dfrac{\mathrm{d}^2}{\mathrm{d}x^2} | \psi_n \rangle \\
+    &= -\hbar^2 \langle \psi_n | \dfrac{\alpha^2}{2} (\sqrt{n(n-1)}\psi_{n-2} - (2n+1)\psi_n + \sqrt{(n+1)(n+2)}\psi_{n+2}) \rangle \\
+    &= -\hbar^2 \cdot \dfrac{\alpha^2}{2} (- (2n+1)) \\
+    &= \dfrac{(2n+1)\alpha^2 \hbar^2}{2}
+  \end{align*}
+
+  由此,动量的不确定度为:
+  \begin{align*}
+    \Delta p_n &= \sqrt{\langle p^2 \rangle_n - \langle p \rangle^2_n} \\
+    &= \sqrt{\dfrac{(2n+1)\alpha^2 \hbar^2}{2}} \\
+    &= \sqrt{\dfrac{(2n+1)m\hbar\omega}{2}}
+  \end{align*}
+
+  同时,动能的期望值为:
+
+  \centerline{$\langle T \rangle_n = \dfrac{\langle p^2 \rangle_n}{2m} = \dfrac{(2n+1)\hbar \omega}{4}$}
+
+  最后,验证不确定关系:
+  \begin{align*}
+    \Delta x_n \Delta p_n &= \sqrt{\dfrac{(2n+1)\hbar}{2m\omega}} \cdot \sqrt{\dfrac{(2n+1)m\hbar\omega}{2}} \\
+    &= \dfrac{2n+1}{2} \hbar \geq \dfrac{\hbar}{2}
+  \end{align*}
+\end{solution}
+
+\begin{problem}
+  处于谐振子势中的粒子，初始时处于状态
+\[
+\Psi(x,0)=A\Bigl(1-2\sqrt{\dfrac{m\omega}{\hbar}}\,x\Bigr)^2
+\exp\!\Bigl(-\dfrac{m\omega}{2\hbar}x^2\Bigr).
+\]
+
+
+  (1) 求归一化常数 \(A\)；
+  (2) 计算能量的期望值 \(\langle E\rangle\)；
+  (3) 经过一段时间 \(T\) 后，波函数变为:
+  \[
+  \Psi(x,T)=B\Bigl(1+2\sqrt{\dfrac{m\omega}{\hbar}}\,x\Bigr)^2\exp\!\Bigl(-\dfrac{m\omega}{2\hbar}x^2\Bigr),
+  \]
+  其中 \(B\) 为归一化常数。求 \(T\) 的最小可能值是多少？
+
+
+（提示：第三问必须将初始态展开为本征态的线性叠加，而本征态满足正交归一关系，因此前两问不必用积分求解。）
+
+  
+\end{problem}
+
+\begin{solution}
+  注意到:
+
+  \centerline{$\Psi(x,0) =  \dfrac{\pi^{\frac{1}{4}}A}{\sqrt{\alpha}} \left(3\psi_0 -2\sqrt{2}\psi_1 + 2\sqrt{2}\psi_2\right)$}
+
+  其中$\alpha = \sqrt{\dfrac{m\omega}{\hbar}}$.
+
+  (1)由归一化条件,有
+  \begin{align*}
+    1 &= \langle \Psi(x,0) | \Psi(x,0) \rangle \\
+    &= 25 \left(\dfrac{\pi^{\frac{1}{4}}A}{\sqrt{\alpha}}\right)^2
+  \end{align*}
+
+  因此,有
+
+  \centerline{$A = \dfrac{\sqrt{\alpha}}{5\pi^{\frac{1}{4}}}$}
+
+  (2)能量的期望值为:
+  \begin{align*}
+    \langle E \rangle &= \langle \Psi(x,0) | H | \Psi(x,0) \rangle \\
+    &= \dfrac{1}{25}(9 E_0 + 8 E_1 + 8 E_2) \\
+    &= \dfrac{73}{50} \hbar\omega
+  \end{align*}
+
+  (3)对波函数,加入时间演化的相位因子,有
+
+  \centerline{$\Psi(x,t) = \dfrac{1}{5} (3\psi_0 e^{-iE_0t/\hbar} - 2\sqrt{2} \psi_1 e^{-iE_1t/\hbar} + 2\sqrt{2} \psi_2 e^{-iE_2t/\hbar})$}
+
+  其要演化到
+
+  \centerline{$\psi = \dfrac{1}{5}e^{-i\theta} \left(3\psi_0 +2\sqrt{2}\psi_1 + 2\sqrt{2}\psi_2\right)$}
+
+  则需满足
+  \begin{align*}
+    E_0t/\hbar &= 2k_1 \pi+\theta\\
+    3E_0t/\hbar &= (2k_2+1) \pi+\theta\\
+    5E_0t/\hbar &= 2k_3 \pi+\theta
+  \end{align*}
+  其中$k_1,k_2,k_3 \in \mathbb{Z}$.不难得到,满足最小的$t$为:
+
+  \centerline{$t = \dfrac{\pi}{\omega}$}
+\end{solution}
+
+\begin{problem}
+  设粒子在下列势场中运动，求允许的能级。
+\[
+V(x)=
+\begin{cases}
+\infty, & x<0,\\[4pt]
+\dfrac{1}{2}m\omega^2 x^2, & x>0~.
+\end{cases}
+\]
+
+（提示：充分利用波函数需要满足的条件，无需做具体计算。）
+
+\end{problem}
+
+\begin{solution}
+  由$\psi(x=0)=0$的条件,说明只能取$n=2k+1$的谐振子能级.则
+
+  \centerline{$E_n = (2n+\dfrac{3}{2}) \hbar \omega$}
+\end{solution}
+
+\begin{problem}
+  粒子从左侧入射,遇到势场
+\[V(x)=
+\begin{cases} 
+0, & x<0,\\
+V_0>0, & x>0.
+\end{cases} 
+\]
+  求反射系数和透射系数。分别讨论$E>V_0$和$E<V_0$的情况。
+\end{problem}
+
+\begin{solution}
+  我们先讨论$E>V_0$的情况.
+
+  由于粒子满足定态薛定谔方程.在$x<0$时,有
+
+  \centerline{$-\dfrac{\hbar^2}{2m} \dfrac{\partial^2}{\partial x^2} \psi_{1} = E \psi_{1}$}
+
+  在$x>0$时,有
+
+  \centerline{$-\dfrac{\hbar^2}{2m} \dfrac{\partial^2}{\partial x^2} \psi_{2} +V_0 \psi_2= E \psi_{2}$}
+
+  因此,形式上,我们总能把解写成exp的形式.考虑物理情景后,我们有
+
+  \centerline{$\psi_1 = e^{ik_1 x} + R e^{-ik_1 x}$}
+
+  其中$k_1 = \dfrac{\sqrt{2mE}}{\hbar}$.
+
+  同理,在$x>0$时,我们有
+
+  \centerline{$\psi_2 = S e^{ik_2 x}$}
+
+  其中$k_2 = \dfrac{\sqrt{2m(E-V_0)}}{\hbar}$.
+
+  在$x=0$处,讨论连续性条件
+
+  \begin{align*}
+    \psi_1(0) &= \psi_2(0) \\
+    \dfrac{\mathrm{d}}{\mathrm{d}x} \psi_1(0) &= \dfrac{\mathrm{d}}{\mathrm{d}x} \psi_2(0)
+  \end{align*}
+
+  代入,则有
+
+  \begin{align*}
+    1 + R &= S \\
+    ik_1 (1 - R) &= ik_2 S
+  \end{align*}
+
+  解得
+
+  \centerline{$R = \dfrac{k_1 - k_2}{k_1 + k_2}$}
+
+  \centerline{$S = \dfrac{2k_1}{k_1 + k_2}$}
+
+  当$E<V_0$时,在$x>0$时,我们有
+
+  \centerline{$\psi_2 = S e^{-\kappa x}$}
+
+  其中$\kappa = ik_2 = \dfrac{\sqrt{2m(V_0 - E)}}{\hbar}$.
+
+  因此,我们只需要把先前的结果中$k_2$替换成$-i \kappa$,即可得到
+
+  \centerline{$R = \dfrac{k_1 + i\kappa}{k_1 - i\kappa}$}
+
+  \centerline{$S = \dfrac{2k_1}{k_1 - i\kappa}$}
+
+  同时,代入概率流不难得到
+
+  \centerline{$j = \dfrac{\hbar k}{m} |A|^2$}
+
+  其中,$A$为振荡的波函数前的振幅.因此,我们有
+
+  $E>V_0$:
+
+  \centerline{$j_I = \dfrac{\hbar k_1}{m}$}
+
+  \centerline{$j_R = \dfrac{\hbar k_1}{m} |R|^2 = \dfrac{\hbar k_1}{m} \left(\dfrac{k_1 - k_2}{k_1+k_2}\right)^2$}
+
+  \centerline{$j_S = \dfrac{\hbar k_2}{m} |S|^2 = \dfrac{\hbar k_2}{m} \left(\dfrac{2k_1}{k_1+k_2}\right)^2$}
+
+  $E<V_0$:
+
+  \centerline{$j_I = \dfrac{\hbar k_1}{m}$}
+
+  \centerline{$j_R = \dfrac{\hbar k_1}{m} |R|^2 = \dfrac{\hbar k_1}{m} \left(\dfrac{k_1 + i\kappa}{k_1 - i\kappa}\right)^2 = \dfrac{\hbar k_1}{m}$}
+
+  \centerline{$j_S = -\dfrac{i\hbar}{2m} \left(\psi^* \partial_x \psi - \psi \partial_x \psi^*\right) = \dfrac{i\hbar \kappa}{2m} \left( \psi^* \psi - \psi \psi^*\right) = 0$}
+
+  不难验证,对于两种情况,均有$j_I = j_R + j_S$.
+\end{solution}
+\end{document}

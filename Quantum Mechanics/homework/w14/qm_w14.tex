@@ -1,0 +1,542 @@
+\documentclass[12pt, a4paper, oneside]{ctexart}
+\usepackage{amsmath, amsthm, amssymb, bm, xcolor, tikz, framed, graphicx, hyperref, mathrsfs}
+\usepackage{bookmark}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+\newcommand{\bra}[1]{\langle #1 |}
+\newcommand{\ket}[1]{| #1 \rangle}
+\newcommand{\braket}[2]{\langle #1 | #2 \rangle}
+
+\title{Quantum Mechanics Homework (Week 14)}
+\author{Tang Yi \\ [学号已脱敏]}
+\usepackage[a4paper, left=2cm, right=2cm, top=2cm, bottom=2cm]{geometry}
+\linespread{1.3} % 行距更紧凑
+\definecolor{shadecolor}{RGB}{241, 241, 255}
+
+\newcounter{problemname}
+\newenvironment{problem}
+  {\begin{shaded}\stepcounter{problemname}\par\noindent\textbf{题目 \theproblemname. }}
+  {\end{shaded}\par}
+\newenvironment{solution}
+  {\par\noindent\textbf{题目 \theproblemname 的解答. }}
+  {\par}
+\newenvironment{note}
+  {\par\noindent\textbf{题目 \theproblemname 的注记. }}
+  {\par}
+
+\begin{document}
+
+\maketitle
+
+
+\begin{problem}
+  证明：(1) $[j^2, l^2]=0$, (2) $[j^2, \boldsymbol{l} \cdot \boldsymbol{s}]=0$，其中 $\boldsymbol{j} = \boldsymbol{l} + \boldsymbol{s}$。
+\end{problem}
+
+\begin{solution}
+  设总角动量算符
+\[
+\boldsymbol{j} = \boldsymbol{l} + \boldsymbol{s},
+\]
+则
+\[
+j^2 = (\boldsymbol{l}+\boldsymbol{s})^2
+= l^2 + s^2 + 2\,\boldsymbol{l}\cdot\boldsymbol{s}.
+\]
+
+利用轨道角动量与自旋角动量作用在不同自由度上的事实，有
+\[
+[l_i,s_j]=0 \quad (\forall\, i,j),
+\]
+以及角动量的基本对易关系
+\[
+[l^2,l_i]=0,\qquad [s^2,s_i]=0.
+\]
+
+\medskip
+\noindent
+(1)\;证明 $[j^2,l^2]=0$：
+
+\[
+[j^2,l^2]
+=[l^2+s^2+2\,\boldsymbol{l}\cdot\boldsymbol{s},\,l^2].
+\]
+逐项计算：
+\[
+[l^2,l^2]=0,\qquad [s^2,l^2]=0,
+\]
+且
+\[
+[\boldsymbol{l}\cdot\boldsymbol{s},\,l^2]
+=\sum_i [l_i s_i,\,l^2]
+=\sum_i \bigl(l_i[s_i,l^2]+[l_i,l^2]s_i\bigr)=0.
+\]
+因此
+\[
+[j^2,l^2]=0.
+\]
+
+\medskip
+\noindent
+(2)\;证明 $[j^2,\boldsymbol{l}\cdot\boldsymbol{s}]=0$：
+
+\[
+[j^2,\boldsymbol{l}\cdot\boldsymbol{s}]
+=[l^2,\boldsymbol{l}\cdot\boldsymbol{s}]
++[s^2,\boldsymbol{l}\cdot\boldsymbol{s}]
++2[\boldsymbol{l}\cdot\boldsymbol{s},\boldsymbol{l}\cdot\boldsymbol{s}].
+\]
+其中
+\[
+[l^2,\boldsymbol{l}\cdot\boldsymbol{s}]=0,
+\qquad
+[s^2,\boldsymbol{l}\cdot\boldsymbol{s}]
+=\sum_i l_i[s^2,s_i]=0,
+\]
+并且任意算符与自身的对易子恒为零：
+\[
+[\boldsymbol{l}\cdot\boldsymbol{s},\boldsymbol{l}\cdot\boldsymbol{s}]=0.
+\]
+因此
+\[
+[j^2,\boldsymbol{l}\cdot\boldsymbol{s}]=0.
+\]
+\end{solution}
+\begin{problem}
+  求 $\sigma_z$ 在 $|ljm_j\rangle$ 态下的期望值。
+\end{problem}
+
+\begin{solution}
+要求自旋算符 $\sigma_z$ 在耦合表象 $|l j m_j\rangle$ 下的期望值。
+
+由于
+\[
+\boldsymbol{\sigma}=2\boldsymbol{s},
+\]
+只需先计算 $\langle s_z\rangle$。
+
+在角动量耦合态 $|l j m_j\rangle$ 中，有著名结果
+\[
+\langle l j m_j | s_z | l j m_j \rangle
+= \frac{m_j}{2j(j+1)}
+\Bigl[ j(j+1)+s(s+1)-l(l+1) \Bigr].
+\]
+因此
+\[
+\langle \sigma_z \rangle
+=2\langle s_z\rangle
+=\frac{m_j}{j(j+1)}
+\Bigl[ j(j+1)+s(s+1)-l(l+1) \Bigr].
+\]
+
+对于电子自旋 $s=\tfrac12$，有
+\[
+s(s+1)=\frac{3}{4},
+\]
+于是
+\[
+\boxed{
+\langle l j m_j | \sigma_z | l j m_j \rangle
+=\frac{m_j}{j(j+1)}
+\left[
+j(j+1)+\frac{3}{4}-l(l+1)
+\right]
+}.
+\]
+
+该结果表明，自旋在 $z$ 方向的期望值与 $m_j$ 成正比，并由轨道角动量 $l$ 与总角动量 $j$ 的耦合关系决定。
+\end{solution}
+
+
+\begin{problem}
+  写出 $\boldsymbol{l} \cdot \boldsymbol{s}$ 的本征值和本征态。
+\end{problem}
+
+\begin{solution}
+考虑轨道角动量 $\boldsymbol{l}$ 与自旋角动量 $\boldsymbol{s}$，
+定义总角动量
+\[
+\boldsymbol{j}=\boldsymbol{l}+\boldsymbol{s}.
+\]
+由此有恒等式
+\[
+\boldsymbol{j}^2
+=\boldsymbol{l}^2+\boldsymbol{s}^2+2\,\boldsymbol{l}\cdot\boldsymbol{s},
+\]
+从而
+\[
+\boldsymbol{l}\cdot\boldsymbol{s}
+=\frac{1}{2}\bigl(
+\boldsymbol{j}^2-\boldsymbol{l}^2-\boldsymbol{s}^2
+\bigr).
+\]
+
+由于算符 $\boldsymbol{j}^2,\boldsymbol{l}^2,\boldsymbol{s}^2$ 两两对易，
+$\boldsymbol{l}\cdot\boldsymbol{s}$ 的本征态可取为耦合角动量表象
+\[
+|l s j m_j\rangle.
+\]
+
+在该态上，
+\[
+\boldsymbol{j}^2 |l s j m_j\rangle
+= j(j+1)\hbar^2 |l s j m_j\rangle,
+\]
+\[
+\boldsymbol{l}^2 |l s j m_j\rangle
+= l(l+1)\hbar^2 |l s j m_j\rangle,
+\]
+\[
+\boldsymbol{s}^2 |l s j m_j\rangle
+= s(s+1)\hbar^2 |l s j m_j\rangle.
+\]
+因此
+\[
+\boldsymbol{l}\cdot\boldsymbol{s}\,|l s j m_j\rangle
+=\frac{\hbar^2}{2}
+\Bigl[
+j(j+1)-l(l+1)-s(s+1)
+\Bigr]
+|l s j m_j\rangle.
+\]
+
+\medskip
+\noindent
+综上，$\boldsymbol{l}\cdot\boldsymbol{s}$ 的本征态与本征值为
+\[
+\boxed{
+\begin{aligned}
+\text{本征态:}\quad & |l s j m_j\rangle, \\
+\text{本征值:}\quad &
+\frac{\hbar^2}{2}
+\bigl[
+j(j+1)-l(l+1)-s(s+1)
+\bigr].
+\end{aligned}}
+\]
+
+对于电子自旋 $s=\tfrac12$，允许的总角动量为
+\[
+j=l\pm \frac12,
+\]
+对应的本征值分别为
+\[
+\boldsymbol{l}\cdot\boldsymbol{s}
+=
+\begin{cases}
+\displaystyle
+\frac{\hbar^2}{2}\,l, & j=l+\tfrac12, \\[6pt]
+\displaystyle
+-\frac{\hbar^2}{2}\,(l+1), & j=l-\tfrac12.
+\end{cases}
+\]
+\end{solution}
+
+
+\begin{problem}
+  电子球面上运动，考虑自旋轨道耦合，其哈密顿量为：
+$$H = \frac{\boldsymbol{l}^2}{2\mu R^2} + \gamma \boldsymbol{l} \cdot \boldsymbol{s}$$
+
+(1) 求 $l=0, 1$ 情况下的能级，相应的本征态和简并度；
+(2) 若 $t=0$ 时刻电子处于状态 $|l=1, m=1, m_s=-1/2\rangle$，写出 $t>0$ 时刻电子的状态；
+(3) 若自旋轨道耦合的方式变为 $\gamma l_x s_x$，求体系所有的能级。
+\end{problem}
+
+\begin{solution}
+体系哈密顿量为
+\[
+H=\frac{\boldsymbol{l}^2}{2\mu R^2}+\gamma\,\boldsymbol{l}\cdot\boldsymbol{s},
+\qquad s=\frac12 .
+\]
+
+利用恒等式
+\[
+\boldsymbol{l}\cdot\boldsymbol{s}
+=\frac12\bigl(\boldsymbol{j}^2-\boldsymbol{l}^2-\boldsymbol{s}^2\bigr),
+\]
+可得
+\[
+H=\frac{\boldsymbol{l}^2}{2\mu R^2}
++\frac{\gamma}{2}\bigl(\boldsymbol{j}^2-\boldsymbol{l}^2-\boldsymbol{s}^2\bigr).
+\]
+因此 $H$ 与 $\boldsymbol{l}^2,\boldsymbol{j}^2,j_z$ 对易，
+其本征态可取为 $|l s j m_j\rangle$。
+
+\medskip
+\noindent
+(1)\;$l=0,1$ 时的能级、本征态与简并度：
+
+\paragraph{$l=0$：}
+此时只能有
+\[
+j=\frac12.
+\]
+由于 $\boldsymbol{l}\cdot\boldsymbol{s}=0$，
+能量为
+\[
+E_{l=0}
+=0.
+\]
+本征态为
+\[
+|l=0,s=\tfrac12,j=\tfrac12,m_j=\pm\tfrac12\rangle,
+\]
+简并度为
+\[
+g=2.
+\]
+
+\paragraph{$l=1$：}
+此时
+\[
+j=\frac32,\;\frac12.
+\]
+
+当 $j=\frac32$ 时，
+\[
+\boldsymbol{l}\cdot\boldsymbol{s}
+=\frac12,
+\]
+能量为
+\[
+E_{1,3/2}
+=\frac{1(1+1)}{2\mu R^2}
++\frac{\gamma}{2}.
+\]
+简并度
+\[
+g=2j+1=4.
+\]
+
+当 $j=\frac12$ 时，
+\[
+\boldsymbol{l}\cdot\boldsymbol{s}=-1,
+\]
+能量为
+\[
+E_{1,1/2}
+=\frac{1(1+1)}{2\mu R^2}
+-\gamma.
+\]
+简并度
+\[
+g=2j+1=2.
+\]
+
+\medskip
+\noindent
+(2)\;$t=0$ 时处于 $|l=1,m=1,m_s=-\tfrac12\rangle$ 的时间演化：
+
+该态可展开为耦合表象
+\[
+|1,1,-\tfrac12\rangle
+=\sqrt{\frac{1}{3}}\,\Bigl|1,\tfrac32,\tfrac12\Bigr\rangle
+-\sqrt{\frac{2}{3}}\,\Bigl|1,\tfrac12,\tfrac12\Bigr\rangle.
+\]
+
+对应能量分别为 $E_{1,3/2}$ 与 $E_{1,1/2}$。
+因此 $t>0$ 时刻体系状态为
+\[
+\begin{aligned}
+|\psi(t)\rangle
+&=\sqrt{\frac13}\,
+e^{-iE_{1,3/2}t/\hbar}
+\Bigl|1,\tfrac32,\tfrac12\Bigr\rangle
+-\sqrt{\frac23}\,
+e^{-iE_{1,1/2}t/\hbar}
+\Bigl|1,\tfrac12,\tfrac12\Bigr\rangle .
+\end{aligned}
+\]
+
+\medskip
+\noindent
+(3)\;自旋轨道耦合改为 $\gamma l_x s_x$ 的情形：
+
+此时哈密顿量为
+\[
+H=\frac{\boldsymbol{l}^2}{2\mu R^2}+\gamma l_x s_x.
+\]
+
+由于
+\[
+l_x s_x=\frac14
+\bigl(l_+s_+ + l_-s_- + l_+s_- + l_-s_+\bigr),
+\]
+该相互作用在 $|l m\rangle|s m_s\rangle$ 表象中
+只耦合有限个态。
+
+对 $l=0$：
+\[
+l_x s_x=0,
+\qquad
+E=0,
+\]
+简并度为 $2$。
+
+对 $l=1$：
+在基底
+\[
+|1,m\rangle|\tfrac12,m_s\rangle
+\]
+下直接对角化 $l_x s_x$，
+可得其本征值为
+\[
+\lambda=\pm\frac12,\;0.
+\]
+
+因此体系总能级为
+\[
+\boxed{
+E=\frac{1(1+1)}{2\mu R^2}
++\gamma\,\lambda,
+\qquad
+\lambda=\pm\frac12,\;0.
+}
+\]
+
+这些能级不再由 $j$ 表征，
+且简并度由 $l_x s_x$ 的本征值结构决定。
+\end{solution}
+
+
+\begin{problem}
+  考虑一个自旋 $s_1 = 1/2$ 和一个自旋 $s_2 = 1$ 组成的体系，
+(1) 求总自旋 $S^2, S_z$ 的所有本征值和  本征态（用 $s_{1z}$ 和 $s_{2z}$ 的本征态表示，系数查表）；
+(2) 设体系的哈密顿量为 $H = J \boldsymbol{s}_1 \cdot \boldsymbol{s}_2$，求所有的能级及其简并度。
+\end{problem}
+
+\begin{solution}
+考虑两个自旋：
+\[
+s_1=\frac12,\qquad s_2=1,
+\]
+总自旋算符
+\[
+\boldsymbol{S}=\boldsymbol{s}_1+\boldsymbol{s}_2.
+\]
+
+\medskip
+\noindent
+(1)\;总自旋 $S^2,S_z$ 的本征值与本征态：
+
+由角动量合成规则，
+\[
+S = s_2+s_1,\; s_2+s_1-1,\;\dots,\;|s_2-s_1|
+= \frac32,\;\frac12.
+\]
+
+\paragraph{$S=\frac32$ 多重态：}
+\[
+S^2=\frac32\left(\frac32+1\right)\hbar^2=\frac{15}{4}\hbar^2,
+\qquad
+M=\frac32,\frac12,-\frac12,-\frac32.
+\]
+
+对应的本征态为
+\[
+\begin{aligned}
+\Bigl|\tfrac32,\tfrac32\Bigr\rangle
+&=\Bigl|\tfrac12,\tfrac12\Bigr\rangle\,|1,1\rangle,\\[6pt]
+\Bigl|\tfrac32,\tfrac12\Bigr\rangle
+&=\sqrt{\frac{2}{3}}
+\Bigl|\tfrac12,\tfrac12\Bigr\rangle\,|1,0\rangle
++\sqrt{\frac{1}{3}}
+\Bigl|\tfrac12,-\tfrac12\Bigr\rangle\,|1,1\rangle,\\[6pt]
+\Bigl|\tfrac32,-\tfrac12\Bigr\rangle
+&=\sqrt{\frac{2}{3}}
+\Bigl|\tfrac12,-\tfrac12\Bigr\rangle\,|1,0\rangle
++\sqrt{\frac{1}{3}}
+\Bigl|\tfrac12,\tfrac12\Bigr\rangle\,|1,-1\rangle,\\[6pt]
+\Bigl|\tfrac32,-\tfrac32\Bigr\rangle
+&=\Bigl|\tfrac12,-\tfrac12\Bigr\rangle\,|1,-1\rangle.
+\end{aligned}
+\]
+
+\paragraph{$S=\frac12$ 多重态：}
+\[
+S^2=\frac12\left(\frac12+1\right)\hbar^2=\frac34\hbar^2,
+\qquad
+M=\frac12,-\frac12.
+\]
+
+对应的本征态为
+\[
+\begin{aligned}
+\Bigl|\tfrac12,\tfrac12\Bigr\rangle
+&=\sqrt{\frac{1}{3}}
+\Bigl|\tfrac12,\tfrac12\Bigr\rangle\,|1,0\rangle
+-\sqrt{\frac{2}{3}}
+\Bigl|\tfrac12,-\tfrac12\Bigr\rangle\,|1,1\rangle,\\[6pt]
+\Bigl|\tfrac12,-\tfrac12\Bigr\rangle
+&=\sqrt{\frac{1}{3}}
+\Bigl|\tfrac12,-\tfrac12\Bigr\rangle\,|1,0\rangle
+-\sqrt{\frac{2}{3}}
+\Bigl|\tfrac12,\tfrac12\Bigr\rangle\,|1,-1\rangle.
+\end{aligned}
+\]
+
+\medskip
+\noindent
+(2)\;哈密顿量 $H=J\,\boldsymbol{s}_1\cdot\boldsymbol{s}_2$ 的能级与简并度：
+
+利用恒等式
+\[
+\boldsymbol{s}_1\cdot\boldsymbol{s}_2
+=\frac12\bigl(
+\boldsymbol{S}^2-\boldsymbol{s}_1^2-\boldsymbol{s}_2^2
+\bigr),
+\]
+其中
+\[
+\boldsymbol{s}_1^2=\frac34\hbar^2,
+\qquad
+\boldsymbol{s}_2^2=2\hbar^2.
+\]
+
+\paragraph{$S=\frac32$：}
+\[
+\boldsymbol{s}_1\cdot\boldsymbol{s}_2
+=\frac12\left(\frac{15}{4}-\frac34-2\right)\hbar^2
+=\frac12\hbar^2,
+\]
+因此能量为
+\[
+E_{3/2}=\frac{J}{2}\hbar^2,
+\]
+简并度
+\[
+g=2S+1=4.
+\]
+
+\paragraph{$S=\frac12$：}
+\[
+\boldsymbol{s}_1\cdot\boldsymbol{s}_2
+=\frac12\left(\frac34-\frac34-2\right)\hbar^2
+=-\hbar^2,
+\]
+因此能量为
+\[
+E_{1/2}=-J\hbar^2,
+\]
+简并度
+\[
+g=2S+1=2.
+\]
+
+\medskip
+\noindent
+综上，体系共有两个能级：
+\[
+\boxed{
+\begin{array}{c|c|c}
+S & E & \text{简并度} \\
+\hline
+\frac32 & \dfrac{J}{2}\hbar^2 & 4 \\
+\frac12 & -J\hbar^2 & 2
+\end{array}
+}
+\]
+\end{solution}
+
+\end{document}

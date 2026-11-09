@@ -1,0 +1,254 @@
+\documentclass[12pt, a4paper, oneside]{ctexart}
+\usepackage{amsmath, textcomp,siunitx,amsthm, amssymb, bm, xcolor, tikz, framed, graphicx, hyperref, mathrsfs}
+
+\title{Statistical Mechanics Homework (Chapter2)}
+\author{Tang Yi \\ [学号已脱敏]}
+\usepackage[a4paper, left=2cm, right=2cm, top=2cm, bottom=2cm]{geometry}
+\linespread{1.3} % 行距更紧凑
+\definecolor{shadecolor}{RGB}{241, 241, 255}
+
+\newcounter{problemname}
+\newenvironment{problem}
+  {\begin{shaded}\stepcounter{problemname}\par\noindent\textbf{题目 \theproblemname. }}
+  {\end{shaded}\par}
+\newenvironment{solution}
+  {\par\noindent\textbf{题目 \theproblemname 的解答. }}
+  {\par}
+\newenvironment{note}
+  {\par\noindent\textbf{题目 \theproblemname 的注记. }}
+  {\par}
+
+
+\newcommand{\dbar}{\; \bar{} \hspace{-0.3em} \mathrm d}
+\newcommand{\tpar}[3]{\left(\dfrac{\partial #1}{\partial #2}\right)_{#3}}
+\begin{document}
+
+\maketitle
+
+\begin{problem}{2-2}
+  证明以下各式:
+
+  (a)$\tpar{U}{p}{V} = - T \tpar{V}{T}{S}$;
+
+  (b)$\tpar{U}{V}{p} = T \tpar{p}{T}{S} - p$;
+
+  (c)$\tpar{U}{p}{T} = -T \tpar{V}{T}{p} - p\tpar{V}{p}{T}$;
+
+  (d)$U = -T^2 \tpar{(F/T)}{T}{V}$;
+
+  (e)$H = -T^2 \tpar{(G/T)}{T}{p}$;
+
+  (f)$\tpar{T}{V}{S} = -\dfrac{T}{C_V}\tpar{p}{T}{V}$;
+
+  (g)$\tpar{T}{p}{S} = \dfrac{TV\alpha}{C_p}$.
+
+  在(g)中, $\alpha$为定压膨胀系数.由此证明水在$0\,^\circ\mathrm{C}$与$4\,^\circ\mathrm{C}$之间有$\tpar{T}{p}{S}<0$,这说明什么问题?
+\end{problem}
+
+\begin{solution}
+  (a)
+  \begin{align*}
+    \mathrm{RHS} &= -\tpar{U}{S}{V} \tpar{V}{T}{S} \\
+    &= \tpar{U}{S}{V} \tpar{S}{p}{V} = \tpar{U}{p}{V} = \mathrm{LHS}
+  \end{align*}
+
+  (b)
+  \begin{align*}
+    \mathrm{RHS} &= \tpar{U}{S}{V} \tpar{S}{V}{p} + \tpar{U}{V}{S} \\
+    &=\tpar{U}{V}{p} = \mathrm{LHS}
+  \end{align*}
+
+  (c)
+  \begin{align*}
+    \mathrm{RHS} &= -\tpar{U}{S}{p} \tpar{V}{T}{p} + \tpar{U}{V}{S} \tpar{V}{p}{T} \\
+    &= \tpar{U}{S}{p} \tpar{S}{p}{T} + \tpar{U}{V}{S} \tpar{V}{p}{T} \\
+    &= \tpar{U}{p}{T} = \mathrm{LHS}
+  \end{align*}
+
+  (d)
+  \begin{align*}
+    \mathrm{RHS} &= -T^2 \left( \left[\dfrac{\partial(U/T)}{\partial T}\right]_V - \tpar{S}{T}{V}\right)\\
+    &= -T^2 \left( -\dfrac{U}{T^2} + \dfrac{1}{T} \tpar{U}{T}{V} - \tpar{S}{T}{V}\right)\\
+    &= U + T^2 \left(\tpar{S}{U}{V}\tpar{U}{T}{V} -\tpar{S}{T}{V} \right)\\
+    &= U = \mathrm{LHS}
+  \end{align*}
+
+  (e)
+  \begin{align*}
+    \mathrm{RHS} &= -T^2 \left( \left[\dfrac{\partial(H/T)}{\partial T}\right]_p - \tpar{S}{T}{p}\right)\\
+    &= -T^2 \left( -\dfrac{H}{T^2} + \dfrac{1}{T} \tpar{H}{T}{p} - \tpar{S}{T}{p}\right)\\
+    &= H + T^2 \left(\tpar{S}{H}{p}\tpar{H}{T}{p} -\tpar{S}{T}{p} \right)\\
+    &= H = \mathrm{LHS}
+  \end{align*}
+
+  (f)
+  \begin{align*}
+    \mathrm{RHS} &= -\dfrac{\tpar{U}{S}{V}}{\tpar{U}{T}{V}} \tpar{p}{T}{V} \\
+    &= - \tpar{U}{S}{V} \tpar{p}{U}{V} \\
+    &= - \tpar{p}{S}{V} = \tpar{T}{V}{S} = \mathrm{LHS}
+  \end{align*}
+
+  (g)
+  \begin{align*}
+    \mathrm{RHS} &= \dfrac{\tpar{H}{S}{p} V\dfrac{1}{V} \tpar{V}{T}{p}}{\tpar{H}{T}{p}} \\
+    &=\tpar{V}{S}{p} = \tpar{T}{p}{S} = \mathrm{LHS}
+  \end{align*}
+
+  水在$0\,^\circ\mathrm{C}$与$4\,^\circ\mathrm{C}$之间,水具有异常热胀冷缩行为——随温度升高密度先增加而后减,因此此时$\alpha<0$.
+  同时由于$C_p,T,V>0$,则$\tpar{T}{p}{S} < 0$.
+
+  这说明在这个区间内做等熵过程,加压的同时温度还会降低.这是水的特殊结构导致的.
+\end{solution}
+
+\begin{problem}{2-3}
+  证明每物质的量范德瓦尔斯气体,有
+
+  \centerline{$c_p - c_V = \dfrac{R}{1 - \dfrac{2a(v-b)^2}{RTv^3}}$}
+\end{problem}
+
+\begin{solution}
+  由定义,不难有
+
+  \centerline{$c_p = \tpar{H}{T}{p},c_V = \tpar{U}{T}{V}$}
+  
+  因此我们想到
+  \begin{align*}
+    \mathrm{d} U &= T \mathrm{d}S - p \mathrm{d}V\\
+    &=T \left[\tpar{S}{T}{V} \mathrm{d}T + \tpar{S}{V}{T} \mathrm{d}V\right] - p\mathrm{d}V \\
+    &=T\tpar{S}{T}{V} \mathrm{d}T + \left[ T\tpar{S}{V}{T} - p\right] \mathrm{d}V
+  \end{align*}
+
+  因此,有
+
+  \centerline{$c_V = T \tpar{S}{T}{V}$}
+
+  同理有
+
+  \centerline{$c_p = T \tpar{S}{T}{p}$}
+
+  由此,有
+  \begin{align*}
+    c_p - c_V &= T \left[ \tpar{S}{T}{p} - \tpar{S}{T}{V}\right] \\
+    &= T \tpar{S}{V}{T} \tpar{V}{T}{p} \\
+    &= T \tpar{p}{T}{V} \tpar{V}{T}{p}
+  \end{align*}
+
+  现在,我们再代入物态方程
+
+  \centerline{$\left(p+\dfrac{a}{v^2}\right)\left(v-b\right) = RT$}
+
+  化简后,不难得证
+
+  \centerline{$c_p - c_V = \dfrac{R}{1 - \dfrac{2a(v-b)^2}{RTv^3}}$}
+\end{solution}
+
+\begin{problem}{2-4}
+  证明:
+
+  \centerline{$\tpar{C_V}{V}{T} = T \tpar{^2p}{T^2}{V}$}
+\end{problem}
+
+\begin{align*}
+  \mathrm{LHS} &= \tpar{\left[T \tpar{S}{T}{V}\right]}{V}{T} \\
+  &= T \tpar{\left[\tpar{S}{T}{V}\right]}{V}{T} \\
+  &= T \tpar{\left[\tpar{S}{V}{T}\right]}{T}{V} \\
+  &= T \tpar{\left[\tpar{p}{T}{V}\right]}{T}{V} \\
+  &= T \tpar{^2p}{T^2}{V} = \mathrm{RHS}
+\end{align*}
+
+\begin{problem}{2-5}
+  计算$1\mathrm{mol}$范德瓦尔斯气体的内能和熵作为温度和体积的函数.
+\end{problem}
+
+\begin{solution}
+  \begin{align*}
+    \mathrm{d}S &= \tpar{S}{T}{V} \mathrm{d}T + \tpar{S}{v}{T} \mathrm{d}v \\
+    &= \dfrac{c_V}{T} \mathrm{d}T + \tpar{p}{T}{v} \mathrm{d}v\\
+    &= \dfrac{c_V}{T} \mathrm{d}T + \dfrac{R}{v-b} \mathrm{d}v
+  \end{align*}
+
+  两边积分,有
+
+  \centerline{$S = \displaystyle\int \dfrac{c_V}{T}\mathrm{d}T + R\ln(v-b) + S_0$}
+
+  \begin{align*}
+    \mathrm{d}U &= T \mathrm{d}S - p \mathrm{d}v \\
+    &=T \left(\dfrac{c_V}{T} \mathrm{d}T + \dfrac{R}{v-b} \mathrm{d}v\right) - p \mathrm{d}v \\
+    &=c_V \mathrm{d}T - \left(p-\dfrac{RT}{v-b}\right) \mathrm{d}v\\
+    &=c_V \mathrm{d}T + \left(\dfrac{a}{v^2}\right) \mathrm{d}v\\
+  \end{align*}
+
+  两边积分,有
+
+  \centerline{$U = \displaystyle\int c_V\mathrm{d}T - \dfrac{a}{v} +U_0$}
+\end{solution}
+\begin{problem}{2-6}
+  对某种气体的膨胀系数和压缩系数进行测量的结果如下:
+
+  \centerline{$\tpar{V}{T}{p} = \dfrac{R}{p} +\dfrac{a}{T^2}$,$\tpar{V}{p}{T} = -T f(p)$}
+
+  其中,$a$为常量,$f(p)$只是$p$的函数.在低压下,$1\mathrm{mol}$气体的定压热容为$\dfrac{5}{2} R$.证明:
+
+  (a)$f(p) = \dfrac{R}{p^2}$;(b)物态方程为$pV = RT - \dfrac{ap}{T}$;(c)$C_p = \dfrac{2ap}{T^2}+\dfrac{5}{2}R$.
+\end{problem}
+
+\begin{solution}
+  (a)由偏导算子可对易,有
+
+  \centerline{$\tpar{\left[\dfrac{R}{p}+\dfrac{a}{T^2}\right]}{p}{T} = \tpar{\left(- T f(p)\right)}{T}{p}$}
+
+  化简即可得
+
+  \centerline{$f(p) = \dfrac{R}{p^2}$}
+
+  (b)
+  \begin{align*}
+    \mathrm{d}V &= \tpar{V}{T}{p} \mathrm{d}T + \tpar{V}{p}{T} \mathrm{d}p \\
+    &= \left(\dfrac{R}{p}+\dfrac{a}{T^2} \right)\mathrm{d}T - \dfrac{RT}{p^2} \mathrm{d}p \\
+    &= \mathrm{d} \left(\dfrac{RT}{p} - \dfrac{a}{T}\right)
+  \end{align*}
+
+  因此,$V = \dfrac{RT}{p} - \dfrac{a}{T} + C$.当$T \to \infty$,由于退化为理想气体,则$C = 0$.
+
+  综上,证明到,物态方程为$pV = RT - \dfrac{ap}{T}$.
+
+  (c)
+  \begin{align*}
+    \mathrm{d}S &= \tpar{S}{T}{p} \mathrm{d} T + \tpar{S}{p}{T} \mathrm{d} p \\
+    &= \dfrac{C_p}{T} \mathrm{d}T - \tpar{V}{T}{p} \mathrm{d}p \\
+    &= \dfrac{C_p}{T} \mathrm{d}T - \left(\dfrac{R}{p} +\dfrac{a}{T^2}\right) \mathrm{d}p \\
+  \end{align*}
+
+  由于偏导算子可对易,则
+
+  \centerline{$\tpar{(C_p/T)}{p}{T} = \left( \dfrac{\partial}{\partial T} \left(\dfrac{R}{p} +\dfrac{a}{T^2}\right)\right)_p$}
+
+  化简后,即有
+
+  \centerline{$\tpar{C_p}{p}{T} = \dfrac{2a}{T^2}$}
+
+  因此,有
+
+  \centerline{$\mathrm{d} C_p = \dfrac{2a}{T^2} \mathrm{d}p + \varphi(p,T) \mathrm{d}T$}
+
+  由偏导算子可对易,有
+
+  \centerline{$-\dfrac{4a}{T^3} = \tpar{\varphi}{p}{T}$}
+
+  两侧积分后,有
+  
+  \centerline{$\varphi(p,T) = -\dfrac{4ap}{T^3} + \phi(T)$}
+
+  代入,整理有
+
+  \centerline{$\mathrm{d}C_p = \mathrm{d}\left(\dfrac{2ap}{T^2} + \Psi(T)\right) $}
+
+  因此,
+
+  \centerline{$C_p = \dfrac{2ap}{T^2} + \varPsi(T)$}
+
+  当$p \to 0$时,$C_p \to \varPsi(T) = \dfrac{5}{2}R$.综上,有
+
+  \centerline{$C_p = \dfrac{2ap}{T^2} + \dfrac{5}{2}R$}
+\end{solution}
+\end{document}

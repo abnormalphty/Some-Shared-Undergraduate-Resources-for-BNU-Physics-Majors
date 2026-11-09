@@ -1,0 +1,687 @@
+\documentclass[12pt, a4paper, oneside]{ctexart}
+\usepackage{amsmath, textcomp,siunitx,amsthm, amssymb, bm, xcolor, tikz, framed, graphicx, hyperref, mathrsfs}
+
+\title{Statistical Mechanics Homework (Chapter7)}
+\author{Tang Yi \\ [学号已脱敏]}
+\usepackage[a4paper, left=2cm, right=2cm, top=2cm, bottom=2cm]{geometry}
+\linespread{1.3} % 行距更紧凑
+\definecolor{shadecolor}{RGB}{241, 241, 255}
+
+\newcounter{problemname}
+\newenvironment{problem}
+  {\begin{shaded}\stepcounter{problemname}\par\noindent\textbf{题目 \theproblemname. }}
+  {\end{shaded}\par}
+\newenvironment{solution}
+  {\par\noindent\textbf{题目 \theproblemname 的解答. }}
+  {\par}
+\newenvironment{note}
+  {\par\noindent\textbf{题目 \theproblemname 的注记. }}
+  {\par}
+
+
+\newcommand{\dbar}{\; \bar{} \hspace{-0.3em} \mathrm d}
+\newcommand{\tpar}[3]{\left(\dfrac{\partial #1}{\partial #2}\right)_{#3}}
+\begin{document}
+
+\maketitle
+
+\begin{problem}{7-1}
+  一系统由两个互相独立的粒子组成，每个粒子可占据能级 $\epsilon_n = n\epsilon$ ($n = 0, 1, 3$) 中的任何一个，系统与温度为 $T$ 的大热源接触。就下列各情况写出系统的配分函数：
+
+(a) 粒子是可分辨的；
+
+(b) 粒子是不可分辨的，不受泡利原理的限制；
+
+(c) 粒子是不可分辨的，受泡利原理的限制。
+\end{problem}
+
+\begin{solution}
+  \textbf{单粒子配分函数}
+
+单个粒子可以取能级 $0,\epsilon,3\epsilon$，因此
+\[
+Z_1=\sum_{n} e^{-\beta \epsilon_n}
+=1+e^{-\beta\epsilon}+e^{-3\beta\epsilon}.
+\]
+
+\textbf{(a) 粒子可分辨}
+
+两个粒子相互独立且可分辨，总配分函数为单粒子配分函数的平方：
+\[
+Z^{(a)} = Z_1^2
+= \left(1+e^{-\beta\epsilon}+e^{-3\beta\epsilon}\right)^2.
+\]
+
+\textbf{(b) 粒子不可分辨，不受泡利原理限制（玻色型）}
+
+两粒子可以占据同一能级。系统配分函数等于所有
+$n_1\le n_2$ 的能级组合的玻尔兹曼因子之和：
+\[
+Z^{(b)}=\sum_{n_1\le n_2} e^{-\beta(\epsilon_{n_1}+\epsilon_{n_2})}.
+\]
+
+逐项列出允许的占据方式：
+\[
+\begin{aligned}
+Z^{(b)}={}&
+e^{-\beta(0+0)}
++e^{-\beta(0+\epsilon)}
++e^{-\beta(0+3\epsilon)} \\
+&+e^{-\beta(\epsilon+\epsilon)}
++e^{-\beta(\epsilon+3\epsilon)}
++e^{-\beta(3\epsilon+3\epsilon)} .
+\end{aligned}
+\]
+
+化简得
+\[
+Z^{(b)}=
+1+e^{-\beta\epsilon}
++e^{-3\beta\epsilon}
++e^{-2\beta\epsilon}
++e^{-4\beta\epsilon}
++e^{-6\beta\epsilon}.
+\]
+
+\textbf{(c) 粒子不可分辨，受泡利原理限制（费米型）}
+
+每个能级最多只能被一个粒子占据，因此只能取
+$n_1<n_2$：
+\[
+Z^{(c)}=\sum_{n_1<n_2} e^{-\beta(\epsilon_{n_1}+\epsilon_{n_2})}.
+\]
+
+允许的能级组合为 $(0,\epsilon),(0,3\epsilon),(\epsilon,3\epsilon)$，
+于是
+\[
+Z^{(c)}=
+e^{-\beta\epsilon}
++e^{-3\beta\epsilon}
++e^{-4\beta\epsilon}.
+\]
+\end{solution}
+
+\begin{problem}{7-2}
+  假设极端相对论电子的能量 $\epsilon$ 与动量 $p$ 之间有如下的关系：
+$$\epsilon = cp$$
+其中 $c$ 是光速。计算 $T = 0\text{ K}$ 时，该理想电子气体的费米能和内能。
+\end{problem}
+
+\begin{solution}
+  \textbf{问题设定}
+
+极端相对论电子满足色散关系
+\[
+\epsilon = cp,
+\]
+电子自旋简并度为 $g=2$，体系体积为 $V$，电子数为 $N$。
+
+在 $T=0$ K 时，所有电子从最低能级开始依次填充动量态，直到费米动量 $p_F$。
+
+\textbf{1. 费米动量与费米能}
+
+动量空间中态密度为
+\[
+\frac{gV}{(2\pi\hbar)^3}.
+\]
+
+粒子数为
+\[
+N = g\frac{V}{(2\pi\hbar)^3}\int_0^{p_F}4\pi p^2\,dp
+= g\frac{V}{6\pi^2\hbar^3}p_F^3.
+\]
+
+代入 $g=2$，得到
+\[
+p_F = \hbar(3\pi^2 n)^{1/3}, \qquad n=\frac{N}{V}.
+\]
+
+由于 $\epsilon_F = cp_F$，费米能为
+\[
+\boxed{
+\epsilon_F = \hbar c\,(3\pi^2 n)^{1/3}
+}.
+\]
+
+\textbf{2. 内能}
+
+总内能为
+\[
+U = g\frac{V}{(2\pi\hbar)^3}\int_0^{p_F} cp\,4\pi p^2\,dp
+= g\frac{4\pi cV}{(2\pi\hbar)^3}\int_0^{p_F} p^3\,dp.
+\]
+
+计算积分并代入 $g=2$：
+\[
+U = \frac{V}{4\pi^2\hbar^3}c\,p_F^4.
+\]
+
+用 $p_F=\epsilon_F/c$ 化简：
+\[
+U = \frac{3}{4}N\epsilon_F.
+\]
+
+因此
+\[
+\boxed{
+U = \frac{3}{4}N\,\epsilon_F
+}.
+\]
+
+\textbf{最终结果汇总}
+
+\[
+\boxed{
+\epsilon_F = \hbar c\,(3\pi^2 n)^{1/3}, \qquad
+U = \frac{3}{4}N\epsilon_F
+}
+\]
+\end{solution}
+
+\begin{problem}{7-3}
+  有 $N$ 个费米子，在面积为 $A$ 的二维空间中自由运动。若能谱为 $\epsilon = \frac{p^2}{2m}$，自旋可以取向上和向下两种方向。计算：
+
+  (a) 态密度 $D(\epsilon)$；
+
+  (b) $T = 0\text{ K}$ 时的化学势；
+
+  (c) 单粒子的平均能量。
+\end{problem}
+
+\begin{solution}
+  \textbf{(a) 态密度 $D(\epsilon)$}
+
+二维动量空间中，单位面积的态密度为
+\[
+\frac{g}{(2\pi\hbar)^2}.
+\]
+
+能量小于 $\epsilon$ 的态数（单位面积）为
+\[
+\frac{N(\epsilon)}{A}
+= \frac{g}{(2\pi\hbar)^2}\int_{p^2\le 2m\epsilon} d^2p
+= \frac{g}{(2\pi\hbar)^2}\,\pi p^2
+= \frac{g m}{2\pi\hbar^2}\,\epsilon.
+\]
+
+因此态密度（每单位能量、每单位面积）为
+\[
+D(\epsilon)=\frac{d}{d\epsilon}\!\left(\frac{N(\epsilon)}{A}\right)
+= \frac{g m}{2\pi\hbar^2}.
+\]
+
+代入 $g=2$，得
+\[
+\boxed{\,D(\epsilon)=\frac{m}{\pi\hbar^2}\,}
+\]
+（与能量无关，这是二维体系的特征）。
+
+\textbf{(b) $T=0\text{ K}$ 时的化学势}
+
+在 $T=0$ K，化学势等于费米能 $\mu=\epsilon_F$。
+粒子面密度 $n=N/A$ 满足
+\[
+n=\int_0^{\epsilon_F} D(\epsilon)\,d\epsilon
+= \frac{m}{\pi\hbar^2}\,\epsilon_F.
+\]
+
+解得
+\[
+\boxed{\,\mu(T=0)=\epsilon_F=\frac{\pi\hbar^2}{m}\,n
+=\frac{\pi\hbar^2}{m}\frac{N}{A}\, }.
+\]
+
+\textbf{(c) 单粒子的平均能量}
+
+总内能为
+\[
+U = A\int_0^{\epsilon_F}\epsilon\,D(\epsilon)\,d\epsilon
+= A\frac{m}{\pi\hbar^2}\frac{\epsilon_F^2}{2}.
+\]
+
+而粒子总数
+\[
+N=A\frac{m}{\pi\hbar^2}\epsilon_F.
+\]
+
+因此单粒子的平均能量为
+\[
+\boxed{\,\frac{U}{N}=\frac{1}{2}\epsilon_F
+=\frac{1}{2}\mu(T=0)\, }.
+\]
+\end{solution}
+
+\begin{problem}{7-4}
+  某种样品中的电子服从费米分布，其态密度有如下特征：
+$$D(\epsilon) = \begin{cases} 0, & \epsilon < 0 \\ D_0, & \epsilon \ge 0 \end{cases}$$
+电子总数为 $N$。试求：
+
+(a) $T = 0\text{ K}$ 时的化学势 $\mu(0)$ 和总能量 $E_0$；
+
+(b) 证明系统的非简并条件为：$T \gg \frac{N}{D_0 k_B}$；
+
+(c) 证明当系统强烈简并时，$C_V \propto T$。
+\end{problem}
+
+\begin{solution}
+  \textbf{(a) $T=0\text{ K}$ 时的化学势与总能量}
+
+在 $T=0$ K，费米分布退化为阶跃函数：
+\[
+f(\epsilon)=
+\begin{cases}
+1, & \epsilon<\mu(0),\\
+0, & \epsilon>\mu(0).
+\end{cases}
+\]
+
+电子总数为
+\[
+N=\int_0^{\mu(0)} D_0\,d\epsilon
+= D_0\,\mu(0),
+\]
+因此
+\[
+\boxed{\mu(0)=\frac{N}{D_0}}.
+\]
+
+总能量为
+\[
+E_0=\int_0^{\mu(0)} \epsilon D_0\,d\epsilon
+= D_0\frac{\mu(0)^2}{2}.
+\]
+
+代入 $\mu(0)=N/D_0$，得到
+\[
+\boxed{
+E_0=\frac{N^2}{2D_0}
+}.
+\]
+
+\textbf{(b) 非简并条件}
+
+非简并条件意味着体系服从经典极限，
+即费米分布可近似为玻尔兹曼分布：
+\[
+f(\epsilon)\simeq e^{-\beta(\epsilon-\mu)}.
+\]
+
+这要求
+\[
+\mu \ll -k_BT,
+\]
+或者等价地，
+\[
+|\mu|\ll k_BT.
+\]
+
+而 $T=0$ K 时的特征能标为
+\[
+\mu(0)=\frac{N}{D_0}.
+\]
+
+因此，非简并条件要求热能远大于该特征能量：
+\[
+k_BT \gg \mu(0)=\frac{N}{D_0}.
+\]
+
+即
+\[
+\boxed{
+T \gg \frac{N}{D_0 k_B}
+}.
+\]
+
+\textbf{(c) 强烈简并极限下的定容热容}
+
+在强烈简并条件下
+\[
+k_BT \ll \mu(0),
+\]
+只有费米面附近、能量宽度约 $k_BT$ 的电子
+能够被热激发。
+
+在该模型中，态密度为常数 $D_0$，
+被激发的电子数阶为
+\[
+\Delta N \sim D_0 k_BT.
+\]
+
+每个被激发电子贡献的能量阶为 $k_BT$，
+因此内能相对 $T=0$ K 的修正为
+\[
+\Delta E \sim D_0 (k_BT)^2.
+\]
+
+定容热容为
+\[
+C_V=\left(\frac{\partial E}{\partial T}\right)_V
+\sim 2D_0 k_B^2 T.
+\]
+
+因此得到线性关系
+\[
+\boxed{
+C_V \propto T
+}.
+\]
+
+这正是费米液体在低温强简并区的普遍特征。
+\end{solution}
+
+\begin{problem}{7-5}
+  有一相对论完全退化的电子气体，其能量-动量关系为 $\epsilon^2 = c^2p^2 + m_0^2c^4$，式中 $c$ 为光速，$m_0$ 为电子的静止质量，试用费米能 $\epsilon_F$ 将数密度表示出来。
+\end{problem}
+
+\begin{solution}
+  \textbf{问题设定}
+
+电子满足相对论色散关系
+\[
+\epsilon^2 = c^2 p^2 + m_0^2 c^4,
+\]
+自旋简并度为 $g=2$。在 $T=0$ K 时，电子从最低能态开始填充，
+直到费米动量 $p_F$，对应费米能 $\epsilon_F$。
+
+\textbf{1. 费米动量与费米能的关系}
+
+由色散关系，在费米面上有
+\[
+\epsilon_F^2 = c^2 p_F^2 + m_0^2 c^4,
+\]
+因此
+\[
+p_F = \frac{1}{c}\sqrt{\epsilon_F^2 - m_0^2 c^4}.
+\]
+
+\textbf{2. 数密度的计算}
+
+动量空间中单位体积的态密度为
+\[
+\frac{g}{(2\pi\hbar)^3}.
+\]
+
+数密度 $n=N/V$ 为
+\[
+n = g\frac{1}{(2\pi\hbar)^3}\int_0^{p_F}4\pi p^2\,dp
+= g\frac{1}{6\pi^2\hbar^3}p_F^3.
+\]
+
+代入 $g=2$，得到
+\[
+n = \frac{1}{3\pi^2\hbar^3}p_F^3.
+\]
+
+\textbf{3. 用费米能表示数密度}
+
+将
+\[
+p_F = \frac{1}{c}\sqrt{\epsilon_F^2 - m_0^2 c^4}
+\]
+代入上式，得到
+\[
+\boxed{
+n
+= \frac{1}{3\pi^2\hbar^3 c^3}
+\left(\epsilon_F^2 - m_0^2 c^4\right)^{3/2}
+}.
+\]
+
+\textbf{最终结果}
+
+\[
+\boxed{
+n(\epsilon_F)
+= \frac{1}{3\pi^2\hbar^3 c^3}
+\left(\epsilon_F^2 - m_0^2 c^4\right)^{3/2}
+}
+\]
+\end{solution}
+
+\begin{problem}{7-6}
+  二维光子气体处于面积为 $A$、温度等于 $T$ 的平衡态。试就此情况导出普朗克公式及相应的斯特藩-玻耳兹曼定律。
+\end{problem}
+
+\begin{solution}
+  \textbf{问题设定}
+
+二维光子气体处于面积为 $A$、温度为 $T$ 的平衡态。
+光子满足色散关系
+\[
+\epsilon=\hbar\omega=\hbar c k,
+\]
+且光子数不守恒，因此化学势
+\[
+\mu=0.
+\]
+
+光子在二维中有两个独立偏振态，简并度 $g=2$。
+
+\textbf{1. 二维光子的态密度}
+
+二维 $k$ 空间中，单位面积的态密度为
+\[
+\frac{1}{(2\pi)^2}.
+\]
+
+波矢大小在 $k$ 到 $k+dk$ 之间的态数为
+\[
+dN_k = g \frac{A}{(2\pi)^2} 2\pi k\,dk.
+\]
+
+由 $\omega=ck$，$dk=d\omega/c$，得频率态密度
+\[
+D(\omega)\,d\omega
+= g\frac{A}{2\pi c^2}\,\omega\,d\omega.
+\]
+
+\textbf{2. 二维普朗克公式}
+
+频率在 $(\omega,\omega+d\omega)$ 内的平均能量为
+\[
+u(\omega)\,d\omega
+= \hbar\omega\,D(\omega)\,
+\frac{1}{e^{\beta\hbar\omega}-1}\,d\omega.
+\]
+
+代入态密度，得到二维普朗克公式：
+\[
+\boxed{
+u(\omega)
+= \frac{gA}{2\pi c^2}
+\frac{\hbar\omega^2}{e^{\hbar\omega/k_BT}-1}
+}.
+\]
+
+这表示二维光子气体的\textbf{谱能量分布}。
+
+\textbf{3. 总能量密度}
+
+体系总能量为
+\[
+U=\int_0^\infty u(\omega)\,d\omega
+= \frac{gA\hbar}{2\pi c^2}
+\int_0^\infty
+\frac{\omega^2}{e^{\hbar\omega/k_BT}-1}\,d\omega.
+\]
+
+令
+\[
+x=\frac{\hbar\omega}{k_BT},
+\]
+则
+\[
+U=\frac{gA}{2\pi c^2}
+\frac{(k_BT)^3}{\hbar^2}
+\int_0^\infty\frac{x^2}{e^x-1}\,dx.
+\]
+
+利用积分公式
+\[
+\int_0^\infty\frac{x^2}{e^x-1}\,dx=2\zeta(3),
+\]
+得到
+\[
+U
+= \frac{gA}{\pi c^2}
+\frac{(k_BT)^3}{\hbar^2}\zeta(3).
+\]
+
+单位面积能量密度为
+\[
+\boxed{
+\frac{U}{A}
+= \frac{g\zeta(3)}{\pi c^2}
+\frac{(k_BT)^3}{\hbar^2}
+}.
+\]
+
+\textbf{4. 二维斯特藩–玻耳兹曼定律}
+
+二维光子气体的总能量密度随温度的依赖关系为
+\[
+\frac{U}{A}\propto T^3.
+\]
+
+因此二维斯特藩–玻耳兹曼定律为
+\[
+\boxed{
+\frac{U}{A}
+= \sigma_{2D}\,T^3,
+\qquad
+\sigma_{2D}
+= \frac{g\zeta(3)}{\pi c^2}
+\frac{k_B^3}{\hbar^2}
+}.
+\]
+
+其中 $\sigma_{2D}$ 是二维斯特藩–玻耳兹曼常数。
+\end{solution}
+
+\begin{problem}{7-7}
+  对于光子气体，试证明存在下列关系式：
+$$pV = \frac{1}{3}U$$
+式中 $p$ 为压强，$V$ 为体积，$U$ 为内能。并分析与非相对论结果不同的原因。
+\end{problem}
+
+\begin{solution}
+  \textbf{一、光子气体中压强与内能的关系}
+
+光子满足相对论色散关系
+\[
+\epsilon = pc,
+\]
+且光子数不守恒，化学势
+\[
+\mu=0.
+\]
+
+\textbf{(1) 压强的动量输运定义}
+
+压强等于单位时间、单位面积上传递的动量的法向分量。
+对一群以各向同性方式分布的粒子，有
+\[
+p=\frac{1}{3V}\sum_i p_i v_i,
+\]
+其中 $p_i$ 为动量大小，$v_i$ 为速度大小。
+
+\textbf{(2) 对光子代入动力学关系}
+
+光子的速度恒为
+\[
+v=c,
+\]
+且
+\[
+\epsilon_i = p_i c.
+\]
+
+于是
+\[
+p=\frac{1}{3V}\sum_i p_i c
+=\frac{1}{3V}\sum_i \epsilon_i.
+\]
+
+而总内能定义为
+\[
+U=\sum_i \epsilon_i,
+\]
+因此得到
+\[
+\boxed{
+p=\frac{1}{3}\frac{U}{V}
+}
+\quad\Longrightarrow\quad
+\boxed{
+pV=\frac{1}{3}U.
+}
+\]
+
+\textbf{二、统计力学证明（等价推导）}
+
+在平衡态下，光子气体的压强可由巨正则势求得：
+\[
+p=-\frac{\Omega}{V}.
+\]
+
+而对无质量玻色子（光子），巨正则势满足
+\[
+\Omega=-\frac{1}{3}U,
+\]
+从而直接得到
+\[
+pV=\frac{1}{3}U.
+\]
+
+\textbf{三、与非相对论理想气体的对比与物理原因}
+
+\textbf{(1) 非相对论理想气体}
+
+非相对论粒子能量为
+\[
+\epsilon=\frac{p^2}{2m},
+\]
+速度与动量关系
+\[
+v=\frac{p}{m}.
+\]
+
+由同样的动力学定义可得
+\[
+p=\frac{2}{3}\frac{U}{V},
+\qquad
+\Rightarrow\quad
+pV=\frac{2}{3}U.
+\]
+
+\textbf{(2) 根本原因分析}
+
+两种结果不同的根本原因在于\textbf{能量—动量关系的不同}：
+
+\begin{itemize}
+\item 光子（相对论极限）：$\epsilon=pc$，速度恒为 $c$；
+\item 非相对论粒子：$\epsilon=p^2/2m$，速度 $v=p/m$。
+\end{itemize}
+
+压强本质上来源于\textbf{动量通量}，而内能是\textbf{能量总和}。
+当能量与动量呈线性关系（光子）时，得到
+\[
+pV=\frac13 U；
+\]
+当能量与动量呈二次关系（非相对论粒子）时，得到
+\[
+pV=\frac23 U。
+\]
+
+\textbf{结论}
+
+\[
+\boxed{
+\text{光子气体： } pV=\frac{1}{3}U,
+\qquad
+\text{非相对论理想气体： } pV=\frac{2}{3}U.
+}
+\]
+\end{solution}
+
+\end{document}

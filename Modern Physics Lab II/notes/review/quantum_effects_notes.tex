@@ -1,0 +1,733 @@
+% !TEX program = xelatex
+\documentclass[12pt,a4paper,openany,fontset=fandol]{ctexrep}
+\usepackage{amsmath,amssymb,mathtools,physics,bm}
+\usepackage{geometry,graphicx,booktabs,array,longtable}
+\usepackage{xcolor,hyperref}
+\setCJKmainfont[AutoFakeBold=2]{gbsn00lp.ttf}
+\setCJKsansfont[AutoFakeBold=2]{gbsn00lp.ttf}
+\setCJKmonofont[AutoFakeBold=2]{gkai00mp.ttf}
+\geometry{margin=2.5cm}
+\hypersetup{colorlinks=true,linkcolor=blue!55!black,urlcolor=blue!55!black,
+  pdftitle={量子力学中的常见效应：物理图像、数学推导与应用}}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.25em}
+\allowdisplaybreaks[2]
+\newcommand{\ii}{\mathrm{i}}
+\newcommand{\ee}{\mathrm{e}}
+\newcommand{\kb}{k_{\mathrm B}}
+\newcommand{\Physical}{\subsection*{物理图像}}
+\newcommand{\Model}{\subsection*{模型与哈密顿量}}
+\newcommand{\Derivation}{\subsection*{关键推导}}
+\newcommand{\Conclusion}{\subsection*{核心结论}}
+\newcommand{\Application}{\subsection*{应用与联系}}
+\newcommand{\trans}[1]{\par\medskip\noindent\textcolor{blue!55!black}{\textbf{过渡：}}#1\par\medskip}
+
+\title{\Huge 量子力学中的常见效应\\[0.6em]
+  \Large 物理图像、数学推导与应用}
+\author{系统学习讲义}
+\date{\today}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+本讲义以少数共同结构串联量子力学中的典型效应：边界条件与量子化、算符不对易与涨落、
+振幅叠加与干涉、交换对称性与量子统计、外场耦合与能级劈裂、规范势与几何相位、
+多体关联以及拓扑不变量。推导以本科量子力学为起点，对量子光学、凝聚态与量子场论部分
+给出标准模型下的核心论证。符号约定为：$\hbar=h/(2\pi)$，电子电荷为$-e$（$e>0$）。
+\end{abstract}
+\tableofcontents
+
+\chapter{量子效应的共同来源}
+所谓“量子效应”并非一组互不相关的奇观，而是同一套数学原则在不同体系中的表现。
+
+\section{态、振幅与测量}
+纯态是希尔伯特空间中的射线$|\psi\rangle$；在位置表象中
+$\psi(\bm r)=\langle\bm r|\psi\rangle$。线性方程允许
+$|\psi\rangle=c_1|\psi_1\rangle+c_2|\psi_2\rangle$，而 Born 规则把概率写成振幅的模方。
+因此不同路径先叠加振幅再取模方，交叉项便产生干涉。
+
+可观测量由厄米算符$A$表示，其本征方程为
+$A|a\rangle=a|a\rangle$；测量结果是本征值，概率为
+$|\langle a|\psi\rangle|^2$。两个算符若不对易，通常不能拥有完备的共同本征态，
+这正是不确定关系的结构来源，而不是仪器“不够精密”。
+
+\section{对称性、规范势与微扰}
+全同粒子不可由物理手段贴标签。交换两个粒子后，玻色子波函数对称、费米子波函数反对称；
+这一简单符号差异决定了凝聚与不相容两种相反的集体行为。
+
+电磁场通过最小耦合$\bm p\to\bm p-q\bm A$进入哈密顿量。规范变换虽可改变$\bm A$
+的具体形式，却同时改变波函数相位，闭合回路上的相位差仍可观测。
+
+若$H=H_0+\lambda V$且$\lambda$很小，能量和态可按$\lambda$展开，这称为微扰论。
+若多个独立态具有相同未扰能量，称为\textbf{简并}；此时必须先在简并子空间中对角化$V$，
+微小外场也可能在一阶就劈裂能级。后文的 Zeeman、Stark 与自旋轨道劈裂都使用这一语言。
+\trans{有了“态—算符—对称性—微扰”的统一语言，先从单粒子最基本的量子化、涨落、干涉和隧穿开始。}
+
+\chapter{基础量子效应}
+\section{量子化效应}
+\Physical
+量子化常来自波函数的边界条件：只有能在有限区域内“首尾相容”的驻波才允许存在。
+
+\Model
+无限深方势阱$V(x)=0\ (0<x<L)$，阱外$V=\infty$。定态方程为
+$-\hbar^2\psi''/(2m)=E\psi$，边界条件$\psi(0)=\psi(L)=0$。
+
+\Derivation
+令$k=\sqrt{2mE}/\hbar$，则$\psi=A\sin kx+B\cos kx$。第一边界给$B=0$，
+第二边界要求$\sin kL=0$，故$kL=n\pi$，$n=1,2,\ldots$，于是
+\begin{equation}E_n=\frac{\hbar^2k_n^2}{2m}
+=\frac{n^2\pi^2\hbar^2}{2mL^2},\qquad
+\psi_n=\sqrt{\frac2L}\sin\frac{n\pi x}{L}.\end{equation}
+
+对谐振子$H=p^2/(2m)+m\omega^2x^2/2$，定义
+\[
+a=\sqrt{\frac{m\omega}{2\hbar}}x+\frac{\ii}{\sqrt{2m\hbar\omega}}p,\quad
+[a,a^\dagger]=1.
+\]
+代回得$H=\hbar\omega(a^\dagger a+1/2)$。数算符$N=a^\dagger a$非负，
+且$[N,a^\dagger]=a^\dagger$，故从最低态逐级产生$n=0,1,\ldots$：
+\begin{equation}E_n=\hbar\omega\left(n+\frac12\right).\end{equation}
+氢原子则由库仑势中的径向束缚边界条件得到$E_n\propto-1/n^2$。
+
+\Conclusion
+量子化不是“能量天生一格一格”，而是算符谱与物理边界共同筛选允许态。
+\Application
+量子阱、原子光谱、分子振动；谐振子也是晶格声子和电磁场量子化的基本单元。
+
+\section{零点能效应}
+\Physical
+基态不能同时具有$x=0$与$p=0$，否则违反非对易性；因而最低能量并非零。
+\Derivation
+由上节立刻有$E_0=\hbar\omega/2$。也可用
+$\Delta x\Delta p\ge\hbar/2$估算。取中心在原点，
+\[
+E\gtrsim\frac{(\Delta p)^2}{2m}+\frac12m\omega^2(\Delta x)^2
+\ge\frac{\hbar^2}{8m(\Delta x)^2}+\frac12m\omega^2(\Delta x)^2.
+\]
+对$\Delta x$极小化得$\Delta x^2=\hbar/(2m\omega)$，恰有$E_{\min}=\hbar\omega/2$。
+\Conclusion
+零点能是约束与量子涨落的必然后果；此处不等式被高斯基态饱和。
+\Application
+分子零点振动、低温比热、真空涨落与 Casimir 效应均与之相连。
+
+\section{不确定性效应}
+\Model
+令$\delta A=A-\langle A\rangle$、$\delta B=B-\langle B\rangle$，
+$\Delta A^2=\langle(\delta A)^2\rangle$。
+\Derivation
+对$|\alpha\rangle=\delta A|\psi\rangle$与
+$|\beta\rangle=\delta B|\psi\rangle$用 Cauchy--Schwarz 不等式：
+\[
+\Delta A^2\Delta B^2\ge|\langle\alpha|\beta\rangle|^2
+\ge [\operatorname{Im}\langle\delta A\delta B\rangle]^2.
+\]
+因$\operatorname{Im}\langle\delta A\delta B\rangle
+=\langle[A,B]\rangle/(2\ii)$，故
+\begin{equation}\Delta A\Delta B\ge\frac12|\langle[A,B]\rangle|.\end{equation}
+由$[x,p]=\ii\hbar$得到
+\begin{equation}\Delta x\Delta p\ge\frac{\hbar}{2}.\end{equation}
+\Application
+它限制波包压缩、原子稳定尺度和量子测量灵敏度，并直接解释零点能。
+
+\section{叠加与干涉效应}
+\Physical
+若探测器无法区分粒子来自哪条缝，两条路径不是互斥的经典事件，而是相干振幅。
+\Derivation
+\begin{align}
+\psi&=\psi_1+\psi_2,\\
+|\psi|^2&=|\psi_1|^2+|\psi_2|^2+2\operatorname{Re}(\psi_1^*\psi_2).
+\end{align}
+若$\psi_j=A_j\ee^{\ii\phi_j}$，干涉项为$2A_1A_2\cos(\phi_2-\phi_1)$：
+相位差为$2\pi n$时增强，为$(2n+1)\pi$时相消。记录路径信息会使路径与环境纠缠，
+约化密度矩阵的非对角元衰减，条纹随之消失。
+\Application
+电子双缝、中子干涉、原子干涉仪；AB 相位和 Berry 相位最终也通过干涉读出。
+
+\section{隧穿效应}
+\Model
+矩形势垒$V=V_0$（$0<x<a$），取$E<V_0$，垒内解为
+$C\ee^{\kappa x}+D\ee^{-\kappa x}$，其中$\kappa=\sqrt{2m(V_0-E)}/\hbar$。
+\Derivation
+在$x=0,a$连续匹配$\psi,\psi'$可得
+\[
+T=\left[1+\frac{V_0^2\sinh^2(\kappa a)}{4E(V_0-E)}\right]^{-1}.
+\]
+厚势垒$\kappa a\gg1$时
+\[
+T\simeq\frac{16E(V_0-E)}{V_0^2}\ee^{-2\kappa a}.
+\]
+对缓变势垒，禁阻区局域波数为
+$\kappa(x)=\sqrt{2m[V(x)-E]}/\hbar$。WKB 连接公式给出主指数
+\begin{equation}
+T\sim\exp\left[-2\int_{x_1}^{x_2}\kappa(x)\,\dd x\right].
+\end{equation}
+\Conclusion
+经典禁阻区中波函数并不立刻为零，而是指数衰减；有限宽度后仍留下透射振幅。
+\Application
+$\alpha$衰变是核内粒子穿透库仑势垒；STM 电流对针尖距离指数敏感，可成像原子表面。
+\trans{单粒子空间波函数之外，电子还带有自旋；把角动量放入磁场，离散投影便转化为可测的束流分裂和谱线劈裂。}
+
+\chapter{自旋、磁场与能级劈裂}
+\section{Stern--Gerlach 效应}
+\Physical
+自旋是内禀角动量，不是经典小球自转。自旋$1/2$在任一轴上只有$\pm\hbar/2$两个投影。
+\Model
+磁矩与场相互作用
+\begin{equation}H=-\bm\mu\cdot\bm B,\qquad \bm\mu=\gamma\bm S.\end{equation}
+\Derivation
+势能$U=-\bm\mu\cdot\bm B$，故非均匀场中
+\begin{equation}F_z=-\partial_zU=\partial_z(\bm\mu\cdot\bm B).\end{equation}
+若场梯度选定$z$轴，$S_z$测量值只能为$\pm\hbar/2$，于是力也只有两个主要值，
+银原子束分裂成两束，而非经典连续带。
+\Application
+它奠定自旋测量与量子比特读出的概念基础，并连接 Zeeman 能级分裂。
+
+\section{Zeeman 效应}
+\Physical
+磁矩在外磁场中的取向能量依赖角动量投影。
+\Derivation
+忽略自旋时$\bm\mu_L=-e\bm L/(2m)$，对电子且$\bm B=B\hat z$，
+\begin{equation}H'=\mu_BB\frac{L_z}{\hbar},\qquad
+\Delta E=\mu_BBm_l,\quad \mu_B=\frac{e\hbar}{2m}.\end{equation}
+这是正常 Zeeman 效应。加入自旋后，$\bm L,\bm S$先耦合成$\bm J=\bm L+\bm S$，
+对固定$J$的角动量投影可得
+\begin{equation}\Delta E=\mu_Bg_JBm_J,\quad
+g_J=1+\frac{J(J+1)+S(S+1)-L(L+1)}{2J(J+1)}.\end{equation}
+不同$g_J$造成更复杂的反常 Zeeman 多重线。
+\Application
+原子谱线、磁共振与天体磁场测量；强场下过渡到 Paschen--Back 区域。
+
+\section{Paschen--Back 效应}
+\Model
+取$H_{SO}=A\bm L\cdot\bm S$与
+$H_B=\mu_BB(L_z+g_sS_z)/\hbar$。
+\Derivation
+弱场$\mu_BB\ll |A|\hbar^2$时，$L,S$先耦合，$J,m_J$为好量子数（即相应算符
+与主哈密顿量对易、可稳定标记本征态）。强场
+\[
+\mu_BB\gg |A|\hbar^2
+\]
+时，外场分别固定$\bm L,\bm S$的投影，$m_l,m_s$成为好量子数，近似能移
+\[
+\Delta E\simeq\mu_BB(m_l+g_sm_s)+A\hbar^2m_lm_s.
+\]
+\Conclusion
+Paschen--Back 效应是 Zeeman 效应的强场极限，量子数从耦合表象重组为非耦合表象。
+
+\section{自旋轨道耦合效应}
+\Physical
+电子静止系中，核的电场经相对论变换产生有效磁场；电子自旋磁矩与其耦合。
+\Model
+\begin{equation}H_{SO}=\xi(r)\bm L\cdot\bm S,\qquad
+\xi(r)=\frac{1}{2m^2c^2r}\frac{\dd V}{\dd r},\end{equation}
+其中$1/2$包含 Thomas 进动修正。
+\Derivation
+\begin{equation}\bm L\cdot\bm S=\frac12(J^2-L^2-S^2).\end{equation}
+在$|l,s;j,m_j\rangle$中，
+\[
+\Delta E_{SO}=\frac{\langle\xi\rangle\hbar^2}{2}
+[j(j+1)-l(l+1)-s(s+1)],
+\]
+故同一$n,l$按$j=l\pm1/2$劈裂。
+\Application
+原子精细结构、半导体自旋电子学与拓扑绝缘体；它也使“自旋 Hall”成为可能。
+\trans{磁场耦合角动量；电场则直接耦合电荷分布。随后把视野扩大到光与物质的能量、振动和反冲交换。}
+
+\chapter{电场与光谱效应}
+\section{Stark 效应}
+\Model
+均匀电场取$\bm E=E\hat z$，电荷$q$的微扰为
+\begin{equation}H'=-q\bm E\cdot\bm r=-qEz.\end{equation}
+\Derivation
+非简并微扰给出
+\begin{equation}\Delta E_n^{(1)}=\langle n|H'|n\rangle.\end{equation}
+有反演对称且宇称确定的态满足$\langle z\rangle=0$，故一阶消失。态的一阶混合代回能量得
+\begin{equation}\Delta E_n^{(2)}=\sum_{m\ne n}
+\frac{|\langle m|H'|n\rangle|^2}{E_n^{(0)}-E_m^{(0)}}\equiv-\frac12\alpha_nE^2.\end{equation}
+氢原子$n\ge2$存在简并，需在简并空间对角化$H'$，因而可出现线性 Stark 劈裂。
+\Application
+原子极化率、谱线调谐、里德堡原子操控；与 Zeeman 效应同属外场微扰。
+
+\section{Lamb shift（兰姆位移）}
+\Physical
+Dirac 方程只依赖$n,j$，预言氢原子$2S_{1/2}$与$2P_{1/2}$简并。量子化电磁场的真空涨落
+使电子位置抖动，同时电子会发射并重吸收虚光子，产生自能修正；两态在核附近概率不同，
+修正遂不同。
+\Model
+普通非相对论量子力学把电磁场当作给定经典背景，既没有光子真空，也没有电子自能与真空极化，
+所以不能从其哈密顿量得到 Lamb shift。QED 经重整化后给出有限的能级差。
+\Conclusion
+氢的$2S_{1/2}$能级相对$2P_{1/2}$约上移$1057.8\,\mathrm{MHz}$（主导项），
+实验是 QED 的经典检验。它与零点涨落、Casimir 效应共享“量子化场真空”这一来源。
+
+\section{Raman 效应}
+\Physical
+光子经虚中间态与分子振动或晶格声子交换能量，散射光频率因此改变。
+\Derivation
+能量守恒给
+\begin{equation}\hbar\omega_s=\hbar\omega_i\pm\hbar\Omega.\end{equation}
+产生一个振动量子时$\omega_s=\omega_i-\Omega$（Stokes）；湮灭已有振动量子时
+$\omega_s=\omega_i+\Omega$（anti-Stokes）。后者强度受热布居抑制，二者强度比可测温。
+\Application
+分子指纹识别、声子谱、应力和温度测量；与弹性 Rayleigh 散射相对。
+
+\section{Franck--Condon 效应}
+\Model
+Born--Oppenheimer 近似利用核比电子重、运动更慢，将
+\[
+\Psi(\bm r,\bm R)=\psi_e(\bm r;\bm R)\chi_v(\bm R)
+\]
+分离。偶极跃迁矩阵元近似分解为电子部分与核振动重叠。
+\Derivation
+电子跃迁时间内核坐标$\bm R$近似冻结，势能图上的跃迁是“竖直”的。若电子偶极矩对$\bm R$
+变化缓慢（Condon 近似），则
+\begin{equation}I_{v\to v'}\propto
+|\langle\psi'_e|\hat{\bm d}|\psi_e\rangle|^2
+|\langle\chi_{v'}|\chi_v\rangle|^2.\end{equation}
+第二因子即 Franck--Condon 因子。
+\Application
+解释分子吸收/荧光振动边带及谱带包络，并连接 Raman 振动光谱。
+
+\section{Mössbauer 效应}
+\Physical
+自由原子发射动量$p_\gamma=E_\gamma/c$的$\gamma$光子时，反冲能
+\begin{equation}E_R=\frac{p_\gamma^2}{2M}\end{equation}
+会使发射与吸收线错开。原子束缚在晶体中时，存在不激发声子的零声子过程，动量由整个晶体承担，
+其反冲能因总质量巨大而可忽略。
+\Model
+无反冲概率写成 Lamb--Mössbauer 因子
+\[
+f=|\langle\text{晶格基态}|\ee^{\ii\bm k\cdot\bm u}|
+\text{晶格基态}\rangle|^2=\ee^{-2W},
+\]
+它与 Debye--Waller 因子同源，温度越低通常越大。
+\Application
+极窄核共振线用于同质异能移、磁超精细场和引力红移测量。
+\trans{前几章主要是单粒子或少体问题。全同粒子的交换对称性一旦与巨量粒子结合，便产生费米海、凝聚与交换关联。}
+
+\chapter{全同粒子、统计与多体效应}
+\section{Pauli 不相容效应}
+\Derivation
+两个费米子的总波函数满足
+\begin{equation}\Psi(1,2)=-\Psi(2,1).\end{equation}
+若两者处于同一单粒子态$\phi$，交换前后乘积都为$\phi(1)\phi(2)$，于是
+$\Psi=-\Psi$，只能有$\Psi=0$。等价地，Slater 行列式出现两列相同而为零。
+\Conclusion
+两个全同费米子不能占据完全相同的单粒子态；“态”包括空间与自旋全部量子数。
+\Application
+原子壳层、元素周期表、电子简并压；它是费米简并效应的微观起点。
+
+\section{交换效应}
+\Model
+占据正交轨道$a,b$的两粒子空间态为
+\[
+\Psi_\pm=\frac{1}{\sqrt2}[\phi_a(1)\phi_b(2)\pm\phi_b(1)\phi_a(2)].
+\]
+\Derivation
+对对称相互作用$V(1,2)$展开期望值：
+\[
+\langle V\rangle_\pm=J_{ab}\pm K_{ab},
+\]
+\[
+J_{ab}=\iint |\phi_a(1)|^2V|\phi_b(2)|^2\,\dd1\dd2,\quad
+K_{ab}=\iint\phi_a^*(1)\phi_b^*(2)V\phi_b(1)\phi_a(2)\,\dd1\dd2.
+\]
+$J$是直接库仑项，$K$是交换项；后者来自不可区分的两种指派振幅交叉，并非额外经典力。
+\Application
+Hartree--Fock、Hund 规则与铁磁交换；它把 Pauli 对称性转化为能量差。
+
+\section{费米简并效应}
+\Derivation
+体积$V$中的三维自由电子态，每个$\bm k$容纳两个自旋。$T=0$时填满半径$k_F$的费米球：
+\[
+N=2\frac{V}{(2\pi)^3}\frac{4\pi k_F^3}{3}
+=\frac{Vk_F^3}{3\pi^2}.
+\]
+令$n=N/V$，得$k_F=(3\pi^2n)^{1/3}$及
+\begin{equation}E_F=\frac{\hbar^2k_F^2}{2m}
+=\frac{\hbar^2}{2m}(3\pi^2n)^{2/3}.\end{equation}
+\Conclusion
+低温中费米海深处态因 Pauli 阻塞无法跃迁，只有宽约$\kb T$的费米面邻域参与热学与输运。
+\Application
+金属电子热容、白矮星简并压；与 Kondo 散射中的费米面物理相连。
+
+\section{Bose--Einstein 凝聚效应}
+\Model
+玻色分布$\bar n(\epsilon)=[\exp(\beta(\epsilon-\mu))-1]^{-1}$，且$\mu\le0$（基态能取零）。
+\Derivation
+三维自由气体的激发态粒子数上限在$\mu\to0$时为
+\[
+N_{\rm ex}=V\int_0^\infty
+\frac{1}{4\pi^2}\left(\frac{2m}{\hbar^2}\right)^{3/2}
+\frac{\sqrt\epsilon\,\dd\epsilon}{\ee^{\beta\epsilon}-1}
+=\frac{V}{\lambda_T^3}\zeta(3/2),
+\]
+其中$\lambda_T=\sqrt{2\pi\hbar^2/(m\kb T)}$。当总粒子数超过此容量，多余粒子必须宏观占据基态。
+令$N=N_{\rm ex}(T_c)$得
+\begin{equation}T_c=\frac{2\pi\hbar^2}{m\kb}
+\left[\frac{n}{\zeta(3/2)}\right]^{2/3}.\end{equation}
+\Application
+冷原子 BEC、超流；与费米海的“逐态填充”形成鲜明对照。
+\trans{周期晶格、磁场、无序和相互作用共同塑造固体中的输运。许多效应不再属于单个电子，而属于整个基态。}
+
+\chapter{凝聚态与量子输运效应}
+\section{Hall 效应与整数量子 Hall 效应}
+\Physical
+经典 Hall 效应来自 Lorentz 力造成横向电荷积累。二维低温强磁场中，轨道运动被量子化，
+横向电导形成极精确平台。
+\Derivation
+取$\bm B=B\hat z$和 Landau 规范$\bm A=(0,Bx,0)$：
+\[
+H=\frac{1}{2m}[\bm p+e\bm A]^2
+=\frac{p_x^2}{2m}+\frac{(p_y+eBx)^2}{2m}.
+\]
+$p_y$守恒，剩余部分是频率$\omega_c=eB/m$的谐振子，故
+\begin{equation}E_n=\hbar\omega_c\left(n+\frac12\right).\end{equation}
+每单位面积每个 Landau 能级简并度为$eB/h$，于是填充因子
+\begin{equation}\nu=\frac{n_e}{eB/h}=\frac{n_eh}{eB}.\end{equation}
+当$\nu$个能级完全填满且费米能落在局域态区间，边缘通道或 Kubo 公式给出
+\begin{equation}\sigma_{xy}=\nu\frac{e^2}{h},\qquad \sigma_{xx}\simeq0.\end{equation}
+\Application
+电阻标准；其拓扑解释是填满能带 Chern 数之和。
+
+\section{分数量子 Hall 效应}
+\Model
+最低 Landau 能级中动能冻结，电子--电子关联主导。$\nu=1/m$（奇数$m$）的 Laughlin 态为
+\begin{equation}
+\Psi_m=\prod_{i<j}(z_i-z_j)^m
+\exp\left(-\sum_i\frac{|z_i|^2}{4l_B^2}\right),\quad
+l_B=\sqrt{\frac{\hbar}{eB}}.
+\end{equation}
+\Derivation
+多项式中每个电子坐标的最高幂约为$m(N-1)$，对应穿过样品的磁通量子数
+$N_\Phi\simeq mN$，故$\nu=N/N_\Phi\to1/m$。奇数$m$也保证交换两个电子时波函数反号。
+插入一个磁通量子产生准空穴，电荷为$e/m$，并具有任意子统计。
+\Application
+它是多体拓扑序的范例，与整数效应的单粒子能带拓扑本质不同。
+
+\section{Aharonov--Bohm 效应}
+\Model
+带电粒子哈密顿量
+\[
+H=\frac{1}{2m}(\bm p-q\bm A)^2+q\varphi.
+\]
+\Derivation
+沿路径的波函数相对自由情形获得$\exp[\ii q\int\bm A\cdot\dd\bm l/\hbar]$。
+两路包围磁通$\Phi$时，由 Stokes 定理
+\begin{equation}\Delta\phi=\frac{q}{\hbar}\oint\bm A\cdot\dd\bm l
+=\frac{q}{\hbar}\int\bm B\cdot\dd\bm S=\frac{q\Phi}{\hbar}.\end{equation}
+即使电子路径处$\bm B=0$，包围区域的磁通仍移动干涉条纹。
+\Conclusion
+局域可测量的是规范不变的闭路相位；矢势并非纯粹计算辅助量。
+\Application
+介观环磁阻振荡、超导磁通量子；是 Berry 相位的电磁原型。
+
+\section{Berry 相位效应}
+\Physical
+绝热是指参数变化慢到系统保持在瞬时非简并本征态中。循环后除动力学相位外，还积累只依赖路径几何的相位。
+\Derivation
+由
+\[
+H(\bm R)|n(\bm R)\rangle=E_n(\bm R)|n(\bm R)\rangle
+\]
+设$|\psi\rangle=\ee^{\ii\alpha_n(t)}|n[\bm R(t)]\rangle$代入 Schrödinger 方程，左乘
+$\langle n|$得
+\[
+\dot\alpha_n=-\frac{E_n}{\hbar}
++\ii\langle n|\nabla_{\bm R}n\rangle\cdot\dot{\bm R}.
+\]
+闭合回路$C$的几何部分为
+\begin{equation}\gamma_n=\ii\oint_C
+\langle n(\bm R)|\nabla_{\bm R}n(\bm R)\rangle\cdot\dd\bm R.\end{equation}
+\Application
+分子几何相位、绝热量子控制；Berry 曲率在 Brillouin 区的积分给 Chern 数和 Hall 电导。
+
+\section{Josephson 效应}
+\Model
+两个弱耦合超导凝聚态
+$\Psi_j=\sqrt{n_j}\ee^{\ii\phi_j}$，满足
+$\ii\hbar\dot\Psi_1=\mu_1\Psi_1-K\Psi_2$及交换$1,2$的方程。
+\Derivation
+把振幅与相位代入并分离实虚部。在$n_1\simeq n_2$时，粒子数流正比于
+$\sin(\phi_1-\phi_2)$；乘 Cooper 对电荷$2e$得
+\begin{equation}I=I_c\sin\Delta\phi.\end{equation}
+电势差使化学势差为$2eV$，从相位方程得到
+\begin{equation}\frac{\dd\Delta\phi}{\dd t}=\frac{2eV}{\hbar}.\end{equation}
+$V=0$有直流超流；恒定$V$产生频率$2eV/h$的交流电流。
+\Application
+SQUID、量子电压标准、超导量子比特；本质是宏观相位相干。
+
+\section{Meissner 效应}
+\Model
+London 方程之一为
+\[
+\nabla\times\bm j_s=-\frac{n_se^2}{m}\bm B.
+\]
+\Derivation
+结合静磁 Maxwell 方程$\nabla\times\bm B=\mu_0\bm j_s$并用
+$\nabla\cdot\bm B=0$：
+\[
+\nabla\times(\nabla\times\bm B)=-\nabla^2\bm B
+=-\frac{\mu_0n_se^2}{m}\bm B,
+\]
+即
+\begin{equation}\nabla^2\bm B=\frac{\bm B}{\lambda_L^2},\qquad
+\lambda_L=\sqrt{\frac{m}{\mu_0n_se^2}}.\end{equation}
+半无限样品中$B(x)=B(0)\ee^{-x/\lambda_L}$。
+\Conclusion
+超导体在冷却穿越临界温度时主动排磁；完美导体只冻结初始磁通，二者不同。
+
+\section{Kondo 效应}
+\Model
+\begin{equation}H=\sum_{k\sigma}\epsilon_kc_{k\sigma}^\dagger c_{k\sigma}
++J\bm S\cdot\bm s(0),\end{equation}
+其中反铁磁交换$J>0$耦合杂质自旋与导带电子。
+\Derivation
+二阶以上的自旋翻转散射对费米面中间态积分，产生
+$J_{\rm eff}\sim J+2\rho J^2\ln(D/\kb T)$，故降温时有效耦合增强，电阻出现
+$-\ln T$趋势，有限阶微扰最终失效。令耦合变强的尺度定义
+\[
+\kb T_K\sim D\exp[-1/(2\rho J)].
+\]
+\Conclusion
+$T_K$以下导带电子集体屏蔽杂质自旋，形成多体 Kondo 单态；它不是单次杂质散射所能描述。
+
+\section{Anderson 局域化效应}
+\Model
+\begin{equation}H=\sum_i\epsilon_ic_i^\dagger c_i
+-t\sum_{\langle ij\rangle}(c_i^\dagger c_j+\mathrm{h.c.}),\end{equation}
+其中随机$\epsilon_i$描述无序。
+\Physical
+电子在许多随机路径上多重散射；时间反演路径相干增强返回概率。足够强无序使扩散被干涉抑制，
+本征态呈
+\begin{equation}|\psi(r)|\sim\ee^{-r/\xi},\end{equation}
+$\xi$为局域长度。三维可出现迁移率边和金属--绝缘体转变；一、二维无相互作用体系更易局域。
+\Application
+无序薄膜、冷原子 speckle 势；与由能隙造成的普通带绝缘不同。
+
+\section{Bloch 振荡与 Wannier--Stark 局域化}
+\Derivation
+半经典方程
+\begin{equation}\hbar\frac{\dd k}{\dd t}=-eE\end{equation}
+给$k(t)=k_0-eEt/\hbar$。晶格能带满足$\varepsilon(k+2\pi/a)=\varepsilon(k)$，
+群速度$v=(1/\hbar)\partial\varepsilon/\partial k$因而周期变化，周期
+$T_B=2\pi\hbar/(eEa)$，即
+\begin{equation}\omega_B=\frac{eEa}{\hbar}.\end{equation}
+在实空间，邻近晶格位置的势能相差$eEa$，能级形成
+$E_n=E_0+neEa$的 Wannier--Stark 梯，理想相干态呈场致局域。
+\Application
+普通固体中散射太快，半导体超晶格和冷原子晶格中可观测。
+
+\section{Coulomb blockade（库仑阻塞）}
+\Model
+电容为$C$的小岛增加一个电子的典型充电尺度
+\begin{equation}E_C=\frac{e^2}{2C}.\end{equation}
+更完整的恒相互作用模型为$E(N)=(-Ne+Q_g)^2/(2C)$。
+\Derivation
+隧穿若使自由能增加便被抑制。当$\kb T\ll E_C$且结电阻足够大以保持电荷量子化，
+低偏压下没有可用的能量完成$N\to N+1$，电流阻塞；门电压调到相邻电荷态简并时出现电导峰。
+\Application
+单电子晶体管、量子点电荷传感；是能量量子化与电子相互作用共同造成的输运阈值。
+\trans{凝聚态把物质波的相干性变成电流；量子光学则直接操控光子与少数能级之间的相干振幅。}
+
+\chapter{量子光学效应}
+\section{光电效应}
+\Derivation
+单个光子能量$h\nu$用于克服逸出功$\phi$，其余成为电子最大动能：
+\begin{equation}K_{\max}=h\nu-\phi.\end{equation}
+因此截止频率$\nu_0=\phi/h$；遏止电压满足$eV_s=K_{\max}$。
+\Conclusion
+强度主要改变光电子数，频率决定单电子最大能量，显示光的能量交换具有光子颗粒性。
+
+\section{Compton 效应}
+\Derivation
+初始电子静止，光子四动量守恒。三维动量给
+$\bm p_e=\bm p-\bm p'$，故
+$p_e^2=p^2+p'^2-2pp'\cos\theta$。能量守恒
+$pc+m_ec^2=p'c+\sqrt{p_e^2c^2+m_e^2c^4}$。
+移项平方并代入$p=h/\lambda$，消去$p_e$后得
+\begin{equation}\Delta\lambda=\lambda'-\lambda
+=\frac{h}{m_ec}(1-\cos\theta).\end{equation}
+\Application
+证明光子携带动量；用于高能光谱、医学成像背景分析。
+
+\section{受激辐射效应}
+\Model
+两能级布居$N_1,N_2$与频率$\nu$的辐射能量密度$\rho(\nu)$作用时：
+\[
+R_{\rm abs}=B_{12}\rho N_1,\quad
+R_{\rm sp}=A_{21}N_2,\quad
+R_{\rm st}=B_{21}\rho N_2.
+\]
+热平衡配合 Planck 分布要求$g_1B_{12}=g_2B_{21}$及
+$A_{21}/B_{21}=8\pi h\nu^3/c^3$。
+\Physical
+受激发射的振幅由驱动场锁相，所发光子与入射场同频、同相、同传播模（理想模式描述下）。
+若粒子数反转使受激发射超过吸收，谐振腔反馈便产生激光。
+
+\section{Rabi 振荡}
+\Model
+二能级间隔$\hbar\omega_0$，经典场频率$\omega$。偶极近似下
+$H=\hbar\omega_0\sigma_z/2-\bm d\cdot\bm E_0\cos\omega t$。
+旋转波近似（丢弃快速反向旋转项）后的旋转框架哈密顿量为
+\[
+H_{\rm RWA}=\frac{\hbar}{2}
+\begin{pmatrix}-\Delta&\Omega_R\\ \Omega_R&\Delta\end{pmatrix},
+\quad\Delta=\omega-\omega_0.
+\]
+\Derivation
+其本征值差为$\hbar\Omega$，$\Omega=\sqrt{\Omega_R^2+\Delta^2}$。
+由基态出发对矩阵指数化，激发态概率为
+\begin{equation}P_e(t)=\frac{\Omega_R^2}{\Omega_R^2+\Delta^2}
+\sin^2\left[\frac{\sqrt{\Omega_R^2+\Delta^2}}{2}t\right].\end{equation}
+\Application
+原子钟、核磁共振、量子门；“二能级系统”即只保留两个相关能态的有效模型。
+
+\section{Autler--Townes 劈裂}
+\Physical
+强耦合场把裸态$|2,n\rangle$与$|3,n-1\rangle$混合成 dressed states（物质与场的联合本征态）。
+共振时有效$2\times2$矩阵的非对角元为$\hbar\Omega_c/2$，本征能量相差
+$\hbar\Omega_c$。弱探测光因而看到两个共振峰，频率劈裂尺度约为$\Omega_c$；
+失谐时为$\sqrt{\Omega_c^2+\Delta_c^2}$。
+\Application
+强场谱学；它与 EIT 的谱形可相似，但前者强调真实 dressed 能级分裂，后者强调吸收振幅相消。
+
+\section{EIT（电磁诱导透明）}
+\Model
+$\Lambda$系统有两个长寿命低态$|1\rangle,|2\rangle$和激发态$|3\rangle$。
+探测场以$\Omega_p$耦合$|1\rangle\leftrightarrow|3\rangle$，控制场以$\Omega_c$
+耦合$|2\rangle\leftrightarrow|3\rangle$。
+\Derivation
+双光子共振时，相互作用哈密顿量存在零本征值暗态
+\begin{equation}|D\rangle=
+\frac{\Omega_c|1\rangle-\Omega_p|2\rangle}
+{\sqrt{|\Omega_c|^2+|\Omega_p|^2}}.\end{equation}
+它在$|3\rangle$上的振幅严格为零：两条激发路径相消，故无自发辐射并对探测光透明。
+\Application
+慢光、量子存储；核心是概率振幅干涉，而非简单饱和吸收。
+
+\section{Hanbury Brown--Twiss 效应与反聚束}
+\Model
+量子二阶关联函数为
+\begin{equation}g^{(2)}(\tau)=
+\frac{\langle:\hat I(t)\hat I(t+\tau):\rangle}{\langle\hat I\rangle^2}
+=\frac{\langle a^\dagger(t)a^\dagger(t+\tau)a(t+\tau)a(t)\rangle}
+{\langle a^\dagger a\rangle^2}.\end{equation}
+\Conclusion
+热光$g^{(2)}(0)=2$（聚束），理想相干光$=1$（Poisson 统计），理想单光子态$=0$。
+$g^{(2)}(0)<1$表示一次探测后短时间内再次探测的概率被压低，称反聚束；经典正定强度随机过程
+不能产生这一特征。
+\Application
+恒星角直径测量、单光子源认证和量子发光体动力学。
+\trans{前述理论大多固定粒子数或把光场作近似。相对论与量子场论允许正负能量、真空极化乃至粒子产生。}
+
+\chapter{相对论量子力学与量子场论相关效应}
+\section{Klein 隧穿效应}
+\Physical
+Dirac 方程的一阶空间结构和正负能谱使高势垒内部可连接到“空穴”分支，故势垒越高并不总意味着
+指数衰减。场论语言中，这与粒子--反粒子通道有关。
+\Application
+石墨烯低能载流子满足二维无质量 Dirac 哈密顿量
+$H=v_F\bm\sigma\cdot\bm p+V(x)$。平滑势垒正入射时赝自旋（两个子晶格分量）
+守恒，反射要求赝自旋翻转而被禁止，理想情形$T(0)=1$。斜入射或开隙会降低透射。
+
+\section{Zitterbewegung（颤动效应）}
+\Physical
+Dirac 速度算符为$c\bm\alpha$，不与自由哈密顿量对易。Heisenberg 图像中的位置包含一个
+频率约$2E/\hbar$、幅度约 Compton 波长的快速振荡项。它来自波包中正能与负能分量的相对相位演化；
+若严格投影到单一能量分支，交叉干涉项消失。
+\Application
+基本电子的直接观测受限于极短尺度，但离子阱、冷原子和固体 Dirac 材料可模拟。
+
+\section{Casimir 效应}
+\Physical
+每个电磁模具有$\hbar\omega/2$零点能。两平行理想导体板限制法向允许波数，改变板内外模密度。
+将两种构型的发散零点能作正则化差值，有限且依赖板距$a$。
+\Conclusion
+零温理想板的单位面积能量$E/A=-\pi^2\hbar c/(720a^3)$，故
+\begin{equation}\frac{F}{A}=-\frac{\partial(E/A)}{\partial a}
+=-\frac{\pi^2\hbar c}{240a^4}.\end{equation}
+负号表示吸引。真实材料需加入有限电导、粗糙度与温度修正。
+
+\section{Schwinger 效应}
+\Physical
+强电场把真空中的正负能谱倾斜，使虚粒子对可穿越质量能隙势垒而成为实粒子。世界线或 WKB
+作用量给出非微扰指数
+\begin{equation}\Gamma\propto
+\exp\left(-\frac{\pi m^2c^3}{qE\hbar}\right).\end{equation}
+临界尺度$E_S=m^2c^3/(q\hbar)$极大；指数关于$1/E$非解析，因此任何有限阶通常微扰都得不到它。
+\Application
+强场 QED、超强激光；与 Klein 隧穿共享 Dirac 谱中的跨能隙隧穿图像。
+\trans{最后，Berry 几何在整个动量空间中积累成整数或$\mathbb Z_2$不变量，使边界导电不依赖微观细节。}
+
+\chapter{拓扑量子效应}
+\section{量子自旋 Hall 效应}
+\Physical
+自旋轨道耦合可使相反自旋获得相反的有效横向响应，形成一对反向传播的 helical edge states：
+运动方向与自旋锁定。系统总体保持时间反演对称，不需要外磁场，净电荷 Hall 电导通常为零。
+\Conclusion
+普通量子 Hall 边缘态是同向传播（手性）并破坏时间反演；量子自旋 Hall 的 Kramers 对在保持
+时间反演的非磁无序下不能彼此弹性背散射，由$\mathbb Z_2$拓扑不变量保护。
+
+\section{反常量子 Hall 效应}
+\Model
+磁性与自旋轨道耦合可在零外磁场下产生非零 Berry 曲率$\Omega_n(\bm k)$。填满二维能带的
+\[
+C=\frac{1}{2\pi}\sum_{n\in{\rm occ}}\int_{\rm BZ}\Omega_n(\bm k)\,\dd^2k
+\]
+为整数 Chern 数。
+\Conclusion
+\begin{equation}\sigma_{xy}=C\frac{e^2}{h}.\end{equation}
+量子化来自整个 Brillouin 区波函数的拓扑绕卷，而非净外磁通；磁序负责破坏时间反演。
+\Application
+零场手性边缘输运、低功耗拓扑器件研究。
+
+\section{拓扑绝缘体边缘态效应}
+\Physical
+拓扑绝缘体体内有能隙，边界却导电。把拓扑非平凡材料与真空（平凡绝缘体）相接，拓扑不变量必须
+改变；只要保护对称性与体能隙不被破坏，这个改变要求边界能隙闭合，产生边界态。
+\Conclusion
+这就是体--边对应。Chern 绝缘体中，$C$之差等于净手性边缘通道数；二维/三维时间反演拓扑绝缘体
+由$\mathbb Z_2$不变量区分，边缘/表面出现奇数对 Kramers/Dirac 态。Berry 联络与曲率是计算这些
+不变量的语言，拓扑保护意味着弱无序可改变色散，却不能单独移除全部边界态。
+\Application
+拓扑表面输运、自旋电子学，以及与超导邻近效应结合的拓扑量子计算探索。
+
+\chapter{总结：纷繁效应背后的统一结构}
+\begin{longtable}{p{0.28\textwidth}p{0.64\textwidth}}
+\toprule
+统一机制 & 代表效应与逻辑\\
+\midrule
+\endhead
+边界条件导致量子化 & 方势阱、谐振子与 Landau 能级都是允许本征模的离散谱。\\
+对易关系导致不确定性 & $[x,p]=\ii\hbar$使相空间不能同时无限压缩，并留下零点能。\\
+概率振幅叠加导致干涉 & 双缝、EIT、AB 相位都由不可区分路径的交叉项显现。\\
+禁阻区指数衰减导致隧穿 & 普通 WKB、$\alpha$衰变、Klein 与 Schwinger 效应是不同能谱中的越垒。\\
+角动量与外场耦合 & Stern--Gerlach、Zeeman、Paschen--Back 与自旋轨道耦合产生投影选择和劈裂。\\
+交换对称性决定统计 & 费米反对称性产生 Pauli 原理和费米海；玻色对称性允许宏观凝聚。\\
+规范势改变相位 & AB 效应表明无局域场的路径仍可由磁通获得规范不变相位。\\
+绝热演化产生几何相位 & Berry 相位的局域曲率在参数空间积分，进一步形成拓扑不变量。\\
+多体关联创造新准粒子 & Kondo 屏蔽和分数量子 Hall 态不能还原为独立电子，后者产生分数电荷。\\
+拓扑不变量保护边界态 & Chern 数或$\mathbb Z_2$不变量通过体--边对应约束稳健边缘输运。\\
+\bottomrule
+\end{longtable}
+
+这些结构并非彼此隔绝。例如 Landau 量子化先提供离散能级，交换统计决定填充方式，
+无序帮助形成平台，多体关联产生分数态，Berry 曲率最终解释量子化电导。学习一个新效应时，
+最有效的问题通常不是“公式是什么”，而是：相关自由度是什么？哪些振幅相加？什么对称性被保持或破坏？
+谱隙由何而来？实验实际测量的是能量、相位、关联还是输运？
+
+\chapter*{推荐阅读}
+\addcontentsline{toc}{chapter}{推荐阅读}
+\begin{enumerate}
+\item D. J. Griffiths and D. F. Schroeter, \emph{Introduction to Quantum Mechanics}.
+\item J. J. Sakurai and J. Napolitano, \emph{Modern Quantum Mechanics}.
+\item R. Shankar, \emph{Principles of Quantum Mechanics}.
+\item C. Cohen-Tannoudji, B. Diu and F. Laloë, \emph{Quantum Mechanics}.
+\item N. W. Ashcroft and N. D. Mermin, \emph{Solid State Physics}.
+\item G. D. Mahan, \emph{Many-Particle Physics}.
+\item M. O. Scully and M. S. Zubairy, \emph{Quantum Optics}.
+\item X.-G. Wen, \emph{Quantum Field Theory of Many-Body Systems}.
+\end{enumerate}
+
+\end{document}
