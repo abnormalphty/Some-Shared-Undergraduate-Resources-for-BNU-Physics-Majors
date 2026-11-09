@@ -28,5 +28,5 @@ Each experiment keeps its TeX source, PDF, and the figures and data used in the 
 | [Modern Physics Experiment II](Modern%20Physics%20Experiment%20II/) | Lecture notes and lab reports |
 | [Computational Physics](Computational%20Physics/) | Slides and homework |
 | [Quantum Mechanics](Quantum%20Mechanics/) | Lecture notes, exams, and weekly homework |
-| [Statistical Mechanics](Statistical%20Mechanics/) | Lecture notes, homework, and exams |
+| [Statistical Mechanics](Statistical%20Mechanics/) | Slides, homework, and exams |
 | [Solid State Physics](Solid%20State%20Physics/) | Slides, homework, and lecture notes |
